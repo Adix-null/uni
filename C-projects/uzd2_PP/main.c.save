@@ -66,9 +66,9 @@ int main()
         }
     }
 
-    output_segment(min_num, min_num + (max_num - min_num) * (1 / 3.0f), data, inp_num, 1, true);
-    output_segment(min_num + (max_num - min_num) * (1 / 3.0f), min_num + (max_num - min_num) * (2 / 3.0f), data, inp_num, 2, false);
-    output_segment(min_num + (max_num - min_num) * (2 / 3.0f), max_num, data, inp_num, 3, true);
+    output_segment(min_num, min_num + (max_num - min_num) * (1/3.0f), data, inp_num, 1, true);
+    output_segment(min_num + (max_num - min_num) * (1/3.0f), min_num + (max_num - min_num) * (2/3.0f), data, size, 2, false);
+    output_segment(min_num + (max_num - min_num) * (2/3.0f), max_num, data, size, 3, true);
 
     return 0;
 
