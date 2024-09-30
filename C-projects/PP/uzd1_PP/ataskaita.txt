@@ -1,1 +1,1 @@
-AI bei draugų pagalba nesinaudijau, kadangi programa gan paprasta. Ištestavęs programą defektų neradau, yra spausdinami teisingi rezultatai.
+AI bei draugų pagalba nesinaudojau. Ištestavęs programą defektų pirmiausia neradau, tačiau vėliau buvo aptiktas defektas su netestuotu atveju. Jį ištaisiau pridėjęs papildomas sąlygas, kodą taip pat refactorinau pagal rekomendavimus. 
