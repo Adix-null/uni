@@ -9,19 +9,21 @@
 int main()
 {
     int input;
+    char extra_input;
     int sq_num_count = 0;
-    while (1)
-    {
-        int result = scanf("%d", &input);
 
-        if(result != 1 || input < 0)
+    do
+    {
+        int result = scanf("%d%c", &input, &extra_input);
+
+        if(result != 2 || input < 0 || (extra_input != '\n' && extra_input != ' '))
         {
             printf("Neteisinga įvestis\n");
             return 0;
         }
         if(input == 0)
         {
-            break;
+            continue;
         }
         int sqrt_num = sqrt(input);
 
@@ -29,7 +31,7 @@ int main()
         {
             sq_num_count++;
         }
-    }
+    } while (input != 0);
 
     printf("Sekos narių sveikų skaičių kvadratų kiekis: %d\n", sq_num_count);
 
