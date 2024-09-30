@@ -1,0 +1,1 @@
+AI bei draugų pagalba nesinaudijau. Internete suradau INT_MAX ir INT_MIN apibrėžimus. Ištestavęs programą defektų neradau, yra spausdinami teisingi rezultatai.
