@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1727449360 source:/home/adix/Documents/C-projects/mok4/main.c
+	<stdio.h>
+	<stdlib.h>
+	<limits.h>
+	<float.h>
+	<math.h>
+	<string.h>
+

@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1727416006 source:/home/adix/Documents/C-projects/uzd2_PP/main.c
+	<stdio.h>
+	<stdlib.h>
+	<limits.h>
+	<math.h>
+

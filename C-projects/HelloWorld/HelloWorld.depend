@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1727076693 source:/home/adix/Documents/C-projects/HelloWorld/main.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+

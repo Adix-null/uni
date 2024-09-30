@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1726849617 source:/home/adix/Documents/C-projects/mok3/generator.c
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	<time.h>
+
+1726848049 source:/home/adix/Documents/C-projects/mok3/query_engine.c
+	<stdio.h>
+	<stdlib.h>
+
+1726850905 source:/home/adix/Documents/C-projects/mok3/query1.c
+	<stdio.h>
+	<stdlib.h>
+
