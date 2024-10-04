@@ -1,0 +1,116 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <limits.h>
+
+int validate_input(char* name, int* var, int lower_bound, int upper_bound)
+{
+    printf("Įveskite %s: ", name);
+    int result = scanf("%d", var);
+    if(result != 1)
+    {
+        printf("Neteisinga įvestis.\n");
+        return 1;
+    }
+    if(*var < lower_bound || *var > upper_bound)
+    {
+        return 2;
+    }
+    printf("Įvestis sėkminga.\n");
+    return 0;
+}
+
+int compare(const void *a, const void *b)
+{
+    return (*(int *)a - *(int *)b);
+}
+
+int main()
+{
+    printf("Ši programa atspausdina naudotojo įvestus unikalius pirminius skaičius. Skaičių sekos pabaigą žymi pirma neteigiama reikšmė, maksimalus ilgis - 10000 skaičių.\n");
+
+    int primes[10000];
+
+    int counter = 0;
+    int i = 0;
+    do
+    {
+        char buf[1000];
+        char name[1000];
+        memset(name, '\0', sizeof(name));
+        name[0] = 'n';
+        sprintf(buf, "%d", counter + 1);
+        strcat(name, buf);
+
+        int num;
+        int result = validate_input(name, &num, 1, INT_MAX);
+        if(is_prime(num) == 1)
+        {
+            primes[i] = num;
+            i++;
+        }
+
+        if(result == 1)
+        {
+            return 1;
+        }
+        if(result == 2)
+        {
+            break;
+        }
+        counter++;
+
+    }while (i < 10000);
+
+    qsort(primes, i, sizeof(primes[0]), compare);
+
+    if(i == 0)
+    {
+        printf("Sekoje pirminių skaičių nėra.\n");
+    }
+    else if(i == 1)
+    {
+        printf("%d ", primes[0]);
+    }
+    else
+    {
+        for(int j = 0; j < i - 1; j++)
+        {
+            if(primes[j] != primes[j + 1])
+            {
+                printf("%d ", primes[j]);
+            }
+        }
+        if(primes[i - 1] != primes[i - 2])
+        {
+            printf("%dj ", primes[i - 1]);
+        }
+    }
+    printf("\n");
+}
+
+void print_array(int arr[], int size)
+{
+    for(int i = 0; i < size; i++)
+    {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+int is_prime(int n)
+{
+    if (n <= 1)
+        return 0;
+    if (n == 2)
+        return 1;
+    if (n % 2 == 0)
+        return 0;
+
+    for (int i = 3; i * i <= n; i += 2)
+    {
+        if (n % i == 0)
+        return 0;
+    }
+    return 1;
+}

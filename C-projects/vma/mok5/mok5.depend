@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1728037900 source:/home/adix/Documents/GitHub/uni/C-projects/vma/mok5/main.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<limits.h>
+
