@@ -1,6 +1,6 @@
 //LSP: 2413914
 //el. paštas: adomas.bieliunas@mifstud.vu.lt
-//2 užduotis, 6 variantas
+//2 užduotis, 2 variantas
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,67 +8,98 @@
 #include <math.h>
 #include <stdbool.h>
 
-void output_segment(float lower_bound, float upper_bound, int data[], int size, int occurence, bool include)
-{
-    printf("\n%d) ", occurence);
-    for (int i = 0; i < size; i++)
-    {
-        if(include)
-        {
-            if(data[i] >= lower_bound && data[i] <= upper_bound)
-            {
-                printf("%d ", data[i]);
-            }
-        }
-        else
-        {
-            if(data[i] > lower_bound && data[i] < upper_bound)
-            {
-                printf("%d ", data[i]);
-            }
-        }
-    }
-    printf("\n");
-}
+#define ARRAY_SIZE 1000
 
-int main()
+int validate_input(char* name, int* input, int lower_bound, int upper_bound)
 {
-    int inp_num = 0;
-    int list_num = 0;
+    char extra_input;
+    printf("Įveskite %s: ", name);
+    int result = scanf("%d%c", input, &extra_input);
 
-    int scan_result = scanf("%d", &inp_num);
-    if(inp_num < 0 || scan_result != 1)
+    if(result != 2 || (extra_input != '\n' && extra_input != ' '))
     {
         printf("Neteisinga įvestis\n");
         return 1;
     }
-
-    int min_num = INT_MAX;
-    int max_num = INT_MIN;
-    int data[inp_num];
-    for (int i = 0; i < inp_num; i++)
+    else if(*input < lower_bound || *input > upper_bound)
     {
-        scan_result = scanf("%d", &list_num);
-        if(scan_result != 1)
-        {
-            printf("Neteisinga įvestis\n");
-            return 1;
-        }
-        data[i] = list_num;
+        printf("Netinkamas skaičius\n");
+        return 2;
+    }
+    return 0;
+}
 
-        if(list_num < min_num)
-        {
-            min_num = list_num;
-        }
-        if(list_num > max_num)
-        {
-            max_num = list_num;
-        }
+int compare(int* a, int* b)
+{
+    return (*a - *b);
+}
+
+int most_common_occurence(int *data[], int size)
+{
+    qsort(data, size, sizeof(*data[0]), compare);
+
+    int com_num = 0;
+    int current_count = 1;
+    int max_occ = 0;
+
+    if(size == 1)
+    {
+        return data[0];
     }
 
-    output_segment(min_num, min_num + (max_num - min_num) * (1/3.0f), data, inp_num, 1, true);
-    output_segment(min_num + (max_num - min_num) * (1/3.0f), min_num + (max_num - min_num) * (2/3.0f), data, size, 2, false);
-    output_segment(min_num + (max_num - min_num) * (2/3.0f), max_num, data, size, 3, true);
+    for(int i = 0; i < size - 1; i++)
+    {
+        if(data[i] == data[i + 1])
+        {
+            current_count++;
+        }
+        else
+        {
+            current_count = 1;
+        }
+        if(current_count > max_occ)
+        {
+            com_num = data[i];
+            max_occ = current_count;
+        }
+    }
+    return com_num;
+}
+
+
+int main()
+{
+    int size;
+    int data[ARRAY_SIZE];
+
+    int result = validate_input("N", &size, 1, ARRAY_SIZE);
+    if(result == 1 || result == 2)
+    {
+        return 0;
+    }
+
+    for(int i = 0; i < size; i++)
+    {
+        char buf[100];
+        char name[100];
+        memset(name, '\0', sizeof(name));
+        name[0] = 'n';
+        sprintf(buf, "%d", i + 1);
+        strcat(name, buf);
+
+        int num;
+        result = validate_input(name, &num, INT_MIN, INT_MAX);
+        if(result == 1 || result == 2)
+        {
+            return 0;
+        }
+
+        data[i] = num;
+    }
+
+    int com_num = most_common_occurence(data, size);
+    printf("Dažniausiai pasikartojantis skaičius: %d\n", com_num);
+
 
     return 0;
 

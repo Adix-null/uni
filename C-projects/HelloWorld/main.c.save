@@ -16,11 +16,10 @@ int main()
 
     float w = 482.375f;
     int nzn = 2;
-    nzn = nzn++ + ++nzn;
+    nzn = nzn+++++nzn
 
 
-
-    printf("%d\n", nzn);
+    printf("%d\n", b);
     printf("%hx", d);
 
     //printf("%e\n", w);
