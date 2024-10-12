@@ -1,0 +1,7 @@
+Pirmadienis
+Antradienis
+Trechiadienis
+Ketvirtadienis
+Penktadienis
+Sheshtadienis
+Sekmadienis

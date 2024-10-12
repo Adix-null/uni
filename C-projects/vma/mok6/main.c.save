@@ -55,11 +55,10 @@ int main()
     char *at_sign = strchr(email, '@');
     domain = at_sign + 1;
     printf("%s\n", domain);
-
+    
     strcat(email, "\0");
-    char otp[1000];
-    strcpy(otp, email);
 
+    
     FILE* file;
     file = fopen("emails.txt", "a");
     if (file == NULL)
@@ -67,7 +66,7 @@ int main()
         printf("Nepavyko atidaryti failo\n");
         return 1;
     }
-    fprintf(file, "%s\n", otp);
+    fprintf(file, "%s\n", email);
     fclose(file);
 
 
