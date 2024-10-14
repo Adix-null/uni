@@ -80,12 +80,8 @@ int main()
 
     for(int i = 0; i < size; i++)
     {
-        char buf[100];
-        char name[100];
-        memset(name, '\0', sizeof(name));
-        name[0] = 'n';
-        sprintf(buf, "%d", i + 1);
-        strcat(name, buf);
+        char name[20];
+        sprintf(name, "n%d", i + 1);
 
         int num;
         result = validate_input(name, &num, INT_MIN, INT_MAX);
@@ -100,7 +96,5 @@ int main()
     int com_num = most_common_occurence(&data, size);
     printf("Dažniausiai pasikartojantis skaičius: %d\n", com_num);
 
-
     return 0;
-
 }
