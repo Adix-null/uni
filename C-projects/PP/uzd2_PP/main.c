@@ -1,6 +1,6 @@
 //LSP: 2413914
-//el. paštas: adomas.bieliunas@mifstud.vu.lt
-//2 užduotis, 2 variantas
+//el. pastas: adomas.bieliunas@mifstud.vu.lt
+//2 uzduotis, 2 variantas
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,17 +13,17 @@
 int validate_input(char* name, int* input, int lower_bound, int upper_bound)
 {
     char extra_input;
-    printf("Įveskite %s: \n", name);
+    printf("Iveskite %s: \n", name);
     int result = scanf("%d%c", input, &extra_input);
 
     if(result != 2 || (extra_input != '\n' && extra_input != ' '))
     {
-        printf("Neteisinga įvestis\n");
+        printf("Neteisinga ivestis\n");
         return 1;
     }
     else if(*input < lower_bound || *input > upper_bound)
     {
-        printf("Netinkamas skaičius\n");
+        printf("Netinkamas skaicius\n");
         return 2;
     }
     return 0;
@@ -94,7 +94,7 @@ int main()
     }
 
     int com_num = most_common_occurence(&data, size);
-    printf("Dažniausiai pasikartojantis skaičius: %d\n", com_num);
+    printf("Dazniausiai pasikartojantis skaicius: %d\n", com_num);
 
     return 0;
 }
