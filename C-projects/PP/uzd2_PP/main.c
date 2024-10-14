@@ -29,9 +29,9 @@ int validate_input(char* name, int* input, int lower_bound, int upper_bound)
     return 0;
 }
 
-int compare(int* a, int* b)
+int compare(const void* a, const void* b)
 {
-    return (*a - *b);
+    return (*(int*)a - *(int*)b);
 }
 
 int most_common_occurence(int (*data)[], int size)
