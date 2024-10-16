@@ -16,18 +16,25 @@ int showMenu(char *menuTitle, char *menuOptions[], int menuSize, char *inputMsg)
 
         for(int i = 0; i < menuSize; i++)
         {
-            printf("%s\n", menuOptions[i]);
+            printf("%s\", menuOptions[i]);
         }
 
         printf("%s", inputMsg);
         result = scanf("%d", &num);
         while((getchar()) != '\n');
-    }while(result != 1 || num < 1 || num > menuSize);
+    }while(result != 1);
 
     return num;
 }
 
 int main()
 {
+    char *k[4];
+    k[0] = "File";
+    k[1] = "Search";
+    k[2] = "View";
+    k[3] = "Debug";
+
+    showMenu("Titulas: \n", k, 4, "Vesk bliyat\n");
     return 0;
 }

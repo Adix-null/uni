@@ -1,0 +1,18 @@
+# depslib dependency file v1.0
+1729095900 source:/home/adix/Documents/GitHub/uni/C-projects/vma/mok7/mok7/main.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<limits.h>
+	<float.h>
+	<stdbool.h>
+	<time.h>
+
+1729098382 source:/home/adix/Documents/GitHub/uni/C-projects/vma/mok7/main.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<limits.h>
+	<float.h>
+	<stdbool.h>
+
