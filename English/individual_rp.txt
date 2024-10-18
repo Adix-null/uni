@@ -1,1 +1,4 @@
-Research proposal 
+Effects of task gamification on productivity
+
+Background 
+Everyday we all need to complete a number of important tasks that can feel repetitive, boring, and thus not all of them get completed. There is a solution to mitigate these problems by making the tasks more interesting - gamification. This startegy turns monotonous tasks into small, game-like challenges that can feel more rewarding to complete compared to not using the strategy. The research will study individuals in various settings to determine if gamification is a viable long-term strategy to help with chores and if so, in what settings it is most effective.
