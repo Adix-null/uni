@@ -26,6 +26,18 @@ int main()
     //printf("%e\n", w);
     //printf("%g\n", -w);
     //printf("%b\n", -w ^ w);
+    int g = 9, sum = 0; while(g > 0) sum = sum + g--;
+
+int yh
+    printf("%d\n", 3+3*3-3);
+
+    int i = 24; do { i++; printf("ping\n");} while (!(i % 5) || (i % 9 == 0) || !(i % 13));
+     printf("\n");
+
+    for(int i = 3, j = 7; i++ <= j--; )
+    {
+        printf("ping\n");
+    }
 
 
     return 0;
