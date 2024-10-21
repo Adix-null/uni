@@ -26,6 +26,7 @@ int main()
     //printf("%e\n", w);
     //printf("%g\n", -w);
     //printf("%b\n", -w ^ w);
+    /*
     int g = 9, sum = 0; while(g > 0) sum = sum + g--;
 
     printf("%d\n", 3+3*3-3);
@@ -36,8 +37,14 @@ int main()
     for(int i = 3, j = 7; i++ <= j--; )
     {
         printf("ping\n");
-    }
+    }*/
 
+    time(NULL);
+    for(int i = 0; i < 100; i++)
+    {
+        int a = rand();
+
+    }
 
     return 0;
 }
