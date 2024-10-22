@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1729631768 source:/home/adix/Documents/GitHub/uni/C-projects/vma/mok8/main.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<limits.h>
+	<float.h>
+	<stdbool.h>
+

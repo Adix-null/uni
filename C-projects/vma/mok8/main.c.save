@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <limits.h>
+#include <float.h>
+#include <stdbool.h>
+
+int splitData(int data[], int size, int size_part, int **arr1, int **arr2)
+{
+     *arr1 = (int*)malloc(size_part * sizeof(int));
+     *arr2 = (int*)malloc((size - size_part) * sizeof(int));
+
+     if(*arr1 == NULL || *arr2 == NULL)
+     {
+        return -1;
+     }
+
+     for(int i = 0; i < size_part; i++)
+     {
+        (*arr1)[i] = data[i];
+     }
+     for(int i = 0; i < size - size_part; i++)
+     {
+        (*arr2)[i] = data[i + size_part];
+     }
+
+     return 0;
+}
+
+void print_array(int* data, int size, const char* format)
+{
+    for(int i = 0; i < size; i++)
+    {
+        printf(format, *(data + i));
+    }
+    printf("\n");
+}
+
+int main(int argc, char** argv)
+{
+    int *a, *b;
+    int d[5] = {1,2,3,4,5};
+    splitData(d, 5, 4, &a, &b);
+
+    printf("%d %d\n",  sizeof(a) / sizeof(int),  sizeof(b) / sizeof(int));
+
+    print_array(a, sizeof(a) / sizeof(int), "%d ");
+    print_array(b, sizeof(b) / sizeof(int), "%d ");
+
+    return 0;
+}

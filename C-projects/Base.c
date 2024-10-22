@@ -30,12 +30,38 @@ int compare(const void *a, const void *b)
     return (*(int *)a - *(int *)b);
 }
 
+int compare_cst(const void* a, const void* b)
+{
+    fl* fl_a = (fl*)a;
+    fl* fl_b = (fl*)b;
+
+    if (fl_a->size > fl_b->size)
+        return 1;
+    else
+        return -1;
+}
+
 void print_array(int* data, int size, const char* format)
 {
     for(int i = 0; i < size; i++)
     {
         printf(format, *(data + i));
     }
+    printf("\n");
+}
+
+int* create_random_array(int size, int lower, int upper)
+{
+    int* arr = (int*)malloc(size * sizeof(int));
+
+    srand(time(NULL));
+
+    for (int i = 0; i < size; i++)
+    {
+        arr[i] = (rand() % (upper - lower + 1)) + lower;
+    }
+
+    return arr;
 }
 
 int main()

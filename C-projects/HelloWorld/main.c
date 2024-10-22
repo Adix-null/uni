@@ -37,14 +37,23 @@ int main()
     for(int i = 3, j = 7; i++ <= j--; )
     {
         printf("ping\n");
-    }*/
+    }
 
     time(NULL);
     for(int i = 0; i < 100; i++)
     {
         int a = rand();
 
-    }
+    }*/
+
+    //printf("a\n");
+    //int i = 12, sum = 0; do { if (i < 1) break; sum = i + sum - 1; } while(1);
+
+    int x = -5;
+    printf("a: %d\n", 2+2*2-2);
+    printf("b: %d\n", x--);
+    printf("c: %d\n", '4');
+    printf("d: %d\n", "4");
 
     return 0;
 }
