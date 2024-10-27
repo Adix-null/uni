@@ -5,12 +5,20 @@
 #include <float.h>
 #include <stdbool.h>
 
+void print_array(int* arr, int size)
+{
+    for(int i = 0; i < size; i++)
+    {
+        
+    }
+}
+
 int splitData(int data[], int size, int size_part, int **arr1, int **arr2)
 {
      *arr1 = (int*)malloc(size_part * sizeof(int));
      *arr2 = (int*)malloc((size - size_part) * sizeof(int));
 
-     if(*arr1 == NULL || *arr2 == NULL)
+     if(*arr1 == NULL || *arr2 == NULL || size_part > size)
      {
         return -1;
      }
@@ -27,25 +35,7 @@ int splitData(int data[], int size, int size_part, int **arr1, int **arr2)
      return 0;
 }
 
-void print_array(int* data, int size, const char* format)
-{
-    for(int i = 0; i < size; i++)
-    {
-        printf(format, *(data + i));
-    }
-    printf("\n");
-}
-
 int main(int argc, char** argv)
 {
-    int *a, *b;
-    int d[5] = {1,2,3,4,5};
-    splitData(d, 5, 4, &a, &b);
-
-    printf("%d %d\n",  sizeof(a) / sizeof(int),  sizeof(b) / sizeof(int));
-
-    print_array(a, sizeof(a) / sizeof(int), "%d ");
-    print_array(b, sizeof(b) / sizeof(int), "%d ");
-
     return 0;
 }
