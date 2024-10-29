@@ -1,8 +1,38 @@
 [Introduction]
 Despite significant advancements in gender equality, women in STEM still face pervasive undervaluation compared to their male counterparts. My argument today will underscore the systemic barriers that discourage women to pursue careers in STEM, while my colleague Pijus will emphasize the sistemic disparity and unjust treatment in academia.
 [Argument]
-A study published in 2020 by the Journal of Neuroscience research describes the following three factors that likely contribute to gender inequalities and women's departure from academic STEM fields: numeric underrepresentation and stereotypes, lack of supportive social networks and chilly academic climates. 
+A study published in 2021 by the Journal of 
+Neuroscience research describes the following three factors that likely contribute to gender inequalities and women's departure from academic STEM fields: numeric underrepresentation and stereotypes, lack of supportive social networks and chilly academic climates. 
 [Example]
-Institutes made specifically for women in an attempt to break cultural gender roles often undermine the concept of gender equality by implying that this is an exception, and not the status quo. 
+Institutes made specifically for women in an 
+attempt to break cultural gender roles often 
+undermine the concept of gender equality by 
+implying that this is an exception, and not 
+the status quo. They not only reinforce the 
+idea that women in STEM need some sort of special treatment, but they also divert funding that could be spent fixing the root cause - a toxic workplace culture. 
+Equality Action Center at the University of 
+California in San Francisco has consistently 
+found that while while women’s initiatives may 
+initially boost interest and participation in 
+STEM, they often don’t impact long-term retention.  
+[Example]
+Research from the Society of Women Engineers 
+and Technology Magazine indicates that without 
+structural support, such as mentorship, 
+equitable access to resources, and 
+gender-sensitive policies, women are often 
+forced to navigate workplace  challenges 
+alone, leading to high rates of career 
+dissatisfaction and attrition. Moreover, women in STEM benefit most from a culture of inclusion and leadership support, not just entry-level programs. Without a holistic support system that includes continuous career guidance, role models, and fair feedback, women’s participation in STEM often remains limited to entry positions rather than long-term success​ful careers.
+
 [Conclusion]
-In conclusion, the undervaluation of women in STEM fosters an unfriendly, often toxic environment that discourages talent and innovation. The pervasive biases and gendered expectations create a culture where women are not only undervalued but also made to feel unwelcome in their own field. This environment stifles their contributions and denies STEM the full breadth of perspectives and skills necessary for progress.
+In conclusion, the undervaluation of women in 
+STEM fosters an unfriendly, often toxic 
+environment that discourages talent and 
+innovation. The wrong focus of women only 
+institutes does not properly adress pervasive 
+biases and 
+gendered expectations that create a culture 
+where 
+women are not only undervalued but also made to feel unwelcome in their own field. This environment stifles their contributions and denies STEM the full breadth of perspectives and skills necessary for progress.
+
