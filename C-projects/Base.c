@@ -4,7 +4,6 @@
 #include <limits.h>
 #include <float.h>
 #include <stdbool.h>
-#include <regex.h>
 
 int validate_input(char* name, int* input, int lower_bound, int upper_bound)
 {
