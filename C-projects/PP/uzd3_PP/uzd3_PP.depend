@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1730327973 source:/home/adix/Documents/GitHub/uni/C-projects/PP/uzd3_PP/main.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<limits.h>
+	<float.h>
+	<stdbool.h>
+	<string.h>
+

@@ -86,7 +86,7 @@ char* join_words(char line[ROW_SIZE])
         }
     }
     row[cn] = line[ROW_SIZE - 2];
-    row[cn + 1] = line[ROW_SIZE - 1];
+    row[cn + 1] = line[ROW_SIZE - 2];
     return row;
 }
 
