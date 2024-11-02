@@ -9,11 +9,10 @@
 #include <float.h>
 #include <stdbool.h>
 #include <string.h>
+#include <regex.h>
 
-#define ROW_SIZE 256
+#define ROW_SIZE 257
 #define SEPARATOR ' '
-
-//{
 
 typedef struct
 {
@@ -23,42 +22,24 @@ typedef struct
 
 void initStack(Stack *stack)
 {
-    stack->arr = (char(*)[256])calloc(stack->size, 256);
+    stack->arr = (char(*)[ROW_SIZE])calloc(stack->size, ROW_SIZE);
     memset((*stack->arr), 0, stack->size);
 }
 
-void printStack(Stack *stack)
+void printStack(Stack *stack, FILE* file)
 {
     for(int i = 0; i < stack->size; i++)
     {
-        printf("%s ", (*(stack->arr))[i]);
+        fprintf(file, "%s", stack->arr[i]);
     }
-    printf("\n");
-}
-
-int getStackSize(Stack *stack)
-{
-    return stack->size;
+    fprintf(file, "\n");
 }
 
 void push(Stack *stack, char value[ROW_SIZE])
 {
-    stack->arr = realloc(stack->arr, (getStackSize(stack) + 1) * 256);
-    (*stack->arr)[getStackSize(stack)] = value;
+    stack->arr = realloc(stack->arr, (stack->size + 1) * ROW_SIZE);
+    strncpy(stack->arr[stack->size], value, ROW_SIZE);
     ++(stack->size);
-}
-
-int top(Stack *stack)
-{
-    return stack->size == 0 ? 0 : (*stack->arr)[getStackSize(stack) - 1];
-}
-
-int pop(Stack *stack)
-{
-    int tmp = top(stack);
-    stack->arr = realloc(stack->arr, (getStackSize(stack) - 1) * sizeof((*stack->arr)[0]));
-    --(stack->size);
-    return tmp;
 }
 
 void destroyStack(Stack *stack)
@@ -68,10 +49,33 @@ void destroyStack(Stack *stack)
     stack->size = 0;
     stack = NULL;
 }
-//}
+
+void remove_extra_spaces(char *str)
+{
+    int x = 0;
+    bool spaceFound = false;
+
+    for (int i = 0; str[i] != '\0'; i++)
+    {
+        if (str[i] != ' ')
+        {
+            str[x] = str[i];
+            x++;
+            spaceFound = false;
+        }
+        else if (str[i] == ' ' && !spaceFound)
+        {
+            str[x] = str[i];
+            x++;
+            spaceFound = true;
+        }
+    }
+    str[x] = '\0';
+}
 
 char* join_words(char line[ROW_SIZE])
 {
+    remove_extra_spaces(line);
     char* row;
     row = (char*)calloc(ROW_SIZE, sizeof(row[0]));
     memset(row, 0, ROW_SIZE);
@@ -85,28 +89,31 @@ char* join_words(char line[ROW_SIZE])
             i += 2;
         }
     }
-    row[cn] = line[ROW_SIZE - 2];
-    row[cn + 1] = line[ROW_SIZE - 2];
+    if(line[ROW_SIZE - 2] != ' ')
+        row[cn] = line[ROW_SIZE - 2];
+    if(line[ROW_SIZE - 1] != ' ')
+        row[cn + 1] = line[ROW_SIZE - 1];
     return row;
 }
 
-int validate_input(char *name, int *input, int lower_bound, int upper_bound)
+void process_file(Stack *s, FILE* file)
 {
-    char extra_input;
-    printf("Iveskite %s: \n", name);
-    int result = scanf("%d%c", input, &extra_input);
+    char line[ROW_SIZE] = {0};
+    while (fgets(line, ROW_SIZE, file) != NULL)
+    {
+        if (line[ROW_SIZE - 2] != '\0')
+        {
+            line[ROW_SIZE - 2] = '\n';
+            int ch;
+            while ((ch = fgetc(file)) != '\n' && ch != EOF);
+        }
 
-    if (result != 2 || (extra_input != '\n' && extra_input != ' '))
-    {
-        printf("Neteisinga ivestis\n");
-        return 1;
+        strcpy(line, join_words(line));
+        //printf("%s\n", line);
+        push(s, line);
+        memset(line, 0, ROW_SIZE);
+
     }
-    else if (*input < lower_bound || *input > upper_bound)
-    {
-        printf("Netinkamas skaicius\n");
-        return 2;
-    }
-    return 0;
 }
 
 int main()
@@ -115,30 +122,40 @@ int main()
     initStack(&s);
 
     FILE *file;
-    char* inp_file_name;
-    printf("Duomenu failo pavadinimas: ");
-    //scanf("%s", inp_file_name);
-    file = fopen("inp.txt", "r");
+    char inp_file_name[64];
+    char otp_file_name[64];
 
+    strcpy(inp_file_name, "inp.txt");
+    strcpy(otp_file_name, "otp.txt");
+
+    printf("Ivesties failo pavadinimas:\n");
+    //fgets(inp_file_name, sizeof(inp_file_name), stdin);
+    inp_file_name[strcspn(inp_file_name, "\n")] = '\0';
+
+    printf("Isvesties failo pavadinimas:\n");
+    //fgets(otp_file_name, sizeof(otp_file_name), stdin);
+    otp_file_name[strcspn(otp_file_name, "\n")] = '\0';
+
+    file = fopen(inp_file_name, "r");
+    if(file == NULL)
+    {
+        printf("Nepavyko atidaryti ives failo.\n");
+        return 1;
+    }
+    process_file(&s, file);
+    fclose(file);
+
+    file = fopen(otp_file_name, "w");
     if(file == NULL)
     {
         printf("Nepavyko atidaryti failo.\n");
         return 1;
     }
-
-
-    char line[ROW_SIZE];
-    while (fgets(line, ROW_SIZE, file) != NULL)
-    {
-        printf("%s", line);
-        //printf("t\n");
-        push(&s, line);
-        printf("t\n");
-        printStack(&s);
-    }
-
-
-    // Close the file
+    printStack(&s, file);
     fclose(file);
+
+    destroyStack(&s);
+
+
     return 0;
 }
