@@ -11,3 +11,6 @@ Pagrinde kodavau ilgiau nei planavau dėl netikėtų iškilusių nesklandumų su
 Naudojau AI trumpiems klausimams apie pointerius ir įvairias c kalbos funkcijas.
 
 AI panaudojimas spręsti problemoms:
+
+![](/C-projects/PP/uzd3_PP/img1.png)
+![](/C-projects/PP/uzd3_PP/img2.png)
