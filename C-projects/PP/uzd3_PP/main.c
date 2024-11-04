@@ -9,7 +9,6 @@
 #include <float.h>
 #include <stdbool.h>
 #include <string.h>
-#include <regex.h>
 
 #define ROW_SIZE 257
 #define SEPARATOR ' '
@@ -26,9 +25,9 @@ void initStack(Stack *stack)
     memset((*stack->arr), 0, stack->size);
 }
 
-void printStack(Stack *stack, FILE* file)
+void printStack(Stack *stack, FILE *file)
 {
-    for(int i = 0; i < stack->size; i++)
+    for (int i = 0; i < stack->size; i++)
     {
         fprintf(file, "%s", stack->arr[i]);
     }
@@ -73,30 +72,48 @@ void remove_extra_spaces(char *str)
     str[x] = '\0';
 }
 
-char* join_words(char line[ROW_SIZE])
+char *join_words(char line[ROW_SIZE])
 {
     remove_extra_spaces(line);
-    char* row;
-    row = (char*)calloc(ROW_SIZE, sizeof(row[0]));
+    char *row;
+    row = (char *)calloc(ROW_SIZE, sizeof(row[0]));
     memset(row, 0, ROW_SIZE);
     int cn = 0;
 
-    for(int i = 0; i < ROW_SIZE - 2; i++, cn++)
+    for (int i = 0; i < ROW_SIZE - 2; i++, cn++)
     {
         row[cn] = line[i];
-        if(line[i] == line[i + 2] && line[i + 1] == SEPARATOR)
+        if (line[i] == line[i + 2] && line[i + 1] == SEPARATOR)
         {
             i += 2;
         }
     }
-    if(line[ROW_SIZE - 2] != ' ')
+    if (line[ROW_SIZE - 2] != ' ')
         row[cn] = line[ROW_SIZE - 2];
-    if(line[ROW_SIZE - 1] != ' ')
+    if (line[ROW_SIZE - 1] != ' ')
         row[cn + 1] = line[ROW_SIZE - 1];
     return row;
 }
 
-void process_file(Stack *s, FILE* file)
+void validate_file_name(char *msg, char *file_name, int file_name_size, FILE *stream)
+{
+    printf("%s", msg);
+    fgets(file_name, file_name_size, stream);
+    // replace \n with \0
+    file_name[strcspn(file_name, "\n")] = '\0';
+}
+
+void validate_file(char *op, FILE *file, char *file_name, char *err_msg)
+{
+    file = fopen(file_name, op);
+    if (file == NULL)
+    {
+        printf("%s", err_msg);
+        exit(-1);
+    }
+}
+
+void process_file(Stack *s, FILE *file)
 {
     char line[ROW_SIZE] = {0};
     while (fgets(line, ROW_SIZE, file) != NULL)
@@ -105,14 +122,13 @@ void process_file(Stack *s, FILE* file)
         {
             line[ROW_SIZE - 2] = '\n';
             int ch;
-            while ((ch = fgetc(file)) != '\n' && ch != EOF);
+            while ((ch = fgetc(file)) != '\n' && ch != EOF)
+                ;
         }
 
         strcpy(line, join_words(line));
-        //printf("%s\n", line);
         push(s, line);
         memset(line, 0, ROW_SIZE);
-
     }
 }
 
@@ -125,37 +141,23 @@ int main()
     char inp_file_name[64];
     char otp_file_name[64];
 
-    //strcpy(inp_file_name, "inp.txt");
-    //strcpy(otp_file_name, "otp.txt");
+    char *err_inp = "Nepavyko atidaryti ivesties failo.\n";
+    char *err_otp = "Nepavyko atidaryti isvesties failo.\n";
+    char *msg_inp = "Ivesties failo pavadinimas:\n";
+    char *msg_otp = "Isvesties failo pavadinimas:\n";
 
-    printf("Ivesties failo pavadinimas:\n");
-    fgets(inp_file_name, sizeof(inp_file_name), stdin);
-    inp_file_name[strcspn(inp_file_name, "\n")] = '\0';
+    validate_file_name(msg_inp, inp_file_name, sizeof(inp_file_name), stdin);
+    validate_file_name(msg_otp, otp_file_name, sizeof(otp_file_name), stdin);
 
-    printf("Isvesties failo pavadinimas:\n");
-    fgets(otp_file_name, sizeof(otp_file_name), stdin);
-    otp_file_name[strcspn(otp_file_name, "\n")] = '\0';
-
-    file = fopen(inp_file_name, "r");
-    if(file == NULL)
-    {
-        printf("Nepavyko atidaryti ivesties failo.\n");
-        return 1;
-    }
+    validate_file("r", file, inp_file_name, err_inp);
     process_file(&s, file);
     fclose(file);
 
-    file = fopen(otp_file_name, "w");
-    if(file == NULL)
-    {
-        printf("Nepavyko atidaryti isvesties failo.\n");
-        return 1;
-    }
+    validate_file("w", file, otp_file_name, err_otp);
     printStack(&s, file);
     fclose(file);
 
     destroyStack(&s);
-
 
     return 0;
 }
