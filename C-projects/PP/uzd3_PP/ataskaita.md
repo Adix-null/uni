@@ -2,7 +2,7 @@ Pradinis laiko spėjimas, kaip rašiau teamsuse - 3h:
 - 2h kodavimui
 - 1h makefile.
   
-Realus laikas - 4.5h: 
+Realus laikas - 5h: 
 - 4h 20min kodavimui
 - 10 min makefile kūrimui
 - 30min klaidų taisymui
