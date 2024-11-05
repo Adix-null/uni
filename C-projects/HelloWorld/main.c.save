@@ -1,31 +1,28 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <assert.h>
+
+unsigned int sum_r (unsigned int n)
+{
+    if(n == 0)
+        return 0;
+    return (n + sum_r(n - 1));
+}
+
+unsigned int sum_c (unsigned int n)
+{
+    unsigned int s = 0;
+    for(unsigned int i = 0; i <= n; i++)
+    {
+        s += i;
+    }
+    return s;
+}
+
 
 int main()
 {
-    //signed char c=130;
-    //unsigned char d=-5;
-//    signed int e =4;
-//    unsigned int f=-4;
-//
-//    char a = '0' + 5 % 4 * 2;
-//    int b = 123 & 0x47 && 'z';
-//    short c = 7 < 8 ? 9 * 3 : 9 / 3;
-//    unsigned d = b+++1;
-//
-//    float w = 482.375f;
-//    int nzn = 2;
-//    nzn = nzn++ + ++nzn;
-
-
-
-    //printf("%d\n", nzn);
-    //printf("%hx", d);
-
-    //printf("%e\n", w);
-    //printf("%g\n", -w);
-    //printf("%b\n", -w ^ w);
     /*
     int g = 9, sum = 0; while(g > 0) sum = sum + g--;
 
@@ -46,16 +43,21 @@ int main()
 
     }*/
 
-    printf("a\n");
-    for(int i = 0; i < 10; i++)
-    {
-       printf("%d ", i);
-
-    }
-    printf("\n");
+    //printf("a\n");
+    //int i = 12, sum = 0; do { if (i < 1) break; sum = i + sum - 1; } while(1);
     
-    int a = 9;
-    printf("%c", 55)
+    
+
+    unsigned a = 0;
+
+    assert(sum_r(17) == 17 * 9);
+    assert(sum_c(17) == 17 * 9);
+    assert(sum_r(0) == 0);
+    assert(sum_c(0) == 0);
 
     return 0;
 }
+
+
+
+
