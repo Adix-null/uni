@@ -9,26 +9,40 @@
 
 typedef struct
 {
-    char* str1;
-    char* str2;
-    int exp_val;
+    void * destination;
+    void * source;
+    int type_bytes;
+    int num;
+    void* exp_val;
 } test_case;
 
-int compare_strings(char* str1, char* str2)
+void* copy_mem(void * destination, void* source, unsigned int num)
 {
-    return strcmp(str1, str2);
+    return memcpy(destination, source, num);
 }
 
 int main()
 {
+    char dest1[64];
+    int dest2[10];
+
+    int src2[] = {3, 7};
+    int exp2[] = {3, 7};
+
+    int src3[] = {0, INT_MIN, -1};
+    int exp3[] = {0, INT_MIN, -1};
+
     test_case tests[] = {
-    {"Testavimas", "Testavimas", 0},
-    {" ", "", 1}
+        {dest1, "java", 1, 3, "jav"},
+        {dest1, " ", 1, 1, " "},
+        {dest2, src2, 4, 2, exp2},
+        {dest2, src3, 4, 2, exp3}
     };
 
     for(int i = 0; i < sizeof(tests) / sizeof (test_case); i++)
     {
-        assert(sign compare_strings(tests[i].str1, tests[i].str2) == tests[i].exp_val);
+        copy_mem(tests[i].destination, tests[i].source, tests[i].num  * tests[i].type_bytes);
+        assert(memcmp(tests[i].destination, tests[i].exp_val, tests[i].num * tests[i].type_bytes) == 0);
     }
 
     return 0;
