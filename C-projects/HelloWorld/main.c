@@ -46,7 +46,17 @@ int main()
     //printf("a\n");
     //int i = 12, sum = 0; do { if (i < 1) break; sum = i + sum - 1; } while(1);
 
+    int x[256];
+    for (int i = 0; i < 256; i++)
+    {
+        x[i]=255-i;
+        printf("%d\n", x[i]);
+    }
 
+
+    int g = 1;
+    int* ptr = &g;
+    printf("Adresas: %p\n", ptr);
 
     unsigned a = 0;
 
