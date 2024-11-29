@@ -1,8 +1,206 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
+#include <limits.h>
+#include <float.h>
+#include <stdarg.h>
+#include <stdbool.h>
+#include <assert.h>
+#include <string.h>
+
+#define WORD_MAX 255
+#define LENGTH_MAX 100
+
+//redo everything with linked list :D
+
+//netinka atskira evaluator funkcija nes C nesuportina dinaminiu argumentu funkciju iskvietimuose
+
+void validate_input_int(char* inp_msg, char err_msg[][WORD_MAX], int *num, int min, int max)
+{
+    printf("%s", inp_msg);
+    int result = 0;
+    do
+    {
+        scanf("%d", num);
+        if(*num < min)
+        {
+            result = 0;
+        }
+        else if(*num > max)
+        {
+            result = 1;
+        }
+        else
+        {
+            result = -1;
+        }
+
+        if(result != -1)
+        {
+            if(err_msg[result] != NULL)
+            {
+                printf("%s", err_msg[result]);
+                printf("Pakartokite įvestį\n");
+            }
+
+        }
+    }
+    while(result != -1);
+}
+
+void validate_input_string(char* inp_msg, char err_msg[][WORD_MAX], char* str[WORD_MAX], int max_length)
+{
+    printf("%s", inp_msg);
+    int result = 0;
+    do
+    {
+        scanf("%s", str);
+        if(strlen(str) > max_length)
+        {
+            result = 0;
+        }
+        else
+        {
+            result = -1;
+        }
+
+        if(result != -1)
+        {
+            if(err_msg[result] != NULL)
+            {
+                printf("%s", err_msg[result]);
+                printf("Pakartokite įvestį\n");
+            }
+
+        }
+    }
+    while(result != -1);
+}
+
+
+char** create_list(int size, char* def)
+{
+    char** arr = (char**)malloc(size * (WORD_MAX + 1));
+
+    for (int i = 0; i < size; i++)
+    {
+        strcpy(array[i], def);
+        //užpildo likusią vietą eilutėje su null reikšmėm
+        memset(array[i] + strlen(def), '\0', WORD_MAX - strlen(def));
+    }
+    return array;
+}
+
+void validate_file_name(char *msg, char *file_name, int file_name_size, FILE *stream)
+{
+    printf("%s", msg);
+    fgets(file_name, file_name_size, stream);
+    // replace \n with \0
+    file_name[strcspn(file_name, "\n")] = '\0';
+}
+
+void validate_file(char *op, FILE *file, char *file_name, char *err_msg)
+{
+    file = fopen(file_name, op);
+    if (file == NULL)
+    {
+        printf("%s", err_msg);
+        exit(-1);
+    }
+}
+
 
 int main()
 {
+    int size = 0;
+
+    printf("Aprašas:\n");
+    printf("Programa atlieka veiksmus su sąrašu, kurio 1 elemetas yra simbolių eilutė. \
+    Eilutės maksimalus ilgis - 255 simboliai. Toliau pateikiama vartotojo pasirinkimo meniu, jam reikia įvesti vieną skaičių. \
+    Įvedus kelis skaičius iš karto bus vykdoma tik komanda, susieta su 1 įvestu skaitmeniu.\n");
+
+    char* array[WORD_MAX];
+    int loop = 0;
+    while(loop == 0)
+    {
+    int choice = 0;
+    printf("Meniu:\n");
+    printf("1 - sukuriamas tuščias sąrašas\n");
+    printf("2 - sukuriamas sąrašas su pradine reikšme visose pozicijose\n");
+    printf("3 - nuskaitomi duomenys iš duomenų failo į visą sąrašą\n");
+    printf("4 - spausdinamas elementas nurodytoje pozicijoje\n");
+    printf("5 - spausdinamas visas sąrašas\n");
+    printf("6 - ištrinamas visas sąrašas\n");
+    printf("7 - išeinama iš programos\n");
+    printf("Parinktis:\n");
+    scanf("%d", &choice);
+
+    switch (choice)
+    {
+        case 1:
+        {
+        int n = 0;
+
+        char error_msgs[2][WORD_MAX] = {
+        "Skaičius per mažas\n",
+        "Skaičius per didelis\n",
+        };
+
+        validate_input_int("Sąrašo ilgis:\n", error_msgs, &n, 1, LENGTH_MAX);
+        create_list(n, "\0");
+        break;
+        }
+
+        case 2:
+        {
+        int n = 0;
+        char init_val[WORD_MAX];
+
+        char error_msgs_int[2][WORD_MAX] = {
+        "Skaičius per mažas\n",
+        "Skaičius per didelis\n",
+        };
+        char error_msgs_string[2][WORD_MAX] = {
+        "Eilutės ilgis per didelis\n"
+        };
+
+        validate_input_int("Sąrašo ilgis:\n", error_msgs_int, &n, 1, LENGTH_MAX);
+        validate_input_string("Pradinė reikšmė:\n", error_msgs_string, &init_val, WORD_MAX);
+        create_list(n, init_val);
+        break;
+        }
+
+        case 3:
+        {
+            break;
+        }
+
+        case 4:
+        {
+            int n = 0;
+
+            char error_msgs_int[2][WORD_MAX] = {
+            "Skaičius per mažas\n",
+            "Skaičius per didelis\n",
+            };
+            validate_input_int("Elemento pozicija:\n", error_msgs_int, &n, 0, LENGTH_MAX);
+            break;
+        }
+
+        case 7:
+        {
+            loop = 1;
+            break;
+        }
+    }
+    }
+    return 0;
+
+    char* name;
+    FILE* file;
+    file = fopen(name, "r+");
+
+
 
     return 0;
 }
