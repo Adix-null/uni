@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <limits.h>
+#include <float.h>
+#include <stdarg.h>
+#include <stdbool.h>
+#include <assert.h>
+#include <string.h>
+
+#include "func.h"
+
+#if TESTING == 1
+int main()
+{
+    printf("Testuojama\n");
+    static errors = 0;
+
+    Node* head = NULL;
+
+    append(&head, "test1");
+    //printf("Next: %p\n", head_test->next);
+    printf("%d", list_size(head));
+    print_list(head);
+
+    append(&head, "test2");
+
+    append(&head, "0V");
+
+    assert(list_size(head) == 3);
+    assert(get_at_pos(&head, 3)->data == "0V");
+
+    printf("Size: %d\n", list_size(head));
+
+    delete_node(&head, "test1");
+    printf("Linked List after deletion: ");
+    print_list(head);
+
+    delete_list(&head);
+    printf("Linked List after whole deletion: ");
+    print_list(head);
+
+
+    return 0;
+}
+#endif

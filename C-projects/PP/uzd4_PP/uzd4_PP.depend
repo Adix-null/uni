@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1732919277 source:/home/adix/Documents/GitHub/uni/C-projects/PP/uzd4_PP/main.c
+1733170662 source:/home/adix/Documents/GitHub/uni/C-projects/PP/uzd4_PP/main.c
 	<stdio.h>
 	<stdlib.h>
 	<math.h>
@@ -9,4 +9,42 @@
 	<stdbool.h>
 	<assert.h>
 	<string.h>
+	"func.h"
+
+1733171690 source:/home/adix/Documents/GitHub/uni/C-projects/PP/uzd4_PP/func.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<limits.h>
+	<float.h>
+	<stdarg.h>
+	<stdbool.h>
+	<string.h>
+	"func.h"
+
+1733171722 /home/adix/Documents/GitHub/uni/C-projects/PP/uzd4_PP/func.h
+
+1733171717 source:/home/adix/Documents/GitHub/uni/C-projects/PP/uzd4_PP/test.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<limits.h>
+	<float.h>
+	<stdarg.h>
+	<stdbool.h>
+	<assert.h>
+	<string.h>
+	"func.h"
+
+1733169231 /home/adix/Documents/GitHub/uni/C-projects/PP/uzd4_PP/test.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<limits.h>
+	<float.h>
+	<stdarg.h>
+	<stdbool.h>
+	<assert.h>
+	<string.h>
+	"func.h"
 
