@@ -1,8 +1,7 @@
-#ifndef FUNC_H
-#define FUNC_H
-
 #define WORD_MAX 256
 #define LENGTH_MAX 100
+#ifndef TESTING 0
+#
 
 typedef struct Node
 {
@@ -16,7 +15,7 @@ void append(Node**, char [WORD_MAX]);
 
 void generate_nodes(Node**, int, char [WORD_MAX]);
 
-void print_at_pos(Node**, int);
+Node* get_at_pos(Node**, int);
 
 int list_size(Node*);
 
@@ -35,5 +34,3 @@ void validate_input_int(char*, char [][WORD_MAX], int *, int, int);
 void validate_input_string(char*, char [][WORD_MAX], char* [WORD_MAX], int);
 
 void validate_file(char [][WORD_MAX], char *, FILE *, char [WORD_MAX]);
-
-#endif

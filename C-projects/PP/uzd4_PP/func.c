@@ -33,7 +33,6 @@ void append(Node** head, char data[WORD_MAX])
     if(*head == NULL)
     {
         *head = new_node;
-        //printf("Next: %p\n", (*head)->next);
         return;
     }
     //eiti per nodeus kol bus pasiektas head galas
@@ -55,6 +54,11 @@ void generate_nodes(Node** head, int size, char init_val[WORD_MAX])
 
 Node* get_at_pos(Node** head, int pos)
 {
+    if (head == NULL)
+    {
+        return NULL;
+    }
+
     Node* temp = *head;
     for(int i = 0; i < pos; i++)
     {

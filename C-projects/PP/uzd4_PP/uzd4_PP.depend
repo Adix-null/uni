@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1733170662 source:/home/adix/Documents/GitHub/uni/C-projects/PP/uzd4_PP/main.c
+1733250804 source:/home/adix/Documents/GitHub/uni/C-projects/PP/uzd4_PP/main.c
 	<stdio.h>
 	<stdlib.h>
 	<math.h>
@@ -11,7 +11,7 @@
 	<string.h>
 	"func.h"
 
-1733171690 source:/home/adix/Documents/GitHub/uni/C-projects/PP/uzd4_PP/func.c
+1733247093 source:/home/adix/Documents/GitHub/uni/C-projects/PP/uzd4_PP/func.c
 	<stdio.h>
 	<stdlib.h>
 	<math.h>
@@ -22,9 +22,9 @@
 	<string.h>
 	"func.h"
 
-1733171722 /home/adix/Documents/GitHub/uni/C-projects/PP/uzd4_PP/func.h
+1733251220 /home/adix/Documents/GitHub/uni/C-projects/PP/uzd4_PP/func.h
 
-1733171717 source:/home/adix/Documents/GitHub/uni/C-projects/PP/uzd4_PP/test.c
+1733249073 source:/home/adix/Documents/GitHub/uni/C-projects/PP/uzd4_PP/test.c
 	<stdio.h>
 	<stdlib.h>
 	<math.h>

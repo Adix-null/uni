@@ -15,14 +15,9 @@
 //menu: 0.5h
 //failų pertvarkymas į skirtingus: 0.25h
 //apibrėžimų tvarkymas: 0.25ħ
-//testų implementavimas: 1
+//testų implementavimas: 1.5h
 int main()
 {
-    printf("Aprašas:\n");
-    printf("Programa atlieka veiksmus su sąrašu, kurio 1 elemetas yra simbolių eilutė. \
-    Eilutės maksimalus ilgis - 255 simboliai. Toliau pateikiama vartotojo pasirinkimo meniu, jam reikia įvesti vieną skaičių. \
-    Įvedus kelis skaičius, atskirtus tarpu, jie .\n");
-
     Node* head = NULL;
     int loop = 0;
     char error_msgs_input[3][WORD_MAX] = {
@@ -34,21 +29,31 @@ int main()
     {
         int choice = 0;
         printf("Meniu:\n");
-        printf("1 - sukuriamas tuščias sąrašas\n");
-        printf("2 - prie sąrašo galo prirašoma pradine reikšmė visose pozicijose\n");
-        printf("3 - nuskaitomi duomenys iš duomenų failo į visą sąrašą\n");
-        printf("4 - ištrinamas elementas pagal reikšmę\n");
-        printf("5 - spausdinamas visas sąrašas\n");
-        printf("6 - ištrinamas visas sąrašas\n");
-        printf("7 - išeinama iš programos\n");
-        validate_input_int("Parinktis:\n", error_msgs_input, &choice, 1, 7);
+        printf("1 - spausdinamas aprašas\n");
+        printf("2 - sukuriamas tuščias sąrašas\n");
+        printf("3 - prie sąrašo galo prirašoma pradine reikšmė visose pozicijose\n");
+        printf("4 - nuskaitomi duomenys iš duomenų failo į visą sąrašą\n");
+        printf("5 - ištrinamas elementas pagal reikšmę\n");
+        printf("6 - spausdinamas visas sąrašas\n");
+        printf("7 - ištrinamas visas sąrašas\n");
+        printf("8 - išeinama iš programos\n");
+        validate_input_int("Parinktis:\n", error_msgs_input, &choice, 1, 8);
 
         switch (choice)
         {
             case 1:
             {
-                int size = 0;
-                int cont;
+    printf("Aprašas:\nPrograma atlieka veiksmus su vienpusiu sąrašu, kurio duomenų tipas yra simbolių eilutė. \
+Eilutės maksimalus ilgis - 255 simboliai. Toliau pateikiama vartotojo pasirinkimo meniu, jam reikia įvesti vieną \
+skaičių. Įvedus kelis skaičius, atskirtus tarpu, jie bus įvykdomi vienas po kito. Jeigu programos veikimo metu \
+nepavyks atlikti operaciją, ekrane bus išmestas pranešimas. Kodavimo gaires, bei daugiau informacijos galima surasti faile \
+\"guidelines.txt\".\n");
+            break;
+            }
+
+            case 2:
+            {
+                int cont, size = 0;
 
                 char error_msgs[3][WORD_MAX] = {
                 "Skaičius per mažas\n",
@@ -64,10 +69,14 @@ int main()
                     delete_list(&head);
                     generate_nodes(&head, size, "\0");
                 }
+                else
+                {
+                    printf("Operacija atšaukta\n");
+                }
                 break;
             }
 
-            case 2:
+            case 3:
             {
                 int size = 0;
                 char init_val[WORD_MAX];
@@ -87,7 +96,7 @@ int main()
                 break;
             }
 
-            case 3:
+            case 4:
             {
                 char name[WORD_MAX];
                 FILE *file;
@@ -101,12 +110,12 @@ int main()
                 };
 
                 validate_input_string("Failo pavadinimas:\n", error_msgs_string, name, WORD_MAX);
-                validate_file(error_msgs_file, "r+", file, name);
+                validate_file(error_msgs_file, "r", file, name);
                 read_from_file(&head, file, name);
                 break;
             }
 
-            case 4:
+            case 5:
             {
                 char key[WORD_MAX];
 
@@ -119,19 +128,27 @@ int main()
                 break;
             }
 
-            case 5:
+            case 6:
             {
                 print_list(head);
                 break;
             }
 
-            case 6:
+            case 7:
             {
-                delete_list(&head);
+                int cont = warn("Viso sąrašo reikšmės bus ištrintos. Jei norite tęsti, įveskite \"1\":\n");
+                if(cont == 1)
+                {
+                    delete_list(&head);
+                }
+                else
+                {
+                    printf("Operacija atšaukta\n");
+                }
                 break;
             }
 
-            case 7:
+            case 8:
             {
                 loop = 1;
                 break;

@@ -1,3 +1,12 @@
 Kodavimo standartai:
-
-
+Leksika:
+    Kintamųjų ir procedūrų pavadinimai - snake_case, prasideda mažąja raide, svarbūs - netrumpinami.
+    Konstantų pavadinimai - snake_case, didžiosiomis raidėmis.
+    Struktūrų pavadinimai - prasideda didžiąją raide, netrumpinami.
+    Identavimo stilius - Allman, naudojama tabuliacija, 1 identavimas 4 simbolių ilgio.
+    
+Funkcijos:
+    Funkcijos grąžina reikšmę tik tada, jei tokia funkcijos paskirtis. Kitu atveju jos yra void tipo. Jeigu vykdymo metu įvyksta klaida, kintamasis errors padidėja vienetu. 
+    
+Paleidimas ir testavimas:
+    Norint paleisti programą, reikia naudotis makefile funkcionalumu. Parašius "make" arba "make main" programa veiks normaliai. Parašius "make test" programa yra paleidžiama testavimui. Norint paleisti programos testavimo režimą ne per komandinę eilutę, TESTING reikia prilyginti 1 "func.h" faile.

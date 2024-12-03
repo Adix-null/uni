@@ -19,27 +19,28 @@ int main()
     Node* head = NULL;
 
     append(&head, "test1");
-    //printf("Next: %p\n", head_test->next);
-    printf("%d", list_size(head));
-    print_list(head);
 
     append(&head, "test2");
+    assert(list_size(head) == 2);
 
     append(&head, "0V");
-
-    assert(list_size(head) == 3);
-    assert(get_at_pos(&head, 3)->data == "0V");
-
-    printf("Size: %d\n", list_size(head));
+    assert(!strcmp(get_at_pos(&head, 1)->data, "test2"));
 
     delete_node(&head, "test1");
-    printf("Linked List after deletion: ");
-    print_list(head);
+    assert(!strcmp(get_at_pos(&head, 0)->data, "test2"));
+    assert(!strcmp(get_at_pos(&head, 1)->data, "0V"));
+
+    generate_nodes(&head, 3, "gen:3");
+    assert(!strcmp(get_at_pos(&head, 4)->data, "gen:3"));
+
+    FILE *file;
+    read_from_file(&head, file, "inp.txt");
+    assert(!strcmp(get_at_pos(&head, 5)->data, "daviens"));
 
     delete_list(&head);
-    printf("Linked List after whole deletion: ");
-    print_list(head);
+    assert(list_size(head) == 0);
 
+    assert(errors == 0);
 
     return 0;
 }

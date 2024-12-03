@@ -1,6 +1,8 @@
 #define WORD_MAX 256
 #define LENGTH_MAX 100
-#define TESTING 1
+#ifndef TESTING
+#define TESTING 0
+#endif
 
 typedef struct Node
 {
