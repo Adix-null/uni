@@ -18,7 +18,7 @@
 .code
 Pradzia:
 	mov	ax, @data
-	mov	ds, ax			; Kad ds rodytų į duomenų segmento pradžią
+	mov	ds, ax		 ; Kad ds rodytų į duomenų segmento pradžią
 
 	lea	dx, msg_inp  ; Nuoroda į žinutės adresą
     call Write
@@ -34,7 +34,7 @@ Pradzia:
     lea si, input_buf + 2     ; Nuoroda į pirmą simbolį buferyje
 
     print_loop:
-        mov dl, [si]            ;gaunamas simbolį iš buferio
+        mov dl, [si]            ;gaunamas simbolis iš buferio
         call print_hex
         
         lea dx, newline         
@@ -59,9 +59,10 @@ Write ENDP
 
 print_hex PROC
 
-    mov ch, 0
     push dx
-    push 1  ;flagas
+    mov ch, 1
+    push ch  ;flagas
+    mov ch, 0
 
     find_hex_u:
         mov bx, dx      ;įvestas simbolis perkeliamas į bx
@@ -80,7 +81,7 @@ print_hex PROC
     print_u:
     mov ch, 0h
     pop dx
-    push 0
+    push ch
 
     find_hex_l:
         mov bx, dx      

@@ -1,0 +1,70 @@
+Turbo Assembler	 Version 2.5	    11/10/24 22:52:34	    Page 1
+uzd2.asm
+
+
+
+      1	0000			     .model small
+      2
+      3	0000			     .stack 100h
+      4
+      5	0000			     .data
+      6					 ;9 užduotis klevas.mif.vu.lt/~julius/2011Rud/KompArch/Uzd2.html
+      7					 ;u_aa db 0Ch, 04h, 08h, 05h
+      8					 ;u_cc db 0Ch, 04h, 08h, 0Dh
+      9					 ;+ '0'
+     10
+     11	0000  0A 4B 6C 61 69 64	61+	     err_msg db	10, "Klaida", 10, 13, "$"
+     12	      0A 0D 24
+     13	000A  30 31 32 33 34 35	36+	 hex_symbols db	"0123456789ABCDEF"
+     14	      37 38 39 41 42 43	44+
+     15	      45 46
+     16	001A  0A 0D 24			 newline db 10,	13, "$"
+     17
+     18	001D  FF			 input_buf db 255
+     19	001E  00			     db	0
+     20	001F  FF*(00)			     db	255 dup(0)
+     21
+     22	011E			     .code
+     23
+     24	0000			     Pradzia:
+     25	0000  B8 0000s			 mov ax, @data
+     26	0003  8E D8			     mov     ds, ax	      ;	Kad ds rodytų į duomenų segmento pradžią
+     27
+     28	0005  B8 4C00			 mov ax, 04c00h		 ; Programos pabaiga
+     29	0008  CD 21			 int 21h
+     30
+     31				     end Pradzia
+Turbo Assembler	 Version 2.5	    11/10/24 22:52:34	    Page 2
+Symbol Table
+
+
+
+
+Symbol Name			  Type	 Value
+
+??DATE				  Text	 "11/10/24"
+??FILENAME			  Text	 "uzd2	  "
+??TIME				  Text	 "22:52:34"
+??VERSION			  Number 0205
+@CODE				  Text	 _TEXT
+@CODESIZE			  Text	 0
+@CPU				  Text	 0101H
+@CURSEG				  Text	 _TEXT
+@DATA				  Text	 DGROUP
+@DATASIZE			  Text	 0
+@FILENAME			  Text	 UZD2
+@MODEL				  Text	 2
+@WORDSIZE			  Text	 2
+ERR_MSG				  Byte	 DGROUP:0000
+HEX_SYMBOLS			  Byte	 DGROUP:000A
+INPUT_BUF			  Byte	 DGROUP:001D
+NEWLINE				  Byte	 DGROUP:001A
+PRADZIA				  Near	 _TEXT:0000
+
+Groups & Segments		  Bit Size Align  Combine Class
+
+DGROUP				  Group
+  STACK				  16  0100 Para	  Stack	  STACK
+  _DATA				  16  011E Word	  Public  DATA
+_TEXT				  16  000A Word	  Public  CODE
+
