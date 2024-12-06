@@ -1,0 +1,7 @@
+#define ARRAY_SIZE 100
+
+void saveToFile(char*, int [ARRAY_SIZE], int);
+
+void loadFromFile(char*, int [ARRAY_SIZE], int*);
+
+void fillArray(int array[ARRAY_SIZE], int size, int min, int)
