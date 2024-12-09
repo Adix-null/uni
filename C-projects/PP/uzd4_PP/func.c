@@ -216,15 +216,22 @@ void validate_input_string(char* inp_msg, char err_msg[][WORD_MAX], char* str[WO
     while(result != -1);
 }
 
-void validate_file(char err_msg[][WORD_MAX], char *op, FILE *file, char file_name[WORD_MAX])
+void validate_file(char* inp_msg, char err_msg[][WORD_MAX], char *op, FILE *file, char file_name[WORD_MAX])
 {
-    file = fopen(file_name, op);
-    if (file == NULL)
+    do
     {
-        printf("%s", err_msg[0]);
-        errors++;
-        return;
-    }
-    fclose(file);
+        validate_input_string(inp_msg, err_msg, file_name, WORD_MAX);
+        file = fopen(file_name, op);
+        if (file == NULL)
+        {
+
+            printf("%s", err_msg[0]);
+            errors++;
+        }
+        else
+        {
+            fclose(file);
+        }
+    }while(file == NULL);
 }
 

@@ -34,4 +34,4 @@ void validate_input_int(char*, char [][WORD_MAX], int *, int, int);
 
 void validate_input_string(char*, char [][WORD_MAX], char* [WORD_MAX], int);
 
-void validate_file(char [][WORD_MAX], char *, FILE *, char [WORD_MAX]);
+void validate_file(char* inp_msg, char err_msg[][WORD_MAX], char *op, FILE *file, char file_name[WORD_MAX]);
