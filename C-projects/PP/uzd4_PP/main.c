@@ -105,8 +105,8 @@ galima surasti faile \"guidelines.txt\".\n");
                 "Failas neegzistuoja\n"
                 };
 
-                validate_input_string("Failo pavadinimas:\n", error_msgs_string, name, WORD_MAX);
-                validate_file(error_msgs_file, "r", file, name);
+                //validate_input_string("Failo pavadinimas:\n", error_msgs_string, name, WORD_MAX);
+                validate_file("Failo pavadinimas:\n", error_msgs_file, "r", file, name);
                 read_from_file(&head, file, name);
                 break;
             }

@@ -31,7 +31,7 @@ int main()
     loadFromFile(file_name_2, m3, &size);
     loadFromFile(file_name_1, m2, &size);
 
-    printf(read_counter == 3 && write_counter == 3 ? "all good\n" : "something's wrong\n");
+    printf(read_counter == 3 && write_counter == 3 ? "all good" : "something's wrong\n");
 
     return 0;
 }

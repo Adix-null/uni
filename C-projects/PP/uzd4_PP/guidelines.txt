@@ -7,6 +7,7 @@ Leksika:
     
 Funkcijos:
     Funkcijos grąžina reikšmę tik tada, jei tokia funkcijos paskirtis. Kitu atveju jos yra void tipo. Jeigu vykdymo metu įvyksta klaida, kintamasis errors padidėja vienetu. 
+    Jei failo skaitymo metu žodžio ilgis viršija daugiau nei 255 simbolius, tuomet jis yra dalijamas.
     
 Paleidimas ir testavimas:
     Norint paleisti programą, reikia naudotis makefile funkcionalumu. Parašius "make" arba "make main" programa veiks normaliai. Parašius "make test" programa yra paleidžiama testavimui. Norint paleisti programos testavimo režimą ne per komandinę eilutę, TESTING reikia prilyginti 1 "func.h" faile.

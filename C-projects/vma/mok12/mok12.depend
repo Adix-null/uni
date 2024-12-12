@@ -1,0 +1,35 @@
+# depslib dependency file v1.0
+1733752866 source:/home/adix/Documents/GitHub/uni/C-projects/vma/mok12/func.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<limits.h>
+	<float.h>
+	<stdbool.h>
+	<assert.h>
+	<string.h>
+	<time.h>
+	"func.h"
+
+1733752835 /home/adix/Documents/GitHub/uni/C-projects/vma/mok12/func.h
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<limits.h>
+	<float.h>
+	<stdbool.h>
+	<assert.h>
+	<string.h>
+
+1733753589 source:/home/adix/Documents/GitHub/uni/C-projects/vma/mok12/main.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<limits.h>
+	<float.h>
+	<stdbool.h>
+	<assert.h>
+	<string.h>
+	<time.h>
+	"func.h"
+

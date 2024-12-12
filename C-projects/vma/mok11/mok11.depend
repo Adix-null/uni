@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1733477086 source:/home/adix/Documents/GitHub/uni/C-projects/vma/mok11/file.c
+1733488844 source:/home/adix/Documents/GitHub/uni/C-projects/vma/mok11/file.c
 	<stdio.h>
 	<stdlib.h>
 	<math.h>
@@ -10,9 +10,9 @@
 	<string.h>
 	"file.h"
 
-1733477193 /home/adix/Documents/GitHub/uni/C-projects/vma/mok11/file.h
+1733488696 /home/adix/Documents/GitHub/uni/C-projects/vma/mok11/file.h
 
-1733477056 source:/home/adix/Documents/GitHub/uni/C-projects/vma/mok11/main.c
+1733490744 source:/home/adix/Documents/GitHub/uni/C-projects/vma/mok11/main.c
 	<stdio.h>
 	<stdlib.h>
 	<math.h>
