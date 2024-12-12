@@ -37,7 +37,7 @@
 
 .code
 
- 
+
 Pradzia:
     push ds; cia kad ds reiksme veliau galima butu naudoti
 
