@@ -56,7 +56,7 @@ Pradzia:
 	popf  
 	;Debugas veikia
 
-	;Testavimas sub funkcijų
+	;Testavimas SUB funkcijų
 	mov ax, 8414h
 	mov bx, 0254h
 	mov cx, 0053h
@@ -67,6 +67,7 @@ Pradzia:
 	sub bl, dl
 	sub bl, cl
 	sub ax, bp
+	sub cx, bp
 	sub si, di
 	sub bp, cx
 	sub bx, si
