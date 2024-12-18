@@ -4,7 +4,7 @@
 .data
     ;14 užduotis 
 	;klevas.mif.vu.lt/~julius/2011Rud/KompArch/Uzd3.html
-    ;https://klevas.mif.vu.lt/~linas1/KompArch/modulis-APV.pdf
+	;https://klevas.mif.vu.lt/~linas1/KompArch/KomKodaiViso.pdf
 
 	prev_IP dw ?
 	prev_CS dw ?
@@ -17,16 +17,33 @@
 	regBP dw ?
 	regSI dw ?
 	regDI dw ?
+
+	opc_code dw ?
+	opc_d dw ?
+	opc_w dw ?
+	opc_mod dw ?
+	opc_r1 dw ?
+	opc_r2 dw ?
 	
 	b1 db ?
 	b2 db ?
+	b3 db ?
+	b4 db ?
 
 	n1 dw ?
 	n2 dw ?
+
+	reg_r1 dw 0
+	reg_r2 dw 0
+	reg_of dw 0
 	
 	step_msg db "Interuptas $"
-	sub_msg db "SUB $"
-	reg_names db "ALCLDLBLAHCHDHBHAXCXDXBXSPBPSIDI"
+	sub_msg db " SUB $"
+	sub_msg_r db "-SUB $"
+	reg_w0_names db "AL$ CL$ DL$ BL$ AH$ CH$ DH$ BH$ "
+	reg_w1_names db "AX$ CX$ DX$ BX$ SP$ BP$ SI$ DI$ "
+	reg_m1_names db "BX+SI$  BX+DI$  BP+SI$  BP+DI$  SI$     DI$     EF_AD$   BX$     "
+	reg_m2_names db "BX+SI$  BX+DI$  BP+SI$  BP+DI$  SI$     DI$        BP$   BX$     "
 .code
 
 Pradzia:
@@ -62,15 +79,20 @@ Pradzia:
 	mov cx, 0053h
 	mov dx, 0001h
 	sub cx, ax
-	sub bl, dl
-	sub bl, dl
+	sub cx, dx
 	sub bl, dl
 	sub bl, cl
+	sub bl, dl
 	sub ax, bp
-	sub cx, bp
-	sub si, di
-	sub bp, cx
-	sub bx, si
+	sub di, sp
+	sub si, cx
+	sub ds:[3967h], sp ;efektyvus adresas
+	sub ax, [bx + si]
+	sub cx, [bp + di]
+	sub [bx + di + 35h], sp
+	sub [bp + si + 6924h], dx
+	sub [bp + 6h], cx
+	sub bl, cl
 
 	pushf
 	pop ax
@@ -101,182 +123,274 @@ interuptas_inj PROC
 	mov regDI, di
 
     ;Offsetas nuo pradžios
-		pop si ;IP -> SI
-		pop di ;CS -> DI
-		push di
-		push si 
-		
-		;machine opkodai
-		mov ax, cs:[si]
-		mov b1, al
-		mov b2, ah
-		
-		;Tikrinama pagal opcoda ar yra sub reg~r/m
-		;opkodas 0010 10.. reg r/m  SUB registras -= registras/atmintis
-		;Pasirašymai nes paskui pamiršiu
-		; B1        B2        B3
-		; OOOO OODW MMRR RKKK ... 	O - opkodas 	D - direction 		W - word 	M - mod		R - reg		K - kitas reg
-
-		;testavimas ar tinkamas opkodas
-		and al, 11111100B
-		cmp al, 00101000B
-		je testi_int
-		call nutraukti_int
-
-		testi_int:
-		
-		;Interuptas
-		mov ah, 9 
-		lea dx, step_msg
-		int 21h
-
-		;CS
-		mov ax, di
-		call print_AX
+	pop si ;IP -> SI
+	pop di ;CS -> DI
+	push di
+	push si 
 	
-		mov ah, 2
-		mov dl, ":"
-		int 21h
-		
-		;IP
-		mov ax, si
-		call print_AX
+	;gaunami opkodai ir jei yra extra š
+	mov ax, cs:[si]
+	mov b1, ah
+	mov b2, al
+	mov bx, cs:[si+2]
+	mov b3, bh
+	mov b4, bl
+
+	;call print_AX
+
+	;mov ah, 2
+	;mov dl, " "
+	;int 21h
 	
-		mov ah, 2
-		mov dl, " "
-		int 21h
+	;Tikrinama pagal opkodą ar yra sub reg~r/m
+	;opkodas 0010 10.. reg r/m  SUB registras -= registras/atmintis
+	;Pasirašymai nes paskui pamiršiu
+	; B1        B2        B3
+	; OOOO OODW MMRR RKKK ... 	O - opkodas 	D - direction 		W - word 	M - mod		R - reg		K - kitas reg (arba m)
 
-		;Kodas
-		mov ah, b1
-		mov al, b2
-		call print_AX
+	;B1 ir B2 susikeičia vietomis
 
-		mov ah, 2
-		mov dl, " "
-		int 21h
+	push ax
+	and ax, 0000000011111100B ;1111 1100 0000 0000
+	mov cl, 2
+	shr ax, cl
+	mov opc_code, ax
+	pop ax
 
-		mov ah, 9
-		lea dx, sub_msg
-		int 21h
+	push ax
+	and ax, 0000000000000010B ;0000 0010 0000 0000
+	mov cl, 1
+	shr ax, cl
+	mov opc_d, ax
+	pop ax
 
-		;R1 gavimas
-		mov ah, b1
-		mov al, b2
-		and ax, 0000000000111000B
-		mov cl, 3
-		shr ax, cl
-		mov dx, ax
+	push ax
+	and ax, 0000000000000001B ;0000 0001 0000 0000
+	mov cl, 0
+	shr ax, cl
+	mov opc_w, ax
+	pop ax
 
-		;W gavimas
-		mov ah, b1
-		mov al, b2
-		and ax, 0000000100000000B
+	push ax
+	and ax, 1100000000000000B ;0000 0000 1100 0000
+	mov cl, 14
+	shr ax, cl
+	mov opc_mod, ax
+	pop ax
 
-		cmp ax, 0
-		je skip_shifting_1		
-		add dx, 8 ;Pashiftinti pagal w reikšmę 8 kartus 
+	push ax
+	and ax, 0011100000000000B ;0000 0000 0011 1000
+	mov cl, 11
+	shr ax, cl
+	mov opc_r1, ax
+	pop ax
 
-		skip_shifting_1:
+	push ax
+	and ax, 0000011100000000B ;0000 0000 0000 0111
+	mov cl, 8
+	shr ax, cl
+	mov opc_r2, ax
+	pop ax
 
-		;Pavadinimo spausdinimas
-		mov ah, 0Eh
-		shl dx, 1
-		mov di, dx
-		mov n1, di
-		mov al, [reg_names + di]
-		int 10h  
-		inc di
-		mov al, [reg_names + di]
-		int 10h  
+	;testavimas ar tinkamas opkodas
+	mov ax, opc_code
+	cmp al, 00001010B
+	je testi_int
+	call nutraukti_int
+
+	testi_int:
+	
+	;Interuptas
+	lea dx, step_msg
+	mov ah, 9 
+	int 21h
+
+	;CS
+	mov ax, di
+	call print_AX
+
+	mov ah, 2
+	mov dl, ":"
+	int 21h
+	
+	;IP
+	mov ax, si
+	call print_AX
+
+	mov ah, 2
+	mov dl, " "
+	int 21h
+
+	;Kodas
+	mov ah, b1
+	mov al, b2
+	call print_AX
+
+	mov ah, 2
+	mov dl, " "
+	int 21h
+
+	lea dx, sub_msg
+	cmp opc_d, 1
+	jne sksm
+	cmp opc_mod, 11B
+	je sksm
+	lea dx, sub_msg_r
+
+	sksm:
+	mov ah, 9 
+	int 21h
+
+	;tikrinimas pagal mod opc memory
+
+	;Pavadinimo 1 spausdinimas
+	cmp opc_mod, 11B
+	je opc_mod_11b
+	cmp opc_mod, 00B
+	je opc_mod_00
+
+	mov si, opc_r1
+	mov reg_r1, si
+	add reg_r1, 24
+
+	mov di, opc_r2
+	mov cl, 3
+	shl di, cl
+	mov ah, 9 
+	lea dx, reg_m2_names + di
+	mov n1, dx
+	int 21h
+
+	mov ah, 2
+	mov dl, "+"
+	int 21h
+
+	;jei mod = 01, tai offsetas baitas, jei 10 tai wordas
+	mov ah, b3
+	mov al, b4
+	cmp opc_mod, 10B
+	je op_mod_word
+	mov ah, 0
+
+	op_mod_word:
+	mov reg_of, ax
+	call print_AX
+	jmp opc_mod_end
 
 
-		mov ah, 2
-		mov dl, ","
-		int 21h
-		mov dl, " "
-		int 21h
+	opc_mod_00:
+	cmp opc_r2, 110B
+	jne skip_ea_ld
+	mov ah, b3
+	mov al, b4
+	mov reg_of, ax
+	call print_AX
+
+	mov di, opc_r2
+	mov cl, 3 ;Padauginti iš 8 nes toks teksto ilgis
+	shl di, cl
+	mov ah, 9 
+	lea dx, reg_m1_names + di
+	mov n1, dx
+	jmp opc_mod_end
+
+	opc_mod_11b:
+	jmp opc_mod_11
+
+	skip_ea_ld:
+	mov si, opc_r1
+	mov reg_r1, si
+	add reg_r1, 16
+
+	mov di, opc_r2
+	mov cl, 3 ;Padauginti iš 8 nes toks teksto ilgis
+	shl di, cl
+	mov ah, 9 
+	lea dx, reg_m1_names + di
+	mov n1, dx
+	int 21h
+
+	jmp opc_mod_end
 
 
-		;R2 gavimas
-		mov ah, b1
-		mov al, b2
-		and ax, 0000000000000111B
-		mov dx, ax
+	opc_mod_11:
+	mov si, opc_r1
+	mov reg_r1, si
+	cmp opc_w, 0
+	je skip_n1
+	add reg_r1, 8
 
-		;W gavimas
-		mov ah, b1
-		mov al, b2
-		and ax, 0000000100000000B
+	skip_n1:
+	mov di, opc_r1
+	call print_reg_pos_di
+	mov n1, dx
 
-		cmp ax, 0
-		je skip_shifting_2		
-		add dx, 8 ;Pashiftinti pagal w reiksme 8 kartus
+	opc_mod_end:
+	mov ah, 2
+	mov dl, ","
+	int 21h
+	mov dl, " "
+	int 21h
 
-		skip_shifting_2:
 
-		;Pavadinimo spausdinimas
-		mov ah, 0Eh
-		shl dx, 1 ;Pavadinimas turi 2 simbolius, todel reikia x2
-		mov di, dx
-		mov n2, di
-		mov al, [reg_names + di]
-		int 10h  
-		inc di
-		mov al, [reg_names + di]
-		int 10h  
+	;Pavadinimo 2 spausdinimas
+	mov di, opc_r2
+	
+	cmp opc_mod, 11B
+	je skip_r2
+	mov di, opc_r1
 
-		mov ah, 2
-		mov dl, ";"
-		int 21h
-		mov dl, " "
-		int 21h
+	skip_r2:
+	mov reg_r2, di
+	call print_reg_pos_di
+	mov n2, dx
 
-		;Reiksmiu spausdinimas
-		mov ah, 0Eh
-		mov di, n1
-		mov al, [reg_names + di]
-		int 10h  
-		inc di
-		mov al, [reg_names + di]
-		int 10h  
+	mov ah, 2
+	mov dl, ";"
+	int 21h
+	mov dl, " "
+	int 21h
 
-		mov ah, 2
-		mov dl, "="
-		int 21h
 
-		;gaunama reikiama registro reiksme ax
-		mov ax, n1
-		call ret_reg_by_name
-		call print_AX
 
-		mov ah, 2
-		mov dl, " "
-		int 21h
+	;Reikšmių spausdinimas
+	mov ah, 9 
+	mov dx, n1
+	int 21h
 
-		;Reiksmiu spausdinimas
-		mov ah, 0Eh
-		mov di, n2
-		mov al, [reg_names + di]
-		int 10h  
-		inc di
-		mov al, [reg_names + di]
-		int 10h  
+	mov ah, 2
+	mov dl, "="
+	int 21h
 
-		mov ah, 2
-		mov dl, "="
-		int 21h
+	;gaunama reikiama registro reikšmė į ax
+	mov ax, reg_r2
+	call ret_val_by_name
+	call print_AX
 
-		;gaunama reikiama registro reiksme ax
-		mov ax, n2
-		call ret_reg_by_name
-		call print_AX
+	mov ah, 2
+	mov dl, " "
+	int 21h
 
-		;\n
-		mov ah, 2
-		mov dl, 10
-		int 21h
+	;Reikšmių spausdinimas
+	mov ah, 9 
+	mov dx, n2
+	int 21h
 
-call nutraukti_int
+	mov ah, 2
+	mov dl, "="
+	int 21h
+
+	;gaunama registro reikšmė į ax
+	mov ax, reg_r1
+	call ret_val_by_name
+	call print_AX
+
+	;\n
+	mov ah, 2
+	mov dl, 10
+	int 21h
+
+	call nutraukti_int
 ENDP
 
 ;krč užkniso out of range jmp
@@ -293,103 +407,236 @@ nutraukti_int PROC
 IRET
 ENDP
 
-;pagal AL CL DL BL AH CH DH BH AX CX DX BX SP BP SI DI
-ret_reg_by_name PROC
-	cmp ax, 0
-	je ret_al
-	cmp ax, 2
-	je ret_cl
-	cmp ax, 4
-	je ret_dl
-	cmp ax, 6
-	je ret_bl
+print_reg_pos_di PROC
+	mov cl, 2 ;Padauginti iš 4 nes toks teksto ilgis
+	shl di, cl
+	lea dx, reg_w0_names + di
 
-	cmp ax, 8
-	je ret_ah
-	cmp ax, 10
-	je ret_ch
-	cmp ax, 12
-	je ret_dh
-	cmp ax, 14
-	je ret_bh
+	cmp opc_w, 0
+	je skip_shifting_1		
+	lea dx, reg_w1_names + di ;Imti iš kito stringo
 
-	cmp ax, 16
-	je ret_ax
-	cmp ax, 18
-	je ret_cx
-	cmp ax, 20
-	je ret_dx
-	cmp ax, 22
-	je ret_bx
+	skip_shifting_1:
+	mov ah, 9
+	int 21h
+	RET
+ENDP
 
-	cmp ax, 24
-	je ret_sp
-	cmp ax, 26
-	je ret_bp
-	cmp ax, 28
-	je ret_si
-	cmp ax, 30
-	je ret_di
-
-
-	ret_al:
+;pagal registrų pavadinimus
+ret_val_by_name PROC
+	val_1:
+	cmp ax, 1d
+	jne val_2
 	mov ax, regAX
 	mov ah, 0
 	RET
-	ret_cl:
+
+	val_2:
+	cmp ax, 2d
+	jne val_3
 	mov ax, regCX
 	mov ah, 0
 	RET
-	ret_dl:
+
+	val_3:
+	cmp ax, 3d
+	jne val_4
 	mov ax, regDX
 	mov ah, 0
 	RET
-	ret_bl:
+
+	val_4:
+	cmp ax, 4d
+	jne val_5
 	mov ax, regBX
 	mov ah, 0
 	RET
 
-	ret_ah:
+	val_5:
+	cmp ax, 5d
+	jne val_6
 	mov ax, regAX
 	mov al, 0
 	RET
-	ret_ch:
+
+	val_6:
+	cmp ax, 6d
+	jne val_7
 	mov ax, regCX
 	mov al, 0
 	RET
-	ret_dh:
+
+	val_7:
+	cmp ax, 7d
+	jne val_8
 	mov ax, regDX
 	mov al, 0
 	RET
-	ret_bh:
+
+	val_8:
+	cmp ax, 8d
+	jne val_9
 	mov ax, regBX
 	mov al, 0
 	RET
 
-	ret_ax:
+	val_9:
+	cmp ax, 9d
+	jne val_10
 	mov ax, regAX
 	RET
-	ret_cx:
+
+	val_10:
+	cmp ax, 10d
+	jne val_11
 	mov ax, regCX
 	RET
-	ret_dx:
-	mov ax, regDX
-	RET
-	ret_bx:
+
+	val_11:
+	cmp ax, 11d
+	jne val_12
 	mov ax, regDX
 	RET
 
-	ret_sp:
+	val_12:
+	cmp ax, 12d
+	jne val_13
+	mov ax, regBX
+	RET
+
+	val_13:
+	cmp ax, 13d
+	jne val_14
 	mov ax, regSP
 	RET
-	ret_bp:
-	mov ax, RegBP
+
+	val_14:
+	cmp ax, 14d
+	jne val_15
+	mov ax, regBP
 	RET
-	ret_si:
+
+	val_15:
+	cmp ax, 15d
+	jne val_16
+	mov ax, regSI
+	RET
+
+	val_16:
+	cmp ax, 16d
+	jne val_17
+	mov ax, regDI
+	RET
+
+
+	val_17:
+	cmp ax, 17d
+	jne val_18
+	mov ax, regBX
+	add ax, regSI
+	RET
+
+	val_18:
+	cmp ax, 18d
+	jne val_19
+	mov ax, regBX
+	add ax, regDI
+	RET
+
+	val_19:
+	cmp ax, 19d
+	jne val_20
+	mov ax, regBP
+	add ax, regSI
+	RET
+
+	val_20:
+	cmp ax, 20d
+	jne val_21
+	mov ax, regBP
+	add ax, regDI
+	RET
+
+	val_21:
+	cmp ax, 21d
+	jne val_22
+	mov ax, regSI
+	RET
+
+	val_22:
+	cmp ax, 22d
+	jne val_23
+	mov ax, regDI
+	RET
+
+	val_23:
+	cmp ax, 23d
+	jne val_24
+	mov ax, reg_of
+	RET
+
+	val_24:
+	cmp ax, 24d
+	jne val_25
+	mov ax, regBX
+	RET
+
+	val_25:
+	cmp ax, 25d
+	jne val_26
+	mov ax, regBX
+	add ax, regSI
+	add ax, reg_of
+	RET
+
+	val_26:
+	cmp ax, 26d
+	jne val_27
+	mov ax, regBX
+	add ax, regDI
+	add ax, reg_of
+	RET
+
+	val_27:
+	cmp ax, 27d
+	jne val_28
+	mov ax, regBP
+	add ax, regSI
+	add ax, reg_of
+	RET
+
+	val_28:
+	cmp ax, 28d
+	jne val_29
+	mov ax, regBP
+	add ax, regDI
+	add ax, reg_of
+	RET
+
+	val_29:
+	cmp ax, 29d
+	jne val_30
 	mov ax, RegSI
+	add ax, reg_of
 	RET
-	ret_di:
+
+	val_30:
+	cmp ax, 30d
+	jne val_31
 	mov ax, RegDI
+	add ax, reg_of
+	RET
+
+	val_31:
+	cmp ax, 31d
+	jne val_32
+	mov ax, RegBP
+	add ax, reg_of
+	RET
+
+	val_32:
+	mov ax, RegBX
+	add ax, reg_of
 	RET
 
 ENDP
