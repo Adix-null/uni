@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1739364826 source:/home/adix/Documents/GitHub/uni/semester_2/ads/ads_2/main.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+
