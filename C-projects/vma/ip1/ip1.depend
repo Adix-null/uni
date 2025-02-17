@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1739823705 source:/home/adix/Documents/GitHub/uni/C-projects/vma/ip1/main.cpp
+	<iostream>
+	<cstring>
+	<stdexcept>
+	<cassert>
+

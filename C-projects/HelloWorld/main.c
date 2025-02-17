@@ -3,72 +3,111 @@
 #include <math.h>
 #include <assert.h>
 #include <limits.h>
+#include <assert.h>
+#include <ctype.h>
+#include <float.h>
+#include <string.h>
 
-unsigned int sum_r (unsigned int n)
+void insert(char* source, char* dat)
 {
-    if(n == 0)
-        return 0;
-    return (n + sum_r(n - 1));
-}
-
-unsigned int sum_c (unsigned int n)
-{
-    unsigned int s = 0;
-    for(unsigned int i = 0; i <= n; i++)
+    while(*source != '\0')
     {
-        s += i;
+        char temp = *source;
+        *source = *dat;
+        source++;
+        dat++;
     }
-    return s;
 }
 
+int replaceString(char *source, char *toReplace, char *replacement)
+{
+    char buffer[1000];
+    char *pos = strstr(source, toReplace);
+
+    if (pos == NULL)
+    {
+        return 0;
+    }
+
+    int lenBefore = pos - source;
+    strncpy(buffer, source, lenBefore);
+    buffer[lenBefore] = '\0';
+
+    strcat(buffer, replacement);
+    strcat(buffer, pos + strlen(toReplace));
+    strcpy(source, buffer);
+
+    return strlen(replacement);
+}
+
+void removeAdjacentDuplicates(char *str)
+ {
+    if (str == NULL) return;
+
+    int i = 0;
+    int j = 0;
+
+    while (str[i] != '\0')
+    {
+        if (i == 0 || str[i] != str[i - 1])
+        {
+            str[j] = str[i];
+            j++;
+        }
+        i++;
+    }
+
+    str[j] = '\0';
+}
+
+void transform (char t[])
+{
+    char *german[10] = {"Null\0", "Eins\0", "Zwei\0", "Drei\0", "Vier\0", "Funf\0", "Sechs\0", "Sieben\0", "Acht\0", "Neun\0"};
+
+    char* orPos = t;
+    char *r = t;
+    while(*r != '\0')
+    {
+        if(*r >= 'A' && *r <= 'Z')
+        {
+            *r += 'a' - 'A';
+        }
+        else if(*r >= 'a' && *r <= 'z')
+        {
+            *r -= 'a' - 'A';
+        }
+        else if(*r == '.' || *r == ',' || *r == ';' || *r == '-' || *r == ':' || *r == '_')
+        {
+            *r = ' ';
+        }
+        removeAdjacentDuplicates(r);
+        r++;
+    }
+    r = orPos;
+    while(*r != '\0')
+    {
+        if(*r >= '0' && *r <= '9')
+        {
+            replaceString(r, "0", german[0]);
+            replaceString(r, "1", german[1]);
+            replaceString(r, "2", german[2]);
+            replaceString(r, "3", german[3]);
+            replaceString(r, "4", german[4]);
+            replaceString(r, "5", german[5]);
+            replaceString(r, "6", german[6]);
+            replaceString(r, "7", german[7]);
+            replaceString(r, "8", german[8]);
+            replaceString(r, "9", german[9]);
+        }
+
+        printf("%c", *r);
+        r++;
+    }
+}
 
 int main()
 {
-    /*
-    int g = 9, sum = 0; while(g > 0) sum = sum + g--;
-
-    printf("%d\n", 3+3*3-3);
-
-    int i = 24; do { i++; printf("ping\n");} while (!(i % 5) || (i % 9 == 0) || !(i % 13));
-     printf("\n");
-
-    for(int i = 3, j = 7; i++ <= j--; )
-    {
-        printf("ping\n");
-    }
-
-    time(NULL);
-    for(int i = 0; i < 100; i++)
-    {
-        int a = rand();
-
-    }
-
-    //printf("a\n");
-    //int i = 12, sum = 0; do { if (i < 1) break; sum = i + sum - 1; } while(1);
-
-    int x[256];
-    for (int i = 0; i < 256; i++)
-    {
-        x[i]=255-i;
-        printf("%d\n", x[i]);
-    }
-    unsigned a = 0;
-
-    assert(sum_r(17) == 17 * 9);
-    assert(sum_c(17) == 17 * 9);
-    assert(sum_r(0) == 0);
-    assert(sum_c(0) == 0);
-    */
-
-    printf("%c", argv[0][0]
-"%d", strlen(argv[2])
-"%s", argv[2] - 5
-"%c", str[strlen(argv[argc - 1] - 3])
-
+char d[] = "TesTAS wefweee ttt yyy ..,,.,. ;,.- T 1234567890 e                                                       \n";
+transform(d);
     return 0;
 }
-
-
-
-

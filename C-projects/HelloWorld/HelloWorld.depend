@@ -4,9 +4,14 @@
 	<stdlib.h>
 	<math.h>
 
-1730709262 source:/home/adix/Documents/GitHub/uni/C-projects/HelloWorld/main.c
+1736146246 source:/home/adix/Documents/GitHub/uni/C-projects/HelloWorld/main.c
 	<stdio.h>
 	<stdlib.h>
 	<math.h>
 	<assert.h>
+	<limits.h>
+	<assert.h>
+	<ctype.h>
+	<float.h>
+	<string.h>
 
