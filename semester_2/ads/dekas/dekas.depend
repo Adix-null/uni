@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1739880628 source:/home/adix/Documents/GitHub/uni/semester_2/ads/dekas/main.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<limits.h>
+	<float.h>
+	<stdbool.h>
+	<string.h>
+
