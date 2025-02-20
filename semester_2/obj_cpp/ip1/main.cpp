@@ -5,6 +5,9 @@
 #include <vector>
 #include <memory>
 
+// Adomas Bieliūnas 1k 2.1gr
+// camelCase, klasės pavadinimai iš didžiosios raidės, kintamųjų ir funkcijų iš mažosios
+
 using namespace std;
 
 static int objectID = 0;
@@ -52,6 +55,14 @@ public:
     Product(int barcode, string name, float weight)
     {
         setBarcode(barcode);
+        setName(name);
+        setWeight(weight);
+        id = objectID;
+        modifyCount(true);
+    }
+    Product(string name, float weight)
+    {
+        setBarcode(0);
         setName(name);
         setWeight(weight);
         id = objectID;
@@ -115,8 +126,9 @@ int main()
         vector<unique_ptr<Product>> products;
         products.push_back(make_unique<Product>(123, "Strawberry Miau", 1.3f));
         products.push_back(make_unique<Product>(28279, "Shirt", 1.8f));
+        products.push_back(make_unique<Product>("Battery", 0.2f));
 
-        assert(objectCount == 2);
+        assert(objectCount == 3);
         assert(products[0]->getBarcode() == 123);
         assert(products[0]->getName() == "Strawberry Miau");
         assert(products[0]->getWeight() == 1.3f);
@@ -130,6 +142,13 @@ int main()
         assert(products[1]->getWeight() == 2.1f);
         assert(products[1]->getId() == 1);
         cout << products[1]->toString() << endl;
+
+        assert(products[2]->getBarcode() == 0);
+        products[2]->setBarcode(420196);
+        assert(products[2]->getBarcode() == 420196);
+        assert(products[2]->getName() == "Battery");
+        assert(products[2]->getWeight() == 0.2f);
+        cout << products[2]->toString() << endl;
     }
     assert(objectCount == 0);
 
