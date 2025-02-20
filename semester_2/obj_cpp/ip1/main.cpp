@@ -16,12 +16,7 @@ static int objectCount = 0;
 class Product
 {
 private:
-    int barcode;
-    string name;
-    float weight;
-    int id;
-
-    void setName(string name)
+    void Setname(string name)
     {
         this->name = name;
     }
@@ -50,12 +45,16 @@ private:
 
         return sum % 10;
     }
+    int barcode;
+    string name;
+    float weight;
+    int id;
 
 public:
     Product(int barcode, string name, float weight)
     {
         setBarcode(barcode);
-        setName(name);
+        Setname(name);
         setWeight(weight);
         id = objectID;
         modifyCount(true);
@@ -63,7 +62,7 @@ public:
     Product(string name, float weight)
     {
         setBarcode(0);
-        setName(name);
+        Setname(name);
         setWeight(weight);
         id = objectID;
         modifyCount(true);
@@ -116,7 +115,7 @@ public:
 
     string toString()
     {
-        return to_string(getId()) + " " + to_string(getBarcode()) + " " + getName() + " " + to_string(getWeight());
+        return to_string(getId()) + "" + to_string(getBarcode()) + "" + getName() + "" + to_string(getWeight());
     }
 };
 
