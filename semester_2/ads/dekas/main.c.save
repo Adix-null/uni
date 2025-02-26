@@ -125,7 +125,7 @@ int bottom(Dekas *dekas)
     {
         mesti_klaida(2);
     }
-    return dekas->duomenys[(dekas->galas - 1 + dekas->talpa) % dekas->talpa];
+    return dekas->galas;
 }
 
 void ideti(Dekas *dekas, int index, int verte)
