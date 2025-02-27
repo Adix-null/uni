@@ -1,4 +1,5 @@
-public class TrafficUser{
+public class TrafficUser
+{
     private int x;
     private int y;
     private boolean active;
@@ -6,17 +7,11 @@ public class TrafficUser{
 
     public TrafficUser()
     {
-        setX(0);
-        setY(0);
-        this.active = false;
-        totalInstances++;
+        this(0,0, false);
     }
     public TrafficUser(int x, int y)
     {
-        setX(x);
-        setY(y);
-        this.active = false;
-        totalInstances++;
+        this(x, y, false);
     }
     public TrafficUser(int x, int y, boolean active)
     {
@@ -31,6 +26,11 @@ public class TrafficUser{
         this.x += dx;
         this.y += dy;
     }
+    public void move(double angleRad, double r)
+    {
+        this.x += (int)(Math.cos(angleRad) * r);
+        this.y += (int)(Math.sin(angleRad) * r);
+    }
 
     public int getX()
     {
@@ -40,8 +40,14 @@ public class TrafficUser{
     {
         return y;
     }
-    public boolean getActive() { return active; }
-    public int getIntanceCount() { return totalInstances;}
+    public boolean getActive()
+    {
+        return active;
+    }
+    static public int getInstanceCount()
+    {
+        return totalInstances;
+    }
 
     public void setX(int x)
     {
@@ -51,10 +57,13 @@ public class TrafficUser{
     {
         this.y = y;
     }
-    public void setActive(boolean active) { this.active = active; }
+    public void setActive(boolean active)
+    {
+        this.active = active;
+    }
 
     public void println()
     {
-        System.out.println("actve: " + active + " Point(" + x + ", " + y + ") Instances: " + totalInstances);
+        System.out.println("active: " + active + " Point(" + x + ", " + y + ") Instances: " + totalInstances);
     }
 }
