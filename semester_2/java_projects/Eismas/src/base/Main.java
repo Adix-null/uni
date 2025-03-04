@@ -1,3 +1,8 @@
+package base;
+
+import cars.Police;
+import cars.Automobile;
+
 public class Main {
     public static void main(String[] args) {
         TrafficUser t1 = new TrafficUser();
@@ -15,5 +20,8 @@ public class Main {
         TrafficUser t3 = new TrafficUser(2, 5);
         t3.println();
         System.out.println(TrafficUser.getInstanceCount() + " " + t3.getActive());
+
+        Police p1 = new Police();
+
     }
 }

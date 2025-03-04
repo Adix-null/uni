@@ -1,3 +1,5 @@
+package base;
+
 public class TrafficUser
 {
     private int x;
@@ -32,11 +34,11 @@ public class TrafficUser
         this.y += (int)(Math.sin(angleRad) * r);
     }
 
-    public int getX()
+    public final int getX()
     {
         return x;
     }
-    public int getY()
+    public final int getY()
     {
         return y;
     }
