@@ -5,6 +5,7 @@
 #define DEKU_MAKS_KIEKIS 3
 
 static int deku_kiekis_atmintyje = 0;
+static int klaida = 0;
 
 char klaidu_zinutes[6][256] = {
     "Klaida nr. 1: Viršijama 3 dekų apimtis\n",
@@ -17,7 +18,7 @@ char klaidu_zinutes[6][256] = {
 void mesti_klaida(int kodas)
 {
     printf("%s", klaidu_zinutes[kodas - 1]);
-    exit(kodas);
+    klaida = 1;
 }
 
 typedef struct
@@ -32,12 +33,16 @@ Dekas *sukurti_deka()
     {
         mesti_klaida(3);
     }
-    deku_kiekis_atmintyje++;
-    Dekas *dekas = (Dekas *)malloc(sizeof(Dekas));
-    dekas->talpa = DEKO_MAKS_ELEMENTU_KIEKIS;
-    dekas->duomenys = (int *)malloc(dekas->talpa * sizeof(int));
-    dekas->priekis = dekas->galas = dekas->dydis = 0;
-    return dekas;
+    if (klaida == 0)
+    {
+        deku_kiekis_atmintyje++;
+        Dekas *dekas = (Dekas *)malloc(sizeof(Dekas));
+        dekas->talpa = DEKO_MAKS_ELEMENTU_KIEKIS;
+        dekas->duomenys = (int *)malloc(dekas->talpa * sizeof(int));
+        dekas->priekis = dekas->galas = dekas->dydis = 0;
+        return dekas;
+    }
+    klaida = 0;
 }
 
 void push_priekis(Dekas *dekas, int verte)
@@ -50,9 +55,13 @@ void push_priekis(Dekas *dekas, int verte)
     {
         mesti_klaida(1);
     }
-    dekas->priekis = (dekas->priekis - 1 + dekas->talpa) % dekas->talpa;
-    dekas->duomenys[dekas->priekis] = verte;
-    dekas->dydis++;
+    if (klaida == 0)
+    {
+        dekas->priekis = (dekas->priekis - 1 + dekas->talpa) % dekas->talpa;
+        dekas->duomenys[dekas->priekis] = verte;
+        dekas->dydis++;
+    }
+    klaida = 0;
 }
 
 void push_galas(Dekas *dekas, int verte)
@@ -65,9 +74,13 @@ void push_galas(Dekas *dekas, int verte)
     {
         mesti_klaida(1);
     }
-    dekas->duomenys[dekas->galas] = verte;
-    dekas->galas = (dekas->galas + 1) % dekas->talpa;
-    dekas->dydis++;
+    if (klaida == 0)
+    {
+        dekas->duomenys[dekas->galas] = verte;
+        dekas->galas = (dekas->galas + 1) % dekas->talpa;
+        dekas->dydis++;
+    }
+    klaida = 0;
 }
 
 int pop_priekis(Dekas *dekas)
@@ -80,10 +93,14 @@ int pop_priekis(Dekas *dekas)
     {
         mesti_klaida(2);
     }
-    int verte = dekas->duomenys[dekas->priekis];
-    dekas->priekis = (dekas->priekis + 1) % dekas->talpa;
-    dekas->dydis--;
-    return verte;
+    if (klaida == 0)
+    {
+        int verte = dekas->duomenys[dekas->priekis];
+        dekas->priekis = (dekas->priekis + 1) % dekas->talpa;
+        dekas->dydis--;
+        return verte;
+    }
+    klaida = 0;
 }
 
 int pop_galas(Dekas *dekas)
@@ -96,10 +113,14 @@ int pop_galas(Dekas *dekas)
     {
         mesti_klaida(2);
     }
-    dekas->galas = (dekas->galas - 1 + dekas->talpa) % dekas->talpa;
-    int verte = dekas->duomenys[dekas->galas];
-    dekas->dydis--;
-    return verte;
+    if (klaida == 0)
+    {
+        dekas->galas = (dekas->galas - 1 + dekas->talpa) % dekas->talpa;
+        int verte = dekas->duomenys[dekas->galas];
+        dekas->dydis--;
+        return verte;
+    }
+    klaida = 0;
 }
 
 int top(Dekas *dekas)
@@ -112,7 +133,11 @@ int top(Dekas *dekas)
     {
         mesti_klaida(2);
     }
-    return dekas->duomenys[dekas->priekis];
+    if (klaida == 0)
+    {
+        return dekas->duomenys[dekas->priekis];
+    }
+    klaida = 0;
 }
 
 int bottom(Dekas *dekas)
@@ -125,7 +150,11 @@ int bottom(Dekas *dekas)
     {
         mesti_klaida(2);
     }
-    return dekas->duomenys[(dekas->galas - 1 + dekas->talpa) % dekas->talpa];
+    if (klaida == 0)
+    {
+        return dekas->duomenys[(dekas->galas - 1 + dekas->talpa) % dekas->talpa];
+    }
+    klaida = 0;
 }
 
 void ideti(Dekas *dekas, int index, int verte)
@@ -146,8 +175,12 @@ void ideti(Dekas *dekas, int index, int verte)
     {
         dekas->duomenys[(dekas->priekis + i) % dekas->talpa] = dekas->duomenys[(dekas->priekis + i - 1) % dekas->talpa];
     }
-    dekas->duomenys[(dekas->priekis + index) % dekas->talpa] = verte;
-    dekas->dydis++;
+    if (klaida == 0)
+    {
+        dekas->duomenys[(dekas->priekis + index) % dekas->talpa] = verte;
+        dekas->dydis++;
+    }
+    klaida = 0;
 }
 
 void print_dekas(Dekas *dekas)
@@ -173,10 +206,14 @@ void atlaisvinti(Dekas *dekas)
     {
         mesti_klaida(5);
     }
-    deku_kiekis_atmintyje--;
-    free(dekas->duomenys);
-    // free(dekas);
-    dekas = NULL;
+    if (klaida == 0)
+    {
+        deku_kiekis_atmintyje--;
+        free(dekas->duomenys);
+        // free(dekas);
+        dekas = NULL;
+    }
+    klaida = 0;
 }
 
 int main()
@@ -189,18 +226,18 @@ int main()
     {
         int choice = 0;
         printf("Meniu:\n");
-        printf(" 1 - Sukurti deką\n");
-        printf(" 2 - Įdėti elementą\n");
-        printf(" 3 - Push iš priekio\n");
-        printf(" 4 - Push iš galo\n");
-        printf(" 5 - Pop iš priekio\n");
-        printf(" 6 - Pop iš galo\n");
-        printf(" 7 - Top\n");
-        printf(" 8 - Bottom\n");
-        printf(" 9 - Atspausdinti deką\n");
-        printf("10 - Sunaikinti deką\n");
-        printf("11 - Pasirinkti deką\n");
-        printf("12 - Išeiti iš programos\n");
+        printf(" 1: Sukurti deką\n");
+        printf(" 2: Įdėti elementą\n");
+        printf(" 3: Push iš priekio\n");
+        printf(" 4: Push iš galo\n");
+        printf(" 5: Pop iš priekio\n");
+        printf(" 6: Pop iš galo\n");
+        printf(" 7: Top\n");
+        printf(" 8: Bottom\n");
+        printf(" 9: Atspausdinti deką\n");
+        printf("10: Sunaikinti deką\n");
+        printf("11: Pasirinkti deką\n");
+        printf("12: Išeiti iš programos\n");
         scanf("%d", &choice);
 
         switch (choice)

@@ -1,150 +1,229 @@
-/*
-    Sukure: Edvinas Bagdonas, programu sistemu studentas, 1 kursas, 4 grupė
-
-    Programa sukuria klase HotelRoom, kuri turi kintamuosius, metodus, konstruktrius ir destruktoriu. Main funkcijoje vienetu testais patikrinama ar klase veikia tinkamai.
-*/
-
 #include <iostream>
 #include <sstream>
-#include <assert.h>
+#include <stdexcept>
+#include <cassert>
+#include <exception>
+#include <stdexcept>
 
 using namespace std;
 
-class hotelRoom
-{
+#define MAX_NAME 32
+#define MAX_HEALTH 1000
+#define MAX_POWER 500
 
-private:
-    static int nextID;
-    static int count;
+class GameCharacter
+{
+public:
+    string name;
+    int health;
+    int attackPower;
 
     int id;
-    string roomType;
-    int roomNumber;
-    int pricePerNight;
 
-public:
-    hotelRoom(int number)
-    {
-        setDefaults(number);
-    }
+    static int uniqueId;
+    static int ObjectCount;
 
-    hotelRoom(string type, int number, int price)
+    GameCharacter()
     {
-        setDefaults(number);
-        setRoomType(type);
-        setPricePerNight(price);
+        init("Name", -1, 0);
     }
 
-    ~hotelRoom()
+    GameCharacter(string name, int health, int attackPower)
     {
-        count--;
+        init(name, health, attackPower);
     }
 
-public:
-    void setDefaults(int number)
+    ~GameCharacter()
     {
-        setRoomNumber(number);
-        setRoomType("Single");
-        setPricePerNight(0);
-        incrementID();
-        incrementCount();
+        --ObjectCount;
     }
 
-    void incrementID()
+    void setName(string characterName)
     {
-        id = nextID++;
+        validateName(characterName);
+        name = characterName;
     }
 
-    void incrementCount()
+    string getName()
     {
-        count++;
+        return name;
     }
 
-public:
-    string getRoomType()
+    int getHealth()
     {
-        return roomType;
-    }
-    void setRoomType(string type)
-    {
-        roomType = type;
-    }
-    int getRoomNumber()
-    {
-        return roomNumber;
-    }
-    void setRoomNumber(int number)
-    {
-        if (number < 0)
-        {
-            throw invalid_argument("RoomNumber cannot be negative.");
-        }
-        roomNumber = number;
-    }
-    int getPricePerNight()
-    {
-        return pricePerNight;
-    }
-    void setPricePerNight(int price)
-    {
-        if (price < 0)
-        {
-            throw invalid_argument("Price cannot be negative.");
-        }
-        pricePerNight = price;
+        return health;
     }
 
-    int getId()
+    int getAttackPower()
+    {
+        return attackPower;
+    }
+
+    int getPersonalId()
     {
         return id;
     }
 
-    static int getCount()
+    string toString()
     {
-        return count;
+        stringstream ss;
+        ss << name << " " << health << " " << attackPower;
+        return ss.str();
+    }
+
+    static int getObjectCount()
+    {
+        return ObjectCount;
+    }
+
+    static int getIdCount()
+    {
+        return uniqueId;
+    }
+
+private:
+    void init(string name, int health, int attackPower)
+    {
+        setName(name);
+        setHealth(health);
+        setAttackPower(attackPower);
+        id = uniqueId++;
+        ++ObjectCount;
+    }
+
+    void setHealth(int characterHealth)
+    {
+        validateHealth(characterHealth);
+        health = characterHealth;
+    }
+
+    void setAttackPower(int characterAttackPower)
+    {
+        validateAttackPower(characterAttackPower);
+        attackPower = characterAttackPower;
+    }
+
+    void validateHealth(int characterHealth)
+    {
+        if (characterHealth <= 0 && characterHealth != -1)
+        {
+            throw invalid_argument("Health must be positive or -1 for invincible character.");
+        }
+        if (characterHealth > MAX_HEALTH)
+        {
+            throw invalid_argument("Health cannot exceed " + to_string(MAX_HEALTH) + ".");
+        }
+    }
+
+    void validateAttackPower(int characterAttackPower)
+    {
+        if (characterAttackPower > MAX_POWER)
+        {
+            throw invalid_argument("Attack power cannot exceed " + to_string(MAX_POWER) + ".");
+        }
+    }
+
+    void validateName(string characterName)
+    {
+        if (characterName == "")
+        {
+            throw invalid_argument("Character name cannot be empty.");
+        }
+        if (characterName[0] < 'A' || characterName[0] > 'Z')
+        {
+            throw invalid_argument("Name must start with an uppercase letter.");
+        }
+        if (characterName.length() > MAX_NAME)
+        {
+            throw invalid_argument("Name length cannot exceed " + to_string(MAX_NAME) + " characters.");
+        }
+        bool space = false;
+        for (int i = 0; i < characterName.length(); ++i)
+        {
+            if (characterName[i] == ' ' && characterName[i + 1] == '\0')
+            {
+                throw invalid_argument("Invalid character name. Last character cannot be space.");
+            }
+            if ((characterName[i] < 'A' || characterName[i] > 'Z') && (characterName[i] < 'a' || characterName[i] > 'z'))
+            {
+                if (characterName[i] == ' ' && !space)
+                {
+                    space = true;
+                    continue;
+                }
+                else if (space)
+                {
+                    throw invalid_argument("Invalid character name. It should not contain spaces following another space.");
+                }
+                throw invalid_argument("Name must contain only alphabetic characters and spaces.");
+            }
+            space = false;
+        }
     }
 };
 
-int hotelRoom::nextID = 1;
-int hotelRoom::count = 0;
+int GameCharacter::uniqueId = 0;
+int GameCharacter::ObjectCount = 0;
 
-int main(int argc, char const *argv[])
+int main()
 {
-    hotelRoom room(10);
-
-    hotelRoom *rooms[4] = {
-        new hotelRoom("Lux", 3, 500),
-        new hotelRoom("Suite", 4, 200),
-        new hotelRoom("Triple", 5, 30),
-        new hotelRoom("Presidential", 6, 1000)};
-
-    assert(room.getId() == 1);
-    assert(room.getRoomType() == "Single");
-    room.setRoomType("Double");
-    assert(room.getRoomType() == "Double");
-    assert(room.getRoomNumber() == 10);
-    room.setRoomNumber(1);
-    assert(room.getRoomNumber() == 1);
-    assert(room.getPricePerNight() == 0);
-    room.setPricePerNight(50);
-    assert(room.getPricePerNight() == 50);
-    assert(room.getCount() == 5);
-    for (int i = 0; i < 4; i++)
+    try
     {
-        assert(rooms[i]->getId() == i + 2);
-        assert(rooms[i]->getRoomNumber() == i + 3);
-        delete rooms[i];
+        assert(GameCharacter::getObjectCount() == 0);
+
+        GameCharacter *npc[3];
+
+        npc[0] = new GameCharacter("Leonardo da Vinci", 1000, 20);
+
+        assert(npc[0]->toString() == "Leonardo da Vinci 1000 20");
+        assert(GameCharacter::getObjectCount() == 1);
+
+        assert(npc[0]->getPersonalId() == 0);
+        assert(npc[0]->getName() == "Leonardo da Vinci");
+        assert(npc[0]->getHealth() == 1000);
+        assert(npc[0]->getAttackPower() == 20);
+
+        npc[1] = new GameCharacter();
+
+        assert(npc[1]->toString() == "Name -1 0");
+        assert(GameCharacter::getObjectCount() == 2);
+        assert(GameCharacter::getIdCount() == 2);
+
+        assert(npc[1]->getPersonalId() == 1);
+        assert(npc[1]->getName() == "Name");
+        assert(npc[1]->getHealth() == -1);
+        assert(npc[1]->getAttackPower() == 0);
+
+        npc[1]->setName("B");
+        assert(npc[1]->getName() == "B");
+
+        npc[2] = new GameCharacter("Jack", 10, 30);
+
+        assert(GameCharacter::getObjectCount() == 3);
+        assert(GameCharacter::getIdCount() == 3);
+
+        assert(npc[2]->getPersonalId() == 2);
+        assert(npc[2]->getName() == "Jack");
+        assert(npc[2]->getHealth() == 10);
+        assert(npc[2]->getAttackPower() == 30);
+
+        for (int i = 0; i < 3; ++i)
+        {
+            delete npc[i];
+        }
+        assert(GameCharacter::getObjectCount() == 0);
+        assert(GameCharacter::getIdCount() == 3);
     }
-
-    assert(room.getCount() == 1);
-
-    hotelRoom room7("Single", 7, 500);
-    assert(room7.getId() == 6);
-
-    assert(room.getCount() == 2);
-    room7.~hotelRoom();
-    room.~hotelRoom();
-    assert(hotelRoom::getCount() == 0);
-
-    return 0;
+    catch (invalid_argument e)
+    {
+        cout << e.what() << endl;
+    }
+    catch (exception e)
+    {
+        cout << e.what() << endl;
+    }
+    catch (...)
+    {
+        cout << "Unknown error." << endl;
+    }
 }
