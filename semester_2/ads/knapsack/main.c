@@ -31,7 +31,8 @@ void knapsack(int weights[], int values[], int n, int maxWeight)
         }
     }
     fprintf(output, "\nTREČIA DALIS: Rezultatai\n");
-    fprintf(output, "1) Pasirinkti elementai:\n");
+    fprintf(output, "Bandymų skaičius: %d\n", dbgcnt);
+    fprintf(output, "Pasirinkti elementai:\n");
     int w = maxWeight;
     for (int i = n; i > 0 && dp[i][w] != 0; i--)
     {
@@ -41,7 +42,7 @@ void knapsack(int weights[], int values[], int n, int maxWeight)
             w -= weights[i - 1];
         }
     }
-    fprintf(output, "2) Galutinis rezultatas:  svoris %d, kaina %d\n", maxWeight - w, dp[n][maxWeight]);
+    fprintf(output, "Galutinis rezultatas:  svoris %d, kaina %d\n", maxWeight - w, dp[n][maxWeight]);
 }
 
 int main()
@@ -77,22 +78,22 @@ int main()
     fprintf(output, "SĄLYGA. Duota N daiktų, kurių svoriai s1, s2, ..., sN, o kainos k1, k2, ..., kN. Programa turi sudaryti daiktų rinkinį, kurio kaina maksimali, o svoris neviršytų nurodyto svorio C. Spausdinti visus sprendinius. Vartotojas nurodo failą įvesti svorius, kainas ir C.\n");
 
     fprintf(output, "\nPIRMA DALIS: Duomenys\n");
-    fprintf(output, "1) Daiktų kiekis n=%d\n", size);
-    fprintf(output, "2) Svoriai s={");
+    fprintf(output, "Daiktų kiekis n=%d\n", size);
+    fprintf(output, "Svoriai s={");
     for (int i = 0; i < size - 1; i++)
     {
         fprintf(output, "%d, ", s[i]);
     }
     fprintf(output, "%d}\n", s[size - 1]);
-    fprintf(output, "3) Kainos k={");
+    fprintf(output, "Kainos k={");
     for (int i = 0; i < size - 1; i++)
     {
         fprintf(output, "%d, ", k[i]);
     }
     fprintf(output, "%d}\n", k[size - 1]);
-    fprintf(output, "4) Maksimali svorio apimtis c=%d\n", c);
-    fprintf(output, "5) Įvesties failas: %s\n", input_name);
-    fprintf(output, "6) Išvesties failas: %s\n", output_name);
+    fprintf(output, "Maksimali svorio apimtis c=%d\n", c);
+    fprintf(output, "Įvesties failas: %s\n", input_name);
+    fprintf(output, "Išvesties failas: %s\n", output_name);
 
     knapsack(s, k, size, c);
 
