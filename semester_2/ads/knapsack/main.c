@@ -52,8 +52,11 @@ void knapsack(int weights[], int values[], int n, int maxWeight)
 
 int main()
 {
-    output = fopen("otp.txt", "w");
-    // output = stdout;
+    // output = fopen("otp.txt", "w");
+    output = stdout;
+
+    fprintf(output, "2 užduotis. Adomas Bieliūnas, 1 kursas, 2 grupė, 1 pogrupis.\n");
+    fprintf(output, "SĄLYGA. Duota N daiktų, kurių svoriai s1, s2, ..., sN, o kainos k1, k2, ..., kN. Programa turi sudaryti daiktų rinkinį, kurio kaina maksimali, o svoris neviršytų nurodyto svorio C. Spausdinti visus sprendinius. Vartotojas nurodo failą įvesti svorius, kainas ir C.\n");
 
     int n[] = {1, 4, 5, 7, 10, 8, 3, 12, 9, 6};
     int k[] = {5, 4, 2, 9, 6, 11, 4, 17, 6, 8};
