@@ -13,7 +13,7 @@ int max(int a, int b)
 
 void knapsack(int weights[], int values[], int n, int maxWeight)
 {
-    fprintf(output, "ANTRA DALIS: Vykdymas\n");
+    fprintf(output, "\nANTRA DALIS: Vykdymas\n");
     int dp[n + 1][maxWeight + 1];
     int dbgcnt = 0;
 
@@ -22,21 +22,15 @@ void knapsack(int weights[], int values[], int n, int maxWeight)
         for (int w = 0; w <= maxWeight; w++)
         {
             if (i == 0 || w == 0)
-            {
                 dp[i][w] = 0;
-            }
             else if (weights[i - 1] <= w)
-            {
                 dp[i][w] = max(values[i - 1] + dp[i - 1][w - weights[i - 1]], dp[i - 1][w]);
-            }
             else
-            {
                 dp[i][w] = dp[i - 1][w];
-            }
             fprintf(output, "%d) p[%d][%d] = %d\n", ++dbgcnt, i, w, dp[i][w]);
         }
     }
-    fprintf(output, "TREČIA DALIS: Rezultatai\n");
+    fprintf(output, "\nTREČIA DALIS: Rezultatai\n");
     fprintf(output, "1) Pasirinkti elementai:\n");
     int w = maxWeight;
     for (int i = n; i > 0 && dp[i][w] != 0; i--)
@@ -52,31 +46,55 @@ void knapsack(int weights[], int values[], int n, int maxWeight)
 
 int main()
 {
-    // output = fopen("otp.txt", "w");
-    output = stdout;
+    char *input_name = "inp.txt";
+    char *output_name = "otp.txt";
+    FILE *input = fopen(input_name, "r");
+
+    output = fopen(output_name, "w");
+    if (input == NULL)
+    {
+        fprintf(output, "Nepavyko atidaryti failo.");
+        return -1;
+    }
+
+    int size;
+    fscanf(input, "%d", &size);
+    int *s = malloc(size * sizeof(int));
+    int *k = malloc(size * sizeof(int));
+    int c;
+
+    for (int i = 0; i < size; i++)
+    {
+        fscanf(input, "%d", &s[i]);
+    }
+    for (int i = 0; i < size; i++)
+    {
+        fscanf(input, "%d", &k[i]);
+    }
+    fscanf(input, "%d", &c);
 
     fprintf(output, "2 užduotis. Adomas Bieliūnas, 1 kursas, 2 grupė, 1 pogrupis.\n");
     fprintf(output, "SĄLYGA. Duota N daiktų, kurių svoriai s1, s2, ..., sN, o kainos k1, k2, ..., kN. Programa turi sudaryti daiktų rinkinį, kurio kaina maksimali, o svoris neviršytų nurodyto svorio C. Spausdinti visus sprendinius. Vartotojas nurodo failą įvesti svorius, kainas ir C.\n");
 
-    int n[] = {1, 4, 5, 7, 10, 8, 3, 12, 9, 6};
-    int k[] = {5, 4, 2, 9, 6, 11, 4, 17, 6, 8};
-    int c = 18;
-    int sz = sizeof(k) / sizeof(k[0]);
-
-    fprintf(output, "PIRMA DALIS: Duomenys\n");
-    fprintf(output, "1) Svoriai: ");
-    for (int i = 0; i < sz; i++)
+    fprintf(output, "\nPIRMA DALIS: Duomenys\n");
+    fprintf(output, "1) Daiktų kiekis n=%d\n", size);
+    fprintf(output, "2) Svoriai s={");
+    for (int i = 0; i < size - 1; i++)
     {
-        fprintf(output, "%d ", n[i]);
+        fprintf(output, "%d, ", s[i]);
     }
-    fprintf(output, "\n2) Kainos: ");
-    for (int i = 0; i < sz; i++)
+    fprintf(output, "%d}\n", s[size - 1]);
+    fprintf(output, "3) Kainos k={");
+    for (int i = 0; i < size - 1; i++)
     {
-        fprintf(output, "%d ", k[i]);
+        fprintf(output, "%d, ", k[i]);
     }
-    fprintf(output, "\n3) Maksimali svorio apimtis: %d\n", c);
+    fprintf(output, "%d}\n", k[size - 1]);
+    fprintf(output, "4) Maksimali svorio apimtis c=%d\n", c);
+    fprintf(output, "5) Įvesties failas: %s\n", input_name);
+    fprintf(output, "6) Išvesties failas: %s\n", output_name);
 
-    knapsack(n, k, sz, c);
+    knapsack(s, k, size, c);
 
     return 0;
 }

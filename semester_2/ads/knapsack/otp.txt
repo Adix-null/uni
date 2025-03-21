@@ -1,7 +1,14 @@
+2 užduotis. Adomas Bieliūnas, 1 kursas, 2 grupė, 1 pogrupis.
+SĄLYGA. Duota N daiktų, kurių svoriai s1, s2, ..., sN, o kainos k1, k2, ..., kN. Programa turi sudaryti daiktų rinkinį, kurio kaina maksimali, o svoris neviršytų nurodyto svorio C. Spausdinti visus sprendinius. Vartotojas nurodo failą įvesti svorius, kainas ir C.
+
 PIRMA DALIS: Duomenys
-1) Svoriai: 1 4 5 7 10 8 3 12 9 6 
-2) Kainos: 5 4 2 9 6 11 4 17 6 8 
-3) Maksimali svorio apimtis: 18
+1) Daiktų kiekis n=10
+2) Svoriai s={1, 4, 5, 7, 10, 8, 3, 12, 9, 6}
+3) Kainos k={5, 4, 2, 9, 6, 11, 4, 17, 6, 8}
+4) Maksimali svorio apimtis c=18
+5) Įvesties failas: inp.txt
+6) Išvesties failas: otp.txt
+
 ANTRA DALIS: Vykdymas
 1) p[0][0] = 0
 2) p[0][1] = 0
@@ -212,6 +219,7 @@ ANTRA DALIS: Vykdymas
 207) p[10][16] = 26
 208) p[10][17] = 26
 209) p[10][18] = 28
+
 TREČIA DALIS: Rezultatai
 1) Pasirinkti elementai:
 10:  svoris 6, kaina 8
