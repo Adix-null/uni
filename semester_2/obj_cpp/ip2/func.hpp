@@ -16,19 +16,13 @@ using namespace std;
 static int dequeue_count = 0;
 static int error = 0;
 
-string error_messages[6] = {
-    "Error 1: Exceeded" + to_string(DEQUEUE_MAX_ELEMENT_COUNT) + " dequeue element count\n",
-    "Error 2: Empty dequeue\n",
-    "Error 3: Exceeded" + to_string(DEQUEUE_MAX_COUNT) + " dequeue count\n",
-    "Error 4: Bad dequeue position\n",
-    "Error 5: Dequeue is not initialized\n",
-    "Error 6: Bad dequeue number\n"};
-
 class Dequeue
 {
 private:
     int *data;
     int front, back, size, capacity;
+    string error_messages;
+    void throw_error(int kodas);
 
 public:
     Dequeue *create_dequeue();
