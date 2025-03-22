@@ -5,7 +5,7 @@
 #define DEKU_MAKS_KIEKIS 3
 
 static int deku_kiekis_atmintyje = 0;
-static int klaida = 0;
+static int error = 0;
 
 char klaidu_zinutes[6][256] = {
     "Klaida nr. 1: Viršijama 3 dekų apimtis\n",
@@ -15,10 +15,10 @@ char klaidu_zinutes[6][256] = {
     "Klaida nr. 5: Dekas nesukurtas\n",
     "Klaida nr. 6: Blogas deko skaičius\n"};
 
-void mesti_klaida(int kodas)
+void throw_error(int kodas)
 {
     printf("%s", klaidu_zinutes[kodas - 1]);
-    klaida = 1;
+    error = 1;
 }
 
 typedef struct
@@ -27,13 +27,13 @@ typedef struct
     int priekis, galas, dydis, talpa;
 } Dekas;
 
-Dekas *sukurti_deka()
+Dekas *create_dequeue()
 {
     if (deku_kiekis_atmintyje == DEKU_MAKS_KIEKIS)
     {
-        mesti_klaida(3);
+        throw_error(3);
     }
-    if (klaida == 0)
+    if (error == 0)
     {
         deku_kiekis_atmintyje++;
         Dekas *dekas = (Dekas *)malloc(sizeof(Dekas));
@@ -42,145 +42,145 @@ Dekas *sukurti_deka()
         dekas->priekis = dekas->galas = dekas->dydis = 0;
         return dekas;
     }
-    klaida = 0;
+    error = 0;
 }
 
 void push_priekis(Dekas *dekas, int verte)
 {
     if (dekas == NULL)
     {
-        mesti_klaida(5);
+        throw_error(5);
     }
     if (dekas->dydis == dekas->talpa)
     {
-        mesti_klaida(1);
+        throw_error(1);
     }
-    if (klaida == 0)
+    if (error == 0)
     {
         dekas->priekis = (dekas->priekis - 1 + dekas->talpa) % dekas->talpa;
         dekas->duomenys[dekas->priekis] = verte;
         dekas->dydis++;
     }
-    klaida = 0;
+    error = 0;
 }
 
 void push_galas(Dekas *dekas, int verte)
 {
     if (dekas == NULL)
     {
-        mesti_klaida(5);
+        throw_error(5);
     }
     if (dekas->dydis == dekas->talpa)
     {
-        mesti_klaida(1);
+        throw_error(1);
     }
-    if (klaida == 0)
+    if (error == 0)
     {
         dekas->duomenys[dekas->galas] = verte;
         dekas->galas = (dekas->galas + 1) % dekas->talpa;
         dekas->dydis++;
     }
-    klaida = 0;
+    error = 0;
 }
 
 int pop_priekis(Dekas *dekas)
 {
     if (dekas == NULL)
     {
-        mesti_klaida(5);
+        throw_error(5);
     }
     if (dekas->dydis == 0)
     {
-        mesti_klaida(2);
+        throw_error(2);
     }
-    if (klaida == 0)
+    if (error == 0)
     {
         int verte = dekas->duomenys[dekas->priekis];
         dekas->priekis = (dekas->priekis + 1) % dekas->talpa;
         dekas->dydis--;
         return verte;
     }
-    klaida = 0;
+    error = 0;
 }
 
 int pop_galas(Dekas *dekas)
 {
     if (dekas == NULL)
     {
-        mesti_klaida(5);
+        throw_error(5);
     }
     if (dekas->dydis == 0)
     {
-        mesti_klaida(2);
+        throw_error(2);
     }
-    if (klaida == 0)
+    if (error == 0)
     {
         dekas->galas = (dekas->galas - 1 + dekas->talpa) % dekas->talpa;
         int verte = dekas->duomenys[dekas->galas];
         dekas->dydis--;
         return verte;
     }
-    klaida = 0;
+    error = 0;
 }
 
 int top(Dekas *dekas)
 {
     if (dekas == NULL)
     {
-        mesti_klaida(5);
+        throw_error(5);
     }
     if (dekas->dydis == 0)
     {
-        mesti_klaida(2);
+        throw_error(2);
     }
-    if (klaida == 0)
+    if (error == 0)
     {
         return dekas->duomenys[dekas->priekis];
     }
-    klaida = 0;
+    error = 0;
 }
 
 int bottom(Dekas *dekas)
 {
     if (dekas == NULL)
     {
-        mesti_klaida(5);
+        throw_error(5);
     }
     if (dekas->dydis == 0)
     {
-        mesti_klaida(2);
+        throw_error(2);
     }
-    if (klaida == 0)
+    if (error == 0)
     {
         return dekas->duomenys[(dekas->galas - 1 + dekas->talpa) % dekas->talpa];
     }
-    klaida = 0;
+    error = 0;
 }
 
 void ideti(Dekas *dekas, int index, int verte)
 {
     if (dekas == NULL)
     {
-        mesti_klaida(5);
+        throw_error(5);
     }
     if (index < 0 || index > dekas->dydis)
     {
-        mesti_klaida(4);
+        throw_error(4);
     }
     if (dekas->dydis == dekas->talpa)
     {
-        mesti_klaida(1);
+        throw_error(1);
     }
     for (int i = dekas->dydis; i > index; i--)
     {
         dekas->duomenys[(dekas->priekis + i) % dekas->talpa] = dekas->duomenys[(dekas->priekis + i - 1) % dekas->talpa];
     }
-    if (klaida == 0)
+    if (error == 0)
     {
         dekas->duomenys[(dekas->priekis + index) % dekas->talpa] = verte;
         dekas->dydis++;
     }
-    klaida = 0;
+    error = 0;
 }
 
 void print_dekas(Dekas *dekas)
@@ -204,16 +204,16 @@ void atlaisvinti(Dekas *dekas)
 {
     if (deku_kiekis_atmintyje == 0)
     {
-        mesti_klaida(5);
+        throw_error(5);
     }
-    if (klaida == 0)
+    if (error == 0)
     {
         deku_kiekis_atmintyje--;
         free(dekas->duomenys);
         // free(dekas);
         dekas = NULL;
     }
-    klaida = 0;
+    error = 0;
 }
 
 int main()
@@ -244,7 +244,7 @@ int main()
         {
         case 1:
         {
-            dekai[deko_sk - 1] = sukurti_deka();
+            dekai[deko_sk - 1] = create_dequeue();
             break;
         }
         case 2:
@@ -310,7 +310,7 @@ int main()
             scanf("%d", &deko_sk);
             if (deko_sk < 1 || deko_sk > DEKU_MAKS_KIEKIS)
             {
-                mesti_klaida(6);
+                throw_error(6);
             }
             break;
         }
