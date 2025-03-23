@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>
+#include <iostream>
 #include "func.hpp"
 
 using namespace std;
@@ -33,7 +34,7 @@ int main()
         {
         case 1:
         {
-            (*dequeues)[deko_sk - 1].create_dequeue();
+            //(*dequeues)[deko_sk - 1].create_dequeue();
             break;
         }
         case 2:
@@ -44,7 +45,7 @@ int main()
             scanf("%d", &i);
             printf("Įveskite reikšmę: ");
             scanf("%d", &v);
-            (*dequeues)[deko_sk - 1].insert(i, v);
+            //(*dequeues)[deko_sk - 1].insert(i, v);
             break;
         }
         case 3:
@@ -65,7 +66,7 @@ int main()
         }
         case 5:
         {
-            printf("Pop priekis: %d\n", (*dequeues)[deko_sk - 1].pop_front());
+            // printf("Pop priekis: %d\n", (*dequeues)[deko_sk - 1].pop_front());
             break;
         }
         case 6:

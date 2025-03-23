@@ -6,7 +6,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>
-#include <cstring>
 #include <cassert>
 #include <memory>
 
@@ -38,9 +37,10 @@ namespace ip2
     class Exception
     {
     private:
-        std::string error_messages;
+        std::string error_messages[6];
 
     public:
+        Exception();
         void throw_error(int code);
     };
 }

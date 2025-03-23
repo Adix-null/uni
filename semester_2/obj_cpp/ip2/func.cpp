@@ -1,5 +1,6 @@
 #include "func.hpp"
 #include <string>
+#include <iostream>
 
 namespace ip2
 {
@@ -210,21 +211,24 @@ namespace ip2
             dequeue_count--;
         }
     };
-    class Exception
-    {
-    private:
-        std::string error_messages[6] = {
-            "Error 1: Exceeded" + std::to_string(DEQUEUE_MAX_ELEMENT_COUNT) + " dequeue element count\n",
-            "Error 2: Empty dequeue\n",
-            "Error 3: Exceeded" + std::to_string(DEQUEUE_MAX_COUNT) + " dequeue count\n",
-            "Error 4: Bad dequeue position\n",
-            "Error 5: Dequeue is not initialized\n",
-            "Error 6: Bad dequeue number\n"};
 
-    public:
-        void throw_error(int code)
+    Exception::Exception() // Initialize error messages in the constructor
+    {
+        error_messages[0] = "Error 1: Exceeded " + std::to_string(DEQUEUE_MAX_ELEMENT_COUNT) + " dequeue element count\n";
+        error_messages[1] = "Error 2: Empty dequeue\n";
+        error_messages[2] = "Error 3: Exceeded " + std::to_string(DEQUEUE_MAX_COUNT) + " dequeue count\n";
+        error_messages[3] = "Error 4: Bad dequeue position\n";
+        error_messages[4] = "Error 5: Dequeue is not initialized\n";
+        error_messages[5] = "Error 6: Bad dequeue number\n";
+    }
+
+    void Exception::throw_error(int code)
+    {
+        if (code < 1 || code > 6) // Prevent out-of-bounds access
         {
-            printf("%s", error_messages[code - 1]);
+            std::cerr << "Unknown error code: " << code << std::endl;
+            return;
         }
-    };
+        std::cerr << error_messages[code - 1];
+    }
 }
