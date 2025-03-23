@@ -1,5 +1,7 @@
 // Adomas Bieliūnas 1k 2.1gr
 // camelCase, klasės pavadinimai iš didžiosios raidės, kintamųjų ir funkcijų iš mažosios
+#ifndef DEQUEUE_HPP
+#define DEQUEUE_HPP
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,31 +10,39 @@
 #include <cassert>
 #include <memory>
 
-#define DEQUEUE_MAX_ELEMENT_COUNT 5
 #define DEQUEUE_MAX_COUNT 3
-
-using namespace std;
+#define DEQUEUE_MAX_ELEMENT_COUNT 5
 
 static int dequeue_count = 0;
 static int error = 0;
 
-class Dequeue
+namespace ip2
 {
-private:
-    int *data;
-    int front, back, size, capacity;
-    string error_messages;
-    void throw_error(int kodas);
+    class Dequeue
+    {
+    private:
+        int *data;
+        int front, back, size, capacity;
 
-public:
-    Dequeue *create_dequeue();
-    void push_front(Dequeue *dequeue, int value);
-    void push_back(Dequeue *dequeue, int value);
-    int pop_front(Dequeue *dequeue);
-    int pop_back(Dequeue *dequeue);
-    int top(Dequeue *dequeue);
-    int bottom(Dequeue *dequeue);
-    void insert(Dequeue *dequeue, int index, int value);
-    void print_dequeue(Dequeue *dequeue);
-    void free(Dequeue *dequeue);
-};
+    public:
+        Dequeue *create_dequeue();
+        void push_front(int value);
+        void push_back(int value);
+        int pop_front();
+        int pop_back();
+        int top();
+        int bottom();
+        void insert(int index, int value);
+        void print_dequeue();
+    };
+    class Exception
+    {
+    private:
+        std::string error_messages;
+
+    public:
+        void throw_error(int code);
+    };
+}
+
+#endif
