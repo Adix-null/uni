@@ -15,17 +15,32 @@ void test_push_pop()
 
 void test_arithmetic()
 {
-    ip2::Dequeue a, b;
-    a.push_back(1);
-    a.push_back(2);
-    b.push_back(3);
-    b.push_back(4);
+    ip2::Dequeue d1;
+    ip2::Dequeue d2;
+    d1.push_front(1);
+    d1.push_back(2);
+    d1.push_front(3);
 
-    ip2::Dequeue c = a + b;
-    assert(c.pop_front() == 4 && c.pop_front() == 6);
+    d2.push_front(4);
+    d2.push_back(5);
+    d2.push_front(6);
 
-    a += b;
-    assert(a.pop_front() == 4 && a.pop_front() == 6);
+    ip2::Dequeue d3 = d1 + d2;
+    d3.print_dequeue();
+    assert(d3.top() == 9);
+    assert(d3.bottom() == 7);
+
+    ip2::Dequeue d4 = d1 - d2;
+    assert(d4.top() == -3);
+    assert(d4.bottom() == -3);
+
+    ip2::Dequeue d5 = d1 * d2;
+    assert(d5.top() == 18);
+    assert(d5.bottom() == 10);
+
+    ip2::Dequeue d6 = d2 / d1;
+    assert(d6.top() == 2);
+    assert(d6.bottom() == 2);
 }
 
 void test_comparison()

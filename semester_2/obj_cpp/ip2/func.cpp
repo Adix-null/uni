@@ -143,7 +143,7 @@ namespace ip2
             }
             if (error == 0)
             {
-                return this->data[this->front];
+                return this->data[this->front % this->capacity];
             }
             error = 0;
             return 0;
@@ -163,7 +163,7 @@ namespace ip2
             }
             if (error == 0)
             {
-                return this->data[(this->back - 1 + this->capacity) % this->capacity];
+                return this->data[(this->back - 1 + this->size) % this->capacity];
             }
             error = 0;
             return 0;
@@ -321,7 +321,7 @@ namespace ip2
             for (int i = 0; i < this->size; i++)
             {
                 result.data[(result.front + i) % result.capacity] =
-                    this->data[(this->front + i) % this->capacity] -
+                    this->data[(this->front + i) % this->capacity] /
                     other.data[(other.front + i) % other.capacity];
             }
 
