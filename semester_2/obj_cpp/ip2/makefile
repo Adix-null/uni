@@ -2,9 +2,9 @@ CXX = g++
 CXXFLAGS = -Wall -Wextra -std=c++17
 
 # Files and Targets
-SRC = func.cpp main.cpp test.cpp
+SRC = func.cpp demo.cpp test.cpp
 OBJ = $(SRC:.cpp=.o)
-EXEC = main
+EXEC = demo
 testEXEC = test
 
 # Default target (build everything)
@@ -13,7 +13,7 @@ all: build
 # Build targets
 build: $(EXEC)
 
-$(EXEC): func.o main.o
+$(EXEC): func.o demo.o
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
 test_build: $(testEXEC)
