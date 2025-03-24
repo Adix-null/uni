@@ -53,11 +53,14 @@ namespace ip2
         Dequeue &operator/=(const Dequeue &other);
 
         bool operator==(const Dequeue &other) const;
-        bool Dequeue::operator!=(const Dequeue &other) const;
-        bool Dequeue::operator>(const Dequeue &other) const;
-        bool Dequeue::operator<(const Dequeue &other) const;
-        bool Dequeue::operator>=(const Dequeue &other) const;
-        bool Dequeue::operator<=(const Dequeue &other) const;
+        bool operator!=(const Dequeue &other) const;
+        bool operator>(const Dequeue &other) const;
+        bool operator<(const Dequeue &other) const;
+        bool operator>=(const Dequeue &other) const;
+        bool operator<=(const Dequeue &other) const;
+
+        void operator!() const;                // Operator for removing all data entries
+        int operator[](const int value) const; // Operator for finding the position of a value. Returns -1 if value is not found
     };
 
     class Exception : public std::exception

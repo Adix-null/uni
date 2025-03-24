@@ -384,6 +384,25 @@ namespace ip2
         {
             return this->size <= other.size;
         }
+
+        void operator!()
+        {
+            if (this->data != nullptr)
+            {
+                free(this->data);
+                this->data = (int *)calloc(this->capacity, sizeof(int));
+            }
+            this->front = this->back = this->size = 0;
+        }
+        int operator[](const int value) const
+        {
+            for (int i = 0; i < this->size; i++)
+            {
+                if (this->data[(this->front + i) % this->capacity] == value)
+                    return i;
+            }
+            return -1;
+        }
     };
 
     // Boilerplate galore
@@ -508,6 +527,15 @@ namespace ip2
     bool Dequeue::operator<=(const Dequeue &other) const
     {
         return *(this->impl) <= *(other.impl);
+    }
+
+    void Dequeue::operator!() const
+    {
+        !(*impl);
+    }
+    int Dequeue::operator[](const int value) const
+    {
+        return (*impl)[value];
     }
 
     Exception::Exception() // Initialize error messages in the constructor
