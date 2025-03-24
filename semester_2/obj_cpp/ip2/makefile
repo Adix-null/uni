@@ -1,30 +1,42 @@
-# Compiler
 CXX = g++
-# Compiler flags
-CXXFLAGS = -Wall -Wextra -O2
-# Output executable
-TARGET = output
+CXXFLAGS = -Wall -Wextra -std=c++17
 
-# Source files
-SRCS = main.cpp func.cpp
-# Object files (replace .cpp with .o)
-OBJS = $(SRCS:.cpp=.o)
+# Files and Targets
+SRC = func.cpp main.cpp test.cpp
+OBJ = $(SRC:.cpp=.o)
+EXEC = main
+testEXEC = test
 
-# Default target
-all: $(TARGET)
+# Default target (build everything)
+all: build
 
-# Linking the executable
-$(TARGET): $(OBJS)
+# Build targets
+build: $(EXEC)
+
+$(EXEC): func.o main.o
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
-# Compiling .cpp files into .o files
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+test_build: $(testEXEC)
 
-# Clean up build artifacts
+$(testEXEC): func.o test.o
+	$(CXX) $(CXXFLAGS) $^ -o $@
+
+# Run targets
+run: build
+	./$(EXEC)
+
+test_run: test_build
+	./$(testEXEC)
+
+# Combined build and run
+build_run: build run
+
+test_build_run: test_build test_run
+
+# Object files
+%.o: %.cpp func.hpp
+	$(CXX) $(CXXFLAGS) -c $<
+
+# Clean
 clean:
-	rm -f $(OBJS) $(TARGET)
-
-# Run the compiled program
-run: all
-	./$(TARGET)
+	rm -f $(OBJ) $(EXEC) $(testEXEC)

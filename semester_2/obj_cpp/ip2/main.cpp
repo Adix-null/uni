@@ -4,8 +4,6 @@
 #include <iostream>
 #include "func.hpp"
 
-using namespace std;
-
 int main()
 {
     try
@@ -15,23 +13,17 @@ int main()
         ip2::Dequeue dequeues[DEQUEUE_MAX_COUNT];
         dequeues[0].push_front(5);
         dequeues[0].print_dequeue();
-        dequeues[0].push_front(6);
+        dequeues[0].pop_back();
         dequeues[0].print_dequeue();
-        dequeues[0].push_front(8);
+        dequeues[0].push_back(8);
         dequeues[0].print_dequeue();
-        dequeues[0].push_front(11);
+        dequeues[0].push_back(11);
         dequeues[0].print_dequeue();
-        dequeues[0].push_front(-13);
+        dequeues[0].push_back(-13);
         dequeues[0].print_dequeue();
-        dequeues[0].push_front(15);
+        dequeues[0].push_back(15);
         dequeues[0].print_dequeue();
-        dequeues[0].push_front(17);
-        dequeues[0].print_dequeue();
-        dequeues[0].push_front(19);
-        dequeues[0].print_dequeue();
-        dequeues[0].push_front(20);
-        dequeues[0].print_dequeue();
-        dequeues[0].push_front(-5);
+        dequeues[0].push_back(15);
     }
     catch (const ip2::Exception &e)
     {

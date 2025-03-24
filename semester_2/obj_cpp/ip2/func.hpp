@@ -4,6 +4,15 @@
 // Dequeue (Double-ended queue) is a primitive data type that I have implemented in C.
 // Capacity and amount of dequeue sizes at any given point can be chosen arbitrarily.
 // There is also another class, Exception, to handle errors.
+// Makefile commands:
+// make — Builds everything
+// make build — Builds the main executable
+// make run — Runs the main executable
+// make build_run — Builds and runs the main executable
+// make test_build — Builds the test executable
+// make test_run — Runs the test executable
+// make test_build_run — Builds and runs the test executable
+// make clean — Cleans all generated files
 
 #ifndef DEQUEUE_HPP
 #define DEQUEUE_HPP
@@ -14,7 +23,7 @@
 #include <cassert>
 #include <memory>
 
-#define DEQUEUE_MAX_COUNT 3
+#define DEQUEUE_MAX_COUNT 30
 #define DEQUEUE_MAX_ELEMENT_COUNT 5
 
 static int dequeue_count = 0;

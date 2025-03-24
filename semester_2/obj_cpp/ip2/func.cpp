@@ -245,7 +245,7 @@ namespace ip2
                 return *this;
             }
 
-            DequeueImpl result;
+            DequeueImpl result = DequeueImpl();
             result.size = this->size;
             result.capacity = this->capacity;
             result.data = new int[result.capacity];

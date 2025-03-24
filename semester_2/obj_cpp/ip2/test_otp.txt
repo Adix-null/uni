@@ -1,0 +1,8 @@
+testing push_pop
+testing arithmetic
+testing comparison
+testing insert
+testing clear
+Error 2: Empty dequeue
+testing index
+All tests passed successfully
