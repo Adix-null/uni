@@ -22,11 +22,12 @@ static int error = 0;
 
 namespace ip2
 {
+    class DequeueImpl;
+
     class Dequeue
     {
     private:
-        int *data;                       // The data of the dequeue, a list of numbers
-        int front, back, size, capacity; // The neccessary data to describe the size and position of data
+        DequeueImpl *impl; // Implementation class
 
     public:
         Dequeue();                         // Constructor
@@ -39,8 +40,27 @@ namespace ip2
         int bottom();                      // Get value in the back
         void insert(int index, int value); // Insert value at specified position from 0 to the length
         void print_dequeue();              // Print from front to back
+
+        Dequeue &operator=(const Dequeue &other);
+        Dequeue operator+(const Dequeue &other);
+        Dequeue operator-(const Dequeue &other);
+        Dequeue operator*(const Dequeue &other);
+        Dequeue operator/(const Dequeue &other);
+
+        Dequeue &operator+=(const Dequeue &other);
+        Dequeue &operator-=(const Dequeue &other);
+        Dequeue &operator*=(const Dequeue &other);
+        Dequeue &operator/=(const Dequeue &other);
+
+        bool operator==(const Dequeue &other) const;
+        bool Dequeue::operator!=(const Dequeue &other) const;
+        bool Dequeue::operator>(const Dequeue &other) const;
+        bool Dequeue::operator<(const Dequeue &other) const;
+        bool Dequeue::operator>=(const Dequeue &other) const;
+        bool Dequeue::operator<=(const Dequeue &other) const;
     };
-    class Exception : public exception
+
+    class Exception : public std::exception
     {
     private:
         std::string error_messages[6]; // Array of error messages
