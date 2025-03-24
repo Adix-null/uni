@@ -1,11 +1,10 @@
-#include "func.hpp"
 #include <string>
 #include <iostream>
+#include "func.hpp"
 
 namespace ip2
 {
-
-    Dequeue *Dequeue::create_dequeue()
+    Dequeue::Dequeue()
     {
         if (dequeue_count == DEQUEUE_MAX_COUNT)
         {
@@ -15,14 +14,15 @@ namespace ip2
         if (error == 0)
         {
             dequeue_count++;
-            Dequeue *dequeue = (Dequeue *)malloc(sizeof(Dequeue));
-            dequeue->capacity = DEQUEUE_MAX_ELEMENT_COUNT;
-            dequeue->data = (int *)malloc(dequeue->capacity * sizeof(int));
-            dequeue->front = dequeue->back = dequeue->size = 0;
-            return dequeue;
+            this->capacity = DEQUEUE_MAX_ELEMENT_COUNT;
+            this->data = (int *)malloc(this->capacity * sizeof(int));
+            this->front = this->back = this->size = 0;
         }
         error = 0;
-        return NULL;
+    }
+    Dequeue::~Dequeue()
+    {
+        dequeue_count--;
     }
 
     void Dequeue::push_front(int value)
@@ -200,7 +200,7 @@ namespace ip2
         }
     }
 
-    ip2::Exception::Exception() // Initialize error messages in the constructor
+    Exception::Exception() // Initialize error messages in the constructor
     {
         error_messages[0] = "Error 1: Exceeded " + std::to_string(DEQUEUE_MAX_ELEMENT_COUNT) + " dequeue element count\n";
         error_messages[1] = "Error 2: Empty dequeue\n";
@@ -210,9 +210,14 @@ namespace ip2
         error_messages[5] = "Error 6: Bad dequeue number\n";
     }
 
+    const char *Exception::what() const noexcept
+    {
+        return "An exception has occurred in the dequeue\n";
+    }
+
     void Exception::throw_error(int code)
     {
-        if (code < 1 || code > 6) // Prevent out-of-bounds access
+        if (code < 1 || code > 6)
         {
             std::cerr << "Unknown error code: " << code << std::endl;
             return;

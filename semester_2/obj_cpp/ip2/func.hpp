@@ -1,5 +1,10 @@
 // Adomas Bieliūnas 1k 2.1gr
 // camelCase, klasės pavadinimai iš didžiosios raidės, kintamųjų ir funkcijų iš mažosios
+
+// Dequeue (Double-ended queue) is a primitive data type that I have implemented in C.
+// Capacity and amount of dequeue sizes at any given point can be chosen arbitrarily.
+// There is also another class, Exception, to handle errors.
+
 #ifndef DEQUEUE_HPP
 #define DEQUEUE_HPP
 
@@ -20,28 +25,30 @@ namespace ip2
     class Dequeue
     {
     private:
-        int *data;
-        int front, back, size, capacity;
+        int *data;                       // The data of the dequeue, a list of numbers
+        int front, back, size, capacity; // The neccessary data to describe the size and position of data
 
     public:
-        Dequeue *create_dequeue();
-        void push_front(int value);
-        void push_back(int value);
-        int pop_front();
-        int pop_back();
-        int top();
-        int bottom();
-        void insert(int index, int value);
-        void print_dequeue();
+        Dequeue();                         // Constructor
+        ~Dequeue();                        // Destructor
+        void push_front(int value);        // Add value in the front
+        void push_back(int value);         // Add value in the back
+        int pop_front();                   // Remove and get value in the front
+        int pop_back();                    // Remove and get value in the back
+        int top();                         // Get value in the front
+        int bottom();                      // Get value in the back
+        void insert(int index, int value); // Insert value at specified position from 0 to the length
+        void print_dequeue();              // Print from front to back
     };
-    class Exception
+    class Exception : public exception
     {
     private:
-        std::string error_messages[6];
+        std::string error_messages[6]; // Array of error messages
 
     public:
-        Exception();
-        void throw_error(int code);
+        Exception();                                // Constructor
+        const char *what() const noexcept override; // Need to override the standart exception
+        void throw_error(int code);                 // Throw an error with the code from the messages array
     };
 }
 
