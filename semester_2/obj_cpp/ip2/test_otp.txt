@@ -1,7 +1,11 @@
-testing push_pop
-testing arithmetic
-testing comparison
-testing insert
-testing clear Error 2: Empty dequeue
-testing index
+
+testing copy_constructor: 
+testing copy_assignment: 
+testing push_pop: 
+testing top_bottom: 
+testing arithmetic: 
+testing combined_assignment: 
+testing element_operators: 
+testing comparisons: 
+testing misc: 
 All tests passed successfully

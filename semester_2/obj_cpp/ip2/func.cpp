@@ -5,13 +5,28 @@
 
 namespace ip2
 {
+    void Dequeue::testForExceptions(const bool (&arr)[3])
+    {
+        if (arr[0] && impl == NULL)
+        {
+            throw UninitializedDequeueException();
+        }
+        if (arr[1] && impl->size == impl->capacity)
+        {
+            throw ExceededElementCountException();
+        }
+        if (arr[2] && impl->size == 0)
+        {
+            throw EmptyDequeueException();
+        }
+    }
+
     Dequeue::Dequeue()
     {
         impl = new DequeueImpl();
         if (dequeue_count == DEQUEUE_MAX_COUNT)
         {
-            DequeueException e;
-            e.throw_error(3);
+            throw ExceededDequeueCountException();
         }
         if (error == 0)
         {
@@ -70,16 +85,7 @@ namespace ip2
 
     void Dequeue::push_front(int value)
     {
-        if (impl == NULL)
-        {
-            DequeueException e;
-            e.throw_error(5);
-        }
-        if (impl->size == impl->capacity)
-        {
-            DequeueException e;
-            e.throw_error(1);
-        }
+        testForExceptions({true, true, false});
         if (error == 0)
         {
             impl->front = (impl->front - 1 + impl->capacity) % impl->capacity;
@@ -90,16 +96,7 @@ namespace ip2
     }
     void Dequeue::push_back(int value)
     {
-        if (impl == NULL)
-        {
-            DequeueException e;
-            e.throw_error(5);
-        }
-        if (impl->size == impl->capacity)
-        {
-            DequeueException e;
-            e.throw_error(1);
-        }
+        testForExceptions({true, true, false});
         if (error == 0)
         {
             impl->data[impl->back] = value;
@@ -110,19 +107,10 @@ namespace ip2
     }
     int Dequeue::pop_front()
     {
-        if (impl == NULL)
-        {
-            DequeueException e;
-            e.throw_error(5);
-        }
-        if (impl->size == 0)
-        {
-            DequeueException e;
-            e.throw_error(2);
-        }
+        testForExceptions({true, false, true});
         if (error == 0)
         {
-            int value = impl->data[impl->front];
+            int value = top();
             impl->front = (impl->front + 1) % impl->capacity;
             impl->size--;
             return value;
@@ -132,20 +120,11 @@ namespace ip2
     }
     int Dequeue::pop_back()
     {
-        if (impl == NULL)
-        {
-            DequeueException e;
-            e.throw_error(5);
-        }
-        if (impl->size == 0)
-        {
-            DequeueException e;
-            e.throw_error(2);
-        }
+        testForExceptions({true, false, true});
         if (error == 0)
         {
-            impl->back = (impl->back - 1 + impl->capacity) % impl->capacity;
-            int value = impl->data[impl->back];
+            int value = bottom();
+            impl->back = (impl->back + 1 + impl->size) % impl->capacity;
             impl->size--;
             return value;
         }
@@ -154,16 +133,7 @@ namespace ip2
     }
     int Dequeue::top()
     {
-        if (impl == NULL)
-        {
-            DequeueException e;
-            e.throw_error(5);
-        }
-        if (impl->size == 0)
-        {
-            DequeueException e;
-            e.throw_error(2);
-        }
+        testForExceptions({true, false, true});
         if (error == 0)
         {
             return impl->data[impl->front % impl->capacity];
@@ -173,31 +143,18 @@ namespace ip2
     }
     int Dequeue::bottom()
     {
-        if (impl == NULL)
-        {
-            DequeueException e;
-            e.throw_error(5);
-        }
-        if (impl->size == 0)
-        {
-            DequeueException e;
-            e.throw_error(2);
-        }
+        testForExceptions({true, false, true});
         if (error == 0)
         {
-            return impl->data[(impl->back - 1 + impl->size) % impl->capacity];
+            return impl->data[(impl->front + impl->size - 1) % impl->capacity];
         }
         error = 0;
         return 0;
     }
     void Dequeue::print_dequeue()
     {
-        if (impl == NULL || impl->size == 0)
-        {
-            DequeueException e;
-            e.throw_error(2);
-        }
-        else
+        testForExceptions({true, false, true});
+        if (error == 0)
         {
             std::cout << "Start ";
             for (int i = 0; i < impl->size; i++)
@@ -209,12 +166,11 @@ namespace ip2
     }
 
     template <typename Op>
-    Dequeue operate(const Dequeue &other, Op op)
+    Dequeue Dequeue::arithmeticOperation(const Dequeue &other, Op op) const
     {
         if (impl->size != other.impl->size)
         {
-            DequeueException e;
-            e.throw_error(6);
+            throw MismatchedDequeueSizesException();
             return *this;
         }
 
@@ -223,10 +179,11 @@ namespace ip2
         result.impl->capacity = impl->capacity;
         result.impl->data = new int[result.impl->capacity];
 
-        for (int i = 0; i < impl->size; i++)
+        for (int i = 0; i < impl->size; ++i)
         {
-            result.impl->data[i] =
-                op(impl->data[i], other.impl->data[i]);
+            result.impl->data[(result.impl->front + i) % result.impl->capacity] =
+                op(impl->data[(impl->front + i) % impl->capacity],
+                   other.impl->data[(other.impl->front + i) % other.impl->capacity]);
         }
 
         return result;
@@ -234,19 +191,19 @@ namespace ip2
 
     Dequeue Dequeue::operator+(const Dequeue &other)
     {
-        return operate(other, std::plus<int>());
+        return arithmeticOperation(other, std::plus<int>{});
     }
     Dequeue Dequeue::operator-(const Dequeue &other)
     {
-        return operate(other, std::minus<int>());
+        return arithmeticOperation(other, std::minus<int>{});
     }
     Dequeue Dequeue::operator*(const Dequeue &other)
     {
-        return operate(other, std::multiplies<int>());
+        return arithmeticOperation(other, std::multiplies<int>{});
     }
     Dequeue Dequeue::operator/(const Dequeue &other)
     {
-        return operate(other, std::divides<int>());
+        return arithmeticOperation(other, std::divides<int>{});
     }
 
     Dequeue &Dequeue::operator+=(const Dequeue &other)
@@ -379,30 +336,5 @@ namespace ip2
                 return true;
         }
         return false;
-    }
-
-    DequeueException::DequeueException() // Initialize error messages in the constructor
-    {
-        error_messages[0] = "Error 1: Exceeded " + std::to_string(DEQUEUE_MAX_ELEMENT_COUNT) + " dequeue element count\n";
-        error_messages[1] = "Error 2: Empty dequeue\n";
-        error_messages[2] = "Error 3: Exceeded " + std::to_string(DEQUEUE_MAX_COUNT) + " dequeue count\n";
-        error_messages[3] = "Error 4: Bad dequeue position\n";
-        error_messages[4] = "Error 5: Dequeue is not initialized\n";
-        error_messages[5] = "Error 6: Dequeue sizes do not match\n";
-    }
-
-    const char *DequeueException::what() const noexcept
-    {
-        return "An exception has occurred in the dequeue\n";
-    }
-
-    void DequeueException::throw_error(int code)
-    {
-        if (code < 1 || code > 6)
-        {
-            std::cerr << "Unknown error code: " << code << std::endl;
-            return;
-        }
-        std::cerr << error_messages[code - 1];
     }
 }
