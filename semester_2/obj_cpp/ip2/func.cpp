@@ -4,12 +4,12 @@
 
 namespace ip2
 {
-    class DequeueImpl
+    struct DequeueImpl
     {
-    public:
+        // move method impl to dequeue
         int *data;                       // The data of the dequeue, a list of numbers
         int front, back, size, capacity; // The neccessary data to describe the size and position of data
-
+                                         // change calloc to new
         DequeueImpl()
         {
             if (dequeue_count == DEQUEUE_MAX_COUNT)
@@ -26,7 +26,7 @@ namespace ip2
             }
             error = 0;
         }
-
+        // copy
         DequeueImpl(const DequeueImpl &other) // THis one is for copying
         {
             this->capacity = other.capacity;
@@ -168,7 +168,7 @@ namespace ip2
             error = 0;
             return 0;
         }
-
+        // remove
         void insert(int index, int value)
         {
             if (this == NULL)
@@ -197,7 +197,7 @@ namespace ip2
             }
             error = 0;
         }
-
+        // change printf
         void print_dequeue()
         {
             if (this == NULL || this->size == 0)
@@ -215,6 +215,8 @@ namespace ip2
                 printf("End\n");
             }
         }
+
+        // templates
 
         DequeueImpl &operator=(const DequeueImpl &other)
         {
@@ -349,7 +351,7 @@ namespace ip2
             return *this;
         }
 
-        bool operator==(const DequeueImpl &other) const
+        bool equals(const DequeueImpl &other) const
         {
             if (this->size != other.size || this->capacity != other.capacity)
                 return false;
@@ -394,14 +396,14 @@ namespace ip2
             }
             this->front = this->back = this->size = 0;
         }
-        int operator[](const int value) const
+        bool operator[](const int value) const
         {
             for (int i = 0; i < this->size; i++)
             {
                 if (this->data[(this->front + i) % this->capacity] == value)
-                    return i;
+                    return true;
             }
-            return -1;
+            return false;
         }
     };
 

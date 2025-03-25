@@ -31,6 +31,7 @@ static int error = 0;
 
 namespace ip2
 {
+    // internal class
     class DequeueImpl;
 
     class Dequeue
@@ -71,7 +72,7 @@ namespace ip2
         void operator!() const;                // Operator for removing all data entries
         int operator[](const int value) const; // Operator for finding the position of a value. Returns -1 if value is not found
     };
-
+    // split into clsses
     class Exception : public std::exception
     {
     private:
