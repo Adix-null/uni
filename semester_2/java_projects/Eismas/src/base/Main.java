@@ -5,23 +5,20 @@ import cars.Automobile;
 
 public class Main {
     public static void main(String[] args) {
-        TrafficUser t1 = new TrafficUser();
+        TrafficUser t1 = new Automobile();
         t1.move(-10, 5);
-        t1.println();
+        System.out.println(t1);
         t1.move(Math.TAU / 8, 10.0f);
-        t1.println();
+        System.out.println(t1);
 
-        TrafficUser t2 = new TrafficUser(7, 3, true);
-        t2.println();
+        Police t2 = new Police(7, 3, true, true);
+        System.out.println(t2);
         t2.move(14, -2);
         t2.setActive(false);
-        t2.println();
+        System.out.println(t2);
 
-        TrafficUser t3 = new TrafficUser(2, 5);
-        t3.println();
+        Automobile t3 = new Automobile(2, 5, true, 800);
+        System.out.println(t3);
         System.out.println(TrafficUser.getInstanceCount() + " " + t3.getActive());
-
-        Police p1 = new Police();
-
     }
 }

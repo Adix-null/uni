@@ -9,12 +9,10 @@ public class Police extends TrafficUser
     {
         super();
     }
-
     public Police(int x, int y)
     {
         super(x, y);
     }
-
     public Police(int x, int y, boolean active, boolean sirens)
     {
         super(x, y, active);
@@ -32,23 +30,15 @@ public class Police extends TrafficUser
     }
 
     @Override
-    public void setActive(boolean active)
-    {
-        super.setActive(active);
-        if (!active)
-        {
-            this.sirensActive = false;
-        }
-    }
-
     public void move(int dx, int dy)
     {
-        super.move(dx, dy);
+        super.move((sirensActive ? 2 : 1) * dx, (sirensActive ? 2 : 1) * dy);
     }
 
+    @Override
     public void move(double angleRad, double r)
     {
-        super.move(angleRad, r);
+        super.move(angleRad, (sirensActive ? 2 : 1) * r);
     }
 
     @Override
@@ -56,18 +46,4 @@ public class Police extends TrafficUser
     {
         return "<Police> active: " + getActive() + " Point(" + getX() + ", " + getY() + ") sirensActive: " + sirensActive;
     }
-
-    @Override
-    public void println()
-    {
-        System.out.println("Police: ");
-        super.println();
-        System.out.println("Sirens: " + sirensActive);
-    }
-
-    public static void printDefault(TrafficUser user)
-    {
-        user.println();
-    }
-
 }

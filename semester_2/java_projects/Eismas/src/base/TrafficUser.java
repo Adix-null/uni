@@ -7,6 +7,38 @@ public class TrafficUser
     private boolean active;
     private static int totalInstances = 0;
 
+    public final int getX()
+    {
+        return x;
+    }
+    public void setX(int x)
+    {
+        this.x = x;
+    }
+
+    public final int getY()
+    {
+        return y;
+    }
+    public void setY(int y)
+    {
+        this.y = y;
+    }
+
+    public boolean getActive()
+    {
+        return active;
+    }
+    public void setActive(boolean active)
+    {
+        this.active = active;
+    }
+
+    static public int getInstanceCount()
+    {
+        return totalInstances;
+    }
+
     public TrafficUser()
     {
         this(0,0, false);
@@ -32,40 +64,5 @@ public class TrafficUser
     {
         this.x += (int)(Math.cos(angleRad) * r);
         this.y += (int)(Math.sin(angleRad) * r);
-    }
-
-    public final int getX()
-    {
-        return x;
-    }
-    public final int getY()
-    {
-        return y;
-    }
-    public boolean getActive()
-    {
-        return active;
-    }
-    static public int getInstanceCount()
-    {
-        return totalInstances;
-    }
-
-    public void setX(int x)
-    {
-        this.x = x;
-    }
-    public void setY(int y)
-    {
-        this.y = y;
-    }
-    public void setActive(boolean active)
-    {
-        this.active = active;
-    }
-
-    public void println()
-    {
-        System.out.println("active: " + active + " Point(" + x + ", " + y + ") Instances: " + totalInstances);
     }
 }
