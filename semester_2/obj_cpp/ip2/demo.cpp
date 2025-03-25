@@ -25,7 +25,7 @@ int main()
         dequeues[0].print_dequeue();
         dequeues[0].push_back(15);
     }
-    catch (const ip2::Exception &e)
+    catch (const ip2::DequeueException &e)
     {
         std::cerr << e.what() << '\n';
     }

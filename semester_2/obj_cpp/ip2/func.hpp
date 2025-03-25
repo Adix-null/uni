@@ -32,26 +32,33 @@ static int error = 0;
 namespace ip2
 {
     // internal class
-    class DequeueImpl;
 
     class Dequeue
     {
     private:
-        DequeueImpl *impl; // Implementation class
+        struct DequeueImpl // Implementation class
+        {
+            int *data;                       // The data of the dequeue, a list of numbers
+            int front, back, size, capacity; // The neccessary data to describe the size and position of data
+        };
+        DequeueImpl *impl;
 
     public:
-        Dequeue();                         // Constructor
-        ~Dequeue();                        // Destructor
-        void push_front(int value);        // Add value in the front
-        void push_back(int value);         // Add value in the back
-        int pop_front();                   // Remove and get value in the front
-        int pop_back();                    // Remove and get value in the back
-        int top();                         // Get value in the front
-        int bottom();                      // Get value in the back
-        void insert(int index, int value); // Insert value at specified position from 0 to the length
-        void print_dequeue();              // Print from front to back
+        // Rule of 3
+        Dequeue();                                // Constructor
+        ~Dequeue();                               // Destructor
+        Dequeue(const Dequeue &other);            // Copy Constructor
+        Dequeue &operator=(const Dequeue &other); // Copy Assignment Operator
 
-        Dequeue &operator=(const Dequeue &other);
+        void push_front(int value); // Add value in the front
+        void push_back(int value);  // Add value in the back
+        int pop_front();            // Remove and get value in the front
+        int pop_back();             // Remove and get value in the back
+        int top();                  // Get value in the front
+        int bottom();               // Get value in the back
+        void print_dequeue();       // Print from front to back
+
+        // Arithemtic operations
         Dequeue operator+(const Dequeue &other);
         Dequeue operator-(const Dequeue &other);
         Dequeue operator*(const Dequeue &other);
@@ -62,6 +69,18 @@ namespace ip2
         Dequeue &operator*=(const Dequeue &other);
         Dequeue &operator/=(const Dequeue &other);
 
+        // Element operations
+        void operator+(int value); // same as push_front
+        int operator++();          // same as pop_front
+        void operator-(int value); // same as push_back
+        int operator--();          // same as pop_back
+
+        Dequeue operator&(const Dequeue &other); // Join 2 dequeues
+        Dequeue &operator&=(const Dequeue &other);
+
+        // Comparisons
+        bool equals(const Dequeue &other);
+
         bool operator==(const Dequeue &other) const;
         bool operator!=(const Dequeue &other) const;
         bool operator>(const Dequeue &other) const;
@@ -69,17 +88,18 @@ namespace ip2
         bool operator>=(const Dequeue &other) const;
         bool operator<=(const Dequeue &other) const;
 
-        void operator!() const;                // Operator for removing all data entries
-        int operator[](const int value) const; // Operator for finding the position of a value. Returns -1 if value is not found
+        // Misc
+        void operator!() const;                 // Operator for removing all data entries
+        bool operator[](const int value) const; // Operator for finding the position of a value. Returns -1 if value is not found
     };
     // split into clsses
-    class Exception : public std::exception
+    class DequeueException : public std::exception
     {
     private:
         std::string error_messages[6]; // Array of error messages
 
     public:
-        Exception();                                // Constructor
+        DequeueException();                         // Constructor
         const char *what() const noexcept override; // Need to override the standart exception
         void throw_error(int code);                 // Throw an error with the code from the messages array
     };
