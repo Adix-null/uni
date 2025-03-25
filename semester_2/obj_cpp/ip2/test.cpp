@@ -78,12 +78,23 @@ void test_combined_assignment()
 }
 void test_element_operators()
 {
-    ip2::Dequeue dq;
-    dq + 5;
-    assert(++dq == 5);
+    ip2::Dequeue dq1, dq2;
+    dq1 + 5;
+    assert(++dq1 == 5);
 
-    dq - 7;
-    assert(--dq == 7);
+    dq1 - 7;
+    assert(--dq1 == 7);
+
+    dq2 + 8;
+    ip2::Dequeue result = dq1 & dq2;
+    assert(result.bottom() == 8);
+
+    dq2 - -19;
+    dq2.print_dequeue();
+    result.print_dequeue();
+    result &= dq2;
+    result.print_dequeue();
+    assert(result.bottom() == -19);
 }
 void test_comparisons()
 {

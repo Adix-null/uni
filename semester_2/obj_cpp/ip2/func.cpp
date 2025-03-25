@@ -254,27 +254,27 @@ namespace ip2
         Dequeue result;
         result.impl->capacity = impl->capacity + other.impl->capacity;
         result.impl->size = impl->size + other.impl->size;
-        result.impl->front = impl->front;
-        result.impl->back = other.impl->back;
 
         result.impl->data = new int[result.impl->capacity];
 
         int j = 0;
-        for (int i = impl->front; i < impl->capacity; ++i, ++j)
+        for (int i = 0; i < impl->size; ++i, ++j)
         {
-            result.impl->data[j] = impl->data[i];
+            result.impl->data[j % result.impl->capacity] = impl->data[(i + impl->front) % impl->capacity];
         }
 
-        for (int i = other.impl->front; i < other.impl->capacity; ++i, ++j)
+        for (int i = 0; i < other.impl->size; ++i, ++j)
         {
-            result.impl->data[j] = other.impl->data[i];
+            result.impl->data[j % result.impl->capacity] = other.impl->data[(i + other.impl->front) % other.impl->capacity];
         }
+        result.impl->front = 0;
+        result.impl->back = j % result.impl->capacity;
 
         return result;
     }
     Dequeue &Dequeue::operator&=(const Dequeue &other)
     {
-        return *this = *this & other;
+        *this = *this & other;
         return *this;
     }
 
