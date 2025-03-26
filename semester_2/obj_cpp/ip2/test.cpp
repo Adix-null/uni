@@ -90,10 +90,7 @@ void test_element_operators()
     assert(result.bottom() == 8);
 
     dq2 - -19;
-    dq2.print_dequeue();
-    result.print_dequeue();
     result &= dq2;
-    result.print_dequeue();
     assert(result.bottom() == -19);
 }
 void test_comparisons()
