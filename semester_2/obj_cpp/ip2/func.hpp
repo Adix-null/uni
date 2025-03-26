@@ -34,20 +34,22 @@ namespace ip2
     class Dequeue
     {
     private:
+        void testForExceptions(const bool (&arr)[3]);
         struct DequeueImpl // Implementation class
         {
             int *data;                       // The data of the dequeue, a list of numbers
             int front, back, size, capacity; // The neccessary data to describe the size and position of data
         };
         DequeueImpl *impl;
-        void testForExceptions(const bool (&arr)[3]);
 
     public:
         // Rule of 3
-        Dequeue();                                // Constructor
-        ~Dequeue();                               // Destructor
+        Dequeue(); // Constructor
+
         Dequeue(const Dequeue &other);            // Copy Constructor
         Dequeue &operator=(const Dequeue &other); // Copy Assignment Operator
+
+        ~Dequeue(); // Destructor
 
         // Standart methods
         void push_front(int value); // Add value in the front

@@ -37,12 +37,7 @@ namespace ip2
         }
         error = 0;
     }
-    Dequeue::~Dequeue()
-    {
-        dequeue_count--;
-        delete[] impl->data;
-        delete impl;
-    }
+
     Dequeue::Dequeue(const Dequeue &other)
     {
         impl = new DequeueImpl();
@@ -81,6 +76,13 @@ namespace ip2
         }
 
         return *this;
+    }
+
+    Dequeue::~Dequeue()
+    {
+        dequeue_count--;
+        delete[] impl->data;
+        delete impl;
     }
 
     void Dequeue::push_front(int value)
@@ -171,7 +173,6 @@ namespace ip2
         if (impl->size != other.impl->size)
         {
             throw MismatchedDequeueSizesException();
-            return *this;
         }
 
         Dequeue result;
