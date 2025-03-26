@@ -37,15 +37,15 @@ void findCombinations(int dp[][MAX], int weights[], int values[], int n, int w, 
 
     if (dp[n][w] == dp[n - 1][w])
     {
-        fprintf(output, "%d) ", dbgcnt++);
-        fprintf(output, "Praleidžiamas daiktas %d su svoriu %d\n", n, w);
+        fprintf(output, "\t%d) ", dbgcnt++);
+        fprintf(output, "-Praleidžiamas daiktas %d su svoriu %d\n", n, w);
         findCombinations(dp, weights, values, n - 1, w, currentComb, idx);
     }
 
     if (weights[n - 1] <= w && dp[n][w] == dp[n - 1][w - weights[n - 1]] + values[n - 1])
     {
-        fprintf(output, "%d) ", dbgcnt++);
-        fprintf(output, "Įtraukiamas daiktas %d su svoriu %d\n", n, w);
+        fprintf(output, "\t%d) ", dbgcnt++);
+        fprintf(output, "-Įtraukiamas daiktas %d su svoriu %d\n", n, w);
         currentComb[idx] = n;
         findCombinations(dp, weights, values, n - 1, w - weights[n - 1], currentComb, idx + 1);
     }
@@ -67,8 +67,11 @@ void knapsack(int weights[], int prices[], int n, int maxWeight)
                                : dp[i - 1][w];
             else
                 dp[i][w] = dp[i - 1][w];
-            fprintf(output, "%d) ", dbgcnt++);
-            fprintf(output, "dp[%d][%d] = %d\n", i, w, dp[i][w]);
+            fprintf(output, "\t%d) ", dbgcnt++);
+            if (w != 0)
+                fprintf(output, "-");
+
+            fprintf(output, "-dp[%d][%d] = %d\n", i, w + 1, dp[i][w]);
         }
     }
 
@@ -76,12 +79,20 @@ void knapsack(int weights[], int prices[], int n, int maxWeight)
     findCombinations(dp, weights, prices, n, maxWeight, currentComb, 0);
 
     fprintf(output, "\nTREČIA DALIS: Rezultatai\n");
-    fprintf(output, "Bandymų skaičius: %d\n", dbgcnt - 1);
-    // fprintf(output, "Galutinis rezultatas:  svoris %d, kaina %d\n", maxWeight, dp[n][maxWeight]);
-    fprintf(output, "Galimos kombinacijos:\n");
+    fprintf(output, "\tBandymų skaičius: %d\n\t", dbgcnt - 1);
+    if (combCount == 0)
+        fprintf(output, "Sprendinių nerasta\n");
+    else if (combCount == 1)
+        fprintf(output, "Rastas 1 sprendinys:\n");
+    else if (combCount % 10 == 1)
+        fprintf(output, "Rastas %d sprendinys:\n", combCount);
+    else if (combCount % 10 == 0)
+        fprintf(output, "Rasta %d sprendinių:\n", combCount);
+    else
+        fprintf(output, "Rasti %d sprendiniai:\n", combCount);
     for (int i = 0; i < combCount; i++)
     {
-        fprintf(output, "%d) {", i + 1);
+        fprintf(output, "\t\t%d) {", i + 1);
         for (int j = 0; j < combinations[i].count - 1; j++)
         {
             int idx = combinations[i].items[j] - 1;
@@ -139,26 +150,20 @@ int main()
     }
     fscanf(input, "%d", &c);
 
-    fprintf(output, "2 užduotis. Adomas Bieliūnas, 1 kursas, 2 grupė, 1 pogrupis.\n");
+    fprintf(output, "2 užduotis. Adomas Bieliūnas, 1 kursas, 2 grupė, 1 pogrupis.\n\n");
     fprintf(output, "SĄLYGA. Duota N daiktų, kurių svoriai s1, s2, ..., sN, o kainos k1, k2, ..., kN. Programa turi sudaryti daiktų rinkinį, kurio kaina maksimali, o svoris neviršytų nurodyto svorio C. Spausdinti visus sprendinius. Vartotojas nurodo failą įvesti svorius, kainas ir C.\n");
 
     fprintf(output, "\nPIRMA DALIS: Duomenys\n");
-    fprintf(output, "Daiktų kiekis n=%d\n", size);
-    fprintf(output, "Svoriai s={");
-    for (int i = 0; i < size - 1; i++)
+    fprintf(output, "\tDaiktų kiekis n=%d\n", size);
+    fprintf(output, "\tDaiktų duomenys:\n");
+    for (int i = 1; i < size; i++)
     {
-        fprintf(output, "%d, ", s[i]);
+        fprintf(output, "\t\t%d) s%d=%d, k%d=%d\n", i, i, s[i - 1], i, k[i - 1]);
     }
-    fprintf(output, "%d}\n", s[size - 1]);
-    fprintf(output, "Kainos k={");
-    for (int i = 0; i < size - 1; i++)
-    {
-        fprintf(output, "%d, ", k[i]);
-    }
-    fprintf(output, "%d}\n", k[size - 1]);
-    fprintf(output, "Maksimali svorio apimtis c=%d\n", c);
-    fprintf(output, "Įvesties failas: %s\n", input_name);
-    fprintf(output, "Išvesties failas: %s\n", output_name);
+    fprintf(output, "\t\t%d) s%d=%d, k%d=%d\n", size, size, s[size - 1], size, k[size - 1]);
+    fprintf(output, "\tMaksimali svorio apimtis c=%d\n", c);
+    fprintf(output, "\tĮvesties failas: %s\n", input_name);
+    fprintf(output, "\tIšvesties failas: %s\n", output_name);
 
     knapsack(s, k, size, c);
 
