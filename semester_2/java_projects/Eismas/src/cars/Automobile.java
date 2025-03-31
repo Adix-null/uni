@@ -1,7 +1,5 @@
 package cars;
 
-import base.TrafficUser;
-
 public class Automobile extends TrafficUser
 {
     private static final int WEIGHT_LIMIT = 7000;

@@ -1,6 +1,11 @@
-package base;
+package cars;
 
-public class TrafficUser
+interface MovingVehicle
+{
+    void move(int dx, int dy);
+}
+
+public class TrafficUser implements MovingVehicle
 {
     private int x;
     private int y;

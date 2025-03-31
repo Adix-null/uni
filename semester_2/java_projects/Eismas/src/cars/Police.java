@@ -1,7 +1,5 @@
 package cars;
 
-import base.TrafficUser;
-
 public class Police extends TrafficUser
 {
     public boolean sirensActive = false;

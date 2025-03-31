@@ -2,6 +2,7 @@ package base;
 
 import cars.Police;
 import cars.Automobile;
+import cars.TrafficUser;
 
 public class Main {
     public static void main(String[] args) {
