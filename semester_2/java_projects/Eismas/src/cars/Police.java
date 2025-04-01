@@ -1,5 +1,8 @@
 package cars;
 
+import exceptions.InactiveException;
+import exceptions.OutOfBoundsException;
+
 public class Police extends TrafficUser
 {
     public boolean sirensActive = false;
@@ -29,13 +32,12 @@ public class Police extends TrafficUser
     }
 
     @Override
-    public void move(int dx, int dy)
-    {
+    public void move(int dx, int dy) throws InactiveException, OutOfBoundsException {
         super.move((sirensActive ? 2 : 1) * dx, (sirensActive ? 2 : 1) * dy);
     }
 
     @Override
-    public void move(double angleRad, double r)
+    public void move(double angleRad, double r) throws InactiveException, OutOfBoundsException
     {
         super.move(angleRad, (sirensActive ? 2 : 1) * r);
     }

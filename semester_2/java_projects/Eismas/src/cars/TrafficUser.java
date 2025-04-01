@@ -1,12 +1,7 @@
 package cars;
 import base.Stoppable;
-
-enum Signal
-{
-    RED,
-    YELLOW,
-    GREEN
-}
+import exceptions.InactiveException;
+import exceptions.OutOfBoundsException;
 
 abstract public class TrafficUser implements Stoppable
 {
@@ -15,6 +10,8 @@ abstract public class TrafficUser implements Stoppable
     private boolean active;
     private boolean stopped;
     private static int totalInstances = 0;
+    public static final int gridSizeX = 1000;
+    public static final int gridSizeY = 1000;
 
     public final int getX()
     {
@@ -84,29 +81,18 @@ abstract public class TrafficUser implements Stoppable
         totalInstances++;
     }
 
-    public void move(int dx, int dy)
-    {
+    public void move(int dx, int dy) throws InactiveException, OutOfBoundsException {
+        if(!active)
+            throw new InactiveException();
+        if(Math.abs(this.x + dx) >= gridSizeX || Math.abs(this.y + dy) >= gridSizeY)
+            throw new OutOfBoundsException(gridSizeX, gridSizeY);
         this.x += dx;
         this.y += dy;
     }
-    public void move(double angleRad, double r)
+    public void move(double angleRad, double r)  throws InactiveException, OutOfBoundsException
     {
-        this.x += (int)(Math.cos(angleRad) * r);
-        this.y += (int)(Math.sin(angleRad) * r);
-    }
-
-    public void respondToTrafficSignal(Signal signal) {
-        if(signal == Signal.RED)
-        {
-            stopped = true;
-        }
-        if(signal == Signal.YELLOW)
-        {
-            stopped = true;
-        }
-        if(signal == Signal.GREEN)
-        {
-            stopped = false;
-        }
+        int dx = (int)(Math.cos(angleRad) * r);
+        int dy = (int)(Math.sin(angleRad) * r);
+        move(dx, dy);
     }
 }

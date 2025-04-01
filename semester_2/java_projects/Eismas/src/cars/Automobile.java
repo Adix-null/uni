@@ -1,5 +1,8 @@
 package cars;
 
+import exceptions.InactiveException;
+import exceptions.OutOfBoundsException;
+
 public class Automobile extends TrafficUser
 {
     private static final int WEIGHT_LIMIT = 7000;
@@ -29,8 +32,7 @@ public class Automobile extends TrafficUser
     }
 
     @Override
-    public void move(int dx, int dy)
-    {
+    public void move(int dx, int dy) throws InactiveException, OutOfBoundsException {
         if (weight < WEIGHT_LIMIT || dy > 0)
         {
             super.move(dx, dy);
@@ -39,12 +41,6 @@ public class Automobile extends TrafficUser
         {
             setStopped(true);
         }
-    }
-
-    public void drive(int x, int y)
-    {
-        setActive(true);
-        move(x, y);
     }
 
     @Override

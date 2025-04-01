@@ -3,19 +3,32 @@ package base;
 import cars.Police;
 import cars.Automobile;
 import cars.TrafficUser;
+import exceptions.TrafficException;
 
 public class Main {
     public static void main(String[] args) {
         TrafficUser t1 = new Automobile();
-        t1.move(-10, 5);
+        try {
+            t1.move(-10, 5);
+        } catch (TrafficException e) {
+            throw new RuntimeException(e);
+        }
         System.out.println(t1);
-        t1.move(Math.TAU / 8, 10.0f);
+        try {
+            t1.move(Math.TAU / 8, 10.0f);
+        } catch (TrafficException e) {
+            throw new RuntimeException(e);
+        }
         t1.deactivate();
         System.out.println(t1);
 
         Police t2 = new Police(7, 3, true, true);
         System.out.println(t2);
-        t2.move(14, -2);
+        try {
+            t2.move(14, -2);
+        } catch (TrafficException e ) {
+            throw new RuntimeException(e);
+        }
         t2.setActive(false);
         t2.stop();
         System.out.println(t2);
