@@ -1,15 +1,19 @@
 package cars;
+import base.Stoppable;
 
-interface MovingVehicle
+enum Signal
 {
-    void move(int dx, int dy);
+    RED,
+    YELLOW,
+    GREEN
 }
 
-public class TrafficUser implements MovingVehicle
+abstract public class TrafficUser implements Stoppable
 {
     private int x;
     private int y;
     private boolean active;
+    private boolean stopped;
     private static int totalInstances = 0;
 
     public final int getX()
@@ -30,13 +34,32 @@ public class TrafficUser implements MovingVehicle
         this.y = y;
     }
 
-    public boolean getActive()
+    public final boolean getActive()
     {
         return active;
     }
     public void setActive(boolean active)
     {
         this.active = active;
+    }
+
+    public final boolean getStopped()
+    {
+        return stopped;
+    }
+    public void setStopped(boolean stopped)
+    {
+        this.stopped = stopped;
+    }
+
+    public void deactivate()
+    {
+        active = false;
+        stopped = true;
+    }
+    public void stop()
+    {
+        stopped = true;
     }
 
     static public int getInstanceCount()
@@ -46,17 +69,18 @@ public class TrafficUser implements MovingVehicle
 
     public TrafficUser()
     {
-        this(0,0, false);
+        this(0,0, false, true);
     }
     public TrafficUser(int x, int y)
     {
-        this(x, y, false);
+        this(x, y, false, true);
     }
-    public TrafficUser(int x, int y, boolean active)
+    public TrafficUser(int x, int y, boolean active, boolean stopped)
     {
         setX(x);
         setY(y);
         this.active = active;
+        this.stopped = true;
         totalInstances++;
     }
 
@@ -69,5 +93,20 @@ public class TrafficUser implements MovingVehicle
     {
         this.x += (int)(Math.cos(angleRad) * r);
         this.y += (int)(Math.sin(angleRad) * r);
+    }
+
+    public void respondToTrafficSignal(Signal signal) {
+        if(signal == Signal.RED)
+        {
+            stopped = true;
+        }
+        if(signal == Signal.YELLOW)
+        {
+            stopped = true;
+        }
+        if(signal == Signal.GREEN)
+        {
+            stopped = false;
+        }
     }
 }

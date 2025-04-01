@@ -22,9 +22,9 @@ public class Automobile extends TrafficUser
     {
         super(x, y);
     }
-    public Automobile(int x, int y, boolean active, int weight)
+    public Automobile(int x, int y, boolean active, boolean stopped, int weight)
     {
-        super(x, y, active);
+        super(x, y, active, stopped);
         this.weight = weight;
     }
 
@@ -34,6 +34,10 @@ public class Automobile extends TrafficUser
         if (weight < WEIGHT_LIMIT || dy > 0)
         {
             super.move(dx, dy);
+        }
+        else
+        {
+            setStopped(true);
         }
     }
 
@@ -46,6 +50,6 @@ public class Automobile extends TrafficUser
     @Override
     public String toString()
     {
-        return "<Automobile> active: " + getActive() + " Point(" + getX() + ", " + getY() + ") weight: " + weight;
+        return "<Automobile> active: " + getActive() + " stopped: " + getStopped() + " Point(" + getX() + ", " + getY() + ") weight: " + weight;
     }
 }

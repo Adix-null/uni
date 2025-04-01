@@ -13,12 +13,13 @@ public class Police extends TrafficUser
     }
     public Police(int x, int y, boolean active, boolean sirens)
     {
-        super(x, y, active);
+        super(x, y, active, !sirens);
         this.sirensActive = sirens;
     }
 
     void setSirensActive(boolean sirensActive)
     {
+        setStopped(false);
         this.sirensActive = sirensActive;
     }
 
@@ -42,6 +43,6 @@ public class Police extends TrafficUser
     @Override
     public String toString()
     {
-        return "<Police> active: " + getActive() + " Point(" + getX() + ", " + getY() + ") sirensActive: " + sirensActive;
+        return "<Police> active: " + getActive() + " stopped: " + getStopped() + " Point(" + getX() + ", " + getY() + ") sirensActive: " + sirensActive;
     }
 }
