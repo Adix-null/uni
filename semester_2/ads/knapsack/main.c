@@ -152,7 +152,7 @@ int main()
 
     fprintf(output, "2 užduotis. Adomas Bieliūnas, 1 kursas, 2 grupė, 1 pogrupis.\n\n");
     fprintf(output, "SĄLYGA. Duota N daiktų, kurių svoriai s1, s2, ..., sN, o kainos k1,k2, ..., kN.\n Programa turi sudaryti daiktų rinkinį, kurio kaina maksimali, o svoris  neviršytų nurodyto \n svorio C. Spausdinti visus sprendinius. Vartotojas nurodo failą įvesti svorius, kainas ir C.\nhttps://en.wikipedia.org/wiki/Knapsack_problem\n");
-    fprintf(output, "ALGORITMAS: Sukuriama dp lentelė N eilių ir C stulpelių dydžio, kad būtų galima stebėti\n didžiausią įmanomą reikšmę naudojant [i] elementus ir svorį C, nusprendžiant, ar įtraukti\n kiekvieną elementą. Tada sprendinys surandamas iš paskutinio dp stulpelio, įtraukiant\n svorio neviršijančius elementus.\n");
+    fprintf(output, "ALGORITMAS: Sukuriama dp lentelė N eilių ir C stulpelių dydžio, kad būtų galima stebėti\n didžiausią įmanomą reikšmę naudojant eilutės i elementų skaičių ir stulpelio j svorį, nusprendžiant, ar įtraukti\n kiekvieną elementą. Tada sprendinys surandamas iš paskutinio dp stulpelio, įtraukiant\n svorio neviršijančius elementus.\n");
 
     fprintf(output, "\nPIRMA DALIS: Duomenys\n");
     fprintf(output, "\tDaiktų kiekis n=%d\n", size);

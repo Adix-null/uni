@@ -5,7 +5,7 @@ SĄLYGA. Duota N daiktų, kurių svoriai s1, s2, ..., sN, o kainos k1,k2, ..., k
  svorio C. Spausdinti visus sprendinius. Vartotojas nurodo failą įvesti svorius, kainas ir C.
 https://en.wikipedia.org/wiki/Knapsack_problem
 ALGORITMAS: Sukuriama dp lentelė N eilių ir C stulpelių dydžio, kad būtų galima stebėti
- didžiausią įmanomą reikšmę naudojant [i] elementus ir svorį C, nusprendžiant, ar įtraukti
+ didžiausią įmanomą reikšmę naudojant eilutės i elementų skaičių ir stulpelio j svorį, nusprendžiant, ar įtraukti
  kiekvieną elementą. Tada sprendinys surandamas iš paskutinio dp stulpelio, įtraukiant
  svorio neviršijančius elementus.
 
@@ -15,7 +15,7 @@ PIRMA DALIS: Duomenys
 		 1) s1=4, k1=5
 		 2) s2=3, k2=4
 		 3) s3=2, k3=3
-		4) s4=1, k4=2
+		 4) s4=1, k4=2
 	Maksimali svorio apimtis c=6
 	Įvesties failas: inp2.txt
 	Išvesties failas: 2uzd-03var-protokolas2-Bieliūnas-2025-04-02.txt
