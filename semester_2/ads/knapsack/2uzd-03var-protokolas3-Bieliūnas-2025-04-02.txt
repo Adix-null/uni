@@ -1,51 +1,58 @@
 2 užduotis. Adomas Bieliūnas, 1 kursas, 2 grupė, 1 pogrupis.
 
-SĄLYGA. Duota N daiktų, kurių svoriai s1, s2, ..., sN, o kainos k1, k2, ..., kN. Programa turi sudaryti daiktų rinkinį, kurio kaina maksimali, o svoris neviršytų nurodyto svorio C. Spausdinti visus sprendinius. Vartotojas nurodo failą įvesti svorius, kainas ir C.
+SĄLYGA. Duota N daiktų, kurių svoriai s1, s2, ..., sN, o kainos k1,k2, ..., kN.
+ Programa turi sudaryti daiktų rinkinį, kurio kaina maksimali, o svoris  neviršytų nurodyto 
+ svorio C. Spausdinti visus sprendinius. Vartotojas nurodo failą įvesti svorius, kainas ir C.
+https://en.wikipedia.org/wiki/Knapsack_problem
+ALGORITMAS: Sukuriama dp lentelė N eilių ir C stulpelių dydžio, kad būtų galima stebėti
+ didžiausią įmanomą reikšmę naudojant [i] elementus ir svorį C, nusprendžiant, ar įtraukti
+ kiekvieną elementą. Tada sprendinys surandamas iš paskutinio dp stulpelio, įtraukiant
+ svorio neviršijančius elementus.
 
 PIRMA DALIS: Duomenys
 	Daiktų kiekis n=5
 	Daiktų duomenys:
-		1) s1=1, k1=2
-		2) s2=1, k2=3
-		3) s3=1, k3=4
-		4) s4=1, k4=5
+		 1) s1=1, k1=2
+		 2) s2=1, k2=3
+		 3) s3=1, k3=4
+		 4) s4=1, k4=5
 		5) s5=1, k5=6
 	Maksimali svorio apimtis c=4
-	Įvesties failas: inp.txt
+	Įvesties failas: inp3.txt
 	Išvesties failas: 2uzd-03var-protokolas3-Bieliūnas-2025-04-02.txt
 
 ANTRA DALIS: Vykdymas
-	1) -dp[1][1] = 0
-	2) --dp[1][2] = 2
-	3) --dp[1][3] = 2
-	4) --dp[1][4] = 2
-	5) --dp[1][5] = 2
-	6) -dp[2][1] = 0
-	7) --dp[2][2] = 3
-	8) --dp[2][3] = 5
-	9) --dp[2][4] = 5
-	10) --dp[2][5] = 5
-	11) -dp[3][1] = 0
-	12) --dp[3][2] = 4
-	13) --dp[3][3] = 7
-	14) --dp[3][4] = 9
-	15) --dp[3][5] = 9
-	16) -dp[4][1] = 0
-	17) --dp[4][2] = 5
-	18) --dp[4][3] = 9
-	19) --dp[4][4] = 12
-	20) --dp[4][5] = 14
-	21) -dp[5][1] = 0
-	22) --dp[5][2] = 6
-	23) --dp[5][3] = 11
-	24) --dp[5][4] = 15
-	25) --dp[5][5] = 18
-	26) -Įtraukiamas daiktas 5 su svoriu 4
-	27) -Įtraukiamas daiktas 4 su svoriu 3
-	28) -Įtraukiamas daiktas 3 su svoriu 2
-	29) -Įtraukiamas daiktas 2 su svoriu 1
+	   1) dp[1][1] = 0
+	   2) -dp[1][2] = 2
+	   3) -dp[1][3] = 2
+	   4) -dp[1][4] = 2
+	   5) -dp[1][5] = 2
+	   6) dp[2][1] = 0
+	   7) -dp[2][2] = 3
+	   8) -dp[2][3] = 5
+	   9) -dp[2][4] = 5
+	  10) -dp[2][5] = 5
+	  11) dp[3][1] = 0
+	  12) -dp[3][2] = 4
+	  13) -dp[3][3] = 7
+	  14) -dp[3][4] = 9
+	  15) -dp[3][5] = 9
+	  16) dp[4][1] = 0
+	  17) -dp[4][2] = 5
+	  18) -dp[4][3] = 9
+	  19) -dp[4][4] = 12
+	  20) -dp[4][5] = 14
+	  21) dp[5][1] = 0
+	  22) -dp[5][2] = 6
+	  23) -dp[5][3] = 11
+	  24) -dp[5][4] = 15
+	  25) -dp[5][5] = 18
+	  26) Įtraukiamas daiktas 5 su svoriu 4
+	  27) Įtraukiamas daiktas 4 su svoriu 3
+	  28) Įtraukiamas daiktas 3 su svoriu 2
+	  29) Įtraukiamas daiktas 2 su svoriu 1
 
 TREČIA DALIS: Rezultatai
 	Bandymų skaičius: 29
 	Rastas 1 sprendinys:
-		1) {s5, s4, s3, s2} Svoris=1+1+1+1=4 Kaina=6+5+4+3=18
+		Nr. 1) {s5, s4, s3, s2} Svoris=1+1+1+1=4 Kaina=6+5+4+3=18

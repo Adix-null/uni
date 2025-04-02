@@ -37,15 +37,15 @@ void findCombinations(int dp[][MAX], int weights[], int values[], int n, int w, 
 
     if (dp[n][w] == dp[n - 1][w])
     {
-        fprintf(output, "\t%d) ", dbgcnt++);
-        fprintf(output, "-Praleidžiamas daiktas %d su svoriu %d\n", n, w);
+        fprintf(output, "\t%4d) ", dbgcnt++);
+        fprintf(output, "Praleidžiamas daiktas %d su svoriu %d\n", n, w);
         findCombinations(dp, weights, values, n - 1, w, currentComb, idx);
     }
 
     if (weights[n - 1] <= w && dp[n][w] == dp[n - 1][w - weights[n - 1]] + values[n - 1])
     {
-        fprintf(output, "\t%d) ", dbgcnt++);
-        fprintf(output, "-Įtraukiamas daiktas %d su svoriu %d\n", n, w);
+        fprintf(output, "\t%4d) ", dbgcnt++);
+        fprintf(output, "Įtraukiamas daiktas %d su svoriu %d\n", n, w);
         currentComb[idx] = n;
         findCombinations(dp, weights, values, n - 1, w - weights[n - 1], currentComb, idx + 1);
     }
@@ -67,11 +67,11 @@ void knapsack(int weights[], int prices[], int n, int maxWeight)
                                : dp[i - 1][w];
             else
                 dp[i][w] = dp[i - 1][w];
-            fprintf(output, "\t%d) ", dbgcnt++);
+            fprintf(output, "\t%4d) ", dbgcnt++);
             if (w != 0)
                 fprintf(output, "-");
 
-            fprintf(output, "-dp[%d][%d] = %d\n", i, w + 1, dp[i][w]);
+            fprintf(output, "dp[%d][%d] = %d\n", i, w + 1, dp[i][w]);
         }
     }
 
@@ -92,7 +92,7 @@ void knapsack(int weights[], int prices[], int n, int maxWeight)
         fprintf(output, "Rasti %d sprendiniai:\n", combCount);
     for (int i = 0; i < combCount; i++)
     {
-        fprintf(output, "\t\t%d) {", i + 1);
+        fprintf(output, "\t\tNr.%2d) {", i + 1);
         for (int j = 0; j < combinations[i].count - 1; j++)
         {
             int idx = combinations[i].items[j] - 1;
@@ -123,8 +123,8 @@ void knapsack(int weights[], int prices[], int n, int maxWeight)
 
 int main()
 {
-    char *input_name = "inp.txt";
-    char *output_name = "2uzd-03var-protokolas4-Bieliūnas-2025-04-02.txt";
+    char *input_name = "inp1.txt";
+    char *output_name = "2uzd-03var-protokolas1-Bieliūnas-2025-04-02.txt";
     FILE *input = fopen(input_name, "r");
 
     output = fopen(output_name, "w");
@@ -151,14 +151,15 @@ int main()
     fscanf(input, "%d", &c);
 
     fprintf(output, "2 užduotis. Adomas Bieliūnas, 1 kursas, 2 grupė, 1 pogrupis.\n\n");
-    fprintf(output, "SĄLYGA. Duota N daiktų, kurių svoriai s1, s2, ..., sN, o kainos k1, k2, ..., kN. Programa turi sudaryti daiktų rinkinį, kurio kaina maksimali, o svoris neviršytų nurodyto svorio C. Spausdinti visus sprendinius. Vartotojas nurodo failą įvesti svorius, kainas ir C.\n");
+    fprintf(output, "SĄLYGA. Duota N daiktų, kurių svoriai s1, s2, ..., sN, o kainos k1,k2, ..., kN.\n Programa turi sudaryti daiktų rinkinį, kurio kaina maksimali, o svoris  neviršytų nurodyto \n svorio C. Spausdinti visus sprendinius. Vartotojas nurodo failą įvesti svorius, kainas ir C.\nhttps://en.wikipedia.org/wiki/Knapsack_problem\n");
+    fprintf(output, "ALGORITMAS: Sukuriama dp lentelė N eilių ir C stulpelių dydžio, kad būtų galima stebėti\n didžiausią įmanomą reikšmę naudojant [i] elementus ir svorį C, nusprendžiant, ar įtraukti\n kiekvieną elementą. Tada sprendinys surandamas iš paskutinio dp stulpelio, įtraukiant\n svorio neviršijančius elementus.\n");
 
     fprintf(output, "\nPIRMA DALIS: Duomenys\n");
     fprintf(output, "\tDaiktų kiekis n=%d\n", size);
     fprintf(output, "\tDaiktų duomenys:\n");
     for (int i = 1; i < size; i++)
     {
-        fprintf(output, "\t\t%d) s%d=%d, k%d=%d\n", i, i, s[i - 1], i, k[i - 1]);
+        fprintf(output, "\t\t%2d) s%d=%d, k%d=%d\n", i, i, s[i - 1], i, k[i - 1]);
     }
     fprintf(output, "\t\t%d) s%d=%d, k%d=%d\n", size, size, s[size - 1], size, k[size - 1]);
     fprintf(output, "\tMaksimali svorio apimtis c=%d\n", c);
