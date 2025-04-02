@@ -124,7 +124,7 @@ void knapsack(int weights[], int prices[], int n, int maxWeight)
 int main()
 {
     char *input_name = "inp.txt";
-    char *output_name = "otp.txt";
+    char *output_name = "2uzd-03var-protokolas4-Bieliūnas-2025-04-02.txt";
     FILE *input = fopen(input_name, "r");
 
     output = fopen(output_name, "w");
@@ -166,6 +166,9 @@ int main()
     fprintf(output, "\tIšvesties failas: %s\n", output_name);
 
     knapsack(s, k, size, c);
+
+    fclose(input);
+    fclose(output);
 
     return 0;
 }
