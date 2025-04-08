@@ -8,6 +8,7 @@ import exceptions.TrafficException;
 public class Main {
     public static void main(String[] args) {
         TrafficUser t1 = new Automobile();
+        t1.setActive(true);
         try {
             t1.move(-10, 5);
         } catch (TrafficException e) {
@@ -15,9 +16,9 @@ public class Main {
         }
         System.out.println(t1);
         try {
-            t1.move(Math.TAU / 8, 10.0f);
+            t1.move(Math.TAU / 8, 10000.0f);
         } catch (TrafficException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         t1.deactivate();
         System.out.println(t1);
