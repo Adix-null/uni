@@ -1,59 +1,102 @@
-2 užduotis. Adomas Bieliūnas, 1 kursas, 2 grupė, 1 pogrupis.
+2 užduotis, 3 variantas. Adomas Bieliūnas, 1 kursas, 2 grupė, 1 pogrupis.
 
-SĄLYGA. Duota N daiktų, kurių svoriai s1, s2, ..., sN, o kainos k1,k2, ..., kN.
- Programa turi sudaryti daiktų rinkinį, kurio kaina maksimali, o svoris  neviršytų nurodyto 
- svorio C. Spausdinti visus sprendinius. Vartotojas nurodo failą įvesti svorius, kainas ir C.
-https://en.wikipedia.org/wiki/Knapsack_problem
-ALGORITMAS: Sukuriama lentelė N eilių ir C stulpelių dydžio, kad būtų galima stebėti
- didžiausią įmanomą reikšmę naudojant eilutės i elementų skaičių ir stulpelio j svorį, nusprendžiant, ar įtraukti
- kiekvieną elementą. Tada sprendinys surandamas iš paskutinio stulpelio, įtraukiant
- svorio neviršijančius elementus.
+SĄLYGA. Duota N daiktų, kurių svoriai s1, s2, ..., sN, o kainos k1,k2, ..., kN. Programa turi sudaryti daiktų rinkinį, kurio kaina maksimali, o svoris neviršytų nurodyto svorio C. Spausdinti visus sprendinius. Vartotojas nurodo failą įvesti svorius, kainas ir C.https://en.wikipedia.org/wiki/Knapsack_problem
+
+DINAMINIO PROGRAMAVIMO ALGORITMAS: Sukuriama dp lentelė N eilučių ir C stulpelių dydžio. Kiekvienas langelis parodo maksimalią įmanomą kainą su eilutės i elementų skaičimi ir stulpelio j numerio svorio apimtim. Lentelės langelių skaičiavimo būdas: Pirma eilutė tikrina, ar su pirmu elementu neviršijamas svoris j. Tuomet kitai eilutei paimama vertė iš praeitos eilutės dp[i-1][j]. Tuomet patikrinama, ar su sekančiu elementu svoris bus viršijamas. Jei ne, tuomet jo kaina pridedama prie praeitos reikšmės, jei taip, praeita vertė tiesiog nukopijuojama. Nauja reikšmė įrašoma dp[i][j] langelyje. Taip praeinama pro visus langelius. Tada sprendinys surandamas iš paskutinio stulpelio, paeiliui įtraukiant elementus, kurie neviršija svorio. Galiausiai pereinama per visus elementus, tikrinant ar įmanomos kitos kombinacijos.
+https://en.wikipedia.org/wiki/Dynamic_programming
 
 PIRMA DALIS: Duomenys
-	Daiktų kiekis n=4
+	Daiktų kiekis N=4
 	Daiktų duomenys:
 		 1) s1=4, k1=5
 		 2) s2=3, k2=4
 		 3) s3=2, k3=3
 		 4) s4=1, k4=2
-	Maksimali svorio apimtis c=6
+	Maksimali svorio apimtis C=6
 	Įvesties failas: inp2.txt
 	Išvesties failas: 2uzd-03var-protokolas2-Bieliūnas-2025-04-02.txt
 
 ANTRA DALIS: Vykdymas
-	   1) dp[1][1] = 0
-	   2) -dp[1][2] = 0
-	   3) -dp[1][3] = 0
-	   4) -dp[1][4] = 0
-	   5) -dp[1][5] = 5
-	   6) -dp[1][6] = 5
-	   7) -dp[1][7] = 5
-	   8) dp[2][1] = 0
-	   9) -dp[2][2] = 0
-	  10) -dp[2][3] = 0
-	  11) -dp[2][4] = 4
-	  12) -dp[2][5] = 5
-	  13) -dp[2][6] = 5
-	  14) -dp[2][7] = 5
-	  15) dp[3][1] = 0
-	  16) -dp[3][2] = 0
-	  17) -dp[3][3] = 3
-	  18) -dp[3][4] = 4
-	  19) -dp[3][5] = 5
-	  20) -dp[3][6] = 7
-	  21) -dp[3][7] = 8
-	  22) dp[4][1] = 0
-	  23) -dp[4][2] = 2
-	  24) -dp[4][3] = 3
-	  25) -dp[4][4] = 5
-	  26) -dp[4][5] = 6
-	  27) -dp[4][6] = 7
-	  28) -dp[4][7] = 9
-	  29) Įtraukiamas daiktas 4 su svoriu 6
-	  30) Įtraukiamas daiktas 3 su svoriu 5
-	  31) Įtraukiamas daiktas 2 su svoriu 3
+	   1) Sudaroma dp lentelė 4 eilučių ir 6 stulpelių dydžio
+	   2) Nagrinėjama 1 daiktų kiekis su 1 svorio apimtimi.
+	   3) dp[1][1] = 0
+	   4) -Nagrinėjama 1 daiktų kiekis su 2 svorio apimtimi.
+	   5) -dp[1][2] = 0
+	   6) -Nagrinėjama 1 daiktų kiekis su 3 svorio apimtimi.
+	   7) -dp[1][3] = 0
+	   8) -Nagrinėjama 1 daiktų kiekis su 4 svorio apimtimi.
+	   9) -dp[1][4] = 0
+	  10) -Nagrinėjama 1 daiktų kiekis su 5 svorio apimtimi.
+	  11) -Svoris neviršijamas, daiktas su kaina 5 įtraukiamas
+	  12) -dp[1][5] = 5
+	  13) -Nagrinėjama 1 daiktų kiekis su 6 svorio apimtimi.
+	  14) -Svoris neviršijamas, daiktas su kaina 5 įtraukiamas
+	  15) -dp[1][6] = 5
+	  16) -Nagrinėjama 1 daiktų kiekis su 7 svorio apimtimi.
+	  17) -Svoris neviršijamas, daiktas su kaina 5 įtraukiamas
+	  18) -dp[1][7] = 5
+	  19) Nagrinėjama 2 daiktų kiekis su 1 svorio apimtimi.
+	  20) dp[2][1] = 0
+	  21) -Nagrinėjama 2 daiktų kiekis su 2 svorio apimtimi.
+	  22) -dp[2][2] = 0
+	  23) -Nagrinėjama 2 daiktų kiekis su 3 svorio apimtimi.
+	  24) -dp[2][3] = 0
+	  25) -Nagrinėjama 2 daiktų kiekis su 4 svorio apimtimi.
+	  26) -Svoris neviršijamas, daiktas su kaina 4 įtraukiamas
+	  27) -dp[2][4] = 4
+	  28) -Nagrinėjama 2 daiktų kiekis su 5 svorio apimtimi.
+	  29) -Svoris būtų viršijamas, daiktas su kaina 4 neįtraukiamas
+	  30) -dp[2][5] = 5
+	  31) -Nagrinėjama 2 daiktų kiekis su 6 svorio apimtimi.
+	  32) -Svoris būtų viršijamas, daiktas su kaina 4 neįtraukiamas
+	  33) -dp[2][6] = 5
+	  34) -Nagrinėjama 2 daiktų kiekis su 7 svorio apimtimi.
+	  35) -Svoris būtų viršijamas, daiktas su kaina 4 neįtraukiamas
+	  36) -dp[2][7] = 5
+	  37) Nagrinėjama 3 daiktų kiekis su 1 svorio apimtimi.
+	  38) dp[3][1] = 0
+	  39) -Nagrinėjama 3 daiktų kiekis su 2 svorio apimtimi.
+	  40) -dp[3][2] = 0
+	  41) -Nagrinėjama 3 daiktų kiekis su 3 svorio apimtimi.
+	  42) -Svoris neviršijamas, daiktas su kaina 3 įtraukiamas
+	  43) -dp[3][3] = 3
+	  44) -Nagrinėjama 3 daiktų kiekis su 4 svorio apimtimi.
+	  45) -Svoris būtų viršijamas, daiktas su kaina 3 neįtraukiamas
+	  46) -dp[3][4] = 4
+	  47) -Nagrinėjama 3 daiktų kiekis su 5 svorio apimtimi.
+	  48) -Svoris būtų viršijamas, daiktas su kaina 3 neįtraukiamas
+	  49) -dp[3][5] = 5
+	  50) -Nagrinėjama 3 daiktų kiekis su 6 svorio apimtimi.
+	  51) -Svoris neviršijamas, daiktas su kaina 3 įtraukiamas
+	  52) -dp[3][6] = 7
+	  53) -Nagrinėjama 3 daiktų kiekis su 7 svorio apimtimi.
+	  54) -Svoris neviršijamas, daiktas su kaina 3 įtraukiamas
+	  55) -dp[3][7] = 8
+	  56) Nagrinėjama 4 daiktų kiekis su 1 svorio apimtimi.
+	  57) dp[4][1] = 0
+	  58) -Nagrinėjama 4 daiktų kiekis su 2 svorio apimtimi.
+	  59) -Svoris neviršijamas, daiktas su kaina 2 įtraukiamas
+	  60) -dp[4][2] = 2
+	  61) -Nagrinėjama 4 daiktų kiekis su 3 svorio apimtimi.
+	  62) -Svoris būtų viršijamas, daiktas su kaina 2 neįtraukiamas
+	  63) -dp[4][3] = 3
+	  64) -Nagrinėjama 4 daiktų kiekis su 4 svorio apimtimi.
+	  65) -Svoris neviršijamas, daiktas su kaina 2 įtraukiamas
+	  66) -dp[4][4] = 5
+	  67) -Nagrinėjama 4 daiktų kiekis su 5 svorio apimtimi.
+	  68) -Svoris neviršijamas, daiktas su kaina 2 įtraukiamas
+	  69) -dp[4][5] = 6
+	  70) -Nagrinėjama 4 daiktų kiekis su 6 svorio apimtimi.
+	  71) -Svoris būtų viršijamas, daiktas su kaina 2 neįtraukiamas
+	  72) -dp[4][6] = 7
+	  73) -Nagrinėjama 4 daiktų kiekis su 7 svorio apimtimi.
+	  74) -Svoris neviršijamas, daiktas su kaina 2 įtraukiamas
+	  75) -dp[4][7] = 9
+	  76) Įtraukiamas daiktas 4 su svoriu 6
+	  77) Įtraukiamas daiktas 3 su svoriu 5
+	  78) Įtraukiamas daiktas 2 su svoriu 3
 
 TREČIA DALIS: Rezultatai
-	Bandymų skaičius: 31
+	Bandymų skaičius: 78
 	Rastas 1 sprendinys:
 		Nr. 1) {s4, s3, s2} Svoris=1+2+3=6 Kaina=2+3+4=9
