@@ -1,20 +1,36 @@
 2 užduotis, 3 variantas. Adomas Bieliūnas, 1 kursas, 2 grupė, 1 pogrupis.
 
-SĄLYGA. Duota N daiktų, kurių svoriai s1, s2, ..., sN, o kainos k1,k2, ..., kN. Programa turi sudaryti daiktų rinkinį, kurio kaina maksimali, o svoris neviršytų nurodyto svorio C. Spausdinti visus sprendinius. Vartotojas nurodo failą įvesti svorius, kainas ir C.https://en.wikipedia.org/wiki/Knapsack_problem
+SĄLYGA. Duota N daiktų, kurių svoriai s1, s2, ..., sN, o kainos
+    k1,k2, ..., kN. Programa turi sudaryti daiktų rinkinį, kurio kaina
+    maksimali, o svoris neviršytų nurodyto svorio C. Spausdinti visus
+    sprendinius. Vartotojas nurodo failą įvesti svorius, kainas ir C.
+    https://en.wikipedia.org/wiki/Knapsack_problem
 
-DINAMINIO PROGRAMAVIMO ALGORITMAS: Sukuriama dp lentelė N eilučių ir C stulpelių dydžio. Kiekvienas langelis parodo maksimalią įmanomą kainą su eilutės i elementų skaičimi ir stulpelio j numerio svorio apimtim. Lentelės langelių skaičiavimo būdas: Pirma eilutė tikrina, ar su pirmu elementu neviršijamas svoris j. Tuomet kitai eilutei paimama vertė iš praeitos eilutės dp[i-1][j]. Tuomet patikrinama, ar su sekančiu elementu svoris bus viršijamas. Jei ne, tuomet jo kaina pridedama prie praeitos reikšmės, jei taip, praeita vertė tiesiog nukopijuojama. Nauja reikšmė įrašoma dp[i][j] langelyje. Taip praeinama pro visus langelius. Tada sprendinys surandamas iš paskutinio stulpelio, paeiliui įtraukiant elementus, kurie neviršija svorio. Galiausiai pereinama per visus elementus, tikrinant ar įmanomos kitos kombinacijos.
+DINAMINIO PROGRAMAVIMO ALGORITMAS: Sukuriama dp lentelė N eilučių
+    ir C stulpelių dydžio. Kiekvienas langelis parodo maksimalią įmanomą
+    kainą su eilutės i elementų skaičimi ir stulpelio j numerio svorio
+    apimtim. Lentelės langelių skaičiavimo būdas: Pirma eilutė tikrina,
+    ar su pirmu elementu neviršijamas svoris j. Tuomet kitai eilutei
+    paimama vertė iš praeitos eilutės dp[i-1][j]. Tuomet patikrinama,
+    ar su sekančiu elementu svoris bus viršijamas. Jei ne, tuomet jo
+    kaina pridedama prie praeitos reikšmės, jei taip, praeita vertė
+    tiesiog nukopijuojama. Nauja reikšmė įrašoma dp[i][j] langelyje.
+    Taip praeinama pro visus langelius. Tada sprendinys surandamas iš
+    paskutinio stulpelio, paeiliui įtraukiant elementus, kurie neviršija
+    svorio. Galiausiai pereinama per visus elementus, tikrinant ar
+    įmanomos kitos kombinacijos.
 https://en.wikipedia.org/wiki/Dynamic_programming
 
 PIRMA DALIS: Duomenys
 	Daiktų kiekis N=4
 	Daiktų duomenys:
-		 1) s1=1, k1=2
-		 2) s2=1, k2=2
-		 3) s3=1, k3=2
-		 4) s4=1, k4=3
+		 1) s1=1g, k1=2$
+		 2) s2=1g, k2=2$
+		 3) s3=1g, k3=2$
+		 4) s4=1, k4=3$
 	Maksimali svorio apimtis C=3
 	Įvesties failas: inp1.txt
-	Išvesties failas: 2uzd-03var-protokolas1-Bieliūnas-2025-04-02.txt
+	Išvesties failas: 2uzd-03var-protokolas1-Bieliūnas-2025-04-14.txt
 
 ANTRA DALIS: Vykdymas
 	   1) Sudaroma dp lentelė 4 eilučių ir 3 stulpelių dydžio
@@ -74,6 +90,6 @@ ANTRA DALIS: Vykdymas
 TREČIA DALIS: Rezultatai
 	Bandymų skaičius: 53
 	Rasti 3 sprendiniai:
-		Nr. 1) {s4, s2, s1} Svoris=1+1+1=3 Kaina=3+2+2=7
-		Nr. 2) {s4, s3, s1} Svoris=1+1+1=3 Kaina=3+2+2=7
-		Nr. 3) {s4, s3, s2} Svoris=1+1+1=3 Kaina=3+2+2=7
+		Rastas sprendinys  1) {s4, s2, s1} Svoris=1+1+1=3 Kaina=3+2+2=7
+		Rastas sprendinys  2) {s4, s3, s1} Svoris=1+1+1=3 Kaina=3+2+2=7
+		Rastas sprendinys  3) {s4, s3, s2} Svoris=1+1+1=3 Kaina=3+2+2=7

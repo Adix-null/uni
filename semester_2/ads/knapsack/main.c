@@ -113,7 +113,7 @@ void knapsack(int weights[], int prices[], int n, int maxWeight)
         fprintf(output, "Rasti %d sprendiniai:\n", combCount);
     for (int i = 0; i < combCount; i++)
     {
-        fprintf(output, "\t\tNr.%2d) {", i + 1);
+        fprintf(output, "\t\tRastas sprendinys %2d) {", i + 1);
         for (int j = 0; j < combinations[i].count - 1; j++)
         {
             int idx = combinations[i].items[j] - 1;
@@ -144,8 +144,8 @@ void knapsack(int weights[], int prices[], int n, int maxWeight)
 
 int main()
 {
-    char *input_name = "inp4.txt";
-    char *output_name = "2uzd-03var-protokolas4-Bieliūnas-2025-04-02.txt";
+    char *input_name = "inp1.txt";
+    char *output_name = "2uzd-03var-protokolas1-Bieliūnas-2025-04-14.txt";
     FILE *input = fopen(input_name, "r");
 
     output = fopen(output_name, "w");
@@ -172,17 +172,19 @@ int main()
     fscanf(input, "%d", &c);
 
     fprintf(output, "2 užduotis, 3 variantas. Adomas Bieliūnas, 1 kursas, 2 grupė, 1 pogrupis.\n\n");
-    fprintf(output, "SĄLYGA. Duota N daiktų, kurių svoriai s1, s2, ..., sN, o kainos k1,k2, ..., kN. Programa turi sudaryti daiktų rinkinį, kurio kaina maksimali, o svoris neviršytų nurodyto svorio C. Spausdinti visus sprendinius. Vartotojas nurodo failą įvesti svorius, kainas ir C.https://en.wikipedia.org/wiki/Knapsack_problem\n\n");
-    fprintf(output, "DINAMINIO PROGRAMAVIMO ALGORITMAS: Sukuriama dp lentelė N eilučių ir C stulpelių dydžio. Kiekvienas langelis parodo maksimalią įmanomą kainą su eilutės i elementų skaičimi ir stulpelio j numerio svorio apimtim. Lentelės langelių skaičiavimo būdas: Pirma eilutė tikrina, ar su pirmu elementu neviršijamas svoris j. Tuomet kitai eilutei paimama vertė iš praeitos eilutės dp[i-1][j]. Tuomet patikrinama, ar su sekančiu elementu svoris bus viršijamas. Jei ne, tuomet jo kaina pridedama prie praeitos reikšmės, jei taip, praeita vertė tiesiog nukopijuojama. Nauja reikšmė įrašoma dp[i][j] langelyje. Taip praeinama pro visus langelius. Tada sprendinys surandamas iš paskutinio stulpelio, paeiliui įtraukiant elementus, kurie neviršija svorio. Galiausiai pereinama per visus elementus, tikrinant ar įmanomos kitos kombinacijos.\nhttps://en.wikipedia.org/wiki/Dynamic_programming\n");
+    fprintf(output,
+            "SĄLYGA. Duota N daiktų, kurių svoriai s1, s2, ..., sN, o kainos\n    k1,k2, ..., kN. Programa turi sudaryti daiktų rinkinį, kurio kaina\n    maksimali, o svoris neviršytų nurodyto svorio C. Spausdinti visus\n    sprendinius. Vartotojas nurodo failą įvesti svorius, kainas ir C.\n    https://en.wikipedia.org/wiki/Knapsack_problem\n\n");
+    fprintf(output,
+            "DINAMINIO PROGRAMAVIMO ALGORITMAS: Sukuriama dp lentelė N eilučių\n    ir C stulpelių dydžio. Kiekvienas langelis parodo maksimalią įmanomą\n    kainą su eilutės i elementų skaičimi ir stulpelio j numerio svorio\n    apimtim. Lentelės langelių skaičiavimo būdas: Pirma eilutė tikrina,\n    ar su pirmu elementu neviršijamas svoris j. Tuomet kitai eilutei\n    paimama vertė iš praeitos eilutės dp[i-1][j]. Tuomet patikrinama,\n    ar su sekančiu elementu svoris bus viršijamas. Jei ne, tuomet jo\n    kaina pridedama prie praeitos reikšmės, jei taip, praeita vertė\n    tiesiog nukopijuojama. Nauja reikšmė įrašoma dp[i][j] langelyje.\n    Taip praeinama pro visus langelius. Tada sprendinys surandamas iš\n    paskutinio stulpelio, paeiliui įtraukiant elementus, kurie neviršija\n    svorio. Galiausiai pereinama per visus elementus, tikrinant ar\n    įmanomos kitos kombinacijos.\nhttps://en.wikipedia.org/wiki/Dynamic_programming\n");
 
     fprintf(output, "\nPIRMA DALIS: Duomenys\n");
     fprintf(output, "\tDaiktų kiekis N=%d\n", size);
     fprintf(output, "\tDaiktų duomenys:\n");
     for (int i = 1; i < size; i++)
     {
-        fprintf(output, "\t\t%2d) s%d=%d, k%d=%d\n", i, i, s[i - 1], i, k[i - 1]);
+        fprintf(output, "\t\t%2d) s%d=%dg, k%d=%d$\n", i, i, s[i - 1], i, k[i - 1]);
     }
-    fprintf(output, "\t\t%2d) s%d=%d, k%d=%d\n", size, size, s[size - 1], size, k[size - 1]);
+    fprintf(output, "\t\t%2d) s%d=%d, k%d=%d$\n", size, size, s[size - 1], size, k[size - 1]);
     fprintf(output, "\tMaksimali svorio apimtis C=%d\n", c);
     fprintf(output, "\tĮvesties failas: %s\n", input_name);
     fprintf(output, "\tIšvesties failas: %s\n", output_name);
