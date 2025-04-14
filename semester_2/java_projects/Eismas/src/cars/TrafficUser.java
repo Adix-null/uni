@@ -95,4 +95,17 @@ abstract public class TrafficUser implements Stoppable
         int dy = (int)(Math.sin(angleRad) * r);
         move(dx, dy);
     }
+
+    @Override
+    public TrafficUser clone()
+    {
+        try
+        {
+            return (TrafficUser) super.clone();
+        }
+        catch (CloneNotSupportedException e)
+        {
+            throw new AssertionError(); // should never happen
+        }
+    }
 }

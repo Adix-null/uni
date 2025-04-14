@@ -48,4 +48,12 @@ public class Automobile extends TrafficUser
     {
         return "<Automobile> active: " + getActive() + " stopped: " + getStopped() + " Point(" + getX() + ", " + getY() + ") weight: " + weight;
     }
+
+    @Override
+    public Automobile clone()
+    {
+        Automobile cloned = (Automobile) super.clone();
+        cloned.setWeight(this.getWeight());
+        return cloned;
+    }
 }

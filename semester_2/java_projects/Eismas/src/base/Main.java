@@ -8,6 +8,7 @@ import exceptions.TrafficException;
 public class Main {
     public static void main(String[] args) {
         TrafficUser t1 = new Automobile();
+        t1.setActive(true);
         try {
             t1.move(-10, 5);
         } catch (TrafficException e) {
@@ -19,10 +20,11 @@ public class Main {
         } catch (TrafficException e) {
             throw new RuntimeException(e);
         }
-        t1.deactivate();
+        //t1.deactivate();
         System.out.println(t1);
 
-        Police t2 = new Police(7, 3, true, true);
+        TrafficUser t2 = new Police(7, 3, true, true);
+        t2 = t1;
         System.out.println(t2);
         try {
             t2.move(14, -2);

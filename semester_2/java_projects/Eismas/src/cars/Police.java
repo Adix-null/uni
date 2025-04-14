@@ -47,4 +47,12 @@ public class Police extends TrafficUser
     {
         return "<Police> active: " + getActive() + " stopped: " + getStopped() + " Point(" + getX() + ", " + getY() + ") sirensActive: " + sirensActive;
     }
+
+    @Override
+    public Police clone()
+    {
+        Police cloned = (Police) super.clone();
+        cloned.setSirensActive(this.getSirensActive());
+        return cloned;
+    }
 }
