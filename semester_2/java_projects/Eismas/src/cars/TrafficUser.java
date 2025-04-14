@@ -2,6 +2,7 @@ package cars;
 import base.Stoppable;
 import exceptions.InactiveException;
 import exceptions.OutOfBoundsException;
+import exceptions.TrafficException;
 
 abstract public class TrafficUser implements Stoppable
 {
@@ -82,10 +83,13 @@ abstract public class TrafficUser implements Stoppable
     }
 
     public void move(int dx, int dy) throws InactiveException, OutOfBoundsException {
+        OutOfBoundsException exc = new OutOfBoundsException();
+        exc.setX(gridSizeX);
+        exc.setY(gridSizeY);
         if(!active)
             throw new InactiveException();
-        if(Math.abs(this.x + dx) >= gridSizeX || Math.abs(this.y + dy) >= gridSizeY)
-            throw new OutOfBoundsException(gridSizeX, gridSizeY);
+        if(Math.abs(this.x + dx) >= exc.getX() || Math.abs(this.y + dy) >= exc.getY())
+            throw new OutOfBoundsException(dx, dy);
         this.x += dx;
         this.y += dy;
     }
