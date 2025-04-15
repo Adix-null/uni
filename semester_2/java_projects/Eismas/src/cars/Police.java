@@ -1,5 +1,6 @@
 package cars;
 
+import base.Engine;
 import exceptions.InactiveException;
 import exceptions.OutOfBoundsException;
 
@@ -16,7 +17,7 @@ public class Police extends TrafficUser
     }
     public Police(int x, int y, boolean active, boolean sirens)
     {
-        super(x, y, active, !sirens);
+        super(x, y, active, !sirens, new Engine());
         this.sirensActive = sirens;
     }
 

@@ -1,8 +1,8 @@
 package cars;
-import base.Stoppable;
+import base.Engine;
+import interfaces.Stoppable;
 import exceptions.InactiveException;
 import exceptions.OutOfBoundsException;
-import exceptions.TrafficException;
 
 abstract public class TrafficUser implements Stoppable, Cloneable
 {
@@ -10,6 +10,7 @@ abstract public class TrafficUser implements Stoppable, Cloneable
     private int y;
     private boolean active;
     private boolean stopped;
+    protected  Engine engine;
     private static int totalInstances = 0;
     public static final int gridSizeX = 1000;
     public static final int gridSizeY = 1000;
@@ -50,6 +51,13 @@ abstract public class TrafficUser implements Stoppable, Cloneable
         this.stopped = stopped;
     }
 
+    public Engine getEngine() {
+        return engine;
+    }
+    public void setEngine(Engine engine) {
+        this.engine = engine;
+    }
+
     public void deactivate()
     {
         active = false;
@@ -67,18 +75,18 @@ abstract public class TrafficUser implements Stoppable, Cloneable
 
     public TrafficUser()
     {
-        this(0,0, false, true);
+        this(0, 0, false, true,  new Engine());
     }
     public TrafficUser(int x, int y)
     {
-        this(x, y, false, true);
+        this(x, y, false, true,  new Engine());
     }
-    public TrafficUser(int x, int y, boolean active, boolean stopped)
-    {
+    public TrafficUser(int x, int y, boolean active, boolean stopped, Engine engine) {
         setX(x);
         setY(y);
         this.active = active;
         this.stopped = true;
+        this.engine = engine;
         totalInstances++;
     }
 
@@ -105,7 +113,9 @@ abstract public class TrafficUser implements Stoppable, Cloneable
     {
         try
         {
-            return (TrafficUser) super.clone();
+            TrafficUser cloned = (TrafficUser) super.clone();
+            //cloned.engine = new Engine(); //deep cloning
+            return cloned;
         }
         catch (CloneNotSupportedException e)
         {

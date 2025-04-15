@@ -1,5 +1,6 @@
 package cars;
 
+import base.Engine;
 import exceptions.InactiveException;
 import exceptions.OutOfBoundsException;
 
@@ -27,7 +28,7 @@ public class Automobile extends TrafficUser
     }
     public Automobile(int x, int y, boolean active, boolean stopped, int weight)
     {
-        super(x, y, active, stopped);
+        super(x, y, active, stopped,  new Engine());
         this.weight = weight;
     }
 
@@ -46,7 +47,8 @@ public class Automobile extends TrafficUser
     @Override
     public String toString()
     {
-        return "<Automobile> active: " + getActive() + " stopped: " + getStopped() + " Point(" + getX() + ", " + getY() + ") weight: " + weight;
+        return "<Automobile> active: " + getActive() + " stopped: " + getStopped() + " Point(" + getX() + ", " + getY() + ") weight: " + weight +
+                "\n\t<Engine> fuel: " + engine.getFuel() + ", horsepower: " + engine.getHorsepower();
     }
 
     @Override
