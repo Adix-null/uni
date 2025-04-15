@@ -4,7 +4,7 @@ import exceptions.InactiveException;
 import exceptions.OutOfBoundsException;
 import exceptions.TrafficException;
 
-abstract public class TrafficUser implements Stoppable
+abstract public class TrafficUser implements Stoppable, Cloneable
 {
     private int x;
     private int y;
@@ -109,7 +109,7 @@ abstract public class TrafficUser implements Stoppable
         }
         catch (CloneNotSupportedException e)
         {
-            throw new AssertionError(); // should never happen
+            throw new AssertionError();
         }
     }
 }
