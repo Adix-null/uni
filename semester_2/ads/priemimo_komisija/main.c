@@ -6,6 +6,13 @@
 
 FILE *output;
 
+enum State
+{
+    WAITING,
+    WORKING,
+    ENDING
+};
+
 int main()
 {
     int variant = 1;
@@ -45,12 +52,22 @@ int main()
     fprintf(output, "\tSimuliavimo trukmė: %d min.\n", sim_t);
     fprintf(output, "\tKliento atėjimo tikimybė: %d%%\n", prob);
 
-    Dequeue *dequeue = create_dequeue();
+    fprintf(output, "\n\nANTRA DALIS: Vykdymas\n");
 
-    for (int i = 0; i < prim_t; i++)
+    Dequeue *applications = create_dequeue();
+    Dequeue *applicants = create_dequeue();
+
+    for (int i = 0; i < sim_t; i++)
     {
-        fprintf(output, "T=%d\n\tBŪSENA_%d", i, i);
-        }
+        fprintf(output, "T=%d min.\n\tBŪSENA_%d\n", i, i);
+        fprintf(output, "\t\t1) Stojačiųjų kiekis eilėje: %d", applicants->size);
+        print_dequeue(output, applicants, 'S');
+        fprintf(output, "\n\t\t2) Prašymų kiekis: %d", applications->size);
+        print_dequeue(output, applications, 'P');
+
+        fprintf(output, "\n\tVEIKSMAI_%d\n", i + 1);
+        fprintf(output, "\t\t1) Darbuotoja D1 laukia");
+    }
 
     return 0;
 }

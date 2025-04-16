@@ -157,20 +157,20 @@ int bottom(Dequeue *dekas)
     error = 0;
 }
 
-void print_dequeue(Dequeue *dekas)
+void print_dequeue(FILE *output, Dequeue *dekas, char c)
 {
     if (dekas == NULL || dekas->size == 0)
     {
-        printf("Dekas tuščias\n");
+        // fprintf(output, "Dekas tuščias\n");
     }
     else
     {
-        printf("front ");
+        fprintf(output, "front ");
         for (int i = 0; i < dekas->size; i++)
         {
-            printf("%d, ", dekas->data[(dekas->front + i) % dekas->capacity]);
+            fprintf(output, "%c%d, ", c, dekas->data[(dekas->front + i) % dekas->capacity]);
         }
-        printf("back\n");
+        fprintf(output, "back\n");
     }
 }
 
