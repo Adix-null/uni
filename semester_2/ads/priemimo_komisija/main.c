@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include "dekas.c"
 
 FILE *output;
 
@@ -39,10 +40,17 @@ int main()
     fprintf(output, "SALYGA. Priėmimo komisija. (ADT: dekas, ilgas sveikas skaičius). Procesas: komisijoje dirba 2 darbuotojos (D1, D2) skirtingu produktyvumu. Jos priima stojančiųjų prašymus ir stato į lentyną, kiekviena iš savo pusės. Kai nėra stojančiųjų ir pasibaigus tos dienos priėmimui, jos ima prašymus ir juos sutvarko. Patyrinėti, kiek laiko reikia tvarkyti prašymus, pasibaigus jų priėmimo trukmei, pvz., N=30 min.\n");
     fprintf(output, "\nPIRMA DALIS: Duomenys\n");
     fprintf(output, "\tPrašymo priėmimo laikas: %d min.\n", prim_t);
-    fprintf(output, "\tD1 produktyvumas: %d min.\n", d1);
-    fprintf(output, "\tD2 produktyvumas: %d min.\n", d2);
+    fprintf(output, "\tD1 apdorojimo greitis: %d min.\n", d1);
+    fprintf(output, "\tD2 apdorojimo greitis: %d min.\n", d2);
     fprintf(output, "\tSimuliavimo trukmė: %d min.\n", sim_t);
     fprintf(output, "\tKliento atėjimo tikimybė: %d%%\n", prob);
+
+    Dequeue *dequeue = create_dequeue();
+
+    for (int i = 0; i < prim_t; i++)
+    {
+        fprintf(output, "T=%d\n\tBŪSENA_%d", i, i);
+        }
 
     return 0;
 }
