@@ -1,8 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-
-#define DEKO_MAKS_ELEMENTU_KIEKIS 5
-#define DEKU_MAKS_KIEKIS 3
+#include "dekas.h"
 
 static int deku_kiekis_atmintyje = 0;
 static int error = 0;
@@ -17,15 +13,9 @@ char klaidu_zinutes[6][256] = {
 
 void throw_error(int kodas)
 {
-    printf("%s", klaidu_zinutes[kodas - 1]);
+    // printf("%s", klaidu_zinutes[kodas - 1]);
     error = 1;
 }
-
-typedef struct
-{
-    int *data;
-    int front, back, size, capacity;
-} Dequeue;
 
 Dequeue *create_dequeue()
 {
@@ -165,12 +155,11 @@ void print_dequeue(FILE *output, Dequeue *dekas, char c)
     }
     else
     {
-        fprintf(output, "front ");
-        for (int i = 0; i < dekas->size; i++)
+        for (int i = 0; i < dekas->size - 1; i++)
         {
             fprintf(output, "%c%d, ", c, dekas->data[(dekas->front + i) % dekas->capacity]);
         }
-        fprintf(output, "back\n");
+        fprintf(output, "%c%d", c, dekas->data[(dekas->front + dekas->size - 1) % dekas->capacity]);
     }
 }
 
