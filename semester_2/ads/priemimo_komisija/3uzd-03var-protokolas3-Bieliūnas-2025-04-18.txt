@@ -1,0 +1,873 @@
+3 užduotis, 3 variantas. Adomas Bieliūnas, 1 kursas, 2 grupė, 1 pogrupis.
+
+SALYGA. Priėmimo komisija. (ADT: dekas, ilgas sveikas skaičius). Procesas: komisijoje dirba 2 darbuotojos (D1, D2) skirtingu produktyvumu. Jos priima stojančiųjų prašymus ir stato į lentyną, kiekviena iš savo pusės. Kai nėra stojančiųjų ir pasibaigus tos dienos priėmimui, jos ima prašymus ir juos sutvarko. Patyrinėti, kiek laiko reikia tvarkyti prašymus, pasibaigus jų priėmimo trukmei, pvz., N=30 min.
+
+PIRMA DALIS: Duomenys
+	Prašymo priėmimo laikas: 3 min.
+	D1 apdorojimo greitis: 2 min.
+	D2 apdorojimo greitis: 4 min.
+	Simuliavimo trukmė: 60 min.
+	Stojančiojo atėjimo tikimybė: 20%
+	Įvesties failas: inp3.txt
+	Išvesties failas: 3uzd-03var-protokolas3-Bieliūnas-2025-04-18.txt
+
+ANTRA DALIS: Vykdymas
+T=0 min.
+	BŪSENA_0 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 0
+	VEIKSMAI_1
+		1) Darbuotoja D1 laukia
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 0
+T=1 min.
+	BŪSENA_1 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 0
+	VEIKSMAI_2
+		1) Darbuotoja D1 laukia
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 0
+T=2 min.
+	BŪSENA_2 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 0
+	VEIKSMAI_3
+		1) Darbuotoja D1 laukia
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 0
+T=3 min.
+	BŪSENA_3 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 0
+	VEIKSMAI_4
+		1) Darbuotoja D1 laukia
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 0
+T=4 min.
+	BŪSENA_4 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 0
+	VEIKSMAI_5
+		1) Darbuotoja D1 laukia
+		2) Darbuotoja D2 laukia
+		3) Ateina naujas stojantysis 1
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 1, Eilė {S1}
+		2) Prašymų kiekis: 0
+T=5 min.
+	BŪSENA_5 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 1, Eilė {S1}
+		2) Prašymų kiekis: 0
+	VEIKSMAI_6
+		1) Darbuotoja D1 pradeda priimti S1. Ji priiminės iki T=7 min.
+		2) Darbuotoja D2 laukia
+		3) Ateina naujas stojantysis 2
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 1, Eilė {S2}
+		2) Prašymų kiekis: 0
+T=6 min.
+	BŪSENA_6 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 1, Eilė {S2}
+		2) Prašymų kiekis: 0
+	VEIKSMAI_7
+		1) Darbuotoja D1 dirba prie S1.
+		2) Darbuotoja D2 pradeda priimti S2. Ji priiminės iki T=8 min.
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 0
+T=7 min.
+	BŪSENA_7 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 0
+	VEIKSMAI_8
+		1) Darbuotoja D1 baigia dirbti prie S1.
+		2) Darbuotoja D2 dirba prie S2.
+		3) Ateina naujas stojantysis 3
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 1, Eilė {S3}
+		2) Prašymų kiekis: 1, Prašymai lentynoje {P1}
+T=8 min.
+	BŪSENA_8 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 1, Eilė {S3}
+		2) Prašymų kiekis: 1, Prašymai lentynoje {P1}
+	VEIKSMAI_9
+		1) Darbuotoja D1 pradeda priimti S3. Ji priiminės iki T=10 min.
+		2) Darbuotoja D2 baigia dirbti prie S2.
+		3) Ateina naujas stojantysis 4
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 1, Eilė {S4}
+		2) Prašymų kiekis: 2, Prašymai lentynoje {P1, P2}
+T=9 min.
+	BŪSENA_9 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 1, Eilė {S4}
+		2) Prašymų kiekis: 2, Prašymai lentynoje {P1, P2}
+	VEIKSMAI_10
+		1) Darbuotoja D1 dirba prie S3.
+		2) Darbuotoja D2 pradeda priimti S4. Ji priiminės iki T=11 min.
+		3) Ateina naujas stojantysis 5
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 1, Eilė {S5}
+		2) Prašymų kiekis: 2, Prašymai lentynoje {P1, P2}
+T=10 min.
+	BŪSENA_10 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 1, Eilė {S5}
+		2) Prašymų kiekis: 2, Prašymai lentynoje {P1, P2}
+	VEIKSMAI_11
+		1) Darbuotoja D1 baigia dirbti prie S3.
+		2) Darbuotoja D2 dirba prie S4.
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 1, Eilė {S5}
+		2) Prašymų kiekis: 3, Prašymai lentynoje {P3, P1, P2}
+T=11 min.
+	BŪSENA_11 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 1, Eilė {S5}
+		2) Prašymų kiekis: 3, Prašymai lentynoje {P3, P1, P2}
+	VEIKSMAI_12
+		1) Darbuotoja D1 pradeda priimti S5. Ji priiminės iki T=13 min.
+		2) Darbuotoja D2 baigia dirbti prie S4.
+		3) Ateina naujas stojantysis 6
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 1, Eilė {S6}
+		2) Prašymų kiekis: 4, Prašymai lentynoje {P3, P1, P2, P4}
+T=12 min.
+	BŪSENA_12 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 1, Eilė {S6}
+		2) Prašymų kiekis: 4, Prašymai lentynoje {P3, P1, P2, P4}
+	VEIKSMAI_13
+		1) Darbuotoja D1 dirba prie S5.
+		2) Darbuotoja D2 pradeda priimti S6. Ji priiminės iki T=14 min.
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 4, Prašymai lentynoje {P3, P1, P2, P4}
+T=13 min.
+	BŪSENA_13 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 4, Prašymai lentynoje {P3, P1, P2, P4}
+	VEIKSMAI_14
+		1) Darbuotoja D1 baigia dirbti prie S5.
+		2) Darbuotoja D2 dirba prie S6.
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 5, Prašymai lentynoje {P5, P3, P1, P2, P4}
+T=14 min.
+	BŪSENA_14 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 5, Prašymai lentynoje {P5, P3, P1, P2, P4}
+	VEIKSMAI_15
+		1) Darbuotoja D1 laukia
+		2) Darbuotoja D2 baigia dirbti prie S6.
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 6, Prašymai lentynoje {P5, P3, P1, P2, P4, P6}
+T=15 min.
+	BŪSENA_15 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 6, Prašymai lentynoje {P5, P3, P1, P2, P4, P6}
+	VEIKSMAI_16
+		1) Darbuotoja D1 laukia
+		2) Darbuotoja D2 laukia
+		3) Ateina naujas stojantysis 7
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 1, Eilė {S7}
+		2) Prašymų kiekis: 6, Prašymai lentynoje {P5, P3, P1, P2, P4, P6}
+T=16 min.
+	BŪSENA_16 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 1, Eilė {S7}
+		2) Prašymų kiekis: 6, Prašymai lentynoje {P5, P3, P1, P2, P4, P6}
+	VEIKSMAI_17
+		1) Darbuotoja D1 pradeda priimti S7. Ji priiminės iki T=18 min.
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 6, Prašymai lentynoje {P5, P3, P1, P2, P4, P6}
+T=17 min.
+	BŪSENA_17 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 6, Prašymai lentynoje {P5, P3, P1, P2, P4, P6}
+	VEIKSMAI_18
+		1) Darbuotoja D1 dirba prie S7.
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 6, Prašymai lentynoje {P5, P3, P1, P2, P4, P6}
+T=18 min.
+	BŪSENA_18 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 6, Prašymai lentynoje {P5, P3, P1, P2, P4, P6}
+	VEIKSMAI_19
+		1) Darbuotoja D1 baigia dirbti prie S7.
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 7, Prašymai lentynoje {P7, P5, P3, P1, P2, P4, P6}
+T=19 min.
+	BŪSENA_19 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 7, Prašymai lentynoje {P7, P5, P3, P1, P2, P4, P6}
+	VEIKSMAI_20
+		1) Darbuotoja D1 laukia
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 7, Prašymai lentynoje {P7, P5, P3, P1, P2, P4, P6}
+T=20 min.
+	BŪSENA_20 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 7, Prašymai lentynoje {P7, P5, P3, P1, P2, P4, P6}
+	VEIKSMAI_21
+		1) Darbuotoja D1 laukia
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 7, Prašymai lentynoje {P7, P5, P3, P1, P2, P4, P6}
+T=21 min.
+	BŪSENA_21 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 7, Prašymai lentynoje {P7, P5, P3, P1, P2, P4, P6}
+	VEIKSMAI_22
+		1) Darbuotoja D1 laukia
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 7, Prašymai lentynoje {P7, P5, P3, P1, P2, P4, P6}
+T=22 min.
+	BŪSENA_22 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 7, Prašymai lentynoje {P7, P5, P3, P1, P2, P4, P6}
+	VEIKSMAI_23
+		1) Darbuotoja D1 laukia
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 7, Prašymai lentynoje {P7, P5, P3, P1, P2, P4, P6}
+T=23 min.
+	BŪSENA_23 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 7, Prašymai lentynoje {P7, P5, P3, P1, P2, P4, P6}
+	VEIKSMAI_24
+		1) Darbuotoja D1 laukia
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 7, Prašymai lentynoje {P7, P5, P3, P1, P2, P4, P6}
+T=24 min.
+	BŪSENA_24 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 7, Prašymai lentynoje {P7, P5, P3, P1, P2, P4, P6}
+	VEIKSMAI_25
+		1) Darbuotoja D1 laukia
+		2) Darbuotoja D2 laukia
+		3) Ateina naujas stojantysis 8
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 1, Eilė {S8}
+		2) Prašymų kiekis: 7, Prašymai lentynoje {P7, P5, P3, P1, P2, P4, P6}
+T=25 min.
+	BŪSENA_25 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 1, Eilė {S8}
+		2) Prašymų kiekis: 7, Prašymai lentynoje {P7, P5, P3, P1, P2, P4, P6}
+	VEIKSMAI_26
+		1) Darbuotoja D1 pradeda priimti S8. Ji priiminės iki T=27 min.
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 7, Prašymai lentynoje {P7, P5, P3, P1, P2, P4, P6}
+T=26 min.
+	BŪSENA_26 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 7, Prašymai lentynoje {P7, P5, P3, P1, P2, P4, P6}
+	VEIKSMAI_27
+		1) Darbuotoja D1 dirba prie S8.
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 7, Prašymai lentynoje {P7, P5, P3, P1, P2, P4, P6}
+T=27 min.
+	BŪSENA_27 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 7, Prašymai lentynoje {P7, P5, P3, P1, P2, P4, P6}
+	VEIKSMAI_28
+		1) Darbuotoja D1 baigia dirbti prie S8.
+		2) Darbuotoja D2 laukia
+		3) Ateina naujas stojantysis 9
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 1, Eilė {S9}
+		2) Prašymų kiekis: 8, Prašymai lentynoje {P8, P7, P5, P3, P1, P2, P4, P6}
+T=28 min.
+	BŪSENA_28 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 1, Eilė {S9}
+		2) Prašymų kiekis: 8, Prašymai lentynoje {P8, P7, P5, P3, P1, P2, P4, P6}
+	VEIKSMAI_29
+		1) Darbuotoja D1 pradeda priimti S9. Ji priiminės iki T=30 min.
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 8, Prašymai lentynoje {P8, P7, P5, P3, P1, P2, P4, P6}
+T=29 min.
+	BŪSENA_29 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 8, Prašymai lentynoje {P8, P7, P5, P3, P1, P2, P4, P6}
+	VEIKSMAI_30
+		1) Darbuotoja D1 dirba prie S9.
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 8, Prašymai lentynoje {P8, P7, P5, P3, P1, P2, P4, P6}
+T=30 min.
+	BŪSENA_30 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 8, Prašymai lentynoje {P8, P7, P5, P3, P1, P2, P4, P6}
+	VEIKSMAI_31
+		1) Darbuotoja D1 baigia dirbti prie S9.
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 9, Prašymai lentynoje {P9, P8, P7, P5, P3, P1, P2, P4, P6}
+T=31 min.
+	BŪSENA_31 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 9, Prašymai lentynoje {P9, P8, P7, P5, P3, P1, P2, P4, P6}
+	VEIKSMAI_32
+		1) Darbuotoja D1 laukia
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 9, Prašymai lentynoje {P9, P8, P7, P5, P3, P1, P2, P4, P6}
+T=32 min.
+	BŪSENA_32 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 9, Prašymai lentynoje {P9, P8, P7, P5, P3, P1, P2, P4, P6}
+	VEIKSMAI_33
+		1) Darbuotoja D1 laukia
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 9, Prašymai lentynoje {P9, P8, P7, P5, P3, P1, P2, P4, P6}
+T=33 min.
+	BŪSENA_33 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 9, Prašymai lentynoje {P9, P8, P7, P5, P3, P1, P2, P4, P6}
+	VEIKSMAI_34
+		1) Darbuotoja D1 laukia
+		2) Darbuotoja D2 laukia
+		3) Ateina naujas stojantysis 10
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 1, Eilė {S10}
+		2) Prašymų kiekis: 9, Prašymai lentynoje {P9, P8, P7, P5, P3, P1, P2, P4, P6}
+T=34 min.
+	BŪSENA_34 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 1, Eilė {S10}
+		2) Prašymų kiekis: 9, Prašymai lentynoje {P9, P8, P7, P5, P3, P1, P2, P4, P6}
+	VEIKSMAI_35
+		1) Darbuotoja D1 pradeda priimti S10. Ji priiminės iki T=36 min.
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 9, Prašymai lentynoje {P9, P8, P7, P5, P3, P1, P2, P4, P6}
+T=35 min.
+	BŪSENA_35 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 9, Prašymai lentynoje {P9, P8, P7, P5, P3, P1, P2, P4, P6}
+	VEIKSMAI_36
+		1) Darbuotoja D1 dirba prie S10.
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 9, Prašymai lentynoje {P9, P8, P7, P5, P3, P1, P2, P4, P6}
+T=36 min.
+	BŪSENA_36 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 9, Prašymai lentynoje {P9, P8, P7, P5, P3, P1, P2, P4, P6}
+	VEIKSMAI_37
+		1) Darbuotoja D1 baigia dirbti prie S10.
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 10, Prašymai lentynoje {P10, P9, P8, P7, P5, P3, P1, P2, P4, P6}
+T=37 min.
+	BŪSENA_37 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 10, Prašymai lentynoje {P10, P9, P8, P7, P5, P3, P1, P2, P4, P6}
+	VEIKSMAI_38
+		1) Darbuotoja D1 laukia
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 10, Prašymai lentynoje {P10, P9, P8, P7, P5, P3, P1, P2, P4, P6}
+T=38 min.
+	BŪSENA_38 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 10, Prašymai lentynoje {P10, P9, P8, P7, P5, P3, P1, P2, P4, P6}
+	VEIKSMAI_39
+		1) Darbuotoja D1 laukia
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 10, Prašymai lentynoje {P10, P9, P8, P7, P5, P3, P1, P2, P4, P6}
+T=39 min.
+	BŪSENA_39 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 10, Prašymai lentynoje {P10, P9, P8, P7, P5, P3, P1, P2, P4, P6}
+	VEIKSMAI_40
+		1) Darbuotoja D1 laukia
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 10, Prašymai lentynoje {P10, P9, P8, P7, P5, P3, P1, P2, P4, P6}
+T=40 min.
+	BŪSENA_40 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 10, Prašymai lentynoje {P10, P9, P8, P7, P5, P3, P1, P2, P4, P6}
+	VEIKSMAI_41
+		1) Darbuotoja D1 laukia
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 10, Prašymai lentynoje {P10, P9, P8, P7, P5, P3, P1, P2, P4, P6}
+T=41 min.
+	BŪSENA_41 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 10, Prašymai lentynoje {P10, P9, P8, P7, P5, P3, P1, P2, P4, P6}
+	VEIKSMAI_42
+		1) Darbuotoja D1 laukia
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 10, Prašymai lentynoje {P10, P9, P8, P7, P5, P3, P1, P2, P4, P6}
+T=42 min.
+	BŪSENA_42 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 10, Prašymai lentynoje {P10, P9, P8, P7, P5, P3, P1, P2, P4, P6}
+	VEIKSMAI_43
+		1) Darbuotoja D1 laukia
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 10, Prašymai lentynoje {P10, P9, P8, P7, P5, P3, P1, P2, P4, P6}
+T=43 min.
+	BŪSENA_43 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 10, Prašymai lentynoje {P10, P9, P8, P7, P5, P3, P1, P2, P4, P6}
+	VEIKSMAI_44
+		1) Darbuotoja D1 laukia
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 10, Prašymai lentynoje {P10, P9, P8, P7, P5, P3, P1, P2, P4, P6}
+T=44 min.
+	BŪSENA_44 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 10, Prašymai lentynoje {P10, P9, P8, P7, P5, P3, P1, P2, P4, P6}
+	VEIKSMAI_45
+		1) Darbuotoja D1 laukia
+		2) Darbuotoja D2 laukia
+		3) Ateina naujas stojantysis 11
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 1, Eilė {S11}
+		2) Prašymų kiekis: 10, Prašymai lentynoje {P10, P9, P8, P7, P5, P3, P1, P2, P4, P6}
+T=45 min.
+	BŪSENA_45 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 1, Eilė {S11}
+		2) Prašymų kiekis: 10, Prašymai lentynoje {P10, P9, P8, P7, P5, P3, P1, P2, P4, P6}
+	VEIKSMAI_46
+		1) Darbuotoja D1 pradeda priimti S11. Ji priiminės iki T=47 min.
+		2) Darbuotoja D2 laukia
+		3) Ateina naujas stojantysis 12
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 1, Eilė {S12}
+		2) Prašymų kiekis: 10, Prašymai lentynoje {P10, P9, P8, P7, P5, P3, P1, P2, P4, P6}
+T=46 min.
+	BŪSENA_46 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 1, Eilė {S12}
+		2) Prašymų kiekis: 10, Prašymai lentynoje {P10, P9, P8, P7, P5, P3, P1, P2, P4, P6}
+	VEIKSMAI_47
+		1) Darbuotoja D1 dirba prie S11.
+		2) Darbuotoja D2 pradeda priimti S12. Ji priiminės iki T=48 min.
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 10, Prašymai lentynoje {P10, P9, P8, P7, P5, P3, P1, P2, P4, P6}
+T=47 min.
+	BŪSENA_47 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 10, Prašymai lentynoje {P10, P9, P8, P7, P5, P3, P1, P2, P4, P6}
+	VEIKSMAI_48
+		1) Darbuotoja D1 baigia dirbti prie S11.
+		2) Darbuotoja D2 dirba prie S12.
+		3) Ateina naujas stojantysis 13
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 1, Eilė {S13}
+		2) Prašymų kiekis: 11, Prašymai lentynoje {P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6}
+T=48 min.
+	BŪSENA_48 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 1, Eilė {S13}
+		2) Prašymų kiekis: 11, Prašymai lentynoje {P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6}
+	VEIKSMAI_49
+		1) Darbuotoja D1 pradeda priimti S13. Ji priiminės iki T=50 min.
+		2) Darbuotoja D2 baigia dirbti prie S12.
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 12, Prašymai lentynoje {P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6, P12}
+T=49 min.
+	BŪSENA_49 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 12, Prašymai lentynoje {P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6, P12}
+	VEIKSMAI_50
+		1) Darbuotoja D1 dirba prie S13.
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 12, Prašymai lentynoje {P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6, P12}
+T=50 min.
+	BŪSENA_50 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 12, Prašymai lentynoje {P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6, P12}
+	VEIKSMAI_51
+		1) Darbuotoja D1 baigia dirbti prie S13.
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 13, Prašymai lentynoje {P13, P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6, P12}
+T=51 min.
+	BŪSENA_51 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 13, Prašymai lentynoje {P13, P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6, P12}
+	VEIKSMAI_52
+		1) Darbuotoja D1 laukia
+		2) Darbuotoja D2 laukia
+		3) Ateina naujas stojantysis 14
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 1, Eilė {S14}
+		2) Prašymų kiekis: 13, Prašymai lentynoje {P13, P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6, P12}
+T=52 min.
+	BŪSENA_52 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 1, Eilė {S14}
+		2) Prašymų kiekis: 13, Prašymai lentynoje {P13, P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6, P12}
+	VEIKSMAI_53
+		1) Darbuotoja D1 pradeda priimti S14. Ji priiminės iki T=54 min.
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 13, Prašymai lentynoje {P13, P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6, P12}
+T=53 min.
+	BŪSENA_53 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 13, Prašymai lentynoje {P13, P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6, P12}
+	VEIKSMAI_54
+		1) Darbuotoja D1 dirba prie S14.
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 13, Prašymai lentynoje {P13, P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6, P12}
+T=54 min.
+	BŪSENA_54 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 13, Prašymai lentynoje {P13, P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6, P12}
+	VEIKSMAI_55
+		1) Darbuotoja D1 baigia dirbti prie S14.
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 14, Prašymai lentynoje {P14, P13, P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6, P12}
+T=55 min.
+	BŪSENA_55 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 14, Prašymai lentynoje {P14, P13, P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6, P12}
+	VEIKSMAI_56
+		1) Darbuotoja D1 laukia
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 14, Prašymai lentynoje {P14, P13, P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6, P12}
+T=56 min.
+	BŪSENA_56 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 14, Prašymai lentynoje {P14, P13, P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6, P12}
+	VEIKSMAI_57
+		1) Darbuotoja D1 laukia
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 14, Prašymai lentynoje {P14, P13, P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6, P12}
+T=57 min.
+	BŪSENA_57 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 14, Prašymai lentynoje {P14, P13, P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6, P12}
+	VEIKSMAI_58
+		1) Darbuotoja D1 laukia
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 14, Prašymai lentynoje {P14, P13, P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6, P12}
+T=58 min.
+	BŪSENA_58 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 14, Prašymai lentynoje {P14, P13, P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6, P12}
+	VEIKSMAI_59
+		1) Darbuotoja D1 laukia
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 14, Prašymai lentynoje {P14, P13, P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6, P12}
+T=59 min.
+	BŪSENA_59 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 14, Prašymai lentynoje {P14, P13, P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6, P12}
+	VEIKSMAI_60
+		1) Darbuotoja D1 laukia
+		2) Darbuotoja D2 laukia
+		3) Ateina naujas stojantysis 15
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 1, Eilė {S15}
+		2) Prašymų kiekis: 14, Prašymai lentynoje {P14, P13, P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6, P12}
+T=60 min.
+	BŪSENA_60 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 1, Eilė {S15}
+		2) Prašymų kiekis: 14, Prašymai lentynoje {P14, P13, P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6, P12}
+	VEIKSMAI_61
+		1) Darbuotoja D1 pradeda priimti S15. Ji priiminės iki T=62 min.
+		2) Darbuotoja D2 laukia
+		3) Naujų stojančiųjų nėra
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 14, Prašymai lentynoje {P14, P13, P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6, P12}
+
+PAPILDOMAS DARBO LAIKAS
+
+T=61 min.
+	BŪSENA_61 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 14, Prašymai lentynoje {P14, P13, P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6, P12}
+	VEIKSMAI_62
+		1) Darbuotoja D1 dirba prie S15.
+		2) Darbuotoja D2 laukia
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 14, Prašymai lentynoje {P14, P13, P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6, P12}
+T=62 min.
+	BŪSENA_62 PRADŽIOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 14, Prašymai lentynoje {P14, P13, P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6, P12}
+	VEIKSMAI_63
+		1) Darbuotoja D1 baigia dirbti prie S15.
+		2) Darbuotoja D2 laukia
+	BŪSENA PABAIGOJE
+		1) Stojačiųjų kiekis eilėje: 0
+		2) Prašymų kiekis: 15, Prašymai lentynoje {P15, P14, P13, P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6, P12}
+
+STOJANČIŲJŲ EILĖ TUŠČIA
+
+T=63 min.
+	BŪSENA_63 PRADŽIOJE
+		1) Prašymų kiekis: 15, Prašymai lentynoje {P15, P14, P13, P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6, P12}
+	VEIKSMAI_64
+		1) Darbuotoja D1 pradeda dirbti prie P15 prašymo. Ji dirbs iki T=64 min.
+		2) Darbuotoja D2 pradeda dirbti prie P12 prašymo. Ji priiminės iki T=66 min.
+	BŪSENA PABAIGOJE
+		1) Prašymų kiekis: 13, Prašymai lentynoje {P14, P13, P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6}
+T=64 min.
+	BŪSENA_64 PRADŽIOJE
+		1) Prašymų kiekis: 13, Prašymai lentynoje {P14, P13, P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6}
+	VEIKSMAI_65
+		1) Darbuotoja D1 baigia dirbti prie P15 prašymo.
+		2) Darbuotoja D2 dirba prie P12 prašymo.
+	BŪSENA PABAIGOJE
+		1) Prašymų kiekis: 13, Prašymai lentynoje {P14, P13, P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6}
+T=65 min.
+	BŪSENA_65 PRADŽIOJE
+		1) Prašymų kiekis: 13, Prašymai lentynoje {P14, P13, P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6}
+	VEIKSMAI_66
+		1) Darbuotoja D1 pradeda dirbti prie P14 prašymo. Ji dirbs iki T=66 min.
+		2) Darbuotoja D2 dirba prie P12 prašymo.
+	BŪSENA PABAIGOJE
+		1) Prašymų kiekis: 12, Prašymai lentynoje {P13, P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6}
+T=66 min.
+	BŪSENA_66 PRADŽIOJE
+		1) Prašymų kiekis: 12, Prašymai lentynoje {P13, P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6}
+	VEIKSMAI_67
+		1) Darbuotoja D1 baigia dirbti prie P14 prašymo.
+		2) Darbuotoja D2 baigia dirbti prie P12 prašymo.
+	BŪSENA PABAIGOJE
+		1) Prašymų kiekis: 12, Prašymai lentynoje {P13, P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6}
+T=67 min.
+	BŪSENA_67 PRADŽIOJE
+		1) Prašymų kiekis: 12, Prašymai lentynoje {P13, P11, P10, P9, P8, P7, P5, P3, P1, P2, P4, P6}
+	VEIKSMAI_68
+		1) Darbuotoja D1 pradeda dirbti prie P13 prašymo. Ji dirbs iki T=68 min.
+		2) Darbuotoja D2 pradeda dirbti prie P6 prašymo. Ji priiminės iki T=70 min.
+	BŪSENA PABAIGOJE
+		1) Prašymų kiekis: 10, Prašymai lentynoje {P11, P10, P9, P8, P7, P5, P3, P1, P2, P4}
+T=68 min.
+	BŪSENA_68 PRADŽIOJE
+		1) Prašymų kiekis: 10, Prašymai lentynoje {P11, P10, P9, P8, P7, P5, P3, P1, P2, P4}
+	VEIKSMAI_69
+		1) Darbuotoja D1 baigia dirbti prie P13 prašymo.
+		2) Darbuotoja D2 dirba prie P6 prašymo.
+	BŪSENA PABAIGOJE
+		1) Prašymų kiekis: 10, Prašymai lentynoje {P11, P10, P9, P8, P7, P5, P3, P1, P2, P4}
+T=69 min.
+	BŪSENA_69 PRADŽIOJE
+		1) Prašymų kiekis: 10, Prašymai lentynoje {P11, P10, P9, P8, P7, P5, P3, P1, P2, P4}
+	VEIKSMAI_70
+		1) Darbuotoja D1 pradeda dirbti prie P11 prašymo. Ji dirbs iki T=70 min.
+		2) Darbuotoja D2 dirba prie P6 prašymo.
+	BŪSENA PABAIGOJE
+		1) Prašymų kiekis: 9, Prašymai lentynoje {P10, P9, P8, P7, P5, P3, P1, P2, P4}
+T=70 min.
+	BŪSENA_70 PRADŽIOJE
+		1) Prašymų kiekis: 9, Prašymai lentynoje {P10, P9, P8, P7, P5, P3, P1, P2, P4}
+	VEIKSMAI_71
+		1) Darbuotoja D1 baigia dirbti prie P11 prašymo.
+		2) Darbuotoja D2 baigia dirbti prie P6 prašymo.
+	BŪSENA PABAIGOJE
+		1) Prašymų kiekis: 9, Prašymai lentynoje {P10, P9, P8, P7, P5, P3, P1, P2, P4}
+T=71 min.
+	BŪSENA_71 PRADŽIOJE
+		1) Prašymų kiekis: 9, Prašymai lentynoje {P10, P9, P8, P7, P5, P3, P1, P2, P4}
+	VEIKSMAI_72
+		1) Darbuotoja D1 pradeda dirbti prie P10 prašymo. Ji dirbs iki T=72 min.
+		2) Darbuotoja D2 pradeda dirbti prie P4 prašymo. Ji priiminės iki T=74 min.
+	BŪSENA PABAIGOJE
+		1) Prašymų kiekis: 7, Prašymai lentynoje {P9, P8, P7, P5, P3, P1, P2}
+T=72 min.
+	BŪSENA_72 PRADŽIOJE
+		1) Prašymų kiekis: 7, Prašymai lentynoje {P9, P8, P7, P5, P3, P1, P2}
+	VEIKSMAI_73
+		1) Darbuotoja D1 baigia dirbti prie P10 prašymo.
+		2) Darbuotoja D2 dirba prie P4 prašymo.
+	BŪSENA PABAIGOJE
+		1) Prašymų kiekis: 7, Prašymai lentynoje {P9, P8, P7, P5, P3, P1, P2}
+T=73 min.
+	BŪSENA_73 PRADŽIOJE
+		1) Prašymų kiekis: 7, Prašymai lentynoje {P9, P8, P7, P5, P3, P1, P2}
+	VEIKSMAI_74
+		1) Darbuotoja D1 pradeda dirbti prie P9 prašymo. Ji dirbs iki T=74 min.
+		2) Darbuotoja D2 dirba prie P4 prašymo.
+	BŪSENA PABAIGOJE
+		1) Prašymų kiekis: 6, Prašymai lentynoje {P8, P7, P5, P3, P1, P2}
+T=74 min.
+	BŪSENA_74 PRADŽIOJE
+		1) Prašymų kiekis: 6, Prašymai lentynoje {P8, P7, P5, P3, P1, P2}
+	VEIKSMAI_75
+		1) Darbuotoja D1 baigia dirbti prie P9 prašymo.
+		2) Darbuotoja D2 baigia dirbti prie P4 prašymo.
+	BŪSENA PABAIGOJE
+		1) Prašymų kiekis: 6, Prašymai lentynoje {P8, P7, P5, P3, P1, P2}
+T=75 min.
+	BŪSENA_75 PRADŽIOJE
+		1) Prašymų kiekis: 6, Prašymai lentynoje {P8, P7, P5, P3, P1, P2}
+	VEIKSMAI_76
+		1) Darbuotoja D1 pradeda dirbti prie P8 prašymo. Ji dirbs iki T=76 min.
+		2) Darbuotoja D2 pradeda dirbti prie P2 prašymo. Ji priiminės iki T=78 min.
+	BŪSENA PABAIGOJE
+		1) Prašymų kiekis: 4, Prašymai lentynoje {P7, P5, P3, P1}
+T=76 min.
+	BŪSENA_76 PRADŽIOJE
+		1) Prašymų kiekis: 4, Prašymai lentynoje {P7, P5, P3, P1}
+	VEIKSMAI_77
+		1) Darbuotoja D1 baigia dirbti prie P8 prašymo.
+		2) Darbuotoja D2 dirba prie P2 prašymo.
+	BŪSENA PABAIGOJE
+		1) Prašymų kiekis: 4, Prašymai lentynoje {P7, P5, P3, P1}
+T=77 min.
+	BŪSENA_77 PRADŽIOJE
+		1) Prašymų kiekis: 4, Prašymai lentynoje {P7, P5, P3, P1}
+	VEIKSMAI_78
+		1) Darbuotoja D1 pradeda dirbti prie P7 prašymo. Ji dirbs iki T=78 min.
+		2) Darbuotoja D2 dirba prie P2 prašymo.
+	BŪSENA PABAIGOJE
+		1) Prašymų kiekis: 3, Prašymai lentynoje {P5, P3, P1}
+T=78 min.
+	BŪSENA_78 PRADŽIOJE
+		1) Prašymų kiekis: 3, Prašymai lentynoje {P5, P3, P1}
+	VEIKSMAI_79
+		1) Darbuotoja D1 baigia dirbti prie P7 prašymo.
+		2) Darbuotoja D2 baigia dirbti prie P2 prašymo.
+	BŪSENA PABAIGOJE
+		1) Prašymų kiekis: 3, Prašymai lentynoje {P5, P3, P1}
+T=79 min.
+	BŪSENA_79 PRADŽIOJE
+		1) Prašymų kiekis: 3, Prašymai lentynoje {P5, P3, P1}
+	VEIKSMAI_80
+		1) Darbuotoja D1 pradeda dirbti prie P5 prašymo. Ji dirbs iki T=80 min.
+		2) Darbuotoja D2 pradeda dirbti prie P1 prašymo. Ji priiminės iki T=82 min.
+	BŪSENA PABAIGOJE
+		1) Prašymų kiekis: 1, Prašymai lentynoje {P3}
+T=80 min.
+	BŪSENA_80 PRADŽIOJE
+		1) Prašymų kiekis: 1, Prašymai lentynoje {P3}
+	VEIKSMAI_81
+		1) Darbuotoja D1 baigia dirbti prie P5 prašymo.
+		2) Darbuotoja D2 dirba prie P1 prašymo.
+	BŪSENA PABAIGOJE
+		1) Prašymų kiekis: 1, Prašymai lentynoje {P3}
+T=81 min.
+	BŪSENA_81 PRADŽIOJE
+		1) Prašymų kiekis: 1, Prašymai lentynoje {P3}
+	VEIKSMAI_82
+		1) Darbuotoja D1 pradeda dirbti prie P3 prašymo. Ji dirbs iki T=82 min.
+		2) Darbuotoja D2 dirba prie P1 prašymo.
+	BŪSENA PABAIGOJE
+		1) Prašymų kiekis: 0
+T=82 min.
+	BŪSENA_82 PRADŽIOJE
+		1) Prašymų kiekis: 0
+	BŪSENA PABAIGOJE
+		1) Prašymų kiekis: 0
+
+3 DALIS. REZULTATAI
+	Papildomas darbo laikas 22
+	D1 užimtumas 63%
+	D2 užimtumas 38%
