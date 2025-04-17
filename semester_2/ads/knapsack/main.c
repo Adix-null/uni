@@ -38,14 +38,14 @@ void findCombinations(int dp[][MAX], int weights[], int values[], int n, int w, 
     if (dp[n][w] == dp[n - 1][w])
     {
         fprintf(output, "\t%4d) ", dbgcnt++);
-        fprintf(output, "Praleidžiamas daiktas %d su svoriu %d\n", n, w);
+        fprintf(output, "Praleidžiamas daiktas %d su svoriu %dg\n", n, w);
         findCombinations(dp, weights, values, n - 1, w, currentComb, idx);
     }
 
     if (weights[n - 1] <= w && dp[n][w] == dp[n - 1][w - weights[n - 1]] + values[n - 1])
     {
         fprintf(output, "\t%4d) ", dbgcnt++);
-        fprintf(output, "Įtraukiamas daiktas %d su svoriu %d\n", n, w);
+        fprintf(output, "Įtraukiamas daiktas %d su svoriu %dg\n", n, w);
         currentComb[idx] = n;
         findCombinations(dp, weights, values, n - 1, w - weights[n - 1], currentComb, idx + 1);
     }
@@ -66,7 +66,7 @@ void knapsack(int weights[], int prices[], int n, int maxWeight)
             if (w != 0)
                 fprintf(output, "-");
 
-            fprintf(output, "Nagrinėjama %d daiktų kiekis su %d svorio apimtimi.\n", i, w + 1);
+            fprintf(output, "Nagrinėjama %d daiktų kiekis su %dg svorio apimtimi.\n", i, w + 1);
             if (weights[i - 1] <= w)
             {
                 if (prices[i - 1] + dp[i - 1][w - weights[i - 1]] > dp[i - 1][w])
@@ -75,7 +75,7 @@ void knapsack(int weights[], int prices[], int n, int maxWeight)
                     fprintf(output, "\t%4d) ", dbgcnt++);
                     if (w != 0)
                         fprintf(output, "-");
-                    fprintf(output, "Svoris neviršijamas, daiktas su kaina %d įtraukiamas\n", prices[i - 1]);
+                    fprintf(output, "Svoris neviršijamas, daiktas su kaina %d$ įtraukiamas\n", prices[i - 1]);
                 }
                 else
                 {
@@ -83,7 +83,7 @@ void knapsack(int weights[], int prices[], int n, int maxWeight)
                     fprintf(output, "\t%4d) ", dbgcnt++);
                     if (w != 0)
                         fprintf(output, "-");
-                    fprintf(output, "Svoris būtų viršijamas, daiktas su kaina %d neįtraukiamas\n", prices[i - 1]);
+                    fprintf(output, "Svoris būtų viršijamas, daiktas su kaina %d$ neįtraukiamas\n", prices[i - 1]);
                 }
             }
             else
@@ -92,7 +92,7 @@ void knapsack(int weights[], int prices[], int n, int maxWeight)
 
             if (w != 0)
                 fprintf(output, "-");
-            fprintf(output, "dp[%d][%d] = %d\n", i, w + 1, dp[i][w]);
+            fprintf(output, "dp[%d][%d] = %d$\n", i, w + 1, dp[i][w]);
         }
     }
 
@@ -128,7 +128,7 @@ void knapsack(int weights[], int prices[], int n, int maxWeight)
             ss += weights[idx];
         }
         ss += weights[combinations[i].items[combinations[i].count - 1] - 1];
-        fprintf(output, "%d=%d Kaina=", weights[combinations[i].items[combinations[i].count - 1] - 1], ss);
+        fprintf(output, "%d=%dg Kaina=", weights[combinations[i].items[combinations[i].count - 1] - 1], ss);
 
         int sk = 0;
         for (int j = 0; j < combinations[i].count - 1; j++)
@@ -138,14 +138,14 @@ void knapsack(int weights[], int prices[], int n, int maxWeight)
             sk += prices[idx];
         }
         sk += prices[combinations[i].items[combinations[i].count - 1] - 1];
-        fprintf(output, "%d=%d\n", prices[combinations[i].items[combinations[i].count - 1] - 1], sk);
+        fprintf(output, "%d=%d$\n", prices[combinations[i].items[combinations[i].count - 1] - 1], sk);
     }
 }
 
 int main()
 {
-    char *input_name = "inp1.txt";
-    char *output_name = "2uzd-03var-protokolas1-Bieliūnas-2025-04-14.txt";
+    char *input_name = "inp4.txt";
+    char *output_name = "2uzd-03var-protokolas4-Bieliūnas-2025-04-17.txt";
     FILE *input = fopen(input_name, "r");
 
     output = fopen(output_name, "w");
@@ -184,7 +184,7 @@ int main()
     {
         fprintf(output, "\t\t%2d) s%d=%dg, k%d=%d$\n", i, i, s[i - 1], i, k[i - 1]);
     }
-    fprintf(output, "\t\t%2d) s%d=%d, k%d=%d$\n", size, size, s[size - 1], size, k[size - 1]);
+    fprintf(output, "\t\t%2d) s%d=%dg, k%d=%d$\n", size, size, s[size - 1], size, k[size - 1]);
     fprintf(output, "\tMaksimali svorio apimtis C=%d\n", c);
     fprintf(output, "\tĮvesties failas: %s\n", input_name);
     fprintf(output, "\tIšvesties failas: %s\n", output_name);

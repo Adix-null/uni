@@ -1,0 +1,1839 @@
+2 užduotis, 3 variantas. Adomas Bieliūnas, 1 kursas, 2 grupė, 1 pogrupis.
+
+SĄLYGA. Duota N daiktų, kurių svoriai s1, s2, ..., sN, o kainos
+    k1,k2, ..., kN. Programa turi sudaryti daiktų rinkinį, kurio kaina
+    maksimali, o svoris neviršytų nurodyto svorio C. Spausdinti visus
+    sprendinius. Vartotojas nurodo failą įvesti svorius, kainas ir C.
+    https://en.wikipedia.org/wiki/Knapsack_problem
+
+DINAMINIO PROGRAMAVIMO ALGORITMAS: Sukuriama dp lentelė N eilučių
+    ir C stulpelių dydžio. Kiekvienas langelis parodo maksimalią įmanomą
+    kainą su eilutės i elementų skaičimi ir stulpelio j numerio svorio
+    apimtim. Lentelės langelių skaičiavimo būdas: Pirma eilutė tikrina,
+    ar su pirmu elementu neviršijamas svoris j. Tuomet kitai eilutei
+    paimama vertė iš praeitos eilutės dp[i-1][j]. Tuomet patikrinama,
+    ar su sekančiu elementu svoris bus viršijamas. Jei ne, tuomet jo
+    kaina pridedama prie praeitos reikšmės, jei taip, praeita vertė
+    tiesiog nukopijuojama. Nauja reikšmė įrašoma dp[i][j] langelyje.
+    Taip praeinama pro visus langelius. Tada sprendinys surandamas iš
+    paskutinio stulpelio, paeiliui įtraukiant elementus, kurie neviršija
+    svorio. Galiausiai pereinama per visus elementus, tikrinant ar
+    įmanomos kitos kombinacijos.
+https://en.wikipedia.org/wiki/Dynamic_programming
+
+PIRMA DALIS: Duomenys
+	Daiktų kiekis N=10
+	Daiktų duomenys:
+		 1) s1=23g, k1=505$
+		 2) s2=26g, k2=352$
+		 3) s3=20g, k3=458$
+		 4) s4=18g, k4=220$
+		 5) s5=32g, k5=354$
+		 6) s6=27g, k6=414$
+		 7) s7=29g, k7=498$
+		 8) s8=26g, k8=545$
+		 9) s9=30g, k9=473$
+		10) s10=27g, k10=543$
+	Maksimali svorio apimtis C=67
+	Įvesties failas: inp4.txt
+	Išvesties failas: 2uzd-03var-protokolas4-Bieliūnas-2025-04-17.txt
+
+ANTRA DALIS: Vykdymas
+	   1) Sudaroma dp lentelė 10 eilučių ir 67 stulpelių dydžio
+	   2) Nagrinėjama 1 daiktų kiekis su 1g svorio apimtimi.
+	   3) dp[1][1] = 0$
+	   4) -Nagrinėjama 1 daiktų kiekis su 2g svorio apimtimi.
+	   5) -dp[1][2] = 0$
+	   6) -Nagrinėjama 1 daiktų kiekis su 3g svorio apimtimi.
+	   7) -dp[1][3] = 0$
+	   8) -Nagrinėjama 1 daiktų kiekis su 4g svorio apimtimi.
+	   9) -dp[1][4] = 0$
+	  10) -Nagrinėjama 1 daiktų kiekis su 5g svorio apimtimi.
+	  11) -dp[1][5] = 0$
+	  12) -Nagrinėjama 1 daiktų kiekis su 6g svorio apimtimi.
+	  13) -dp[1][6] = 0$
+	  14) -Nagrinėjama 1 daiktų kiekis su 7g svorio apimtimi.
+	  15) -dp[1][7] = 0$
+	  16) -Nagrinėjama 1 daiktų kiekis su 8g svorio apimtimi.
+	  17) -dp[1][8] = 0$
+	  18) -Nagrinėjama 1 daiktų kiekis su 9g svorio apimtimi.
+	  19) -dp[1][9] = 0$
+	  20) -Nagrinėjama 1 daiktų kiekis su 10g svorio apimtimi.
+	  21) -dp[1][10] = 0$
+	  22) -Nagrinėjama 1 daiktų kiekis su 11g svorio apimtimi.
+	  23) -dp[1][11] = 0$
+	  24) -Nagrinėjama 1 daiktų kiekis su 12g svorio apimtimi.
+	  25) -dp[1][12] = 0$
+	  26) -Nagrinėjama 1 daiktų kiekis su 13g svorio apimtimi.
+	  27) -dp[1][13] = 0$
+	  28) -Nagrinėjama 1 daiktų kiekis su 14g svorio apimtimi.
+	  29) -dp[1][14] = 0$
+	  30) -Nagrinėjama 1 daiktų kiekis su 15g svorio apimtimi.
+	  31) -dp[1][15] = 0$
+	  32) -Nagrinėjama 1 daiktų kiekis su 16g svorio apimtimi.
+	  33) -dp[1][16] = 0$
+	  34) -Nagrinėjama 1 daiktų kiekis su 17g svorio apimtimi.
+	  35) -dp[1][17] = 0$
+	  36) -Nagrinėjama 1 daiktų kiekis su 18g svorio apimtimi.
+	  37) -dp[1][18] = 0$
+	  38) -Nagrinėjama 1 daiktų kiekis su 19g svorio apimtimi.
+	  39) -dp[1][19] = 0$
+	  40) -Nagrinėjama 1 daiktų kiekis su 20g svorio apimtimi.
+	  41) -dp[1][20] = 0$
+	  42) -Nagrinėjama 1 daiktų kiekis su 21g svorio apimtimi.
+	  43) -dp[1][21] = 0$
+	  44) -Nagrinėjama 1 daiktų kiekis su 22g svorio apimtimi.
+	  45) -dp[1][22] = 0$
+	  46) -Nagrinėjama 1 daiktų kiekis su 23g svorio apimtimi.
+	  47) -dp[1][23] = 0$
+	  48) -Nagrinėjama 1 daiktų kiekis su 24g svorio apimtimi.
+	  49) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	  50) -dp[1][24] = 505$
+	  51) -Nagrinėjama 1 daiktų kiekis su 25g svorio apimtimi.
+	  52) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	  53) -dp[1][25] = 505$
+	  54) -Nagrinėjama 1 daiktų kiekis su 26g svorio apimtimi.
+	  55) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	  56) -dp[1][26] = 505$
+	  57) -Nagrinėjama 1 daiktų kiekis su 27g svorio apimtimi.
+	  58) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	  59) -dp[1][27] = 505$
+	  60) -Nagrinėjama 1 daiktų kiekis su 28g svorio apimtimi.
+	  61) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	  62) -dp[1][28] = 505$
+	  63) -Nagrinėjama 1 daiktų kiekis su 29g svorio apimtimi.
+	  64) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	  65) -dp[1][29] = 505$
+	  66) -Nagrinėjama 1 daiktų kiekis su 30g svorio apimtimi.
+	  67) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	  68) -dp[1][30] = 505$
+	  69) -Nagrinėjama 1 daiktų kiekis su 31g svorio apimtimi.
+	  70) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	  71) -dp[1][31] = 505$
+	  72) -Nagrinėjama 1 daiktų kiekis su 32g svorio apimtimi.
+	  73) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	  74) -dp[1][32] = 505$
+	  75) -Nagrinėjama 1 daiktų kiekis su 33g svorio apimtimi.
+	  76) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	  77) -dp[1][33] = 505$
+	  78) -Nagrinėjama 1 daiktų kiekis su 34g svorio apimtimi.
+	  79) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	  80) -dp[1][34] = 505$
+	  81) -Nagrinėjama 1 daiktų kiekis su 35g svorio apimtimi.
+	  82) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	  83) -dp[1][35] = 505$
+	  84) -Nagrinėjama 1 daiktų kiekis su 36g svorio apimtimi.
+	  85) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	  86) -dp[1][36] = 505$
+	  87) -Nagrinėjama 1 daiktų kiekis su 37g svorio apimtimi.
+	  88) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	  89) -dp[1][37] = 505$
+	  90) -Nagrinėjama 1 daiktų kiekis su 38g svorio apimtimi.
+	  91) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	  92) -dp[1][38] = 505$
+	  93) -Nagrinėjama 1 daiktų kiekis su 39g svorio apimtimi.
+	  94) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	  95) -dp[1][39] = 505$
+	  96) -Nagrinėjama 1 daiktų kiekis su 40g svorio apimtimi.
+	  97) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	  98) -dp[1][40] = 505$
+	  99) -Nagrinėjama 1 daiktų kiekis su 41g svorio apimtimi.
+	 100) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	 101) -dp[1][41] = 505$
+	 102) -Nagrinėjama 1 daiktų kiekis su 42g svorio apimtimi.
+	 103) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	 104) -dp[1][42] = 505$
+	 105) -Nagrinėjama 1 daiktų kiekis su 43g svorio apimtimi.
+	 106) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	 107) -dp[1][43] = 505$
+	 108) -Nagrinėjama 1 daiktų kiekis su 44g svorio apimtimi.
+	 109) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	 110) -dp[1][44] = 505$
+	 111) -Nagrinėjama 1 daiktų kiekis su 45g svorio apimtimi.
+	 112) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	 113) -dp[1][45] = 505$
+	 114) -Nagrinėjama 1 daiktų kiekis su 46g svorio apimtimi.
+	 115) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	 116) -dp[1][46] = 505$
+	 117) -Nagrinėjama 1 daiktų kiekis su 47g svorio apimtimi.
+	 118) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	 119) -dp[1][47] = 505$
+	 120) -Nagrinėjama 1 daiktų kiekis su 48g svorio apimtimi.
+	 121) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	 122) -dp[1][48] = 505$
+	 123) -Nagrinėjama 1 daiktų kiekis su 49g svorio apimtimi.
+	 124) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	 125) -dp[1][49] = 505$
+	 126) -Nagrinėjama 1 daiktų kiekis su 50g svorio apimtimi.
+	 127) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	 128) -dp[1][50] = 505$
+	 129) -Nagrinėjama 1 daiktų kiekis su 51g svorio apimtimi.
+	 130) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	 131) -dp[1][51] = 505$
+	 132) -Nagrinėjama 1 daiktų kiekis su 52g svorio apimtimi.
+	 133) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	 134) -dp[1][52] = 505$
+	 135) -Nagrinėjama 1 daiktų kiekis su 53g svorio apimtimi.
+	 136) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	 137) -dp[1][53] = 505$
+	 138) -Nagrinėjama 1 daiktų kiekis su 54g svorio apimtimi.
+	 139) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	 140) -dp[1][54] = 505$
+	 141) -Nagrinėjama 1 daiktų kiekis su 55g svorio apimtimi.
+	 142) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	 143) -dp[1][55] = 505$
+	 144) -Nagrinėjama 1 daiktų kiekis su 56g svorio apimtimi.
+	 145) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	 146) -dp[1][56] = 505$
+	 147) -Nagrinėjama 1 daiktų kiekis su 57g svorio apimtimi.
+	 148) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	 149) -dp[1][57] = 505$
+	 150) -Nagrinėjama 1 daiktų kiekis su 58g svorio apimtimi.
+	 151) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	 152) -dp[1][58] = 505$
+	 153) -Nagrinėjama 1 daiktų kiekis su 59g svorio apimtimi.
+	 154) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	 155) -dp[1][59] = 505$
+	 156) -Nagrinėjama 1 daiktų kiekis su 60g svorio apimtimi.
+	 157) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	 158) -dp[1][60] = 505$
+	 159) -Nagrinėjama 1 daiktų kiekis su 61g svorio apimtimi.
+	 160) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	 161) -dp[1][61] = 505$
+	 162) -Nagrinėjama 1 daiktų kiekis su 62g svorio apimtimi.
+	 163) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	 164) -dp[1][62] = 505$
+	 165) -Nagrinėjama 1 daiktų kiekis su 63g svorio apimtimi.
+	 166) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	 167) -dp[1][63] = 505$
+	 168) -Nagrinėjama 1 daiktų kiekis su 64g svorio apimtimi.
+	 169) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	 170) -dp[1][64] = 505$
+	 171) -Nagrinėjama 1 daiktų kiekis su 65g svorio apimtimi.
+	 172) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	 173) -dp[1][65] = 505$
+	 174) -Nagrinėjama 1 daiktų kiekis su 66g svorio apimtimi.
+	 175) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	 176) -dp[1][66] = 505$
+	 177) -Nagrinėjama 1 daiktų kiekis su 67g svorio apimtimi.
+	 178) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	 179) -dp[1][67] = 505$
+	 180) -Nagrinėjama 1 daiktų kiekis su 68g svorio apimtimi.
+	 181) -Svoris neviršijamas, daiktas su kaina 505$ įtraukiamas
+	 182) -dp[1][68] = 505$
+	 183) Nagrinėjama 2 daiktų kiekis su 1g svorio apimtimi.
+	 184) dp[2][1] = 0$
+	 185) -Nagrinėjama 2 daiktų kiekis su 2g svorio apimtimi.
+	 186) -dp[2][2] = 0$
+	 187) -Nagrinėjama 2 daiktų kiekis su 3g svorio apimtimi.
+	 188) -dp[2][3] = 0$
+	 189) -Nagrinėjama 2 daiktų kiekis su 4g svorio apimtimi.
+	 190) -dp[2][4] = 0$
+	 191) -Nagrinėjama 2 daiktų kiekis su 5g svorio apimtimi.
+	 192) -dp[2][5] = 0$
+	 193) -Nagrinėjama 2 daiktų kiekis su 6g svorio apimtimi.
+	 194) -dp[2][6] = 0$
+	 195) -Nagrinėjama 2 daiktų kiekis su 7g svorio apimtimi.
+	 196) -dp[2][7] = 0$
+	 197) -Nagrinėjama 2 daiktų kiekis su 8g svorio apimtimi.
+	 198) -dp[2][8] = 0$
+	 199) -Nagrinėjama 2 daiktų kiekis su 9g svorio apimtimi.
+	 200) -dp[2][9] = 0$
+	 201) -Nagrinėjama 2 daiktų kiekis su 10g svorio apimtimi.
+	 202) -dp[2][10] = 0$
+	 203) -Nagrinėjama 2 daiktų kiekis su 11g svorio apimtimi.
+	 204) -dp[2][11] = 0$
+	 205) -Nagrinėjama 2 daiktų kiekis su 12g svorio apimtimi.
+	 206) -dp[2][12] = 0$
+	 207) -Nagrinėjama 2 daiktų kiekis su 13g svorio apimtimi.
+	 208) -dp[2][13] = 0$
+	 209) -Nagrinėjama 2 daiktų kiekis su 14g svorio apimtimi.
+	 210) -dp[2][14] = 0$
+	 211) -Nagrinėjama 2 daiktų kiekis su 15g svorio apimtimi.
+	 212) -dp[2][15] = 0$
+	 213) -Nagrinėjama 2 daiktų kiekis su 16g svorio apimtimi.
+	 214) -dp[2][16] = 0$
+	 215) -Nagrinėjama 2 daiktų kiekis su 17g svorio apimtimi.
+	 216) -dp[2][17] = 0$
+	 217) -Nagrinėjama 2 daiktų kiekis su 18g svorio apimtimi.
+	 218) -dp[2][18] = 0$
+	 219) -Nagrinėjama 2 daiktų kiekis su 19g svorio apimtimi.
+	 220) -dp[2][19] = 0$
+	 221) -Nagrinėjama 2 daiktų kiekis su 20g svorio apimtimi.
+	 222) -dp[2][20] = 0$
+	 223) -Nagrinėjama 2 daiktų kiekis su 21g svorio apimtimi.
+	 224) -dp[2][21] = 0$
+	 225) -Nagrinėjama 2 daiktų kiekis su 22g svorio apimtimi.
+	 226) -dp[2][22] = 0$
+	 227) -Nagrinėjama 2 daiktų kiekis su 23g svorio apimtimi.
+	 228) -dp[2][23] = 0$
+	 229) -Nagrinėjama 2 daiktų kiekis su 24g svorio apimtimi.
+	 230) -dp[2][24] = 505$
+	 231) -Nagrinėjama 2 daiktų kiekis su 25g svorio apimtimi.
+	 232) -dp[2][25] = 505$
+	 233) -Nagrinėjama 2 daiktų kiekis su 26g svorio apimtimi.
+	 234) -dp[2][26] = 505$
+	 235) -Nagrinėjama 2 daiktų kiekis su 27g svorio apimtimi.
+	 236) -Svoris būtų viršijamas, daiktas su kaina 352$ neįtraukiamas
+	 237) -dp[2][27] = 505$
+	 238) -Nagrinėjama 2 daiktų kiekis su 28g svorio apimtimi.
+	 239) -Svoris būtų viršijamas, daiktas su kaina 352$ neįtraukiamas
+	 240) -dp[2][28] = 505$
+	 241) -Nagrinėjama 2 daiktų kiekis su 29g svorio apimtimi.
+	 242) -Svoris būtų viršijamas, daiktas su kaina 352$ neįtraukiamas
+	 243) -dp[2][29] = 505$
+	 244) -Nagrinėjama 2 daiktų kiekis su 30g svorio apimtimi.
+	 245) -Svoris būtų viršijamas, daiktas su kaina 352$ neįtraukiamas
+	 246) -dp[2][30] = 505$
+	 247) -Nagrinėjama 2 daiktų kiekis su 31g svorio apimtimi.
+	 248) -Svoris būtų viršijamas, daiktas su kaina 352$ neįtraukiamas
+	 249) -dp[2][31] = 505$
+	 250) -Nagrinėjama 2 daiktų kiekis su 32g svorio apimtimi.
+	 251) -Svoris būtų viršijamas, daiktas su kaina 352$ neįtraukiamas
+	 252) -dp[2][32] = 505$
+	 253) -Nagrinėjama 2 daiktų kiekis su 33g svorio apimtimi.
+	 254) -Svoris būtų viršijamas, daiktas su kaina 352$ neįtraukiamas
+	 255) -dp[2][33] = 505$
+	 256) -Nagrinėjama 2 daiktų kiekis su 34g svorio apimtimi.
+	 257) -Svoris būtų viršijamas, daiktas su kaina 352$ neįtraukiamas
+	 258) -dp[2][34] = 505$
+	 259) -Nagrinėjama 2 daiktų kiekis su 35g svorio apimtimi.
+	 260) -Svoris būtų viršijamas, daiktas su kaina 352$ neįtraukiamas
+	 261) -dp[2][35] = 505$
+	 262) -Nagrinėjama 2 daiktų kiekis su 36g svorio apimtimi.
+	 263) -Svoris būtų viršijamas, daiktas su kaina 352$ neįtraukiamas
+	 264) -dp[2][36] = 505$
+	 265) -Nagrinėjama 2 daiktų kiekis su 37g svorio apimtimi.
+	 266) -Svoris būtų viršijamas, daiktas su kaina 352$ neįtraukiamas
+	 267) -dp[2][37] = 505$
+	 268) -Nagrinėjama 2 daiktų kiekis su 38g svorio apimtimi.
+	 269) -Svoris būtų viršijamas, daiktas su kaina 352$ neįtraukiamas
+	 270) -dp[2][38] = 505$
+	 271) -Nagrinėjama 2 daiktų kiekis su 39g svorio apimtimi.
+	 272) -Svoris būtų viršijamas, daiktas su kaina 352$ neįtraukiamas
+	 273) -dp[2][39] = 505$
+	 274) -Nagrinėjama 2 daiktų kiekis su 40g svorio apimtimi.
+	 275) -Svoris būtų viršijamas, daiktas su kaina 352$ neįtraukiamas
+	 276) -dp[2][40] = 505$
+	 277) -Nagrinėjama 2 daiktų kiekis su 41g svorio apimtimi.
+	 278) -Svoris būtų viršijamas, daiktas su kaina 352$ neįtraukiamas
+	 279) -dp[2][41] = 505$
+	 280) -Nagrinėjama 2 daiktų kiekis su 42g svorio apimtimi.
+	 281) -Svoris būtų viršijamas, daiktas su kaina 352$ neįtraukiamas
+	 282) -dp[2][42] = 505$
+	 283) -Nagrinėjama 2 daiktų kiekis su 43g svorio apimtimi.
+	 284) -Svoris būtų viršijamas, daiktas su kaina 352$ neįtraukiamas
+	 285) -dp[2][43] = 505$
+	 286) -Nagrinėjama 2 daiktų kiekis su 44g svorio apimtimi.
+	 287) -Svoris būtų viršijamas, daiktas su kaina 352$ neįtraukiamas
+	 288) -dp[2][44] = 505$
+	 289) -Nagrinėjama 2 daiktų kiekis su 45g svorio apimtimi.
+	 290) -Svoris būtų viršijamas, daiktas su kaina 352$ neįtraukiamas
+	 291) -dp[2][45] = 505$
+	 292) -Nagrinėjama 2 daiktų kiekis su 46g svorio apimtimi.
+	 293) -Svoris būtų viršijamas, daiktas su kaina 352$ neįtraukiamas
+	 294) -dp[2][46] = 505$
+	 295) -Nagrinėjama 2 daiktų kiekis su 47g svorio apimtimi.
+	 296) -Svoris būtų viršijamas, daiktas su kaina 352$ neįtraukiamas
+	 297) -dp[2][47] = 505$
+	 298) -Nagrinėjama 2 daiktų kiekis su 48g svorio apimtimi.
+	 299) -Svoris būtų viršijamas, daiktas su kaina 352$ neįtraukiamas
+	 300) -dp[2][48] = 505$
+	 301) -Nagrinėjama 2 daiktų kiekis su 49g svorio apimtimi.
+	 302) -Svoris būtų viršijamas, daiktas su kaina 352$ neįtraukiamas
+	 303) -dp[2][49] = 505$
+	 304) -Nagrinėjama 2 daiktų kiekis su 50g svorio apimtimi.
+	 305) -Svoris neviršijamas, daiktas su kaina 352$ įtraukiamas
+	 306) -dp[2][50] = 857$
+	 307) -Nagrinėjama 2 daiktų kiekis su 51g svorio apimtimi.
+	 308) -Svoris neviršijamas, daiktas su kaina 352$ įtraukiamas
+	 309) -dp[2][51] = 857$
+	 310) -Nagrinėjama 2 daiktų kiekis su 52g svorio apimtimi.
+	 311) -Svoris neviršijamas, daiktas su kaina 352$ įtraukiamas
+	 312) -dp[2][52] = 857$
+	 313) -Nagrinėjama 2 daiktų kiekis su 53g svorio apimtimi.
+	 314) -Svoris neviršijamas, daiktas su kaina 352$ įtraukiamas
+	 315) -dp[2][53] = 857$
+	 316) -Nagrinėjama 2 daiktų kiekis su 54g svorio apimtimi.
+	 317) -Svoris neviršijamas, daiktas su kaina 352$ įtraukiamas
+	 318) -dp[2][54] = 857$
+	 319) -Nagrinėjama 2 daiktų kiekis su 55g svorio apimtimi.
+	 320) -Svoris neviršijamas, daiktas su kaina 352$ įtraukiamas
+	 321) -dp[2][55] = 857$
+	 322) -Nagrinėjama 2 daiktų kiekis su 56g svorio apimtimi.
+	 323) -Svoris neviršijamas, daiktas su kaina 352$ įtraukiamas
+	 324) -dp[2][56] = 857$
+	 325) -Nagrinėjama 2 daiktų kiekis su 57g svorio apimtimi.
+	 326) -Svoris neviršijamas, daiktas su kaina 352$ įtraukiamas
+	 327) -dp[2][57] = 857$
+	 328) -Nagrinėjama 2 daiktų kiekis su 58g svorio apimtimi.
+	 329) -Svoris neviršijamas, daiktas su kaina 352$ įtraukiamas
+	 330) -dp[2][58] = 857$
+	 331) -Nagrinėjama 2 daiktų kiekis su 59g svorio apimtimi.
+	 332) -Svoris neviršijamas, daiktas su kaina 352$ įtraukiamas
+	 333) -dp[2][59] = 857$
+	 334) -Nagrinėjama 2 daiktų kiekis su 60g svorio apimtimi.
+	 335) -Svoris neviršijamas, daiktas su kaina 352$ įtraukiamas
+	 336) -dp[2][60] = 857$
+	 337) -Nagrinėjama 2 daiktų kiekis su 61g svorio apimtimi.
+	 338) -Svoris neviršijamas, daiktas su kaina 352$ įtraukiamas
+	 339) -dp[2][61] = 857$
+	 340) -Nagrinėjama 2 daiktų kiekis su 62g svorio apimtimi.
+	 341) -Svoris neviršijamas, daiktas su kaina 352$ įtraukiamas
+	 342) -dp[2][62] = 857$
+	 343) -Nagrinėjama 2 daiktų kiekis su 63g svorio apimtimi.
+	 344) -Svoris neviršijamas, daiktas su kaina 352$ įtraukiamas
+	 345) -dp[2][63] = 857$
+	 346) -Nagrinėjama 2 daiktų kiekis su 64g svorio apimtimi.
+	 347) -Svoris neviršijamas, daiktas su kaina 352$ įtraukiamas
+	 348) -dp[2][64] = 857$
+	 349) -Nagrinėjama 2 daiktų kiekis su 65g svorio apimtimi.
+	 350) -Svoris neviršijamas, daiktas su kaina 352$ įtraukiamas
+	 351) -dp[2][65] = 857$
+	 352) -Nagrinėjama 2 daiktų kiekis su 66g svorio apimtimi.
+	 353) -Svoris neviršijamas, daiktas su kaina 352$ įtraukiamas
+	 354) -dp[2][66] = 857$
+	 355) -Nagrinėjama 2 daiktų kiekis su 67g svorio apimtimi.
+	 356) -Svoris neviršijamas, daiktas su kaina 352$ įtraukiamas
+	 357) -dp[2][67] = 857$
+	 358) -Nagrinėjama 2 daiktų kiekis su 68g svorio apimtimi.
+	 359) -Svoris neviršijamas, daiktas su kaina 352$ įtraukiamas
+	 360) -dp[2][68] = 857$
+	 361) Nagrinėjama 3 daiktų kiekis su 1g svorio apimtimi.
+	 362) dp[3][1] = 0$
+	 363) -Nagrinėjama 3 daiktų kiekis su 2g svorio apimtimi.
+	 364) -dp[3][2] = 0$
+	 365) -Nagrinėjama 3 daiktų kiekis su 3g svorio apimtimi.
+	 366) -dp[3][3] = 0$
+	 367) -Nagrinėjama 3 daiktų kiekis su 4g svorio apimtimi.
+	 368) -dp[3][4] = 0$
+	 369) -Nagrinėjama 3 daiktų kiekis su 5g svorio apimtimi.
+	 370) -dp[3][5] = 0$
+	 371) -Nagrinėjama 3 daiktų kiekis su 6g svorio apimtimi.
+	 372) -dp[3][6] = 0$
+	 373) -Nagrinėjama 3 daiktų kiekis su 7g svorio apimtimi.
+	 374) -dp[3][7] = 0$
+	 375) -Nagrinėjama 3 daiktų kiekis su 8g svorio apimtimi.
+	 376) -dp[3][8] = 0$
+	 377) -Nagrinėjama 3 daiktų kiekis su 9g svorio apimtimi.
+	 378) -dp[3][9] = 0$
+	 379) -Nagrinėjama 3 daiktų kiekis su 10g svorio apimtimi.
+	 380) -dp[3][10] = 0$
+	 381) -Nagrinėjama 3 daiktų kiekis su 11g svorio apimtimi.
+	 382) -dp[3][11] = 0$
+	 383) -Nagrinėjama 3 daiktų kiekis su 12g svorio apimtimi.
+	 384) -dp[3][12] = 0$
+	 385) -Nagrinėjama 3 daiktų kiekis su 13g svorio apimtimi.
+	 386) -dp[3][13] = 0$
+	 387) -Nagrinėjama 3 daiktų kiekis su 14g svorio apimtimi.
+	 388) -dp[3][14] = 0$
+	 389) -Nagrinėjama 3 daiktų kiekis su 15g svorio apimtimi.
+	 390) -dp[3][15] = 0$
+	 391) -Nagrinėjama 3 daiktų kiekis su 16g svorio apimtimi.
+	 392) -dp[3][16] = 0$
+	 393) -Nagrinėjama 3 daiktų kiekis su 17g svorio apimtimi.
+	 394) -dp[3][17] = 0$
+	 395) -Nagrinėjama 3 daiktų kiekis su 18g svorio apimtimi.
+	 396) -dp[3][18] = 0$
+	 397) -Nagrinėjama 3 daiktų kiekis su 19g svorio apimtimi.
+	 398) -dp[3][19] = 0$
+	 399) -Nagrinėjama 3 daiktų kiekis su 20g svorio apimtimi.
+	 400) -dp[3][20] = 0$
+	 401) -Nagrinėjama 3 daiktų kiekis su 21g svorio apimtimi.
+	 402) -Svoris neviršijamas, daiktas su kaina 458$ įtraukiamas
+	 403) -dp[3][21] = 458$
+	 404) -Nagrinėjama 3 daiktų kiekis su 22g svorio apimtimi.
+	 405) -Svoris neviršijamas, daiktas su kaina 458$ įtraukiamas
+	 406) -dp[3][22] = 458$
+	 407) -Nagrinėjama 3 daiktų kiekis su 23g svorio apimtimi.
+	 408) -Svoris neviršijamas, daiktas su kaina 458$ įtraukiamas
+	 409) -dp[3][23] = 458$
+	 410) -Nagrinėjama 3 daiktų kiekis su 24g svorio apimtimi.
+	 411) -Svoris būtų viršijamas, daiktas su kaina 458$ neįtraukiamas
+	 412) -dp[3][24] = 505$
+	 413) -Nagrinėjama 3 daiktų kiekis su 25g svorio apimtimi.
+	 414) -Svoris būtų viršijamas, daiktas su kaina 458$ neįtraukiamas
+	 415) -dp[3][25] = 505$
+	 416) -Nagrinėjama 3 daiktų kiekis su 26g svorio apimtimi.
+	 417) -Svoris būtų viršijamas, daiktas su kaina 458$ neįtraukiamas
+	 418) -dp[3][26] = 505$
+	 419) -Nagrinėjama 3 daiktų kiekis su 27g svorio apimtimi.
+	 420) -Svoris būtų viršijamas, daiktas su kaina 458$ neįtraukiamas
+	 421) -dp[3][27] = 505$
+	 422) -Nagrinėjama 3 daiktų kiekis su 28g svorio apimtimi.
+	 423) -Svoris būtų viršijamas, daiktas su kaina 458$ neįtraukiamas
+	 424) -dp[3][28] = 505$
+	 425) -Nagrinėjama 3 daiktų kiekis su 29g svorio apimtimi.
+	 426) -Svoris būtų viršijamas, daiktas su kaina 458$ neįtraukiamas
+	 427) -dp[3][29] = 505$
+	 428) -Nagrinėjama 3 daiktų kiekis su 30g svorio apimtimi.
+	 429) -Svoris būtų viršijamas, daiktas su kaina 458$ neįtraukiamas
+	 430) -dp[3][30] = 505$
+	 431) -Nagrinėjama 3 daiktų kiekis su 31g svorio apimtimi.
+	 432) -Svoris būtų viršijamas, daiktas su kaina 458$ neįtraukiamas
+	 433) -dp[3][31] = 505$
+	 434) -Nagrinėjama 3 daiktų kiekis su 32g svorio apimtimi.
+	 435) -Svoris būtų viršijamas, daiktas su kaina 458$ neįtraukiamas
+	 436) -dp[3][32] = 505$
+	 437) -Nagrinėjama 3 daiktų kiekis su 33g svorio apimtimi.
+	 438) -Svoris būtų viršijamas, daiktas su kaina 458$ neįtraukiamas
+	 439) -dp[3][33] = 505$
+	 440) -Nagrinėjama 3 daiktų kiekis su 34g svorio apimtimi.
+	 441) -Svoris būtų viršijamas, daiktas su kaina 458$ neįtraukiamas
+	 442) -dp[3][34] = 505$
+	 443) -Nagrinėjama 3 daiktų kiekis su 35g svorio apimtimi.
+	 444) -Svoris būtų viršijamas, daiktas su kaina 458$ neįtraukiamas
+	 445) -dp[3][35] = 505$
+	 446) -Nagrinėjama 3 daiktų kiekis su 36g svorio apimtimi.
+	 447) -Svoris būtų viršijamas, daiktas su kaina 458$ neįtraukiamas
+	 448) -dp[3][36] = 505$
+	 449) -Nagrinėjama 3 daiktų kiekis su 37g svorio apimtimi.
+	 450) -Svoris būtų viršijamas, daiktas su kaina 458$ neįtraukiamas
+	 451) -dp[3][37] = 505$
+	 452) -Nagrinėjama 3 daiktų kiekis su 38g svorio apimtimi.
+	 453) -Svoris būtų viršijamas, daiktas su kaina 458$ neįtraukiamas
+	 454) -dp[3][38] = 505$
+	 455) -Nagrinėjama 3 daiktų kiekis su 39g svorio apimtimi.
+	 456) -Svoris būtų viršijamas, daiktas su kaina 458$ neįtraukiamas
+	 457) -dp[3][39] = 505$
+	 458) -Nagrinėjama 3 daiktų kiekis su 40g svorio apimtimi.
+	 459) -Svoris būtų viršijamas, daiktas su kaina 458$ neįtraukiamas
+	 460) -dp[3][40] = 505$
+	 461) -Nagrinėjama 3 daiktų kiekis su 41g svorio apimtimi.
+	 462) -Svoris būtų viršijamas, daiktas su kaina 458$ neįtraukiamas
+	 463) -dp[3][41] = 505$
+	 464) -Nagrinėjama 3 daiktų kiekis su 42g svorio apimtimi.
+	 465) -Svoris būtų viršijamas, daiktas su kaina 458$ neįtraukiamas
+	 466) -dp[3][42] = 505$
+	 467) -Nagrinėjama 3 daiktų kiekis su 43g svorio apimtimi.
+	 468) -Svoris būtų viršijamas, daiktas su kaina 458$ neįtraukiamas
+	 469) -dp[3][43] = 505$
+	 470) -Nagrinėjama 3 daiktų kiekis su 44g svorio apimtimi.
+	 471) -Svoris neviršijamas, daiktas su kaina 458$ įtraukiamas
+	 472) -dp[3][44] = 963$
+	 473) -Nagrinėjama 3 daiktų kiekis su 45g svorio apimtimi.
+	 474) -Svoris neviršijamas, daiktas su kaina 458$ įtraukiamas
+	 475) -dp[3][45] = 963$
+	 476) -Nagrinėjama 3 daiktų kiekis su 46g svorio apimtimi.
+	 477) -Svoris neviršijamas, daiktas su kaina 458$ įtraukiamas
+	 478) -dp[3][46] = 963$
+	 479) -Nagrinėjama 3 daiktų kiekis su 47g svorio apimtimi.
+	 480) -Svoris neviršijamas, daiktas su kaina 458$ įtraukiamas
+	 481) -dp[3][47] = 963$
+	 482) -Nagrinėjama 3 daiktų kiekis su 48g svorio apimtimi.
+	 483) -Svoris neviršijamas, daiktas su kaina 458$ įtraukiamas
+	 484) -dp[3][48] = 963$
+	 485) -Nagrinėjama 3 daiktų kiekis su 49g svorio apimtimi.
+	 486) -Svoris neviršijamas, daiktas su kaina 458$ įtraukiamas
+	 487) -dp[3][49] = 963$
+	 488) -Nagrinėjama 3 daiktų kiekis su 50g svorio apimtimi.
+	 489) -Svoris neviršijamas, daiktas su kaina 458$ įtraukiamas
+	 490) -dp[3][50] = 963$
+	 491) -Nagrinėjama 3 daiktų kiekis su 51g svorio apimtimi.
+	 492) -Svoris neviršijamas, daiktas su kaina 458$ įtraukiamas
+	 493) -dp[3][51] = 963$
+	 494) -Nagrinėjama 3 daiktų kiekis su 52g svorio apimtimi.
+	 495) -Svoris neviršijamas, daiktas su kaina 458$ įtraukiamas
+	 496) -dp[3][52] = 963$
+	 497) -Nagrinėjama 3 daiktų kiekis su 53g svorio apimtimi.
+	 498) -Svoris neviršijamas, daiktas su kaina 458$ įtraukiamas
+	 499) -dp[3][53] = 963$
+	 500) -Nagrinėjama 3 daiktų kiekis su 54g svorio apimtimi.
+	 501) -Svoris neviršijamas, daiktas su kaina 458$ įtraukiamas
+	 502) -dp[3][54] = 963$
+	 503) -Nagrinėjama 3 daiktų kiekis su 55g svorio apimtimi.
+	 504) -Svoris neviršijamas, daiktas su kaina 458$ įtraukiamas
+	 505) -dp[3][55] = 963$
+	 506) -Nagrinėjama 3 daiktų kiekis su 56g svorio apimtimi.
+	 507) -Svoris neviršijamas, daiktas su kaina 458$ įtraukiamas
+	 508) -dp[3][56] = 963$
+	 509) -Nagrinėjama 3 daiktų kiekis su 57g svorio apimtimi.
+	 510) -Svoris neviršijamas, daiktas su kaina 458$ įtraukiamas
+	 511) -dp[3][57] = 963$
+	 512) -Nagrinėjama 3 daiktų kiekis su 58g svorio apimtimi.
+	 513) -Svoris neviršijamas, daiktas su kaina 458$ įtraukiamas
+	 514) -dp[3][58] = 963$
+	 515) -Nagrinėjama 3 daiktų kiekis su 59g svorio apimtimi.
+	 516) -Svoris neviršijamas, daiktas su kaina 458$ įtraukiamas
+	 517) -dp[3][59] = 963$
+	 518) -Nagrinėjama 3 daiktų kiekis su 60g svorio apimtimi.
+	 519) -Svoris neviršijamas, daiktas su kaina 458$ įtraukiamas
+	 520) -dp[3][60] = 963$
+	 521) -Nagrinėjama 3 daiktų kiekis su 61g svorio apimtimi.
+	 522) -Svoris neviršijamas, daiktas su kaina 458$ įtraukiamas
+	 523) -dp[3][61] = 963$
+	 524) -Nagrinėjama 3 daiktų kiekis su 62g svorio apimtimi.
+	 525) -Svoris neviršijamas, daiktas su kaina 458$ įtraukiamas
+	 526) -dp[3][62] = 963$
+	 527) -Nagrinėjama 3 daiktų kiekis su 63g svorio apimtimi.
+	 528) -Svoris neviršijamas, daiktas su kaina 458$ įtraukiamas
+	 529) -dp[3][63] = 963$
+	 530) -Nagrinėjama 3 daiktų kiekis su 64g svorio apimtimi.
+	 531) -Svoris neviršijamas, daiktas su kaina 458$ įtraukiamas
+	 532) -dp[3][64] = 963$
+	 533) -Nagrinėjama 3 daiktų kiekis su 65g svorio apimtimi.
+	 534) -Svoris neviršijamas, daiktas su kaina 458$ įtraukiamas
+	 535) -dp[3][65] = 963$
+	 536) -Nagrinėjama 3 daiktų kiekis su 66g svorio apimtimi.
+	 537) -Svoris neviršijamas, daiktas su kaina 458$ įtraukiamas
+	 538) -dp[3][66] = 963$
+	 539) -Nagrinėjama 3 daiktų kiekis su 67g svorio apimtimi.
+	 540) -Svoris neviršijamas, daiktas su kaina 458$ įtraukiamas
+	 541) -dp[3][67] = 963$
+	 542) -Nagrinėjama 3 daiktų kiekis su 68g svorio apimtimi.
+	 543) -Svoris neviršijamas, daiktas su kaina 458$ įtraukiamas
+	 544) -dp[3][68] = 963$
+	 545) Nagrinėjama 4 daiktų kiekis su 1g svorio apimtimi.
+	 546) dp[4][1] = 0$
+	 547) -Nagrinėjama 4 daiktų kiekis su 2g svorio apimtimi.
+	 548) -dp[4][2] = 0$
+	 549) -Nagrinėjama 4 daiktų kiekis su 3g svorio apimtimi.
+	 550) -dp[4][3] = 0$
+	 551) -Nagrinėjama 4 daiktų kiekis su 4g svorio apimtimi.
+	 552) -dp[4][4] = 0$
+	 553) -Nagrinėjama 4 daiktų kiekis su 5g svorio apimtimi.
+	 554) -dp[4][5] = 0$
+	 555) -Nagrinėjama 4 daiktų kiekis su 6g svorio apimtimi.
+	 556) -dp[4][6] = 0$
+	 557) -Nagrinėjama 4 daiktų kiekis su 7g svorio apimtimi.
+	 558) -dp[4][7] = 0$
+	 559) -Nagrinėjama 4 daiktų kiekis su 8g svorio apimtimi.
+	 560) -dp[4][8] = 0$
+	 561) -Nagrinėjama 4 daiktų kiekis su 9g svorio apimtimi.
+	 562) -dp[4][9] = 0$
+	 563) -Nagrinėjama 4 daiktų kiekis su 10g svorio apimtimi.
+	 564) -dp[4][10] = 0$
+	 565) -Nagrinėjama 4 daiktų kiekis su 11g svorio apimtimi.
+	 566) -dp[4][11] = 0$
+	 567) -Nagrinėjama 4 daiktų kiekis su 12g svorio apimtimi.
+	 568) -dp[4][12] = 0$
+	 569) -Nagrinėjama 4 daiktų kiekis su 13g svorio apimtimi.
+	 570) -dp[4][13] = 0$
+	 571) -Nagrinėjama 4 daiktų kiekis su 14g svorio apimtimi.
+	 572) -dp[4][14] = 0$
+	 573) -Nagrinėjama 4 daiktų kiekis su 15g svorio apimtimi.
+	 574) -dp[4][15] = 0$
+	 575) -Nagrinėjama 4 daiktų kiekis su 16g svorio apimtimi.
+	 576) -dp[4][16] = 0$
+	 577) -Nagrinėjama 4 daiktų kiekis su 17g svorio apimtimi.
+	 578) -dp[4][17] = 0$
+	 579) -Nagrinėjama 4 daiktų kiekis su 18g svorio apimtimi.
+	 580) -dp[4][18] = 0$
+	 581) -Nagrinėjama 4 daiktų kiekis su 19g svorio apimtimi.
+	 582) -Svoris neviršijamas, daiktas su kaina 220$ įtraukiamas
+	 583) -dp[4][19] = 220$
+	 584) -Nagrinėjama 4 daiktų kiekis su 20g svorio apimtimi.
+	 585) -Svoris neviršijamas, daiktas su kaina 220$ įtraukiamas
+	 586) -dp[4][20] = 220$
+	 587) -Nagrinėjama 4 daiktų kiekis su 21g svorio apimtimi.
+	 588) -Svoris būtų viršijamas, daiktas su kaina 220$ neįtraukiamas
+	 589) -dp[4][21] = 458$
+	 590) -Nagrinėjama 4 daiktų kiekis su 22g svorio apimtimi.
+	 591) -Svoris būtų viršijamas, daiktas su kaina 220$ neįtraukiamas
+	 592) -dp[4][22] = 458$
+	 593) -Nagrinėjama 4 daiktų kiekis su 23g svorio apimtimi.
+	 594) -Svoris būtų viršijamas, daiktas su kaina 220$ neįtraukiamas
+	 595) -dp[4][23] = 458$
+	 596) -Nagrinėjama 4 daiktų kiekis su 24g svorio apimtimi.
+	 597) -Svoris būtų viršijamas, daiktas su kaina 220$ neįtraukiamas
+	 598) -dp[4][24] = 505$
+	 599) -Nagrinėjama 4 daiktų kiekis su 25g svorio apimtimi.
+	 600) -Svoris būtų viršijamas, daiktas su kaina 220$ neįtraukiamas
+	 601) -dp[4][25] = 505$
+	 602) -Nagrinėjama 4 daiktų kiekis su 26g svorio apimtimi.
+	 603) -Svoris būtų viršijamas, daiktas su kaina 220$ neįtraukiamas
+	 604) -dp[4][26] = 505$
+	 605) -Nagrinėjama 4 daiktų kiekis su 27g svorio apimtimi.
+	 606) -Svoris būtų viršijamas, daiktas su kaina 220$ neįtraukiamas
+	 607) -dp[4][27] = 505$
+	 608) -Nagrinėjama 4 daiktų kiekis su 28g svorio apimtimi.
+	 609) -Svoris būtų viršijamas, daiktas su kaina 220$ neįtraukiamas
+	 610) -dp[4][28] = 505$
+	 611) -Nagrinėjama 4 daiktų kiekis su 29g svorio apimtimi.
+	 612) -Svoris būtų viršijamas, daiktas su kaina 220$ neįtraukiamas
+	 613) -dp[4][29] = 505$
+	 614) -Nagrinėjama 4 daiktų kiekis su 30g svorio apimtimi.
+	 615) -Svoris būtų viršijamas, daiktas su kaina 220$ neįtraukiamas
+	 616) -dp[4][30] = 505$
+	 617) -Nagrinėjama 4 daiktų kiekis su 31g svorio apimtimi.
+	 618) -Svoris būtų viršijamas, daiktas su kaina 220$ neįtraukiamas
+	 619) -dp[4][31] = 505$
+	 620) -Nagrinėjama 4 daiktų kiekis su 32g svorio apimtimi.
+	 621) -Svoris būtų viršijamas, daiktas su kaina 220$ neįtraukiamas
+	 622) -dp[4][32] = 505$
+	 623) -Nagrinėjama 4 daiktų kiekis su 33g svorio apimtimi.
+	 624) -Svoris būtų viršijamas, daiktas su kaina 220$ neįtraukiamas
+	 625) -dp[4][33] = 505$
+	 626) -Nagrinėjama 4 daiktų kiekis su 34g svorio apimtimi.
+	 627) -Svoris būtų viršijamas, daiktas su kaina 220$ neįtraukiamas
+	 628) -dp[4][34] = 505$
+	 629) -Nagrinėjama 4 daiktų kiekis su 35g svorio apimtimi.
+	 630) -Svoris būtų viršijamas, daiktas su kaina 220$ neįtraukiamas
+	 631) -dp[4][35] = 505$
+	 632) -Nagrinėjama 4 daiktų kiekis su 36g svorio apimtimi.
+	 633) -Svoris būtų viršijamas, daiktas su kaina 220$ neįtraukiamas
+	 634) -dp[4][36] = 505$
+	 635) -Nagrinėjama 4 daiktų kiekis su 37g svorio apimtimi.
+	 636) -Svoris būtų viršijamas, daiktas su kaina 220$ neįtraukiamas
+	 637) -dp[4][37] = 505$
+	 638) -Nagrinėjama 4 daiktų kiekis su 38g svorio apimtimi.
+	 639) -Svoris būtų viršijamas, daiktas su kaina 220$ neįtraukiamas
+	 640) -dp[4][38] = 505$
+	 641) -Nagrinėjama 4 daiktų kiekis su 39g svorio apimtimi.
+	 642) -Svoris neviršijamas, daiktas su kaina 220$ įtraukiamas
+	 643) -dp[4][39] = 678$
+	 644) -Nagrinėjama 4 daiktų kiekis su 40g svorio apimtimi.
+	 645) -Svoris neviršijamas, daiktas su kaina 220$ įtraukiamas
+	 646) -dp[4][40] = 678$
+	 647) -Nagrinėjama 4 daiktų kiekis su 41g svorio apimtimi.
+	 648) -Svoris neviršijamas, daiktas su kaina 220$ įtraukiamas
+	 649) -dp[4][41] = 678$
+	 650) -Nagrinėjama 4 daiktų kiekis su 42g svorio apimtimi.
+	 651) -Svoris neviršijamas, daiktas su kaina 220$ įtraukiamas
+	 652) -dp[4][42] = 725$
+	 653) -Nagrinėjama 4 daiktų kiekis su 43g svorio apimtimi.
+	 654) -Svoris neviršijamas, daiktas su kaina 220$ įtraukiamas
+	 655) -dp[4][43] = 725$
+	 656) -Nagrinėjama 4 daiktų kiekis su 44g svorio apimtimi.
+	 657) -Svoris būtų viršijamas, daiktas su kaina 220$ neįtraukiamas
+	 658) -dp[4][44] = 963$
+	 659) -Nagrinėjama 4 daiktų kiekis su 45g svorio apimtimi.
+	 660) -Svoris būtų viršijamas, daiktas su kaina 220$ neįtraukiamas
+	 661) -dp[4][45] = 963$
+	 662) -Nagrinėjama 4 daiktų kiekis su 46g svorio apimtimi.
+	 663) -Svoris būtų viršijamas, daiktas su kaina 220$ neįtraukiamas
+	 664) -dp[4][46] = 963$
+	 665) -Nagrinėjama 4 daiktų kiekis su 47g svorio apimtimi.
+	 666) -Svoris būtų viršijamas, daiktas su kaina 220$ neįtraukiamas
+	 667) -dp[4][47] = 963$
+	 668) -Nagrinėjama 4 daiktų kiekis su 48g svorio apimtimi.
+	 669) -Svoris būtų viršijamas, daiktas su kaina 220$ neįtraukiamas
+	 670) -dp[4][48] = 963$
+	 671) -Nagrinėjama 4 daiktų kiekis su 49g svorio apimtimi.
+	 672) -Svoris būtų viršijamas, daiktas su kaina 220$ neįtraukiamas
+	 673) -dp[4][49] = 963$
+	 674) -Nagrinėjama 4 daiktų kiekis su 50g svorio apimtimi.
+	 675) -Svoris būtų viršijamas, daiktas su kaina 220$ neįtraukiamas
+	 676) -dp[4][50] = 963$
+	 677) -Nagrinėjama 4 daiktų kiekis su 51g svorio apimtimi.
+	 678) -Svoris būtų viršijamas, daiktas su kaina 220$ neįtraukiamas
+	 679) -dp[4][51] = 963$
+	 680) -Nagrinėjama 4 daiktų kiekis su 52g svorio apimtimi.
+	 681) -Svoris būtų viršijamas, daiktas su kaina 220$ neįtraukiamas
+	 682) -dp[4][52] = 963$
+	 683) -Nagrinėjama 4 daiktų kiekis su 53g svorio apimtimi.
+	 684) -Svoris būtų viršijamas, daiktas su kaina 220$ neįtraukiamas
+	 685) -dp[4][53] = 963$
+	 686) -Nagrinėjama 4 daiktų kiekis su 54g svorio apimtimi.
+	 687) -Svoris būtų viršijamas, daiktas su kaina 220$ neįtraukiamas
+	 688) -dp[4][54] = 963$
+	 689) -Nagrinėjama 4 daiktų kiekis su 55g svorio apimtimi.
+	 690) -Svoris būtų viršijamas, daiktas su kaina 220$ neįtraukiamas
+	 691) -dp[4][55] = 963$
+	 692) -Nagrinėjama 4 daiktų kiekis su 56g svorio apimtimi.
+	 693) -Svoris būtų viršijamas, daiktas su kaina 220$ neįtraukiamas
+	 694) -dp[4][56] = 963$
+	 695) -Nagrinėjama 4 daiktų kiekis su 57g svorio apimtimi.
+	 696) -Svoris būtų viršijamas, daiktas su kaina 220$ neįtraukiamas
+	 697) -dp[4][57] = 963$
+	 698) -Nagrinėjama 4 daiktų kiekis su 58g svorio apimtimi.
+	 699) -Svoris būtų viršijamas, daiktas su kaina 220$ neįtraukiamas
+	 700) -dp[4][58] = 963$
+	 701) -Nagrinėjama 4 daiktų kiekis su 59g svorio apimtimi.
+	 702) -Svoris būtų viršijamas, daiktas su kaina 220$ neįtraukiamas
+	 703) -dp[4][59] = 963$
+	 704) -Nagrinėjama 4 daiktų kiekis su 60g svorio apimtimi.
+	 705) -Svoris būtų viršijamas, daiktas su kaina 220$ neįtraukiamas
+	 706) -dp[4][60] = 963$
+	 707) -Nagrinėjama 4 daiktų kiekis su 61g svorio apimtimi.
+	 708) -Svoris būtų viršijamas, daiktas su kaina 220$ neįtraukiamas
+	 709) -dp[4][61] = 963$
+	 710) -Nagrinėjama 4 daiktų kiekis su 62g svorio apimtimi.
+	 711) -Svoris neviršijamas, daiktas su kaina 220$ įtraukiamas
+	 712) -dp[4][62] = 1183$
+	 713) -Nagrinėjama 4 daiktų kiekis su 63g svorio apimtimi.
+	 714) -Svoris neviršijamas, daiktas su kaina 220$ įtraukiamas
+	 715) -dp[4][63] = 1183$
+	 716) -Nagrinėjama 4 daiktų kiekis su 64g svorio apimtimi.
+	 717) -Svoris neviršijamas, daiktas su kaina 220$ įtraukiamas
+	 718) -dp[4][64] = 1183$
+	 719) -Nagrinėjama 4 daiktų kiekis su 65g svorio apimtimi.
+	 720) -Svoris neviršijamas, daiktas su kaina 220$ įtraukiamas
+	 721) -dp[4][65] = 1183$
+	 722) -Nagrinėjama 4 daiktų kiekis su 66g svorio apimtimi.
+	 723) -Svoris neviršijamas, daiktas su kaina 220$ įtraukiamas
+	 724) -dp[4][66] = 1183$
+	 725) -Nagrinėjama 4 daiktų kiekis su 67g svorio apimtimi.
+	 726) -Svoris neviršijamas, daiktas su kaina 220$ įtraukiamas
+	 727) -dp[4][67] = 1183$
+	 728) -Nagrinėjama 4 daiktų kiekis su 68g svorio apimtimi.
+	 729) -Svoris neviršijamas, daiktas su kaina 220$ įtraukiamas
+	 730) -dp[4][68] = 1183$
+	 731) Nagrinėjama 5 daiktų kiekis su 1g svorio apimtimi.
+	 732) dp[5][1] = 0$
+	 733) -Nagrinėjama 5 daiktų kiekis su 2g svorio apimtimi.
+	 734) -dp[5][2] = 0$
+	 735) -Nagrinėjama 5 daiktų kiekis su 3g svorio apimtimi.
+	 736) -dp[5][3] = 0$
+	 737) -Nagrinėjama 5 daiktų kiekis su 4g svorio apimtimi.
+	 738) -dp[5][4] = 0$
+	 739) -Nagrinėjama 5 daiktų kiekis su 5g svorio apimtimi.
+	 740) -dp[5][5] = 0$
+	 741) -Nagrinėjama 5 daiktų kiekis su 6g svorio apimtimi.
+	 742) -dp[5][6] = 0$
+	 743) -Nagrinėjama 5 daiktų kiekis su 7g svorio apimtimi.
+	 744) -dp[5][7] = 0$
+	 745) -Nagrinėjama 5 daiktų kiekis su 8g svorio apimtimi.
+	 746) -dp[5][8] = 0$
+	 747) -Nagrinėjama 5 daiktų kiekis su 9g svorio apimtimi.
+	 748) -dp[5][9] = 0$
+	 749) -Nagrinėjama 5 daiktų kiekis su 10g svorio apimtimi.
+	 750) -dp[5][10] = 0$
+	 751) -Nagrinėjama 5 daiktų kiekis su 11g svorio apimtimi.
+	 752) -dp[5][11] = 0$
+	 753) -Nagrinėjama 5 daiktų kiekis su 12g svorio apimtimi.
+	 754) -dp[5][12] = 0$
+	 755) -Nagrinėjama 5 daiktų kiekis su 13g svorio apimtimi.
+	 756) -dp[5][13] = 0$
+	 757) -Nagrinėjama 5 daiktų kiekis su 14g svorio apimtimi.
+	 758) -dp[5][14] = 0$
+	 759) -Nagrinėjama 5 daiktų kiekis su 15g svorio apimtimi.
+	 760) -dp[5][15] = 0$
+	 761) -Nagrinėjama 5 daiktų kiekis su 16g svorio apimtimi.
+	 762) -dp[5][16] = 0$
+	 763) -Nagrinėjama 5 daiktų kiekis su 17g svorio apimtimi.
+	 764) -dp[5][17] = 0$
+	 765) -Nagrinėjama 5 daiktų kiekis su 18g svorio apimtimi.
+	 766) -dp[5][18] = 0$
+	 767) -Nagrinėjama 5 daiktų kiekis su 19g svorio apimtimi.
+	 768) -dp[5][19] = 220$
+	 769) -Nagrinėjama 5 daiktų kiekis su 20g svorio apimtimi.
+	 770) -dp[5][20] = 220$
+	 771) -Nagrinėjama 5 daiktų kiekis su 21g svorio apimtimi.
+	 772) -dp[5][21] = 458$
+	 773) -Nagrinėjama 5 daiktų kiekis su 22g svorio apimtimi.
+	 774) -dp[5][22] = 458$
+	 775) -Nagrinėjama 5 daiktų kiekis su 23g svorio apimtimi.
+	 776) -dp[5][23] = 458$
+	 777) -Nagrinėjama 5 daiktų kiekis su 24g svorio apimtimi.
+	 778) -dp[5][24] = 505$
+	 779) -Nagrinėjama 5 daiktų kiekis su 25g svorio apimtimi.
+	 780) -dp[5][25] = 505$
+	 781) -Nagrinėjama 5 daiktų kiekis su 26g svorio apimtimi.
+	 782) -dp[5][26] = 505$
+	 783) -Nagrinėjama 5 daiktų kiekis su 27g svorio apimtimi.
+	 784) -dp[5][27] = 505$
+	 785) -Nagrinėjama 5 daiktų kiekis su 28g svorio apimtimi.
+	 786) -dp[5][28] = 505$
+	 787) -Nagrinėjama 5 daiktų kiekis su 29g svorio apimtimi.
+	 788) -dp[5][29] = 505$
+	 789) -Nagrinėjama 5 daiktų kiekis su 30g svorio apimtimi.
+	 790) -dp[5][30] = 505$
+	 791) -Nagrinėjama 5 daiktų kiekis su 31g svorio apimtimi.
+	 792) -dp[5][31] = 505$
+	 793) -Nagrinėjama 5 daiktų kiekis su 32g svorio apimtimi.
+	 794) -dp[5][32] = 505$
+	 795) -Nagrinėjama 5 daiktų kiekis su 33g svorio apimtimi.
+	 796) -Svoris būtų viršijamas, daiktas su kaina 354$ neįtraukiamas
+	 797) -dp[5][33] = 505$
+	 798) -Nagrinėjama 5 daiktų kiekis su 34g svorio apimtimi.
+	 799) -Svoris būtų viršijamas, daiktas su kaina 354$ neįtraukiamas
+	 800) -dp[5][34] = 505$
+	 801) -Nagrinėjama 5 daiktų kiekis su 35g svorio apimtimi.
+	 802) -Svoris būtų viršijamas, daiktas su kaina 354$ neįtraukiamas
+	 803) -dp[5][35] = 505$
+	 804) -Nagrinėjama 5 daiktų kiekis su 36g svorio apimtimi.
+	 805) -Svoris būtų viršijamas, daiktas su kaina 354$ neįtraukiamas
+	 806) -dp[5][36] = 505$
+	 807) -Nagrinėjama 5 daiktų kiekis su 37g svorio apimtimi.
+	 808) -Svoris būtų viršijamas, daiktas su kaina 354$ neįtraukiamas
+	 809) -dp[5][37] = 505$
+	 810) -Nagrinėjama 5 daiktų kiekis su 38g svorio apimtimi.
+	 811) -Svoris būtų viršijamas, daiktas su kaina 354$ neįtraukiamas
+	 812) -dp[5][38] = 505$
+	 813) -Nagrinėjama 5 daiktų kiekis su 39g svorio apimtimi.
+	 814) -Svoris būtų viršijamas, daiktas su kaina 354$ neįtraukiamas
+	 815) -dp[5][39] = 678$
+	 816) -Nagrinėjama 5 daiktų kiekis su 40g svorio apimtimi.
+	 817) -Svoris būtų viršijamas, daiktas su kaina 354$ neįtraukiamas
+	 818) -dp[5][40] = 678$
+	 819) -Nagrinėjama 5 daiktų kiekis su 41g svorio apimtimi.
+	 820) -Svoris būtų viršijamas, daiktas su kaina 354$ neįtraukiamas
+	 821) -dp[5][41] = 678$
+	 822) -Nagrinėjama 5 daiktų kiekis su 42g svorio apimtimi.
+	 823) -Svoris būtų viršijamas, daiktas su kaina 354$ neįtraukiamas
+	 824) -dp[5][42] = 725$
+	 825) -Nagrinėjama 5 daiktų kiekis su 43g svorio apimtimi.
+	 826) -Svoris būtų viršijamas, daiktas su kaina 354$ neįtraukiamas
+	 827) -dp[5][43] = 725$
+	 828) -Nagrinėjama 5 daiktų kiekis su 44g svorio apimtimi.
+	 829) -Svoris būtų viršijamas, daiktas su kaina 354$ neįtraukiamas
+	 830) -dp[5][44] = 963$
+	 831) -Nagrinėjama 5 daiktų kiekis su 45g svorio apimtimi.
+	 832) -Svoris būtų viršijamas, daiktas su kaina 354$ neįtraukiamas
+	 833) -dp[5][45] = 963$
+	 834) -Nagrinėjama 5 daiktų kiekis su 46g svorio apimtimi.
+	 835) -Svoris būtų viršijamas, daiktas su kaina 354$ neįtraukiamas
+	 836) -dp[5][46] = 963$
+	 837) -Nagrinėjama 5 daiktų kiekis su 47g svorio apimtimi.
+	 838) -Svoris būtų viršijamas, daiktas su kaina 354$ neįtraukiamas
+	 839) -dp[5][47] = 963$
+	 840) -Nagrinėjama 5 daiktų kiekis su 48g svorio apimtimi.
+	 841) -Svoris būtų viršijamas, daiktas su kaina 354$ neįtraukiamas
+	 842) -dp[5][48] = 963$
+	 843) -Nagrinėjama 5 daiktų kiekis su 49g svorio apimtimi.
+	 844) -Svoris būtų viršijamas, daiktas su kaina 354$ neįtraukiamas
+	 845) -dp[5][49] = 963$
+	 846) -Nagrinėjama 5 daiktų kiekis su 50g svorio apimtimi.
+	 847) -Svoris būtų viršijamas, daiktas su kaina 354$ neįtraukiamas
+	 848) -dp[5][50] = 963$
+	 849) -Nagrinėjama 5 daiktų kiekis su 51g svorio apimtimi.
+	 850) -Svoris būtų viršijamas, daiktas su kaina 354$ neįtraukiamas
+	 851) -dp[5][51] = 963$
+	 852) -Nagrinėjama 5 daiktų kiekis su 52g svorio apimtimi.
+	 853) -Svoris būtų viršijamas, daiktas su kaina 354$ neįtraukiamas
+	 854) -dp[5][52] = 963$
+	 855) -Nagrinėjama 5 daiktų kiekis su 53g svorio apimtimi.
+	 856) -Svoris būtų viršijamas, daiktas su kaina 354$ neįtraukiamas
+	 857) -dp[5][53] = 963$
+	 858) -Nagrinėjama 5 daiktų kiekis su 54g svorio apimtimi.
+	 859) -Svoris būtų viršijamas, daiktas su kaina 354$ neįtraukiamas
+	 860) -dp[5][54] = 963$
+	 861) -Nagrinėjama 5 daiktų kiekis su 55g svorio apimtimi.
+	 862) -Svoris būtų viršijamas, daiktas su kaina 354$ neįtraukiamas
+	 863) -dp[5][55] = 963$
+	 864) -Nagrinėjama 5 daiktų kiekis su 56g svorio apimtimi.
+	 865) -Svoris būtų viršijamas, daiktas su kaina 354$ neįtraukiamas
+	 866) -dp[5][56] = 963$
+	 867) -Nagrinėjama 5 daiktų kiekis su 57g svorio apimtimi.
+	 868) -Svoris būtų viršijamas, daiktas su kaina 354$ neįtraukiamas
+	 869) -dp[5][57] = 963$
+	 870) -Nagrinėjama 5 daiktų kiekis su 58g svorio apimtimi.
+	 871) -Svoris būtų viršijamas, daiktas su kaina 354$ neįtraukiamas
+	 872) -dp[5][58] = 963$
+	 873) -Nagrinėjama 5 daiktų kiekis su 59g svorio apimtimi.
+	 874) -Svoris būtų viršijamas, daiktas su kaina 354$ neįtraukiamas
+	 875) -dp[5][59] = 963$
+	 876) -Nagrinėjama 5 daiktų kiekis su 60g svorio apimtimi.
+	 877) -Svoris būtų viršijamas, daiktas su kaina 354$ neįtraukiamas
+	 878) -dp[5][60] = 963$
+	 879) -Nagrinėjama 5 daiktų kiekis su 61g svorio apimtimi.
+	 880) -Svoris būtų viršijamas, daiktas su kaina 354$ neįtraukiamas
+	 881) -dp[5][61] = 963$
+	 882) -Nagrinėjama 5 daiktų kiekis su 62g svorio apimtimi.
+	 883) -Svoris būtų viršijamas, daiktas su kaina 354$ neįtraukiamas
+	 884) -dp[5][62] = 1183$
+	 885) -Nagrinėjama 5 daiktų kiekis su 63g svorio apimtimi.
+	 886) -Svoris būtų viršijamas, daiktas su kaina 354$ neįtraukiamas
+	 887) -dp[5][63] = 1183$
+	 888) -Nagrinėjama 5 daiktų kiekis su 64g svorio apimtimi.
+	 889) -Svoris būtų viršijamas, daiktas su kaina 354$ neįtraukiamas
+	 890) -dp[5][64] = 1183$
+	 891) -Nagrinėjama 5 daiktų kiekis su 65g svorio apimtimi.
+	 892) -Svoris būtų viršijamas, daiktas su kaina 354$ neįtraukiamas
+	 893) -dp[5][65] = 1183$
+	 894) -Nagrinėjama 5 daiktų kiekis su 66g svorio apimtimi.
+	 895) -Svoris būtų viršijamas, daiktas su kaina 354$ neįtraukiamas
+	 896) -dp[5][66] = 1183$
+	 897) -Nagrinėjama 5 daiktų kiekis su 67g svorio apimtimi.
+	 898) -Svoris būtų viršijamas, daiktas su kaina 354$ neįtraukiamas
+	 899) -dp[5][67] = 1183$
+	 900) -Nagrinėjama 5 daiktų kiekis su 68g svorio apimtimi.
+	 901) -Svoris būtų viršijamas, daiktas su kaina 354$ neįtraukiamas
+	 902) -dp[5][68] = 1183$
+	 903) Nagrinėjama 6 daiktų kiekis su 1g svorio apimtimi.
+	 904) dp[6][1] = 0$
+	 905) -Nagrinėjama 6 daiktų kiekis su 2g svorio apimtimi.
+	 906) -dp[6][2] = 0$
+	 907) -Nagrinėjama 6 daiktų kiekis su 3g svorio apimtimi.
+	 908) -dp[6][3] = 0$
+	 909) -Nagrinėjama 6 daiktų kiekis su 4g svorio apimtimi.
+	 910) -dp[6][4] = 0$
+	 911) -Nagrinėjama 6 daiktų kiekis su 5g svorio apimtimi.
+	 912) -dp[6][5] = 0$
+	 913) -Nagrinėjama 6 daiktų kiekis su 6g svorio apimtimi.
+	 914) -dp[6][6] = 0$
+	 915) -Nagrinėjama 6 daiktų kiekis su 7g svorio apimtimi.
+	 916) -dp[6][7] = 0$
+	 917) -Nagrinėjama 6 daiktų kiekis su 8g svorio apimtimi.
+	 918) -dp[6][8] = 0$
+	 919) -Nagrinėjama 6 daiktų kiekis su 9g svorio apimtimi.
+	 920) -dp[6][9] = 0$
+	 921) -Nagrinėjama 6 daiktų kiekis su 10g svorio apimtimi.
+	 922) -dp[6][10] = 0$
+	 923) -Nagrinėjama 6 daiktų kiekis su 11g svorio apimtimi.
+	 924) -dp[6][11] = 0$
+	 925) -Nagrinėjama 6 daiktų kiekis su 12g svorio apimtimi.
+	 926) -dp[6][12] = 0$
+	 927) -Nagrinėjama 6 daiktų kiekis su 13g svorio apimtimi.
+	 928) -dp[6][13] = 0$
+	 929) -Nagrinėjama 6 daiktų kiekis su 14g svorio apimtimi.
+	 930) -dp[6][14] = 0$
+	 931) -Nagrinėjama 6 daiktų kiekis su 15g svorio apimtimi.
+	 932) -dp[6][15] = 0$
+	 933) -Nagrinėjama 6 daiktų kiekis su 16g svorio apimtimi.
+	 934) -dp[6][16] = 0$
+	 935) -Nagrinėjama 6 daiktų kiekis su 17g svorio apimtimi.
+	 936) -dp[6][17] = 0$
+	 937) -Nagrinėjama 6 daiktų kiekis su 18g svorio apimtimi.
+	 938) -dp[6][18] = 0$
+	 939) -Nagrinėjama 6 daiktų kiekis su 19g svorio apimtimi.
+	 940) -dp[6][19] = 220$
+	 941) -Nagrinėjama 6 daiktų kiekis su 20g svorio apimtimi.
+	 942) -dp[6][20] = 220$
+	 943) -Nagrinėjama 6 daiktų kiekis su 21g svorio apimtimi.
+	 944) -dp[6][21] = 458$
+	 945) -Nagrinėjama 6 daiktų kiekis su 22g svorio apimtimi.
+	 946) -dp[6][22] = 458$
+	 947) -Nagrinėjama 6 daiktų kiekis su 23g svorio apimtimi.
+	 948) -dp[6][23] = 458$
+	 949) -Nagrinėjama 6 daiktų kiekis su 24g svorio apimtimi.
+	 950) -dp[6][24] = 505$
+	 951) -Nagrinėjama 6 daiktų kiekis su 25g svorio apimtimi.
+	 952) -dp[6][25] = 505$
+	 953) -Nagrinėjama 6 daiktų kiekis su 26g svorio apimtimi.
+	 954) -dp[6][26] = 505$
+	 955) -Nagrinėjama 6 daiktų kiekis su 27g svorio apimtimi.
+	 956) -dp[6][27] = 505$
+	 957) -Nagrinėjama 6 daiktų kiekis su 28g svorio apimtimi.
+	 958) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	 959) -dp[6][28] = 505$
+	 960) -Nagrinėjama 6 daiktų kiekis su 29g svorio apimtimi.
+	 961) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	 962) -dp[6][29] = 505$
+	 963) -Nagrinėjama 6 daiktų kiekis su 30g svorio apimtimi.
+	 964) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	 965) -dp[6][30] = 505$
+	 966) -Nagrinėjama 6 daiktų kiekis su 31g svorio apimtimi.
+	 967) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	 968) -dp[6][31] = 505$
+	 969) -Nagrinėjama 6 daiktų kiekis su 32g svorio apimtimi.
+	 970) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	 971) -dp[6][32] = 505$
+	 972) -Nagrinėjama 6 daiktų kiekis su 33g svorio apimtimi.
+	 973) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	 974) -dp[6][33] = 505$
+	 975) -Nagrinėjama 6 daiktų kiekis su 34g svorio apimtimi.
+	 976) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	 977) -dp[6][34] = 505$
+	 978) -Nagrinėjama 6 daiktų kiekis su 35g svorio apimtimi.
+	 979) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	 980) -dp[6][35] = 505$
+	 981) -Nagrinėjama 6 daiktų kiekis su 36g svorio apimtimi.
+	 982) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	 983) -dp[6][36] = 505$
+	 984) -Nagrinėjama 6 daiktų kiekis su 37g svorio apimtimi.
+	 985) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	 986) -dp[6][37] = 505$
+	 987) -Nagrinėjama 6 daiktų kiekis su 38g svorio apimtimi.
+	 988) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	 989) -dp[6][38] = 505$
+	 990) -Nagrinėjama 6 daiktų kiekis su 39g svorio apimtimi.
+	 991) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	 992) -dp[6][39] = 678$
+	 993) -Nagrinėjama 6 daiktų kiekis su 40g svorio apimtimi.
+	 994) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	 995) -dp[6][40] = 678$
+	 996) -Nagrinėjama 6 daiktų kiekis su 41g svorio apimtimi.
+	 997) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	 998) -dp[6][41] = 678$
+	 999) -Nagrinėjama 6 daiktų kiekis su 42g svorio apimtimi.
+	1000) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	1001) -dp[6][42] = 725$
+	1002) -Nagrinėjama 6 daiktų kiekis su 43g svorio apimtimi.
+	1003) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	1004) -dp[6][43] = 725$
+	1005) -Nagrinėjama 6 daiktų kiekis su 44g svorio apimtimi.
+	1006) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	1007) -dp[6][44] = 963$
+	1008) -Nagrinėjama 6 daiktų kiekis su 45g svorio apimtimi.
+	1009) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	1010) -dp[6][45] = 963$
+	1011) -Nagrinėjama 6 daiktų kiekis su 46g svorio apimtimi.
+	1012) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	1013) -dp[6][46] = 963$
+	1014) -Nagrinėjama 6 daiktų kiekis su 47g svorio apimtimi.
+	1015) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	1016) -dp[6][47] = 963$
+	1017) -Nagrinėjama 6 daiktų kiekis su 48g svorio apimtimi.
+	1018) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	1019) -dp[6][48] = 963$
+	1020) -Nagrinėjama 6 daiktų kiekis su 49g svorio apimtimi.
+	1021) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	1022) -dp[6][49] = 963$
+	1023) -Nagrinėjama 6 daiktų kiekis su 50g svorio apimtimi.
+	1024) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	1025) -dp[6][50] = 963$
+	1026) -Nagrinėjama 6 daiktų kiekis su 51g svorio apimtimi.
+	1027) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	1028) -dp[6][51] = 963$
+	1029) -Nagrinėjama 6 daiktų kiekis su 52g svorio apimtimi.
+	1030) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	1031) -dp[6][52] = 963$
+	1032) -Nagrinėjama 6 daiktų kiekis su 53g svorio apimtimi.
+	1033) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	1034) -dp[6][53] = 963$
+	1035) -Nagrinėjama 6 daiktų kiekis su 54g svorio apimtimi.
+	1036) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	1037) -dp[6][54] = 963$
+	1038) -Nagrinėjama 6 daiktų kiekis su 55g svorio apimtimi.
+	1039) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	1040) -dp[6][55] = 963$
+	1041) -Nagrinėjama 6 daiktų kiekis su 56g svorio apimtimi.
+	1042) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	1043) -dp[6][56] = 963$
+	1044) -Nagrinėjama 6 daiktų kiekis su 57g svorio apimtimi.
+	1045) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	1046) -dp[6][57] = 963$
+	1047) -Nagrinėjama 6 daiktų kiekis su 58g svorio apimtimi.
+	1048) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	1049) -dp[6][58] = 963$
+	1050) -Nagrinėjama 6 daiktų kiekis su 59g svorio apimtimi.
+	1051) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	1052) -dp[6][59] = 963$
+	1053) -Nagrinėjama 6 daiktų kiekis su 60g svorio apimtimi.
+	1054) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	1055) -dp[6][60] = 963$
+	1056) -Nagrinėjama 6 daiktų kiekis su 61g svorio apimtimi.
+	1057) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	1058) -dp[6][61] = 963$
+	1059) -Nagrinėjama 6 daiktų kiekis su 62g svorio apimtimi.
+	1060) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	1061) -dp[6][62] = 1183$
+	1062) -Nagrinėjama 6 daiktų kiekis su 63g svorio apimtimi.
+	1063) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	1064) -dp[6][63] = 1183$
+	1065) -Nagrinėjama 6 daiktų kiekis su 64g svorio apimtimi.
+	1066) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	1067) -dp[6][64] = 1183$
+	1068) -Nagrinėjama 6 daiktų kiekis su 65g svorio apimtimi.
+	1069) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	1070) -dp[6][65] = 1183$
+	1071) -Nagrinėjama 6 daiktų kiekis su 66g svorio apimtimi.
+	1072) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	1073) -dp[6][66] = 1183$
+	1074) -Nagrinėjama 6 daiktų kiekis su 67g svorio apimtimi.
+	1075) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	1076) -dp[6][67] = 1183$
+	1077) -Nagrinėjama 6 daiktų kiekis su 68g svorio apimtimi.
+	1078) -Svoris būtų viršijamas, daiktas su kaina 414$ neįtraukiamas
+	1079) -dp[6][68] = 1183$
+	1080) Nagrinėjama 7 daiktų kiekis su 1g svorio apimtimi.
+	1081) dp[7][1] = 0$
+	1082) -Nagrinėjama 7 daiktų kiekis su 2g svorio apimtimi.
+	1083) -dp[7][2] = 0$
+	1084) -Nagrinėjama 7 daiktų kiekis su 3g svorio apimtimi.
+	1085) -dp[7][3] = 0$
+	1086) -Nagrinėjama 7 daiktų kiekis su 4g svorio apimtimi.
+	1087) -dp[7][4] = 0$
+	1088) -Nagrinėjama 7 daiktų kiekis su 5g svorio apimtimi.
+	1089) -dp[7][5] = 0$
+	1090) -Nagrinėjama 7 daiktų kiekis su 6g svorio apimtimi.
+	1091) -dp[7][6] = 0$
+	1092) -Nagrinėjama 7 daiktų kiekis su 7g svorio apimtimi.
+	1093) -dp[7][7] = 0$
+	1094) -Nagrinėjama 7 daiktų kiekis su 8g svorio apimtimi.
+	1095) -dp[7][8] = 0$
+	1096) -Nagrinėjama 7 daiktų kiekis su 9g svorio apimtimi.
+	1097) -dp[7][9] = 0$
+	1098) -Nagrinėjama 7 daiktų kiekis su 10g svorio apimtimi.
+	1099) -dp[7][10] = 0$
+	1100) -Nagrinėjama 7 daiktų kiekis su 11g svorio apimtimi.
+	1101) -dp[7][11] = 0$
+	1102) -Nagrinėjama 7 daiktų kiekis su 12g svorio apimtimi.
+	1103) -dp[7][12] = 0$
+	1104) -Nagrinėjama 7 daiktų kiekis su 13g svorio apimtimi.
+	1105) -dp[7][13] = 0$
+	1106) -Nagrinėjama 7 daiktų kiekis su 14g svorio apimtimi.
+	1107) -dp[7][14] = 0$
+	1108) -Nagrinėjama 7 daiktų kiekis su 15g svorio apimtimi.
+	1109) -dp[7][15] = 0$
+	1110) -Nagrinėjama 7 daiktų kiekis su 16g svorio apimtimi.
+	1111) -dp[7][16] = 0$
+	1112) -Nagrinėjama 7 daiktų kiekis su 17g svorio apimtimi.
+	1113) -dp[7][17] = 0$
+	1114) -Nagrinėjama 7 daiktų kiekis su 18g svorio apimtimi.
+	1115) -dp[7][18] = 0$
+	1116) -Nagrinėjama 7 daiktų kiekis su 19g svorio apimtimi.
+	1117) -dp[7][19] = 220$
+	1118) -Nagrinėjama 7 daiktų kiekis su 20g svorio apimtimi.
+	1119) -dp[7][20] = 220$
+	1120) -Nagrinėjama 7 daiktų kiekis su 21g svorio apimtimi.
+	1121) -dp[7][21] = 458$
+	1122) -Nagrinėjama 7 daiktų kiekis su 22g svorio apimtimi.
+	1123) -dp[7][22] = 458$
+	1124) -Nagrinėjama 7 daiktų kiekis su 23g svorio apimtimi.
+	1125) -dp[7][23] = 458$
+	1126) -Nagrinėjama 7 daiktų kiekis su 24g svorio apimtimi.
+	1127) -dp[7][24] = 505$
+	1128) -Nagrinėjama 7 daiktų kiekis su 25g svorio apimtimi.
+	1129) -dp[7][25] = 505$
+	1130) -Nagrinėjama 7 daiktų kiekis su 26g svorio apimtimi.
+	1131) -dp[7][26] = 505$
+	1132) -Nagrinėjama 7 daiktų kiekis su 27g svorio apimtimi.
+	1133) -dp[7][27] = 505$
+	1134) -Nagrinėjama 7 daiktų kiekis su 28g svorio apimtimi.
+	1135) -dp[7][28] = 505$
+	1136) -Nagrinėjama 7 daiktų kiekis su 29g svorio apimtimi.
+	1137) -dp[7][29] = 505$
+	1138) -Nagrinėjama 7 daiktų kiekis su 30g svorio apimtimi.
+	1139) -Svoris būtų viršijamas, daiktas su kaina 498$ neįtraukiamas
+	1140) -dp[7][30] = 505$
+	1141) -Nagrinėjama 7 daiktų kiekis su 31g svorio apimtimi.
+	1142) -Svoris būtų viršijamas, daiktas su kaina 498$ neįtraukiamas
+	1143) -dp[7][31] = 505$
+	1144) -Nagrinėjama 7 daiktų kiekis su 32g svorio apimtimi.
+	1145) -Svoris būtų viršijamas, daiktas su kaina 498$ neįtraukiamas
+	1146) -dp[7][32] = 505$
+	1147) -Nagrinėjama 7 daiktų kiekis su 33g svorio apimtimi.
+	1148) -Svoris būtų viršijamas, daiktas su kaina 498$ neįtraukiamas
+	1149) -dp[7][33] = 505$
+	1150) -Nagrinėjama 7 daiktų kiekis su 34g svorio apimtimi.
+	1151) -Svoris būtų viršijamas, daiktas su kaina 498$ neįtraukiamas
+	1152) -dp[7][34] = 505$
+	1153) -Nagrinėjama 7 daiktų kiekis su 35g svorio apimtimi.
+	1154) -Svoris būtų viršijamas, daiktas su kaina 498$ neįtraukiamas
+	1155) -dp[7][35] = 505$
+	1156) -Nagrinėjama 7 daiktų kiekis su 36g svorio apimtimi.
+	1157) -Svoris būtų viršijamas, daiktas su kaina 498$ neįtraukiamas
+	1158) -dp[7][36] = 505$
+	1159) -Nagrinėjama 7 daiktų kiekis su 37g svorio apimtimi.
+	1160) -Svoris būtų viršijamas, daiktas su kaina 498$ neįtraukiamas
+	1161) -dp[7][37] = 505$
+	1162) -Nagrinėjama 7 daiktų kiekis su 38g svorio apimtimi.
+	1163) -Svoris būtų viršijamas, daiktas su kaina 498$ neįtraukiamas
+	1164) -dp[7][38] = 505$
+	1165) -Nagrinėjama 7 daiktų kiekis su 39g svorio apimtimi.
+	1166) -Svoris būtų viršijamas, daiktas su kaina 498$ neįtraukiamas
+	1167) -dp[7][39] = 678$
+	1168) -Nagrinėjama 7 daiktų kiekis su 40g svorio apimtimi.
+	1169) -Svoris būtų viršijamas, daiktas su kaina 498$ neįtraukiamas
+	1170) -dp[7][40] = 678$
+	1171) -Nagrinėjama 7 daiktų kiekis su 41g svorio apimtimi.
+	1172) -Svoris būtų viršijamas, daiktas su kaina 498$ neįtraukiamas
+	1173) -dp[7][41] = 678$
+	1174) -Nagrinėjama 7 daiktų kiekis su 42g svorio apimtimi.
+	1175) -Svoris būtų viršijamas, daiktas su kaina 498$ neįtraukiamas
+	1176) -dp[7][42] = 725$
+	1177) -Nagrinėjama 7 daiktų kiekis su 43g svorio apimtimi.
+	1178) -Svoris būtų viršijamas, daiktas su kaina 498$ neįtraukiamas
+	1179) -dp[7][43] = 725$
+	1180) -Nagrinėjama 7 daiktų kiekis su 44g svorio apimtimi.
+	1181) -Svoris būtų viršijamas, daiktas su kaina 498$ neįtraukiamas
+	1182) -dp[7][44] = 963$
+	1183) -Nagrinėjama 7 daiktų kiekis su 45g svorio apimtimi.
+	1184) -Svoris būtų viršijamas, daiktas su kaina 498$ neįtraukiamas
+	1185) -dp[7][45] = 963$
+	1186) -Nagrinėjama 7 daiktų kiekis su 46g svorio apimtimi.
+	1187) -Svoris būtų viršijamas, daiktas su kaina 498$ neįtraukiamas
+	1188) -dp[7][46] = 963$
+	1189) -Nagrinėjama 7 daiktų kiekis su 47g svorio apimtimi.
+	1190) -Svoris būtų viršijamas, daiktas su kaina 498$ neįtraukiamas
+	1191) -dp[7][47] = 963$
+	1192) -Nagrinėjama 7 daiktų kiekis su 48g svorio apimtimi.
+	1193) -Svoris būtų viršijamas, daiktas su kaina 498$ neįtraukiamas
+	1194) -dp[7][48] = 963$
+	1195) -Nagrinėjama 7 daiktų kiekis su 49g svorio apimtimi.
+	1196) -Svoris būtų viršijamas, daiktas su kaina 498$ neįtraukiamas
+	1197) -dp[7][49] = 963$
+	1198) -Nagrinėjama 7 daiktų kiekis su 50g svorio apimtimi.
+	1199) -Svoris būtų viršijamas, daiktas su kaina 498$ neįtraukiamas
+	1200) -dp[7][50] = 963$
+	1201) -Nagrinėjama 7 daiktų kiekis su 51g svorio apimtimi.
+	1202) -Svoris būtų viršijamas, daiktas su kaina 498$ neįtraukiamas
+	1203) -dp[7][51] = 963$
+	1204) -Nagrinėjama 7 daiktų kiekis su 52g svorio apimtimi.
+	1205) -Svoris būtų viršijamas, daiktas su kaina 498$ neįtraukiamas
+	1206) -dp[7][52] = 963$
+	1207) -Nagrinėjama 7 daiktų kiekis su 53g svorio apimtimi.
+	1208) -Svoris neviršijamas, daiktas su kaina 498$ įtraukiamas
+	1209) -dp[7][53] = 1003$
+	1210) -Nagrinėjama 7 daiktų kiekis su 54g svorio apimtimi.
+	1211) -Svoris neviršijamas, daiktas su kaina 498$ įtraukiamas
+	1212) -dp[7][54] = 1003$
+	1213) -Nagrinėjama 7 daiktų kiekis su 55g svorio apimtimi.
+	1214) -Svoris neviršijamas, daiktas su kaina 498$ įtraukiamas
+	1215) -dp[7][55] = 1003$
+	1216) -Nagrinėjama 7 daiktų kiekis su 56g svorio apimtimi.
+	1217) -Svoris neviršijamas, daiktas su kaina 498$ įtraukiamas
+	1218) -dp[7][56] = 1003$
+	1219) -Nagrinėjama 7 daiktų kiekis su 57g svorio apimtimi.
+	1220) -Svoris neviršijamas, daiktas su kaina 498$ įtraukiamas
+	1221) -dp[7][57] = 1003$
+	1222) -Nagrinėjama 7 daiktų kiekis su 58g svorio apimtimi.
+	1223) -Svoris neviršijamas, daiktas su kaina 498$ įtraukiamas
+	1224) -dp[7][58] = 1003$
+	1225) -Nagrinėjama 7 daiktų kiekis su 59g svorio apimtimi.
+	1226) -Svoris neviršijamas, daiktas su kaina 498$ įtraukiamas
+	1227) -dp[7][59] = 1003$
+	1228) -Nagrinėjama 7 daiktų kiekis su 60g svorio apimtimi.
+	1229) -Svoris neviršijamas, daiktas su kaina 498$ įtraukiamas
+	1230) -dp[7][60] = 1003$
+	1231) -Nagrinėjama 7 daiktų kiekis su 61g svorio apimtimi.
+	1232) -Svoris neviršijamas, daiktas su kaina 498$ įtraukiamas
+	1233) -dp[7][61] = 1003$
+	1234) -Nagrinėjama 7 daiktų kiekis su 62g svorio apimtimi.
+	1235) -Svoris būtų viršijamas, daiktas su kaina 498$ neįtraukiamas
+	1236) -dp[7][62] = 1183$
+	1237) -Nagrinėjama 7 daiktų kiekis su 63g svorio apimtimi.
+	1238) -Svoris būtų viršijamas, daiktas su kaina 498$ neįtraukiamas
+	1239) -dp[7][63] = 1183$
+	1240) -Nagrinėjama 7 daiktų kiekis su 64g svorio apimtimi.
+	1241) -Svoris būtų viršijamas, daiktas su kaina 498$ neįtraukiamas
+	1242) -dp[7][64] = 1183$
+	1243) -Nagrinėjama 7 daiktų kiekis su 65g svorio apimtimi.
+	1244) -Svoris būtų viršijamas, daiktas su kaina 498$ neįtraukiamas
+	1245) -dp[7][65] = 1183$
+	1246) -Nagrinėjama 7 daiktų kiekis su 66g svorio apimtimi.
+	1247) -Svoris būtų viršijamas, daiktas su kaina 498$ neįtraukiamas
+	1248) -dp[7][66] = 1183$
+	1249) -Nagrinėjama 7 daiktų kiekis su 67g svorio apimtimi.
+	1250) -Svoris būtų viršijamas, daiktas su kaina 498$ neįtraukiamas
+	1251) -dp[7][67] = 1183$
+	1252) -Nagrinėjama 7 daiktų kiekis su 68g svorio apimtimi.
+	1253) -Svoris būtų viršijamas, daiktas su kaina 498$ neįtraukiamas
+	1254) -dp[7][68] = 1183$
+	1255) Nagrinėjama 8 daiktų kiekis su 1g svorio apimtimi.
+	1256) dp[8][1] = 0$
+	1257) -Nagrinėjama 8 daiktų kiekis su 2g svorio apimtimi.
+	1258) -dp[8][2] = 0$
+	1259) -Nagrinėjama 8 daiktų kiekis su 3g svorio apimtimi.
+	1260) -dp[8][3] = 0$
+	1261) -Nagrinėjama 8 daiktų kiekis su 4g svorio apimtimi.
+	1262) -dp[8][4] = 0$
+	1263) -Nagrinėjama 8 daiktų kiekis su 5g svorio apimtimi.
+	1264) -dp[8][5] = 0$
+	1265) -Nagrinėjama 8 daiktų kiekis su 6g svorio apimtimi.
+	1266) -dp[8][6] = 0$
+	1267) -Nagrinėjama 8 daiktų kiekis su 7g svorio apimtimi.
+	1268) -dp[8][7] = 0$
+	1269) -Nagrinėjama 8 daiktų kiekis su 8g svorio apimtimi.
+	1270) -dp[8][8] = 0$
+	1271) -Nagrinėjama 8 daiktų kiekis su 9g svorio apimtimi.
+	1272) -dp[8][9] = 0$
+	1273) -Nagrinėjama 8 daiktų kiekis su 10g svorio apimtimi.
+	1274) -dp[8][10] = 0$
+	1275) -Nagrinėjama 8 daiktų kiekis su 11g svorio apimtimi.
+	1276) -dp[8][11] = 0$
+	1277) -Nagrinėjama 8 daiktų kiekis su 12g svorio apimtimi.
+	1278) -dp[8][12] = 0$
+	1279) -Nagrinėjama 8 daiktų kiekis su 13g svorio apimtimi.
+	1280) -dp[8][13] = 0$
+	1281) -Nagrinėjama 8 daiktų kiekis su 14g svorio apimtimi.
+	1282) -dp[8][14] = 0$
+	1283) -Nagrinėjama 8 daiktų kiekis su 15g svorio apimtimi.
+	1284) -dp[8][15] = 0$
+	1285) -Nagrinėjama 8 daiktų kiekis su 16g svorio apimtimi.
+	1286) -dp[8][16] = 0$
+	1287) -Nagrinėjama 8 daiktų kiekis su 17g svorio apimtimi.
+	1288) -dp[8][17] = 0$
+	1289) -Nagrinėjama 8 daiktų kiekis su 18g svorio apimtimi.
+	1290) -dp[8][18] = 0$
+	1291) -Nagrinėjama 8 daiktų kiekis su 19g svorio apimtimi.
+	1292) -dp[8][19] = 220$
+	1293) -Nagrinėjama 8 daiktų kiekis su 20g svorio apimtimi.
+	1294) -dp[8][20] = 220$
+	1295) -Nagrinėjama 8 daiktų kiekis su 21g svorio apimtimi.
+	1296) -dp[8][21] = 458$
+	1297) -Nagrinėjama 8 daiktų kiekis su 22g svorio apimtimi.
+	1298) -dp[8][22] = 458$
+	1299) -Nagrinėjama 8 daiktų kiekis su 23g svorio apimtimi.
+	1300) -dp[8][23] = 458$
+	1301) -Nagrinėjama 8 daiktų kiekis su 24g svorio apimtimi.
+	1302) -dp[8][24] = 505$
+	1303) -Nagrinėjama 8 daiktų kiekis su 25g svorio apimtimi.
+	1304) -dp[8][25] = 505$
+	1305) -Nagrinėjama 8 daiktų kiekis su 26g svorio apimtimi.
+	1306) -dp[8][26] = 505$
+	1307) -Nagrinėjama 8 daiktų kiekis su 27g svorio apimtimi.
+	1308) -Svoris neviršijamas, daiktas su kaina 545$ įtraukiamas
+	1309) -dp[8][27] = 545$
+	1310) -Nagrinėjama 8 daiktų kiekis su 28g svorio apimtimi.
+	1311) -Svoris neviršijamas, daiktas su kaina 545$ įtraukiamas
+	1312) -dp[8][28] = 545$
+	1313) -Nagrinėjama 8 daiktų kiekis su 29g svorio apimtimi.
+	1314) -Svoris neviršijamas, daiktas su kaina 545$ įtraukiamas
+	1315) -dp[8][29] = 545$
+	1316) -Nagrinėjama 8 daiktų kiekis su 30g svorio apimtimi.
+	1317) -Svoris neviršijamas, daiktas su kaina 545$ įtraukiamas
+	1318) -dp[8][30] = 545$
+	1319) -Nagrinėjama 8 daiktų kiekis su 31g svorio apimtimi.
+	1320) -Svoris neviršijamas, daiktas su kaina 545$ įtraukiamas
+	1321) -dp[8][31] = 545$
+	1322) -Nagrinėjama 8 daiktų kiekis su 32g svorio apimtimi.
+	1323) -Svoris neviršijamas, daiktas su kaina 545$ įtraukiamas
+	1324) -dp[8][32] = 545$
+	1325) -Nagrinėjama 8 daiktų kiekis su 33g svorio apimtimi.
+	1326) -Svoris neviršijamas, daiktas su kaina 545$ įtraukiamas
+	1327) -dp[8][33] = 545$
+	1328) -Nagrinėjama 8 daiktų kiekis su 34g svorio apimtimi.
+	1329) -Svoris neviršijamas, daiktas su kaina 545$ įtraukiamas
+	1330) -dp[8][34] = 545$
+	1331) -Nagrinėjama 8 daiktų kiekis su 35g svorio apimtimi.
+	1332) -Svoris neviršijamas, daiktas su kaina 545$ įtraukiamas
+	1333) -dp[8][35] = 545$
+	1334) -Nagrinėjama 8 daiktų kiekis su 36g svorio apimtimi.
+	1335) -Svoris neviršijamas, daiktas su kaina 545$ įtraukiamas
+	1336) -dp[8][36] = 545$
+	1337) -Nagrinėjama 8 daiktų kiekis su 37g svorio apimtimi.
+	1338) -Svoris neviršijamas, daiktas su kaina 545$ įtraukiamas
+	1339) -dp[8][37] = 545$
+	1340) -Nagrinėjama 8 daiktų kiekis su 38g svorio apimtimi.
+	1341) -Svoris neviršijamas, daiktas su kaina 545$ įtraukiamas
+	1342) -dp[8][38] = 545$
+	1343) -Nagrinėjama 8 daiktų kiekis su 39g svorio apimtimi.
+	1344) -Svoris būtų viršijamas, daiktas su kaina 545$ neįtraukiamas
+	1345) -dp[8][39] = 678$
+	1346) -Nagrinėjama 8 daiktų kiekis su 40g svorio apimtimi.
+	1347) -Svoris būtų viršijamas, daiktas su kaina 545$ neįtraukiamas
+	1348) -dp[8][40] = 678$
+	1349) -Nagrinėjama 8 daiktų kiekis su 41g svorio apimtimi.
+	1350) -Svoris būtų viršijamas, daiktas su kaina 545$ neįtraukiamas
+	1351) -dp[8][41] = 678$
+	1352) -Nagrinėjama 8 daiktų kiekis su 42g svorio apimtimi.
+	1353) -Svoris būtų viršijamas, daiktas su kaina 545$ neįtraukiamas
+	1354) -dp[8][42] = 725$
+	1355) -Nagrinėjama 8 daiktų kiekis su 43g svorio apimtimi.
+	1356) -Svoris būtų viršijamas, daiktas su kaina 545$ neįtraukiamas
+	1357) -dp[8][43] = 725$
+	1358) -Nagrinėjama 8 daiktų kiekis su 44g svorio apimtimi.
+	1359) -Svoris būtų viršijamas, daiktas su kaina 545$ neįtraukiamas
+	1360) -dp[8][44] = 963$
+	1361) -Nagrinėjama 8 daiktų kiekis su 45g svorio apimtimi.
+	1362) -Svoris būtų viršijamas, daiktas su kaina 545$ neįtraukiamas
+	1363) -dp[8][45] = 963$
+	1364) -Nagrinėjama 8 daiktų kiekis su 46g svorio apimtimi.
+	1365) -Svoris būtų viršijamas, daiktas su kaina 545$ neįtraukiamas
+	1366) -dp[8][46] = 963$
+	1367) -Nagrinėjama 8 daiktų kiekis su 47g svorio apimtimi.
+	1368) -Svoris neviršijamas, daiktas su kaina 545$ įtraukiamas
+	1369) -dp[8][47] = 1003$
+	1370) -Nagrinėjama 8 daiktų kiekis su 48g svorio apimtimi.
+	1371) -Svoris neviršijamas, daiktas su kaina 545$ įtraukiamas
+	1372) -dp[8][48] = 1003$
+	1373) -Nagrinėjama 8 daiktų kiekis su 49g svorio apimtimi.
+	1374) -Svoris neviršijamas, daiktas su kaina 545$ įtraukiamas
+	1375) -dp[8][49] = 1003$
+	1376) -Nagrinėjama 8 daiktų kiekis su 50g svorio apimtimi.
+	1377) -Svoris neviršijamas, daiktas su kaina 545$ įtraukiamas
+	1378) -dp[8][50] = 1050$
+	1379) -Nagrinėjama 8 daiktų kiekis su 51g svorio apimtimi.
+	1380) -Svoris neviršijamas, daiktas su kaina 545$ įtraukiamas
+	1381) -dp[8][51] = 1050$
+	1382) -Nagrinėjama 8 daiktų kiekis su 52g svorio apimtimi.
+	1383) -Svoris neviršijamas, daiktas su kaina 545$ įtraukiamas
+	1384) -dp[8][52] = 1050$
+	1385) -Nagrinėjama 8 daiktų kiekis su 53g svorio apimtimi.
+	1386) -Svoris neviršijamas, daiktas su kaina 545$ įtraukiamas
+	1387) -dp[8][53] = 1050$
+	1388) -Nagrinėjama 8 daiktų kiekis su 54g svorio apimtimi.
+	1389) -Svoris neviršijamas, daiktas su kaina 545$ įtraukiamas
+	1390) -dp[8][54] = 1050$
+	1391) -Nagrinėjama 8 daiktų kiekis su 55g svorio apimtimi.
+	1392) -Svoris neviršijamas, daiktas su kaina 545$ įtraukiamas
+	1393) -dp[8][55] = 1050$
+	1394) -Nagrinėjama 8 daiktų kiekis su 56g svorio apimtimi.
+	1395) -Svoris neviršijamas, daiktas su kaina 545$ įtraukiamas
+	1396) -dp[8][56] = 1050$
+	1397) -Nagrinėjama 8 daiktų kiekis su 57g svorio apimtimi.
+	1398) -Svoris neviršijamas, daiktas su kaina 545$ įtraukiamas
+	1399) -dp[8][57] = 1050$
+	1400) -Nagrinėjama 8 daiktų kiekis su 58g svorio apimtimi.
+	1401) -Svoris neviršijamas, daiktas su kaina 545$ įtraukiamas
+	1402) -dp[8][58] = 1050$
+	1403) -Nagrinėjama 8 daiktų kiekis su 59g svorio apimtimi.
+	1404) -Svoris neviršijamas, daiktas su kaina 545$ įtraukiamas
+	1405) -dp[8][59] = 1050$
+	1406) -Nagrinėjama 8 daiktų kiekis su 60g svorio apimtimi.
+	1407) -Svoris neviršijamas, daiktas su kaina 545$ įtraukiamas
+	1408) -dp[8][60] = 1050$
+	1409) -Nagrinėjama 8 daiktų kiekis su 61g svorio apimtimi.
+	1410) -Svoris neviršijamas, daiktas su kaina 545$ įtraukiamas
+	1411) -dp[8][61] = 1050$
+	1412) -Nagrinėjama 8 daiktų kiekis su 62g svorio apimtimi.
+	1413) -Svoris būtų viršijamas, daiktas su kaina 545$ neįtraukiamas
+	1414) -dp[8][62] = 1183$
+	1415) -Nagrinėjama 8 daiktų kiekis su 63g svorio apimtimi.
+	1416) -Svoris būtų viršijamas, daiktas su kaina 545$ neįtraukiamas
+	1417) -dp[8][63] = 1183$
+	1418) -Nagrinėjama 8 daiktų kiekis su 64g svorio apimtimi.
+	1419) -Svoris būtų viršijamas, daiktas su kaina 545$ neįtraukiamas
+	1420) -dp[8][64] = 1183$
+	1421) -Nagrinėjama 8 daiktų kiekis su 65g svorio apimtimi.
+	1422) -Svoris neviršijamas, daiktas su kaina 545$ įtraukiamas
+	1423) -dp[8][65] = 1223$
+	1424) -Nagrinėjama 8 daiktų kiekis su 66g svorio apimtimi.
+	1425) -Svoris neviršijamas, daiktas su kaina 545$ įtraukiamas
+	1426) -dp[8][66] = 1223$
+	1427) -Nagrinėjama 8 daiktų kiekis su 67g svorio apimtimi.
+	1428) -Svoris neviršijamas, daiktas su kaina 545$ įtraukiamas
+	1429) -dp[8][67] = 1223$
+	1430) -Nagrinėjama 8 daiktų kiekis su 68g svorio apimtimi.
+	1431) -Svoris neviršijamas, daiktas su kaina 545$ įtraukiamas
+	1432) -dp[8][68] = 1270$
+	1433) Nagrinėjama 9 daiktų kiekis su 1g svorio apimtimi.
+	1434) dp[9][1] = 0$
+	1435) -Nagrinėjama 9 daiktų kiekis su 2g svorio apimtimi.
+	1436) -dp[9][2] = 0$
+	1437) -Nagrinėjama 9 daiktų kiekis su 3g svorio apimtimi.
+	1438) -dp[9][3] = 0$
+	1439) -Nagrinėjama 9 daiktų kiekis su 4g svorio apimtimi.
+	1440) -dp[9][4] = 0$
+	1441) -Nagrinėjama 9 daiktų kiekis su 5g svorio apimtimi.
+	1442) -dp[9][5] = 0$
+	1443) -Nagrinėjama 9 daiktų kiekis su 6g svorio apimtimi.
+	1444) -dp[9][6] = 0$
+	1445) -Nagrinėjama 9 daiktų kiekis su 7g svorio apimtimi.
+	1446) -dp[9][7] = 0$
+	1447) -Nagrinėjama 9 daiktų kiekis su 8g svorio apimtimi.
+	1448) -dp[9][8] = 0$
+	1449) -Nagrinėjama 9 daiktų kiekis su 9g svorio apimtimi.
+	1450) -dp[9][9] = 0$
+	1451) -Nagrinėjama 9 daiktų kiekis su 10g svorio apimtimi.
+	1452) -dp[9][10] = 0$
+	1453) -Nagrinėjama 9 daiktų kiekis su 11g svorio apimtimi.
+	1454) -dp[9][11] = 0$
+	1455) -Nagrinėjama 9 daiktų kiekis su 12g svorio apimtimi.
+	1456) -dp[9][12] = 0$
+	1457) -Nagrinėjama 9 daiktų kiekis su 13g svorio apimtimi.
+	1458) -dp[9][13] = 0$
+	1459) -Nagrinėjama 9 daiktų kiekis su 14g svorio apimtimi.
+	1460) -dp[9][14] = 0$
+	1461) -Nagrinėjama 9 daiktų kiekis su 15g svorio apimtimi.
+	1462) -dp[9][15] = 0$
+	1463) -Nagrinėjama 9 daiktų kiekis su 16g svorio apimtimi.
+	1464) -dp[9][16] = 0$
+	1465) -Nagrinėjama 9 daiktų kiekis su 17g svorio apimtimi.
+	1466) -dp[9][17] = 0$
+	1467) -Nagrinėjama 9 daiktų kiekis su 18g svorio apimtimi.
+	1468) -dp[9][18] = 0$
+	1469) -Nagrinėjama 9 daiktų kiekis su 19g svorio apimtimi.
+	1470) -dp[9][19] = 220$
+	1471) -Nagrinėjama 9 daiktų kiekis su 20g svorio apimtimi.
+	1472) -dp[9][20] = 220$
+	1473) -Nagrinėjama 9 daiktų kiekis su 21g svorio apimtimi.
+	1474) -dp[9][21] = 458$
+	1475) -Nagrinėjama 9 daiktų kiekis su 22g svorio apimtimi.
+	1476) -dp[9][22] = 458$
+	1477) -Nagrinėjama 9 daiktų kiekis su 23g svorio apimtimi.
+	1478) -dp[9][23] = 458$
+	1479) -Nagrinėjama 9 daiktų kiekis su 24g svorio apimtimi.
+	1480) -dp[9][24] = 505$
+	1481) -Nagrinėjama 9 daiktų kiekis su 25g svorio apimtimi.
+	1482) -dp[9][25] = 505$
+	1483) -Nagrinėjama 9 daiktų kiekis su 26g svorio apimtimi.
+	1484) -dp[9][26] = 505$
+	1485) -Nagrinėjama 9 daiktų kiekis su 27g svorio apimtimi.
+	1486) -dp[9][27] = 545$
+	1487) -Nagrinėjama 9 daiktų kiekis su 28g svorio apimtimi.
+	1488) -dp[9][28] = 545$
+	1489) -Nagrinėjama 9 daiktų kiekis su 29g svorio apimtimi.
+	1490) -dp[9][29] = 545$
+	1491) -Nagrinėjama 9 daiktų kiekis su 30g svorio apimtimi.
+	1492) -dp[9][30] = 545$
+	1493) -Nagrinėjama 9 daiktų kiekis su 31g svorio apimtimi.
+	1494) -Svoris būtų viršijamas, daiktas su kaina 473$ neįtraukiamas
+	1495) -dp[9][31] = 545$
+	1496) -Nagrinėjama 9 daiktų kiekis su 32g svorio apimtimi.
+	1497) -Svoris būtų viršijamas, daiktas su kaina 473$ neįtraukiamas
+	1498) -dp[9][32] = 545$
+	1499) -Nagrinėjama 9 daiktų kiekis su 33g svorio apimtimi.
+	1500) -Svoris būtų viršijamas, daiktas su kaina 473$ neįtraukiamas
+	1501) -dp[9][33] = 545$
+	1502) -Nagrinėjama 9 daiktų kiekis su 34g svorio apimtimi.
+	1503) -Svoris būtų viršijamas, daiktas su kaina 473$ neįtraukiamas
+	1504) -dp[9][34] = 545$
+	1505) -Nagrinėjama 9 daiktų kiekis su 35g svorio apimtimi.
+	1506) -Svoris būtų viršijamas, daiktas su kaina 473$ neįtraukiamas
+	1507) -dp[9][35] = 545$
+	1508) -Nagrinėjama 9 daiktų kiekis su 36g svorio apimtimi.
+	1509) -Svoris būtų viršijamas, daiktas su kaina 473$ neįtraukiamas
+	1510) -dp[9][36] = 545$
+	1511) -Nagrinėjama 9 daiktų kiekis su 37g svorio apimtimi.
+	1512) -Svoris būtų viršijamas, daiktas su kaina 473$ neįtraukiamas
+	1513) -dp[9][37] = 545$
+	1514) -Nagrinėjama 9 daiktų kiekis su 38g svorio apimtimi.
+	1515) -Svoris būtų viršijamas, daiktas su kaina 473$ neįtraukiamas
+	1516) -dp[9][38] = 545$
+	1517) -Nagrinėjama 9 daiktų kiekis su 39g svorio apimtimi.
+	1518) -Svoris būtų viršijamas, daiktas su kaina 473$ neįtraukiamas
+	1519) -dp[9][39] = 678$
+	1520) -Nagrinėjama 9 daiktų kiekis su 40g svorio apimtimi.
+	1521) -Svoris būtų viršijamas, daiktas su kaina 473$ neįtraukiamas
+	1522) -dp[9][40] = 678$
+	1523) -Nagrinėjama 9 daiktų kiekis su 41g svorio apimtimi.
+	1524) -Svoris būtų viršijamas, daiktas su kaina 473$ neįtraukiamas
+	1525) -dp[9][41] = 678$
+	1526) -Nagrinėjama 9 daiktų kiekis su 42g svorio apimtimi.
+	1527) -Svoris būtų viršijamas, daiktas su kaina 473$ neįtraukiamas
+	1528) -dp[9][42] = 725$
+	1529) -Nagrinėjama 9 daiktų kiekis su 43g svorio apimtimi.
+	1530) -Svoris būtų viršijamas, daiktas su kaina 473$ neįtraukiamas
+	1531) -dp[9][43] = 725$
+	1532) -Nagrinėjama 9 daiktų kiekis su 44g svorio apimtimi.
+	1533) -Svoris būtų viršijamas, daiktas su kaina 473$ neįtraukiamas
+	1534) -dp[9][44] = 963$
+	1535) -Nagrinėjama 9 daiktų kiekis su 45g svorio apimtimi.
+	1536) -Svoris būtų viršijamas, daiktas su kaina 473$ neįtraukiamas
+	1537) -dp[9][45] = 963$
+	1538) -Nagrinėjama 9 daiktų kiekis su 46g svorio apimtimi.
+	1539) -Svoris būtų viršijamas, daiktas su kaina 473$ neįtraukiamas
+	1540) -dp[9][46] = 963$
+	1541) -Nagrinėjama 9 daiktų kiekis su 47g svorio apimtimi.
+	1542) -Svoris būtų viršijamas, daiktas su kaina 473$ neįtraukiamas
+	1543) -dp[9][47] = 1003$
+	1544) -Nagrinėjama 9 daiktų kiekis su 48g svorio apimtimi.
+	1545) -Svoris būtų viršijamas, daiktas su kaina 473$ neįtraukiamas
+	1546) -dp[9][48] = 1003$
+	1547) -Nagrinėjama 9 daiktų kiekis su 49g svorio apimtimi.
+	1548) -Svoris būtų viršijamas, daiktas su kaina 473$ neįtraukiamas
+	1549) -dp[9][49] = 1003$
+	1550) -Nagrinėjama 9 daiktų kiekis su 50g svorio apimtimi.
+	1551) -Svoris būtų viršijamas, daiktas su kaina 473$ neįtraukiamas
+	1552) -dp[9][50] = 1050$
+	1553) -Nagrinėjama 9 daiktų kiekis su 51g svorio apimtimi.
+	1554) -Svoris būtų viršijamas, daiktas su kaina 473$ neįtraukiamas
+	1555) -dp[9][51] = 1050$
+	1556) -Nagrinėjama 9 daiktų kiekis su 52g svorio apimtimi.
+	1557) -Svoris būtų viršijamas, daiktas su kaina 473$ neįtraukiamas
+	1558) -dp[9][52] = 1050$
+	1559) -Nagrinėjama 9 daiktų kiekis su 53g svorio apimtimi.
+	1560) -Svoris būtų viršijamas, daiktas su kaina 473$ neįtraukiamas
+	1561) -dp[9][53] = 1050$
+	1562) -Nagrinėjama 9 daiktų kiekis su 54g svorio apimtimi.
+	1563) -Svoris būtų viršijamas, daiktas su kaina 473$ neįtraukiamas
+	1564) -dp[9][54] = 1050$
+	1565) -Nagrinėjama 9 daiktų kiekis su 55g svorio apimtimi.
+	1566) -Svoris būtų viršijamas, daiktas su kaina 473$ neįtraukiamas
+	1567) -dp[9][55] = 1050$
+	1568) -Nagrinėjama 9 daiktų kiekis su 56g svorio apimtimi.
+	1569) -Svoris būtų viršijamas, daiktas su kaina 473$ neįtraukiamas
+	1570) -dp[9][56] = 1050$
+	1571) -Nagrinėjama 9 daiktų kiekis su 57g svorio apimtimi.
+	1572) -Svoris būtų viršijamas, daiktas su kaina 473$ neįtraukiamas
+	1573) -dp[9][57] = 1050$
+	1574) -Nagrinėjama 9 daiktų kiekis su 58g svorio apimtimi.
+	1575) -Svoris būtų viršijamas, daiktas su kaina 473$ neįtraukiamas
+	1576) -dp[9][58] = 1050$
+	1577) -Nagrinėjama 9 daiktų kiekis su 59g svorio apimtimi.
+	1578) -Svoris būtų viršijamas, daiktas su kaina 473$ neįtraukiamas
+	1579) -dp[9][59] = 1050$
+	1580) -Nagrinėjama 9 daiktų kiekis su 60g svorio apimtimi.
+	1581) -Svoris būtų viršijamas, daiktas su kaina 473$ neįtraukiamas
+	1582) -dp[9][60] = 1050$
+	1583) -Nagrinėjama 9 daiktų kiekis su 61g svorio apimtimi.
+	1584) -Svoris būtų viršijamas, daiktas su kaina 473$ neįtraukiamas
+	1585) -dp[9][61] = 1050$
+	1586) -Nagrinėjama 9 daiktų kiekis su 62g svorio apimtimi.
+	1587) -Svoris būtų viršijamas, daiktas su kaina 473$ neįtraukiamas
+	1588) -dp[9][62] = 1183$
+	1589) -Nagrinėjama 9 daiktų kiekis su 63g svorio apimtimi.
+	1590) -Svoris būtų viršijamas, daiktas su kaina 473$ neįtraukiamas
+	1591) -dp[9][63] = 1183$
+	1592) -Nagrinėjama 9 daiktų kiekis su 64g svorio apimtimi.
+	1593) -Svoris būtų viršijamas, daiktas su kaina 473$ neįtraukiamas
+	1594) -dp[9][64] = 1183$
+	1595) -Nagrinėjama 9 daiktų kiekis su 65g svorio apimtimi.
+	1596) -Svoris būtų viršijamas, daiktas su kaina 473$ neįtraukiamas
+	1597) -dp[9][65] = 1223$
+	1598) -Nagrinėjama 9 daiktų kiekis su 66g svorio apimtimi.
+	1599) -Svoris būtų viršijamas, daiktas su kaina 473$ neįtraukiamas
+	1600) -dp[9][66] = 1223$
+	1601) -Nagrinėjama 9 daiktų kiekis su 67g svorio apimtimi.
+	1602) -Svoris būtų viršijamas, daiktas su kaina 473$ neįtraukiamas
+	1603) -dp[9][67] = 1223$
+	1604) -Nagrinėjama 9 daiktų kiekis su 68g svorio apimtimi.
+	1605) -Svoris būtų viršijamas, daiktas su kaina 473$ neįtraukiamas
+	1606) -dp[9][68] = 1270$
+	1607) Nagrinėjama 10 daiktų kiekis su 1g svorio apimtimi.
+	1608) dp[10][1] = 0$
+	1609) -Nagrinėjama 10 daiktų kiekis su 2g svorio apimtimi.
+	1610) -dp[10][2] = 0$
+	1611) -Nagrinėjama 10 daiktų kiekis su 3g svorio apimtimi.
+	1612) -dp[10][3] = 0$
+	1613) -Nagrinėjama 10 daiktų kiekis su 4g svorio apimtimi.
+	1614) -dp[10][4] = 0$
+	1615) -Nagrinėjama 10 daiktų kiekis su 5g svorio apimtimi.
+	1616) -dp[10][5] = 0$
+	1617) -Nagrinėjama 10 daiktų kiekis su 6g svorio apimtimi.
+	1618) -dp[10][6] = 0$
+	1619) -Nagrinėjama 10 daiktų kiekis su 7g svorio apimtimi.
+	1620) -dp[10][7] = 0$
+	1621) -Nagrinėjama 10 daiktų kiekis su 8g svorio apimtimi.
+	1622) -dp[10][8] = 0$
+	1623) -Nagrinėjama 10 daiktų kiekis su 9g svorio apimtimi.
+	1624) -dp[10][9] = 0$
+	1625) -Nagrinėjama 10 daiktų kiekis su 10g svorio apimtimi.
+	1626) -dp[10][10] = 0$
+	1627) -Nagrinėjama 10 daiktų kiekis su 11g svorio apimtimi.
+	1628) -dp[10][11] = 0$
+	1629) -Nagrinėjama 10 daiktų kiekis su 12g svorio apimtimi.
+	1630) -dp[10][12] = 0$
+	1631) -Nagrinėjama 10 daiktų kiekis su 13g svorio apimtimi.
+	1632) -dp[10][13] = 0$
+	1633) -Nagrinėjama 10 daiktų kiekis su 14g svorio apimtimi.
+	1634) -dp[10][14] = 0$
+	1635) -Nagrinėjama 10 daiktų kiekis su 15g svorio apimtimi.
+	1636) -dp[10][15] = 0$
+	1637) -Nagrinėjama 10 daiktų kiekis su 16g svorio apimtimi.
+	1638) -dp[10][16] = 0$
+	1639) -Nagrinėjama 10 daiktų kiekis su 17g svorio apimtimi.
+	1640) -dp[10][17] = 0$
+	1641) -Nagrinėjama 10 daiktų kiekis su 18g svorio apimtimi.
+	1642) -dp[10][18] = 0$
+	1643) -Nagrinėjama 10 daiktų kiekis su 19g svorio apimtimi.
+	1644) -dp[10][19] = 220$
+	1645) -Nagrinėjama 10 daiktų kiekis su 20g svorio apimtimi.
+	1646) -dp[10][20] = 220$
+	1647) -Nagrinėjama 10 daiktų kiekis su 21g svorio apimtimi.
+	1648) -dp[10][21] = 458$
+	1649) -Nagrinėjama 10 daiktų kiekis su 22g svorio apimtimi.
+	1650) -dp[10][22] = 458$
+	1651) -Nagrinėjama 10 daiktų kiekis su 23g svorio apimtimi.
+	1652) -dp[10][23] = 458$
+	1653) -Nagrinėjama 10 daiktų kiekis su 24g svorio apimtimi.
+	1654) -dp[10][24] = 505$
+	1655) -Nagrinėjama 10 daiktų kiekis su 25g svorio apimtimi.
+	1656) -dp[10][25] = 505$
+	1657) -Nagrinėjama 10 daiktų kiekis su 26g svorio apimtimi.
+	1658) -dp[10][26] = 505$
+	1659) -Nagrinėjama 10 daiktų kiekis su 27g svorio apimtimi.
+	1660) -dp[10][27] = 545$
+	1661) -Nagrinėjama 10 daiktų kiekis su 28g svorio apimtimi.
+	1662) -Svoris būtų viršijamas, daiktas su kaina 543$ neįtraukiamas
+	1663) -dp[10][28] = 545$
+	1664) -Nagrinėjama 10 daiktų kiekis su 29g svorio apimtimi.
+	1665) -Svoris būtų viršijamas, daiktas su kaina 543$ neįtraukiamas
+	1666) -dp[10][29] = 545$
+	1667) -Nagrinėjama 10 daiktų kiekis su 30g svorio apimtimi.
+	1668) -Svoris būtų viršijamas, daiktas su kaina 543$ neįtraukiamas
+	1669) -dp[10][30] = 545$
+	1670) -Nagrinėjama 10 daiktų kiekis su 31g svorio apimtimi.
+	1671) -Svoris būtų viršijamas, daiktas su kaina 543$ neįtraukiamas
+	1672) -dp[10][31] = 545$
+	1673) -Nagrinėjama 10 daiktų kiekis su 32g svorio apimtimi.
+	1674) -Svoris būtų viršijamas, daiktas su kaina 543$ neįtraukiamas
+	1675) -dp[10][32] = 545$
+	1676) -Nagrinėjama 10 daiktų kiekis su 33g svorio apimtimi.
+	1677) -Svoris būtų viršijamas, daiktas su kaina 543$ neįtraukiamas
+	1678) -dp[10][33] = 545$
+	1679) -Nagrinėjama 10 daiktų kiekis su 34g svorio apimtimi.
+	1680) -Svoris būtų viršijamas, daiktas su kaina 543$ neįtraukiamas
+	1681) -dp[10][34] = 545$
+	1682) -Nagrinėjama 10 daiktų kiekis su 35g svorio apimtimi.
+	1683) -Svoris būtų viršijamas, daiktas su kaina 543$ neįtraukiamas
+	1684) -dp[10][35] = 545$
+	1685) -Nagrinėjama 10 daiktų kiekis su 36g svorio apimtimi.
+	1686) -Svoris būtų viršijamas, daiktas su kaina 543$ neįtraukiamas
+	1687) -dp[10][36] = 545$
+	1688) -Nagrinėjama 10 daiktų kiekis su 37g svorio apimtimi.
+	1689) -Svoris būtų viršijamas, daiktas su kaina 543$ neįtraukiamas
+	1690) -dp[10][37] = 545$
+	1691) -Nagrinėjama 10 daiktų kiekis su 38g svorio apimtimi.
+	1692) -Svoris būtų viršijamas, daiktas su kaina 543$ neįtraukiamas
+	1693) -dp[10][38] = 545$
+	1694) -Nagrinėjama 10 daiktų kiekis su 39g svorio apimtimi.
+	1695) -Svoris būtų viršijamas, daiktas su kaina 543$ neįtraukiamas
+	1696) -dp[10][39] = 678$
+	1697) -Nagrinėjama 10 daiktų kiekis su 40g svorio apimtimi.
+	1698) -Svoris būtų viršijamas, daiktas su kaina 543$ neįtraukiamas
+	1699) -dp[10][40] = 678$
+	1700) -Nagrinėjama 10 daiktų kiekis su 41g svorio apimtimi.
+	1701) -Svoris būtų viršijamas, daiktas su kaina 543$ neįtraukiamas
+	1702) -dp[10][41] = 678$
+	1703) -Nagrinėjama 10 daiktų kiekis su 42g svorio apimtimi.
+	1704) -Svoris būtų viršijamas, daiktas su kaina 543$ neįtraukiamas
+	1705) -dp[10][42] = 725$
+	1706) -Nagrinėjama 10 daiktų kiekis su 43g svorio apimtimi.
+	1707) -Svoris būtų viršijamas, daiktas su kaina 543$ neįtraukiamas
+	1708) -dp[10][43] = 725$
+	1709) -Nagrinėjama 10 daiktų kiekis su 44g svorio apimtimi.
+	1710) -Svoris būtų viršijamas, daiktas su kaina 543$ neįtraukiamas
+	1711) -dp[10][44] = 963$
+	1712) -Nagrinėjama 10 daiktų kiekis su 45g svorio apimtimi.
+	1713) -Svoris būtų viršijamas, daiktas su kaina 543$ neįtraukiamas
+	1714) -dp[10][45] = 963$
+	1715) -Nagrinėjama 10 daiktų kiekis su 46g svorio apimtimi.
+	1716) -Svoris būtų viršijamas, daiktas su kaina 543$ neįtraukiamas
+	1717) -dp[10][46] = 963$
+	1718) -Nagrinėjama 10 daiktų kiekis su 47g svorio apimtimi.
+	1719) -Svoris būtų viršijamas, daiktas su kaina 543$ neįtraukiamas
+	1720) -dp[10][47] = 1003$
+	1721) -Nagrinėjama 10 daiktų kiekis su 48g svorio apimtimi.
+	1722) -Svoris būtų viršijamas, daiktas su kaina 543$ neįtraukiamas
+	1723) -dp[10][48] = 1003$
+	1724) -Nagrinėjama 10 daiktų kiekis su 49g svorio apimtimi.
+	1725) -Svoris būtų viršijamas, daiktas su kaina 543$ neįtraukiamas
+	1726) -dp[10][49] = 1003$
+	1727) -Nagrinėjama 10 daiktų kiekis su 50g svorio apimtimi.
+	1728) -Svoris būtų viršijamas, daiktas su kaina 543$ neįtraukiamas
+	1729) -dp[10][50] = 1050$
+	1730) -Nagrinėjama 10 daiktų kiekis su 51g svorio apimtimi.
+	1731) -Svoris būtų viršijamas, daiktas su kaina 543$ neįtraukiamas
+	1732) -dp[10][51] = 1050$
+	1733) -Nagrinėjama 10 daiktų kiekis su 52g svorio apimtimi.
+	1734) -Svoris būtų viršijamas, daiktas su kaina 543$ neįtraukiamas
+	1735) -dp[10][52] = 1050$
+	1736) -Nagrinėjama 10 daiktų kiekis su 53g svorio apimtimi.
+	1737) -Svoris būtų viršijamas, daiktas su kaina 543$ neįtraukiamas
+	1738) -dp[10][53] = 1050$
+	1739) -Nagrinėjama 10 daiktų kiekis su 54g svorio apimtimi.
+	1740) -Svoris neviršijamas, daiktas su kaina 543$ įtraukiamas
+	1741) -dp[10][54] = 1088$
+	1742) -Nagrinėjama 10 daiktų kiekis su 55g svorio apimtimi.
+	1743) -Svoris neviršijamas, daiktas su kaina 543$ įtraukiamas
+	1744) -dp[10][55] = 1088$
+	1745) -Nagrinėjama 10 daiktų kiekis su 56g svorio apimtimi.
+	1746) -Svoris neviršijamas, daiktas su kaina 543$ įtraukiamas
+	1747) -dp[10][56] = 1088$
+	1748) -Nagrinėjama 10 daiktų kiekis su 57g svorio apimtimi.
+	1749) -Svoris neviršijamas, daiktas su kaina 543$ įtraukiamas
+	1750) -dp[10][57] = 1088$
+	1751) -Nagrinėjama 10 daiktų kiekis su 58g svorio apimtimi.
+	1752) -Svoris neviršijamas, daiktas su kaina 543$ įtraukiamas
+	1753) -dp[10][58] = 1088$
+	1754) -Nagrinėjama 10 daiktų kiekis su 59g svorio apimtimi.
+	1755) -Svoris neviršijamas, daiktas su kaina 543$ įtraukiamas
+	1756) -dp[10][59] = 1088$
+	1757) -Nagrinėjama 10 daiktų kiekis su 60g svorio apimtimi.
+	1758) -Svoris neviršijamas, daiktas su kaina 543$ įtraukiamas
+	1759) -dp[10][60] = 1088$
+	1760) -Nagrinėjama 10 daiktų kiekis su 61g svorio apimtimi.
+	1761) -Svoris neviršijamas, daiktas su kaina 543$ įtraukiamas
+	1762) -dp[10][61] = 1088$
+	1763) -Nagrinėjama 10 daiktų kiekis su 62g svorio apimtimi.
+	1764) -Svoris būtų viršijamas, daiktas su kaina 543$ neįtraukiamas
+	1765) -dp[10][62] = 1183$
+	1766) -Nagrinėjama 10 daiktų kiekis su 63g svorio apimtimi.
+	1767) -Svoris būtų viršijamas, daiktas su kaina 543$ neįtraukiamas
+	1768) -dp[10][63] = 1183$
+	1769) -Nagrinėjama 10 daiktų kiekis su 64g svorio apimtimi.
+	1770) -Svoris būtų viršijamas, daiktas su kaina 543$ neįtraukiamas
+	1771) -dp[10][64] = 1183$
+	1772) -Nagrinėjama 10 daiktų kiekis su 65g svorio apimtimi.
+	1773) -Svoris būtų viršijamas, daiktas su kaina 543$ neįtraukiamas
+	1774) -dp[10][65] = 1223$
+	1775) -Nagrinėjama 10 daiktų kiekis su 66g svorio apimtimi.
+	1776) -Svoris būtų viršijamas, daiktas su kaina 543$ neįtraukiamas
+	1777) -dp[10][66] = 1223$
+	1778) -Nagrinėjama 10 daiktų kiekis su 67g svorio apimtimi.
+	1779) -Svoris būtų viršijamas, daiktas su kaina 543$ neįtraukiamas
+	1780) -dp[10][67] = 1223$
+	1781) -Nagrinėjama 10 daiktų kiekis su 68g svorio apimtimi.
+	1782) -Svoris būtų viršijamas, daiktas su kaina 543$ neįtraukiamas
+	1783) -dp[10][68] = 1270$
+	1784) Praleidžiamas daiktas 10 su svoriu 67g
+	1785) Praleidžiamas daiktas 9 su svoriu 67g
+	1786) Įtraukiamas daiktas 8 su svoriu 67g
+	1787) Praleidžiamas daiktas 7 su svoriu 41g
+	1788) Praleidžiamas daiktas 6 su svoriu 41g
+	1789) Praleidžiamas daiktas 5 su svoriu 41g
+	1790) Įtraukiamas daiktas 4 su svoriu 41g
+	1791) Praleidžiamas daiktas 3 su svoriu 23g
+	1792) Praleidžiamas daiktas 2 su svoriu 23g
+	1793) Įtraukiamas daiktas 1 su svoriu 23g
+
+TREČIA DALIS: Rezultatai
+	Bandymų skaičius: 1793
+	Rastas 1 sprendinys:
+		Rastas sprendinys  1) {s8, s4, s1} Svoris=26+18+23=67g Kaina=545+220+505=1270$
