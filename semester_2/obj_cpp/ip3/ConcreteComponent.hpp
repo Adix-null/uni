@@ -10,6 +10,10 @@ public:
     {
         return text;
     }
+    int countMistakes(const std::string &text) override
+    {
+        return 0;
+    }
 };
 
 #endif

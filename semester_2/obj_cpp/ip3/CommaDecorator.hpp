@@ -45,6 +45,41 @@ public:
 
         return result;
     }
+
+    int countMistakes(const std::string &text) override
+    {
+        int mistakes = 0;
+
+        for (size_t i = 0; i < text.size(); ++i)
+        {
+            if (text[i] == ',')
+            {
+                // Check for space before ,
+                if (i > 0 && text[i - 1] == ' ')
+                {
+                    mistakes++;
+                }
+                else
+                {
+                    // Check for only one space after ,
+                    size_t j = i + 1;
+                    int spaceCount = 0;
+                    while (j < text.size() && text[j] == ' ')
+                    {
+                        spaceCount++;
+                        j++;
+                    }
+
+                    if (spaceCount != 1)
+                    {
+                        mistakes++;
+                    }
+                }
+            }
+        }
+
+        return mistakes + component->countMistakes(text);
+    }
 };
 
 #endif

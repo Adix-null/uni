@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -Wall -Wextra -std=c++17
 
-SRC = main.cpp
+SRC = demo.cpp
 TEST_SRC = test.cpp
 OBJS = ConcreteComponent.hpp CapitalizeDecorator.hpp CommaDecorator.hpp IndentationDecorator.hpp Component.hpp Decorator.hpp Exception.hpp
 

@@ -36,6 +36,35 @@ public:
 
         return result;
     }
+
+    int countMistakes(const std::string &text) override
+    {
+        int mistakes = 0;
+        bool atWordStart = true;
+
+        for (size_t i = 0; i < text.size(); ++i)
+        {
+            char ch = text[i];
+
+            if (std::isalpha(static_cast<unsigned char>(ch)))
+            {
+                if (atWordStart)
+                {
+                    if (!std::isupper(static_cast<unsigned char>(ch)))
+                    {
+                        mistakes++;
+                    }
+                    atWordStart = false;
+                }
+            }
+            else
+            {
+                atWordStart = true;
+            }
+        }
+
+        return mistakes + component->countMistakes(text);
+    }
 };
 
 #endif

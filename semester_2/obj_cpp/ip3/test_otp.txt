@@ -1,3 +1,4 @@
 testing capitalization: 
 testing punctuation: 
-testing identation: test_otp: test.cpp:43: void test_identation(): Assertion `result == expected' failed.
+testing identation: 
+All tests passed successfully

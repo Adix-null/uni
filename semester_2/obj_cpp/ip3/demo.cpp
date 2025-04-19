@@ -26,14 +26,14 @@ int main()
     std::stringstream buffer;
     buffer << input.rdbuf();
 
+    // Polimorfizmas: Component* nurodo išvestinį objektą
     Component *formatter =
         new CommaDecorator(
             new CapitalizeDecorator(
                 new ConcreteComponent()));
 
-    std::string result = formatter->process(buffer.str());
-
-    output << result;
+    output << "Mistake count: " << formatter->countMistakes(buffer.str()) << "\n";
+    output << formatter->process(buffer.str());
 
     return 0;
 }
