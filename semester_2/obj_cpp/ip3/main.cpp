@@ -4,7 +4,8 @@
 
 #include "ConcreteComponent.hpp"
 #include "CapitalizeDecorator.hpp"
-#include "PunctuationDecorator.hpp"
+#include "CommaDecorator.hpp"
+#include "IndentationDecorator.hpp"
 #include "Exception.hpp"
 
 int main()
@@ -12,7 +13,6 @@ int main()
     std::ifstream input;
     std::ofstream output;
 
-    FILE *file;
     try
     {
         input = std::ifstream("input.txt");
@@ -27,7 +27,7 @@ int main()
     buffer << input.rdbuf();
 
     Component *formatter =
-        new PunctuationDecorator(
+        new CommaDecorator(
             new CapitalizeDecorator(
                 new ConcreteComponent()));
 
