@@ -9,7 +9,7 @@
 #include "IndentationDecorator.hpp"
 #include "Exception.hpp"
 
-// The missing feature is the IndentationDecorator class that indents every newline with a tab. The structure should be the same as CapitalizeDecorator and CommaDecorator, returning a new string with the formatted result.
+// The missing feature is the IndentationDecorator class that indents every newline with a tab. The structure should be the same as CapitalizeDecorator and CommaDecorator, returning a new string with the formatted result and counting mistakes. The countMistakes function should return the amount of newlines where a tab is needed, in the example below, 3.
 
 void test_capitalization()
 {
@@ -46,7 +46,9 @@ void test_identation()
     std::string expected = "Burbulas \n\t Ir    \n\tBurbulienė virė \n\n\tskanią vakarienę,\n\tBurbulienė\tparagavo";
 
     std::string result = decorator.process(input);
+    int mistakes = decorator.countMistakes(input);
     assert(result == expected);
+    assert(mistakes == 3);
 }
 
 int main()
