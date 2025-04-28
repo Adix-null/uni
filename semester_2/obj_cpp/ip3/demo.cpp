@@ -28,12 +28,17 @@ int main()
 
     // Polimorfizmas: Component* nurodo išvestinį objektą
     Component *formatter =
-        new CommaDecorator(
-            new CapitalizeDecorator(
-                new ConcreteComponent()));
+        new IndentationDecorator(
+            new CommaDecorator(
+                new CapitalizeDecorator(
+                    new ConcreteComponent())));
 
     output << "Mistake count: " << formatter->countMistakes(buffer.str()) << "\n";
     output << formatter->process(buffer.str());
+
+    delete formatter;
+    input.close();
+    output.close();
 
     return 0;
 }

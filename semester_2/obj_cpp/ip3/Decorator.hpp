@@ -16,7 +16,7 @@ protected:
     Component *component;
 
 public:
-    Decorator(Component *c) : component(c) {}
+    explicit Decorator(Component *c) : component(c) {}
     virtual ~Decorator() { delete component; }
 
     virtual std::string process(const std::string &text) override
