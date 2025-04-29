@@ -10,12 +10,8 @@
 class ProcessException : public std::exception
 {
 public:
-    explicit ProcessException(const std::string &message) : msg(message) {}
-
-    const char *what() const noexcept override
-    {
-        return msg.c_str();
-    }
+    explicit ProcessException(const std::string &message);
+    const char *what() const noexcept override;
 
 private:
     std::string msg;
@@ -24,7 +20,7 @@ private:
 class FileException : public ProcessException
 {
 public:
-    FileException() : ProcessException("Error: Cannot open file\n") {}
+    FileException();
 };
 
 #endif

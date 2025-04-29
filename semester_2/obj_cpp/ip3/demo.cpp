@@ -21,22 +21,22 @@ int main()
     catch (const FileException &e)
     {
         std::cerr << e.what() << '\n';
+        return -1;
     }
 
     std::stringstream buffer;
     buffer << input.rdbuf();
 
     // Polimorfizmas: Component* nurodo išvestinį objektą
-    Component *formatter =
-        new IndentationDecorator(
-            new CommaDecorator(
-                new CapitalizeDecorator(
-                    new ConcreteComponent())));
+    std::unique_ptr<Component> formatter =
+        std::make_unique<IndentationDecorator>(
+            std::make_unique<CommaDecorator>(
+                std::make_unique<CapitalizeDecorator>(
+                    std::make_unique<ConcreteComponent>())));
 
     output << "Mistake count: " << formatter->countMistakes(buffer.str()) << "\n";
     output << formatter->process(buffer.str());
 
-    delete formatter;
     input.close();
     output.close();
 

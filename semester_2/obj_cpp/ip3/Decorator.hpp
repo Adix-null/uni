@@ -2,6 +2,7 @@
 #define DECORATOR_HPP
 
 #include "Component.hpp"
+#include <memory>
 
 // Formatter
 // Text formatter - implements decorator pattern. Base classes for definitions and managing components, decorators implement the logic and transform text in a specific way(e.g. lowercase, trim). Exception class for any errors.
@@ -13,11 +14,11 @@
 class Decorator : public Component
 {
 protected:
-    Component *component;
+    std::unique_ptr<Component> component;
 
 public:
-    explicit Decorator(Component *c) : component(c) {}
-    virtual ~Decorator() { delete component; }
+    explicit Decorator(std::unique_ptr<Component> c) : component(std::move(c)) {}
+    virtual ~Decorator() = default;
 
     virtual std::string process(const std::string &text) override
     {

@@ -7,7 +7,7 @@
 class CapitalizeDecorator : public Decorator
 {
 public:
-    CapitalizeDecorator(Component *c);
+    explicit CapitalizeDecorator(std::unique_ptr<Component> c);
     std::string process(const std::string &text) override;
     int countMistakes(const std::string &text) override;
 };

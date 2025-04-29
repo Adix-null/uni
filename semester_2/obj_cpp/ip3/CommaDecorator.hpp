@@ -7,7 +7,7 @@
 class CommaDecorator : public Decorator
 {
 public:
-    CommaDecorator(Component *c);
+    explicit CommaDecorator(std::unique_ptr<Component> c);
     std::string process(const std::string &text) override;
     int countMistakes(const std::string &text) override;
 };

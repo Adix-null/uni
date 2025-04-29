@@ -1,7 +1,9 @@
 #include "CommaDecorator.hpp"
 #include <cctype>
+#include <memory>
 
-CommaDecorator::CommaDecorator(Component *c) : Decorator(c) {}
+CommaDecorator::CommaDecorator(std::unique_ptr<Component> c)
+    : Decorator(std::move(c)) {}
 
 std::string CommaDecorator::process(const std::string &text)
 {

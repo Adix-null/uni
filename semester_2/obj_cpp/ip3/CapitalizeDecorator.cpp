@@ -1,7 +1,9 @@
 #include "CapitalizeDecorator.hpp"
 #include <cctype>
+#include <memory>
 
-CapitalizeDecorator::CapitalizeDecorator(Component *c) : Decorator(c) {}
+CapitalizeDecorator::CapitalizeDecorator(std::unique_ptr<Component> c)
+    : Decorator(std::move(c)) {}
 
 std::string CapitalizeDecorator::process(const std::string &text)
 {

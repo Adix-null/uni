@@ -13,8 +13,8 @@
 
 void test_capitalization()
 {
-    ConcreteComponent *base = new ConcreteComponent();
-    CapitalizeDecorator decorator(base);
+    auto base = std::make_unique<ConcreteComponent>();
+    CapitalizeDecorator decorator(std::move(base));
 
     std::string input = "testuojama aB \ncDe f\tG";
     std::string expected = "Testuojama AB \nCDe F\tG";
@@ -26,8 +26,8 @@ void test_capitalization()
 }
 void test_punctuation()
 {
-    ConcreteComponent *base = new ConcreteComponent();
-    CommaDecorator decorator(base);
+    auto base = std::make_unique<ConcreteComponent>();
+    CommaDecorator decorator(std::move(base));
 
     std::string input = "Pirmas,vienas, antrasis,  kitas ,anas";
     std::string expected = "Pirmas, vienas, antrasis, kitas, anas";
@@ -39,8 +39,8 @@ void test_punctuation()
 }
 void test_identation()
 {
-    ConcreteComponent *base = new ConcreteComponent();
-    IndentationDecorator decorator(base);
+    auto base = std::make_unique<ConcreteComponent>();
+    IndentationDecorator decorator(std::move(base));
 
     std::string input = "Burbulas \n Ir    \n\tBurbulienė virė \n\nskanią vakarienę,\nBurbulienė\tparagavo";
     std::string expected = "Burbulas \n\t Ir    \n\tBurbulienė virė \n\n\tskanią vakarienę,\n\tBurbulienė\tparagavo";

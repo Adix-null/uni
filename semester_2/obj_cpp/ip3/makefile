@@ -3,7 +3,7 @@ CXXFLAGS = -Wall -Wextra -std=c++17
 
 SRC = demo.cpp
 TEST_SRC = test.cpp
-OBJS = ConcreteComponent.hpp CapitalizeDecorator.cpp CommaDecorator.cpp IndentationDecorator.cpp 
+OBJS = ConcreteComponent.cpp CapitalizeDecorator.cpp CommaDecorator.cpp IndentationDecorator.cpp Exception.cpp
 
 all: formatter
 
