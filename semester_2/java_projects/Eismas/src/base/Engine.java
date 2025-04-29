@@ -1,6 +1,8 @@
 package base;
 
-public class Engine implements Cloneable
+import java.io.Serializable;
+
+public class Engine implements Cloneable, Serializable
 {
     private String fuel;
     private int horsepower;

@@ -4,13 +4,16 @@ import interfaces.Stoppable;
 import exceptions.InactiveException;
 import exceptions.OutOfBoundsException;
 
-abstract public class TrafficUser implements Stoppable, Cloneable
+import java.io.Serial;
+import java.io.Serializable;
+
+abstract public class TrafficUser implements Stoppable, Cloneable, Serializable
 {
     private int x;
     private int y;
     private boolean active;
     private boolean stopped;
-    protected  Engine engine;
+    protected Engine engine;
     private static int totalInstances = 0;
     public static final int gridSizeX = 1000;
     public static final int gridSizeY = 1000;
@@ -114,7 +117,7 @@ abstract public class TrafficUser implements Stoppable, Cloneable
         try
         {
             TrafficUser cloned = (TrafficUser) super.clone();
-            //cloned.engine = new Engine(); //deep cloning
+            cloned.engine = engine.clone(); // deep cloning
             return cloned;
         }
         catch (CloneNotSupportedException e)

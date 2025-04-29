@@ -7,10 +7,18 @@ import factories.AutomobileFactory;
 import factories.PoliceFactory;
 import factories.TrafficUserFactory;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        List<TrafficUser> data = new ArrayList<>();
+
         TrafficUserFactory factory = new AutomobileFactory();
         TrafficUser t1 = factory.createTrafficUser();
+        data.add(t1);
         t1.setEngine(new Engine("Gas", 200));
         t1.setActive(true);
         try {
@@ -27,6 +35,8 @@ public class Main {
 
         System.out.println(t1);
         TrafficUser t2 = t1.clone();
+        data.add(t2);
+        System.out.println(t2);
         t2.getEngine().setHorsepower(100);
         System.out.println(t1);
 
@@ -41,8 +51,35 @@ public class Main {
         t2.stop();
         System.out.println(t2);
 
-        Automobile t3 = new Automobile(2, 5, true, false, 800);
+        TrafficUser t3 = new Automobile(2, 5, true, false, 800);
+        data.add(t3);
         System.out.println(t3);
         System.out.println(TrafficUser.getInstanceCount() + " " + t3.getActive());
+
+        System.out.println("Menu:\n" +
+                "1. Create Vehicle" +
+                "2. Move Vehicle" +
+                "3. Deactivate Vehicle" +
+                "4. Deactivate Vehicle" +
+                "5. Switch Vehicle" +
+                "6. Load data" +
+                "7. Save data"
+        );
+        int option = Integer.parseInt(System.console().readLine());
+        switch(option)
+        {
+            case 1:
+            {
+
+            }
+            break;
+            case 2:
+            {
+
+            }
+            break;
+        }
+
+        DataManager.save("traffic.dat", data);
     }
 }
