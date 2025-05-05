@@ -8,6 +8,17 @@
 #include "IndentationDecorator.hpp"
 #include "Exception.hpp"
 
+// Formatter
+// Text formatter - implements decorator pattern. Base classes for definitions and managing components, decorators implement the logic and transform text in a specific way(e.g. lowercase, trim). Exception class for any errors.
+// Component defines the structure of the text processor, the Decorator class is a base class for all decorators and ConcreteComponent is the main class that various decorators attach to.
+
+// To use the project, go to the containing folder in the terminal and run
+//```make``` to transform a file
+//```make test``` to run the tests
+//```make clean``` to remove generated temporary files
+
+// The missing feature is the IndentationDecorator class that indents every newline with a tab. The structure should be the same as CapitalizeDecorator and CommaDecorator, returning a new string with the formatted result and counting mistakes. The countMistakes function should return the amount of newlines where a tab is needed, in the example below, 3. You also need to create an hpp file for the IndentationDecorator class.
+
 int main()
 {
     std::ifstream input;

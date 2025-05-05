@@ -9,8 +9,6 @@
 #include "IndentationDecorator.hpp"
 #include "Exception.hpp"
 
-// The missing feature is the IndentationDecorator class that indents every newline with a tab. The structure should be the same as CapitalizeDecorator and CommaDecorator, returning a new string with the formatted result and counting mistakes. The countMistakes function should return the amount of newlines where a tab is needed, in the example below, 3. You also need to create an hpp file for the IndentationDecorator class.
-
 void test_capitalization()
 {
     auto base = std::make_unique<ConcreteComponent>();
