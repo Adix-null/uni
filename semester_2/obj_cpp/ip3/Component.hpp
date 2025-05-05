@@ -6,7 +6,7 @@
 class Component
 {
 public:
-    virtual ~Component() {}
+    virtual ~Component() = default;
     virtual std::string process(const std::string &text) = 0;
     virtual int countMistakes(const std::string &text) = 0;
 };

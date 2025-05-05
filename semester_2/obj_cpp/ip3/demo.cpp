@@ -27,7 +27,7 @@ int main()
     std::stringstream buffer;
     buffer << input.rdbuf();
 
-    // Polimorfizmas: Component* nurodo išvestinį objektą
+    // Polimorfizmas: Skirtingos išvestinės klasės skirtingai implementuoja tą patį bazinės klasės metodą. Decorator - bazinė klasė, su konstruktoriumi ir dviem vitualiais metodais, countMistakes ir process. Atskiros išvestinės klasės - CapitalizeDecorator, CommaDecorator šiuos metodus implementuoja skirtingai. Eilutės konkrečiuose dekoratorių failuose su `override` demonstruoja polimorfizmą.
     std::unique_ptr<Component> formatter =
         std::make_unique<IndentationDecorator>(
             std::make_unique<CommaDecorator>(
