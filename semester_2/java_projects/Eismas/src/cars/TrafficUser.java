@@ -7,6 +7,11 @@ import exceptions.OutOfBoundsException;
 import java.io.Serial;
 import java.io.Serializable;
 
+/**
+ * Abstract base class representing an entity that can move within a 2D grid,
+ * with controllable activity and stoppable behavior.
+ * Implements {@code Stoppable}, {@code Cloneable}, and {@code Serializable}.
+ */
 abstract public class TrafficUser implements Stoppable, Cloneable, Serializable
 {
     private int x;
@@ -61,6 +66,9 @@ abstract public class TrafficUser implements Stoppable, Cloneable, Serializable
         this.engine = engine;
     }
 
+    /**
+     * Deactivates and stops the entity.
+     */
     public void deactivate()
     {
         active = false;
@@ -76,14 +84,30 @@ abstract public class TrafficUser implements Stoppable, Cloneable, Serializable
         return totalInstances;
     }
 
+    /**
+     * Constructs a TrafficUser at position (0,0), inactive and stopped.
+     */
     public TrafficUser()
     {
         this(0, 0, false, true,  new Engine());
     }
+    /**
+     * Constructs a TrafficUser at specified position, inactive and stopped.
+     * @param x X-coordinate
+     * @param y Y-coordinate
+     */
     public TrafficUser(int x, int y)
     {
         this(x, y, false, true,  new Engine());
     }
+    /**
+     * Constructs a TrafficUser with full control over all properties.
+     * @param x X-coordinate
+     * @param y Y-coordinate
+     * @param active whether active
+     * @param stopped whether stopped
+     * @param engine Engine instance
+     */
     public TrafficUser(int x, int y, boolean active, boolean stopped, Engine engine) {
         setX(x);
         setY(y);
@@ -93,6 +117,13 @@ abstract public class TrafficUser implements Stoppable, Cloneable, Serializable
         totalInstances++;
     }
 
+    /**
+     * Moves the entity by a delta (dx, dy).
+     * @param dx X delta
+     * @param dy Y delta
+     * @throws InactiveException if not active
+     * @throws OutOfBoundsException if movement exceeds grid bounds
+     */
     public void move(int dx, int dy) throws InactiveException, OutOfBoundsException {
         OutOfBoundsException exc = new OutOfBoundsException();
         exc.setX(gridSizeX);
@@ -104,13 +135,23 @@ abstract public class TrafficUser implements Stoppable, Cloneable, Serializable
         this.x += dx;
         this.y += dy;
     }
+    /**
+     * Moves the entity in a given direction and distance.
+     * @param angleRad angle in radians
+     * @param r distance to move
+     * @throws InactiveException if not active
+     * @throws OutOfBoundsException if movement exceeds grid bounds
+     */
     public void move(double angleRad, double r)  throws InactiveException, OutOfBoundsException
     {
         int dx = (int)(Math.cos(angleRad) * r);
         int dy = (int)(Math.sin(angleRad) * r);
         move(dx, dy);
     }
-
+    /**
+ * Creates a deep clone of the TrafficUser.
+ * @return cloned TrafficUser
+ */
     @Override
     public TrafficUser clone()
     {

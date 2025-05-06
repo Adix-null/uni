@@ -1,0 +1,29 @@
+Eismas: a project for simulating traffic flow with java OOP features.
+To execute the program run Main.java in an IDE.
+The program has an interactive text-based menu for managing the traffic
+users which looks like this:
+    1. Create Vehicle
+    2. Move Vehicle
+    3. Switch Vehicle
+    4. Print vehicle info
+    5. Load data
+    6. Save data
+    7. Exit program
+Main classes:
+    Main.java - Main class that manages the program on a high level.
+    TrafficUser - Abstract base class that defines the fields child
+    classes will implement.
+    TrafficException - Base class for throwing exceptions.
+    TrafficUserFactory - Factory interface for creating objects.
+    DataManager - Helper class to save vehicle data.
+Class hierarchy:
+    Automobile & Police inherit from TrafficUser,
+    InactiveException & OutOfBoundsException inherit from
+    TrafficException,
+    AutomobileFactory and PoliceFactory implement TrafficUserFactory
+    interface,
+    VehicleType enum, DataManager and Main class are independent.
+Considerations for future development: GUI, more vehicle types,
+traffic rules and automatic movement every update.
+A specific OOP pattern used was a factory method.
+
