@@ -22,13 +22,16 @@ public class Main {
         loop:
         for(;;) {
             System.out.println("Menu:\n" +
-                    "1. Create Vehicle\n" +
-                    "2. Move Vehicle\n" +
-                    "3. Switch Vehicle\n" +
-                    "4. Print vehicle info\n" +
-                    "5. Load data\n" +
-                    "6. Save data\n" +
-                    "7. Exit program"
+                    "1. Create vehicle\n" +
+                    "2. Start vehicle\n" +
+                    "3. Stop vehicle\n" +
+                    "4. Move vehicle cartesian\n" +
+                    "5. Move vehicle polar\n" +
+                    "6. Switch vehicle\n" +
+                    "7. Print vehicle info\n" +
+                    "8. Load data\n" +
+                    "9. Save data\n" +
+                    "10. Exit program"
             );
             int option = Integer.parseInt(System.console().readLine());
 
@@ -38,9 +41,19 @@ public class Main {
                     TrafficUser t1 = factory.createTrafficUser();
                     t1.setEngine(new Engine("Gas", 200));
                     data.add(t1);
-                break;
+                    break;
                 }
-                case 2: {
+                case 2:
+                {
+                    data.get(i).setStopped(false);
+                    break;
+                }
+                case 3:
+                {
+                    data.get(i).setStopped(true);
+                    break;
+                }
+                case 4: {
                     System.out.println("dx: ");
                     int dx = Integer.parseInt(System.console().readLine());
                     System.out.println("dy: ");
@@ -49,7 +62,16 @@ public class Main {
                     data.get(i).move(dx, dy);
                     break;
                 }
-                case 3: {
+                case 5: {
+                    System.out.println("r: ");
+                    double r = Double.parseDouble(System.console().readLine());
+                    System.out.println("angle: ");
+                    double th = Double.parseDouble(System.console().readLine());
+                    data.get(i).setActive(true);
+                    data.get(i).move(th, r);
+                    break;
+                }
+                case 6: {
                     System.out.println("Vehicle number: ");
                     int input = Integer.parseInt(System.console().readLine());
                     if(input < 0 || input > data.size())
@@ -60,19 +82,19 @@ public class Main {
                     i = input;
                     break;
                 }
-                case 4:{
+                case 7:{
                     System.out.println(data.get(i));
                     break;
                 }
-                case 5: {
+                case 8: {
                     data = (List<TrafficUser>) DataManager.load("traffic.dat");
                     break;
                 }
-                case 6: {
+                case 9: {
                     DataManager.save("traffic.dat", data);
                     break;
                 }
-                case 7: {
+                case 10: {
                     break loop;
                 }
                 default:
