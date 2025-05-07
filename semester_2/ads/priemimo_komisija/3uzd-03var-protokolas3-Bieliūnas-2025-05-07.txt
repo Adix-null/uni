@@ -1,0 +1,145 @@
+3 užduotis, 3 variantas. Adomas Bieliūnas, 1 kursas, 2 grupė, 1 pogrupis.
+
+SALYGA. Priėmimo komisija. (ADT: dekas, ilgas sveikas skaičius).
+         Procesas: komisijoje dirba 2 darbuotojos (D1, D2) skirtingu produktyvumu. 
+         Jos priima stojančiųjų prašymus ir stato į lentyną, kiekviena iš savo pusės.
+         Kai nėra stojančiųjų ir pasibaigus tos dienos priėmimui, jos ima prašymus ir
+         juos sutvarko. Patyrinėti, kiek laiko reikia tvarkyti prašymus, pasibaigus jų
+         priėmimo trukmei, pvz., N=30 min.
+
+PIRMA DALIS: Duomenys.
+	PPL =  3 min. --Prašymo priėmimo laikas.
+	D1  =  2 min. --Pirmos darbuotojos produktyvumas.
+	D2  =  4 min. --Antros darbuotojos produktyvumas.
+	N   = 60 min. --Pagrindinis darbo laikas.
+	Stojančiojo atėjimo tikimybė: 20%.
+	Įvesties failas: inp3.txt.
+	Išvesties failas: 3uzd-03var-protokolas3-Bieliūnas-2025-05-07.txt.
+
+ANTRA DALIS: Vykdymas.
+
+MOMENTAS T=54 min.
+	BŪSENA_54 55-osios minutės pradžioje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius: 0.
+		2) Prašymų kiekis: 0.
+	VEIKSMAI_55.
+		1) Darbuotoja D1 laukia.
+		2) Darbuotoja D2 laukia.
+		3) Naujų stojančiųjų nėra.
+	BŪSENA_54 55-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius: 0.
+		2) Prašymų kiekis: 0.
+
+MOMENTAS T=55 min.
+	BŪSENA_55 56-osios minutės pradžioje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius: 0.
+		2) Prašymų kiekis: 0.
+	VEIKSMAI_56.
+		1) Darbuotoja D1 laukia.
+		2) Darbuotoja D2 laukia.
+		3) Naujų stojančiųjų nėra.
+	BŪSENA_55 56-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius: 0.
+		2) Prašymų kiekis: 0.
+
+MOMENTAS T=56 min.
+	BŪSENA_56 57-osios minutės pradžioje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius: 0.
+		2) Prašymų kiekis: 0.
+	VEIKSMAI_57.
+		1) Darbuotoja D1 laukia.
+		2) Darbuotoja D2 laukia.
+		3) Naujų stojančiųjų nėra.
+	BŪSENA_56 57-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius: 0.
+		2) Prašymų kiekis: 0.
+
+MOMENTAS T=57 min.
+	BŪSENA_57 58-osios minutės pradžioje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius: 0.
+		2) Prašymų kiekis: 0.
+	VEIKSMAI_58.
+		1) Darbuotoja D1 laukia.
+		2) Darbuotoja D2 laukia.
+		3) Naujų stojančiųjų nėra.
+	BŪSENA_57 58-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius: 0.
+		2) Prašymų kiekis: 0.
+
+MOMENTAS T=58 min.
+	BŪSENA_58 59-osios minutės pradžioje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius: 0.
+		2) Prašymų kiekis: 0.
+	VEIKSMAI_59.
+		1) Darbuotoja D1 laukia.
+		2) Darbuotoja D2 laukia.
+		3) Yra atėjęs naujas stojantysis 32.
+	BŪSENA_58 59-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius: 1, {S32}.
+		2) Prašymų kiekis: 0.
+
+MOMENTAS T=59 min.
+	BŪSENA_59 60-osios minutės pradžioje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius: 1, {S32}.
+		2) Prašymų kiekis: 0.
+	VEIKSMAI_60.
+		1) Darbuotoja D1 pradeda priimti S32. Ji priiminės iki T=62 min.
+		2) Darbuotoja D2 laukia.
+		3) Naujų stojančiųjų nėra.
+	BŪSENA_59 60-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius: 0.
+		2) Prašymų kiekis: 0.
+
+MOMENTAS T=60 min.
+	BŪSENA_60 61-osios minutės pradžioje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius: 0.
+		2) Prašymų kiekis: 0.
+	VEIKSMAI_61.
+		1) Darbuotoja D1 dirba prie S32.
+		2) Darbuotoja D2 laukia.
+		3) Naujų stojančiųjų nėra.
+	BŪSENA_60 61-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius: 0.
+		2) Prašymų kiekis: 0.
+
+PAPILDOMAS DARBO LAIKAS.
+
+
+MOMENTAS T=61 min.
+	BŪSENA_61 62-osios minutės pradžioje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius: 0.
+		2) Prašymų kiekis: 0.
+	VEIKSMAI_62.
+		1) Darbuotoja D1 baigia dirbti prie S32.
+		2) Darbuotoja D2 laukia.
+	BŪSENA_61 62-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius: 0.
+		2) Prašymų kiekis: 1, {P32}.
+
+MOMENTAS T=62 min.
+	BŪSENA_62 63-osios minutės pradžioje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius: 0.
+		2) Prašymų kiekis: 1, {P32}.
+	VEIKSMAI_63.
+		1) Darbuotoja D1 pradeda dirbti prie P32 prašymo. Ji dirbs iki T=64 min.
+		2) Darbuotoja D2 laukia.
+	BŪSENA_62 63-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius: 0.
+		2) Prašymų kiekis: 0.
+
+MOMENTAS T=63 min.
+	BŪSENA_63 64-osios minutės pradžioje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius: 0.
+		2) Prašymų kiekis: 0.
+	VEIKSMAI_64.
+		1) Darbuotoja D1 baigia dirbti prie P32 prašymo.
+		2) Darbuotoja D2 laukia.
+	BŪSENA_63 64-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius: 0.
+		2) Prašymų kiekis: 0.
+
+3 DALIS. REZULTATAI.
+	Aptarnautų stojančiųjų skaičius: 32, papildomas laikas tęsiasi kol bus aptarnauti visi.
+	Pagrindinis darbo laikas 60 min., papildomas darbo laikas 4 min.
+	D1 užimtumas 89%.
+	D2 užimtumas 81%.

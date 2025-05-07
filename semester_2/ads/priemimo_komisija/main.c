@@ -48,28 +48,28 @@ void print_applicants(Dequeue *applicants)
 {
     if (applicants->size != 0)
     {
-        fprintf(output, ", Eilė {");
+        fprintf(output, ", {");
         print_dequeue(output, applicants, 'S');
         fprintf(output, "}");
     }
-    fprintf(output, "\n");
+    fprintf(output, ".\n");
 }
 
 void print_applications(Dequeue *applications)
 {
     if (applications->size != 0)
     {
-        fprintf(output, ", Prašymai lentynoje {");
+        fprintf(output, ", {");
         print_dequeue(output, applications, 'P');
 
         fprintf(output, "}");
     }
-    fprintf(output, "\n");
+    fprintf(output, ".\n");
 }
 
 void print_info(Dequeue *applications, Dequeue *applicants)
 {
-    fprintf(output, "\t\t1) Stojačiųjų kiekis eilėje: %d", applicants->size);
+    fprintf(output, "\t\t1) Eilėje stojančiųjų iš anksčiau skaičius: %d", applicants->size);
     print_applicants(applicants);
     fprintf(output, "\t\t2) Prašymų kiekis: %d", applications->size);
     print_applications(applications);
@@ -117,31 +117,29 @@ int main()
          Kai nėra stojančiųjų ir pasibaigus tos dienos priėmimui, jos ima prašymus ir\n\
          juos sutvarko. Patyrinėti, kiek laiko reikia tvarkyti prašymus, pasibaigus jų\n\
          priėmimo trukmei, pvz., N=30 min.\n");
-        fprintf(output, "\nPIRMA DALIS: Duomenys\n");
-        fprintf(output, "\tPPL = %d min. --Prašymo priėmimo laikas\n", prim_t);
-        fprintf(output, "\tD1 = %d min.\n", d1t);
-        fprintf(output, "\tD2 = %d min.\n", d2t);
-        fprintf(output, "\tN = %d min.\n", sim_t);
-        fprintf(output, "\tStojančiojo atėjimo tikimybė: %d%%\n", prob);
+        fprintf(output, "\nPIRMA DALIS: Duomenys.\n");
+        fprintf(output, "\tPPL = %2d min. --Prašymo priėmimo laikas.\n", prim_t);
+        fprintf(output, "\tD1  = %2d min. --Pirmos darbuotojos produktyvumas.\n", d1t);
+        fprintf(output, "\tD2  = %2d min. --Antros darbuotojos produktyvumas.\n", d2t);
+        fprintf(output, "\tN   = %2d min. --Pagrindinis darbo laikas.\n", sim_t);
+        fprintf(output, "\tStojančiojo atėjimo tikimybė: %d%%.\n", prob);
 
-        fprintf(output, "\tĮvesties failas: %s\n", input_name);
-        fprintf(output, "\tIšvesties failas: %s\n", output_name);
+        fprintf(output, "\tĮvesties failas: %s.\n", input_name);
+        fprintf(output, "\tIšvesties failas: %s.\n", output_name);
 
-        fprintf(output, "\nANTRA DALIS: Vykdymas\n");
+        fprintf(output, "\nANTRA DALIS: Vykdymas.\n");
 
         applications = create_dequeue();
         applicants = create_dequeue();
 
         srand(time(NULL));
-        // d1t--;
-        // d2t--;
 
         while (!(applicants->size == 0 && applications->size == 0 && i >= sim_t && d1 == WAITING && d2 == WAITING))
         {
-            fprintf(output, "\nMOMENTAS T=%d min.\n\tBŪSENA_%d %d-osios minutės pradžioje\n", i, i, i + 1);
+            fprintf(output, "\nMOMENTAS T=%d min.\n\tBŪSENA_%d %d-osios minutės pradžioje.\n", i, i, i + 1);
             print_info(applications, applicants);
 
-            fprintf(output, "\tVEIKSMAI_%d\n", i + 1);
+            fprintf(output, "\tVEIKSMAI_%d.\n", i + 1);
 
             if (d1num == 0 && applicants->size != 0 && d1 != WORKING)
             {
@@ -172,7 +170,7 @@ int main()
                 {
                     if (d1num == 0)
                     {
-                        fprintf(output, "\t\t1) Darbuotoja D1 laukia\n");
+                        fprintf(output, "\t\t1) Darbuotoja D1 laukia.\n");
                         w1wt++;
                     }
                     else
@@ -213,7 +211,7 @@ int main()
                 {
                     if (d1num == 0)
                     {
-                        fprintf(output, "\t\t1) Darbuotoja D1 laukia\n");
+                        fprintf(output, "\t\t1) Darbuotoja D1 laukia.\n");
                         w1wt++;
                     }
                     else
@@ -253,7 +251,7 @@ int main()
                 {
                     if (d2num == 0)
                     {
-                        fprintf(output, "\t\t2) Darbuotoja D2 laukia\n");
+                        fprintf(output, "\t\t2) Darbuotoja D2 laukia.\n");
                         w2wt++;
                     }
                     else
@@ -294,7 +292,7 @@ int main()
                 {
                     if (d2num == 0)
                     {
-                        fprintf(output, "\t\t2) Darbuotoja D2 laukia\n");
+                        fprintf(output, "\t\t2) Darbuotoja D2 laukia.\n");
                         w2wt++;
                     }
                     else
@@ -331,32 +329,33 @@ int main()
             {
                 if (rand() % 100 <= prob)
                 {
-                    fprintf(output, "\t\t3) Yra atėjęs naujas stojantysis %d\n", scount + 1);
+                    fprintf(output, "\t\t3) Yra atėjęs naujas stojantysis %d.\n", scount + 1);
                     push_front(applicants, scount + 1);
                     scount++;
                 }
                 else
                 {
-                    fprintf(output, "\t\t3) Naujų stojančiųjų nėra\n");
+                    fprintf(output, "\t\t3) Naujų stojančiųjų nėra.\n");
                 }
             }
 
             p1w = MAX(0, p1w - 1);
             p2w = MAX(0, p2w - 1);
 
-            fprintf(output, "\tBŪSENA_%d %d-osios minutės pabaigoje\n", i, i + 1);
+            fprintf(output, "\tBŪSENA_%d %d-osios minutės pabaigoje.\n", i, i + 1);
             print_info(applications, applicants);
 
             if (i == sim_t)
-                fprintf(output, "\nPAPILDOMAS DARBO LAIKAS\n\n");
+                fprintf(output, "\nPAPILDOMAS DARBO LAIKAS.\n\n");
 
             i++;
         }
 
-        fprintf(output, "\n3 DALIS. REZULTATAI\n");
-        fprintf(output, "\tPapildomas darbo laikas %d min.\n", i - sim_t);
-        fprintf(output, "\tD1 užimtumas %.0f%%\n", 100.0f * (i - w1wt) / i);
-        fprintf(output, "\tD2 užimtumas %.0f%%\n", 100.0f * (i - w2wt) / i);
+        fprintf(output, "\n3 DALIS. REZULTATAI.\n");
+        fprintf(output, "\tAptarnautų stojančiųjų skaičius: %d, papildomas laikas tęsiasi kol bus aptarnauti visi.\n", scount);
+        fprintf(output, "\tPagrindinis darbo laikas %d min., papildomas darbo laikas %d min.\n", sim_t, i - sim_t);
+        fprintf(output, "\tD1 užimtumas %.0f%%.\n", 100.0f * (i - w1wt) / i);
+        fprintf(output, "\tD2 užimtumas %.0f%%.\n", 100.0f * (i - w2wt) / i);
 
         fclose(input);
         fclose(output);
