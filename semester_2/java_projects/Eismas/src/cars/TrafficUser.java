@@ -59,9 +59,16 @@ abstract public class TrafficUser implements Stoppable, Cloneable, Serializable
         this.stopped = stopped;
     }
 
+    /**
+     * Gets the current Engine of the vehicle.
+     */
     public Engine getEngine() {
         return engine;
     }
+    /**
+     * Sets the current Engine of the vehicle.
+     * @param engine The Engine object that will be inserted
+     */
     public void setEngine(Engine engine) {
         this.engine = engine;
     }
@@ -79,6 +86,9 @@ abstract public class TrafficUser implements Stoppable, Cloneable, Serializable
         stopped = true;
     }
 
+    /**
+     * Gets the total amount of vehicles.
+     */
     static public int getInstanceCount()
     {
         return totalInstances;
@@ -149,9 +159,9 @@ abstract public class TrafficUser implements Stoppable, Cloneable, Serializable
         move(dx, dy);
     }
     /**
- * Creates a deep clone of the TrafficUser.
- * @return cloned TrafficUser
- */
+     * Creates a deep clone of the TrafficUser.
+     * @return cloned TrafficUser
+     */
     @Override
     public TrafficUser clone()
     {
