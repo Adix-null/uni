@@ -23,32 +23,11 @@ enum Mode
 
 // cd semester_2/ads/priemimo_komisija
 
-int d1 = WAITING;
-int d2 = WAITING;
-int d1num = 0;
-int p1w = 0;
-int d2num = 0;
-int p2w = 0;
-int i = 0;
-
-int m1w = STUDENTS;
-int m2w = STUDENTS;
-
-int w1wt = 0;
-int w2wt = 0;
-
-int prim_t, d1t, d2t, sim_t, prob;
-
-int scount = 0;
-
-Dequeue *applications;
-Dequeue *applicants;
-
 void print_applicants(Dequeue *applicants)
 {
     if (applicants->size != 0)
     {
-        fprintf(output, ", {");
+        fprintf(output, "{");
         print_dequeue(output, applicants, 'S');
         fprintf(output, "}");
     }
@@ -59,7 +38,7 @@ void print_applications(Dequeue *applications)
 {
     if (applications->size != 0)
     {
-        fprintf(output, ", {");
+        fprintf(output, "{");
         print_dequeue(output, applications, 'P');
 
         fprintf(output, "}");
@@ -67,11 +46,19 @@ void print_applications(Dequeue *applications)
     fprintf(output, ".\n");
 }
 
-void print_info(Dequeue *applications, Dequeue *applicants)
+void print_info(Dequeue *applications, Dequeue *applicants, int p1)
 {
-    fprintf(output, "\t\t1) Eilėje stojančiųjų iš anksčiau skaičius: %d", applicants->size);
+    fprintf(output, "\t\t%d) Eilėje stojančiųjų iš anksčiau skaičius %d", p1, applicants->size);
+    if (applicants->size != 0)
+    {
+        fprintf(output, ": ");
+    }
     print_applicants(applicants);
-    fprintf(output, "\t\t2) Prašymų kiekis: %d", applications->size);
+    fprintf(output, "\t\t%d) Prašymų skaičius %d", p1 + 1, applications->size);
+    if (applications->size != 0)
+    {
+        fprintf(output, ": ");
+    }
     print_applications(applications);
 }
 
@@ -80,6 +67,27 @@ int main()
     int variant = 1;
     for (; variant <= 3; variant++)
     {
+        int d1 = WAITING;
+        int d2 = WAITING;
+        int d1num = 0;
+        int p1w = 0;
+        int d2num = 0;
+        int p2w = 0;
+        int i = 0;
+
+        int m1w = STUDENTS;
+        int m2w = STUDENTS;
+
+        int w1wt = 0;
+        int w2wt = 0;
+
+        int prim_t, d1t, d2t, sim_t, prob;
+
+        int scount = 0;
+
+        Dequeue *applications;
+        Dequeue *applicants;
+
         time_t t = time(NULL);
         struct tm *tm_info = localtime(&t);
         char date[11]; // yyyy-mm-dd + null terminator
@@ -136,10 +144,27 @@ int main()
 
         while (!(applicants->size == 0 && applications->size == 0 && i >= sim_t && d1 == WAITING && d2 == WAITING))
         {
-            fprintf(output, "\nMOMENTAS T=%d min.\n\tBŪSENA_%d %d-osios minutės pradžioje.\n", i, i, i + 1);
-            print_info(applications, applicants);
+            fprintf(output, "\nMOMENTAS T=%02d min. 00 sek.\n\tBŪSENA_%d %d-osios minutės pradžioje.\n", i, i, i + 1);
+            if (i <= sim_t)
+            {
+                if (rand() % 100 <= prob)
+                {
+                    fprintf(output, "\t\t1) Prie durų yra atėjęs stojantysis S%d.\n", scount + 1);
+                    push_front(applicants, scount + 1);
+                    scount++;
+                }
+                else
+                {
+                    fprintf(output, "\t\t1) Naujų stojančiųjų nėra.\n");
+                }
+                print_info(applications, applicants, 2);
+            }
+            else
+            {
+                print_info(applications, applicants, 1);
+            }
 
-            fprintf(output, "\tVEIKSMAI_%d.\n", i + 1);
+            fprintf(output, "\n\tVEIKSMAI_%d.\n", i + 1);
 
             if (d1num == 0 && applicants->size != 0 && d1 != WORKING)
             {
@@ -175,7 +200,7 @@ int main()
                     }
                     else
                     {
-                        fprintf(output, "\t\t1) Darbuotoja D1 pradeda priimti S%d. Ji priiminės iki T=%d min.\n", d1num, i + prim_t);
+                        fprintf(output, "\t\t1) Darbuotoja D1 priima stojantįjį S%d. Ji priiminės 1-ąją min. iš %d min.\n", d1num, i + prim_t);
                         p1w = prim_t;
                         d1 = WORKING;
                         if (prim_t == 1)
@@ -216,7 +241,7 @@ int main()
                     }
                     else
                     {
-                        fprintf(output, "\t\t1) Darbuotoja D1 pradeda dirbti prie P%d prašymo. Ji dirbs iki T=%d min.\n", d1num, i + d1t);
+                        fprintf(output, "\t\t1) Darbuotoja D1 pradeda dirbti prie P%d prašymo. Ji dirbs iki %d min.\n", d1num, i + d1t);
                         p1w = d1t;
                         d1 = WORKING;
                         if (d1t == 1)
@@ -256,7 +281,7 @@ int main()
                     }
                     else
                     {
-                        fprintf(output, "\t\t2) Darbuotoja D2 pradeda priimti S%d. Ji priiminės iki T=%d min.\n", d2num, i + prim_t);
+                        fprintf(output, "\t\t2) Darbuotoja D2 priima stojantįjį S%d. Ji priiminės 1-ąją min. iš %d min.\n", d2num, i + prim_t);
                         p2w = prim_t;
                         d2 = WORKING;
                         if (prim_t == 1)
@@ -297,7 +322,7 @@ int main()
                     }
                     else
                     {
-                        fprintf(output, "\t\t2) Darbuotoja D2 pradeda dirbti prie P%d prašymo. Ji dirbs iki T=%d min.\n", d2num, i + d2t);
+                        fprintf(output, "\t\t2) Darbuotoja D2 pradeda dirbti prie P%d prašymo. Ji dirbs iki %d min.\n", d2num, i + d2t);
                         p2w = d2t;
                         d2 = WORKING;
                         if (d2t == 1)
@@ -325,25 +350,11 @@ int main()
                 }
             }
 
-            if (i <= sim_t)
-            {
-                if (rand() % 100 <= prob)
-                {
-                    fprintf(output, "\t\t3) Yra atėjęs naujas stojantysis %d.\n", scount + 1);
-                    push_front(applicants, scount + 1);
-                    scount++;
-                }
-                else
-                {
-                    fprintf(output, "\t\t3) Naujų stojančiųjų nėra.\n");
-                }
-            }
-
             p1w = MAX(0, p1w - 1);
             p2w = MAX(0, p2w - 1);
 
-            fprintf(output, "\tBŪSENA_%d %d-osios minutės pabaigoje.\n", i, i + 1);
-            print_info(applications, applicants);
+            fprintf(output, "\n\tBŪSENA_%d %d-osios minutės pabaigoje.\n", i + 1, i + 1);
+            print_info(applications, applicants, 1);
 
             if (i == sim_t)
                 fprintf(output, "\nPAPILDOMAS DARBO LAIKAS.\n\n");

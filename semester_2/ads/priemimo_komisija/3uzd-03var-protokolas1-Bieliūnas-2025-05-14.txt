@@ -1,0 +1,748 @@
+3 užduotis, 3 variantas. Adomas Bieliūnas, 1 kursas, 2 grupė, 1 pogrupis.
+
+SALYGA. Priėmimo komisija. (ADT: dekas, ilgas sveikas skaičius).
+         Procesas: komisijoje dirba 2 darbuotojos (D1, D2) skirtingu produktyvumu. 
+         Jos priima stojančiųjų prašymus ir stato į lentyną, kiekviena iš savo pusės.
+         Kai nėra stojančiųjų ir pasibaigus tos dienos priėmimui, jos ima prašymus ir
+         juos sutvarko. Patyrinėti, kiek laiko reikia tvarkyti prašymus, pasibaigus jų
+         priėmimo trukmei, pvz., N=30 min.
+
+PIRMA DALIS: Duomenys.
+	PPL =  2 min. --Prašymo priėmimo laikas.
+	D1  =  1 min. --Pirmos darbuotojos produktyvumas.
+	D2  =  2 min. --Antros darbuotojos produktyvumas.
+	N   = 30 min. --Pagrindinis darbo laikas.
+	Stojančiojo atėjimo tikimybė: 100%.
+	Įvesties failas: inp1.txt.
+	Išvesties failas: 3uzd-03var-protokolas1-Bieliūnas-2025-05-14.txt.
+
+ANTRA DALIS: Vykdymas.
+
+MOMENTAS T=00 min. 00 sek.
+	BŪSENA_0 1-osios minutės pradžioje.
+		1) Prie durų yra atėjęs stojantysis S1.
+		2) Eilėje stojančiųjų iš anksčiau skaičius 1: {S1}.
+		3) Prašymų skaičius 0.
+
+	VEIKSMAI_1.
+		1) Darbuotoja D1 priima stojantįjį S1. Ji priiminės 1-ąją min. iš 2 min.
+		2) Darbuotoja D2 laukia.
+
+	BŪSENA_1 1-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 0.
+
+MOMENTAS T=01 min. 00 sek.
+	BŪSENA_1 2-osios minutės pradžioje.
+		1) Prie durų yra atėjęs stojantysis S2.
+		2) Eilėje stojančiųjų iš anksčiau skaičius 1: {S2}.
+		3) Prašymų skaičius 0.
+
+	VEIKSMAI_2.
+		1) Darbuotoja D1 baigia dirbti prie S1.
+		2) Darbuotoja D2 priima stojantįjį S2. Ji priiminės 1-ąją min. iš 3 min.
+
+	BŪSENA_2 2-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 1: {P1}.
+
+MOMENTAS T=02 min. 00 sek.
+	BŪSENA_2 3-osios minutės pradžioje.
+		1) Prie durų yra atėjęs stojantysis S3.
+		2) Eilėje stojančiųjų iš anksčiau skaičius 1: {S3}.
+		3) Prašymų skaičius 1: {P1}.
+
+	VEIKSMAI_3.
+		1) Darbuotoja D1 priima stojantįjį S3. Ji priiminės 1-ąją min. iš 4 min.
+		2) Darbuotoja D2 baigia dirbti prie S2.
+
+	BŪSENA_3 3-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 2: {P1, P2}.
+
+MOMENTAS T=03 min. 00 sek.
+	BŪSENA_3 4-osios minutės pradžioje.
+		1) Prie durų yra atėjęs stojantysis S4.
+		2) Eilėje stojančiųjų iš anksčiau skaičius 1: {S4}.
+		3) Prašymų skaičius 2: {P1, P2}.
+
+	VEIKSMAI_4.
+		1) Darbuotoja D1 baigia dirbti prie S3.
+		2) Darbuotoja D2 priima stojantįjį S4. Ji priiminės 1-ąją min. iš 5 min.
+
+	BŪSENA_4 4-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 3: {P3, P1, P2}.
+
+MOMENTAS T=04 min. 00 sek.
+	BŪSENA_4 5-osios minutės pradžioje.
+		1) Prie durų yra atėjęs stojantysis S5.
+		2) Eilėje stojančiųjų iš anksčiau skaičius 1: {S5}.
+		3) Prašymų skaičius 3: {P3, P1, P2}.
+
+	VEIKSMAI_5.
+		1) Darbuotoja D1 priima stojantįjį S5. Ji priiminės 1-ąją min. iš 6 min.
+		2) Darbuotoja D2 baigia dirbti prie S4.
+
+	BŪSENA_5 5-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 4: {P3, P1, P2, P4}.
+
+MOMENTAS T=05 min. 00 sek.
+	BŪSENA_5 6-osios minutės pradžioje.
+		1) Prie durų yra atėjęs stojantysis S6.
+		2) Eilėje stojančiųjų iš anksčiau skaičius 1: {S6}.
+		3) Prašymų skaičius 4: {P3, P1, P2, P4}.
+
+	VEIKSMAI_6.
+		1) Darbuotoja D1 baigia dirbti prie S5.
+		2) Darbuotoja D2 priima stojantįjį S6. Ji priiminės 1-ąją min. iš 7 min.
+
+	BŪSENA_6 6-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 5: {P5, P3, P1, P2, P4}.
+
+MOMENTAS T=06 min. 00 sek.
+	BŪSENA_6 7-osios minutės pradžioje.
+		1) Prie durų yra atėjęs stojantysis S7.
+		2) Eilėje stojančiųjų iš anksčiau skaičius 1: {S7}.
+		3) Prašymų skaičius 5: {P5, P3, P1, P2, P4}.
+
+	VEIKSMAI_7.
+		1) Darbuotoja D1 priima stojantįjį S7. Ji priiminės 1-ąją min. iš 8 min.
+		2) Darbuotoja D2 baigia dirbti prie S6.
+
+	BŪSENA_7 7-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 6: {P5, P3, P1, P2, P4, P6}.
+
+MOMENTAS T=07 min. 00 sek.
+	BŪSENA_7 8-osios minutės pradžioje.
+		1) Prie durų yra atėjęs stojantysis S8.
+		2) Eilėje stojančiųjų iš anksčiau skaičius 1: {S8}.
+		3) Prašymų skaičius 6: {P5, P3, P1, P2, P4, P6}.
+
+	VEIKSMAI_8.
+		1) Darbuotoja D1 baigia dirbti prie S7.
+		2) Darbuotoja D2 priima stojantįjį S8. Ji priiminės 1-ąją min. iš 9 min.
+
+	BŪSENA_8 8-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 7: {P7, P5, P3, P1, P2, P4, P6}.
+
+MOMENTAS T=08 min. 00 sek.
+	BŪSENA_8 9-osios minutės pradžioje.
+		1) Prie durų yra atėjęs stojantysis S9.
+		2) Eilėje stojančiųjų iš anksčiau skaičius 1: {S9}.
+		3) Prašymų skaičius 7: {P7, P5, P3, P1, P2, P4, P6}.
+
+	VEIKSMAI_9.
+		1) Darbuotoja D1 priima stojantįjį S9. Ji priiminės 1-ąją min. iš 10 min.
+		2) Darbuotoja D2 baigia dirbti prie S8.
+
+	BŪSENA_9 9-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 8: {P7, P5, P3, P1, P2, P4, P6, P8}.
+
+MOMENTAS T=09 min. 00 sek.
+	BŪSENA_9 10-osios minutės pradžioje.
+		1) Prie durų yra atėjęs stojantysis S10.
+		2) Eilėje stojančiųjų iš anksčiau skaičius 1: {S10}.
+		3) Prašymų skaičius 8: {P7, P5, P3, P1, P2, P4, P6, P8}.
+
+	VEIKSMAI_10.
+		1) Darbuotoja D1 baigia dirbti prie S9.
+		2) Darbuotoja D2 priima stojantįjį S10. Ji priiminės 1-ąją min. iš 11 min.
+
+	BŪSENA_10 10-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 9: {P9, P7, P5, P3, P1, P2, P4, P6, P8}.
+
+MOMENTAS T=10 min. 00 sek.
+	BŪSENA_10 11-osios minutės pradžioje.
+		1) Prie durų yra atėjęs stojantysis S11.
+		2) Eilėje stojančiųjų iš anksčiau skaičius 1: {S11}.
+		3) Prašymų skaičius 9: {P9, P7, P5, P3, P1, P2, P4, P6, P8}.
+
+	VEIKSMAI_11.
+		1) Darbuotoja D1 priima stojantįjį S11. Ji priiminės 1-ąją min. iš 12 min.
+		2) Darbuotoja D2 baigia dirbti prie S10.
+
+	BŪSENA_11 11-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 10: {P9, P7, P5, P3, P1, P2, P4, P6, P8, P10}.
+
+MOMENTAS T=11 min. 00 sek.
+	BŪSENA_11 12-osios minutės pradžioje.
+		1) Prie durų yra atėjęs stojantysis S12.
+		2) Eilėje stojančiųjų iš anksčiau skaičius 1: {S12}.
+		3) Prašymų skaičius 10: {P9, P7, P5, P3, P1, P2, P4, P6, P8, P10}.
+
+	VEIKSMAI_12.
+		1) Darbuotoja D1 baigia dirbti prie S11.
+		2) Darbuotoja D2 priima stojantįjį S12. Ji priiminės 1-ąją min. iš 13 min.
+
+	BŪSENA_12 12-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 11: {P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10}.
+
+MOMENTAS T=12 min. 00 sek.
+	BŪSENA_12 13-osios minutės pradžioje.
+		1) Prie durų yra atėjęs stojantysis S13.
+		2) Eilėje stojančiųjų iš anksčiau skaičius 1: {S13}.
+		3) Prašymų skaičius 11: {P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10}.
+
+	VEIKSMAI_13.
+		1) Darbuotoja D1 priima stojantįjį S13. Ji priiminės 1-ąją min. iš 14 min.
+		2) Darbuotoja D2 baigia dirbti prie S12.
+
+	BŪSENA_13 13-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 12: {P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12}.
+
+MOMENTAS T=13 min. 00 sek.
+	BŪSENA_13 14-osios minutės pradžioje.
+		1) Prie durų yra atėjęs stojantysis S14.
+		2) Eilėje stojančiųjų iš anksčiau skaičius 1: {S14}.
+		3) Prašymų skaičius 12: {P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12}.
+
+	VEIKSMAI_14.
+		1) Darbuotoja D1 baigia dirbti prie S13.
+		2) Darbuotoja D2 priima stojantįjį S14. Ji priiminės 1-ąją min. iš 15 min.
+
+	BŪSENA_14 14-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 13: {P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12}.
+
+MOMENTAS T=14 min. 00 sek.
+	BŪSENA_14 15-osios minutės pradžioje.
+		1) Prie durų yra atėjęs stojantysis S15.
+		2) Eilėje stojančiųjų iš anksčiau skaičius 1: {S15}.
+		3) Prašymų skaičius 13: {P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12}.
+
+	VEIKSMAI_15.
+		1) Darbuotoja D1 priima stojantįjį S15. Ji priiminės 1-ąją min. iš 16 min.
+		2) Darbuotoja D2 baigia dirbti prie S14.
+
+	BŪSENA_15 15-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 14: {P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14}.
+
+MOMENTAS T=15 min. 00 sek.
+	BŪSENA_15 16-osios minutės pradžioje.
+		1) Prie durų yra atėjęs stojantysis S16.
+		2) Eilėje stojančiųjų iš anksčiau skaičius 1: {S16}.
+		3) Prašymų skaičius 14: {P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14}.
+
+	VEIKSMAI_16.
+		1) Darbuotoja D1 baigia dirbti prie S15.
+		2) Darbuotoja D2 priima stojantįjį S16. Ji priiminės 1-ąją min. iš 17 min.
+
+	BŪSENA_16 16-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 15: {P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14}.
+
+MOMENTAS T=16 min. 00 sek.
+	BŪSENA_16 17-osios minutės pradžioje.
+		1) Prie durų yra atėjęs stojantysis S17.
+		2) Eilėje stojančiųjų iš anksčiau skaičius 1: {S17}.
+		3) Prašymų skaičius 15: {P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14}.
+
+	VEIKSMAI_17.
+		1) Darbuotoja D1 priima stojantįjį S17. Ji priiminės 1-ąją min. iš 18 min.
+		2) Darbuotoja D2 baigia dirbti prie S16.
+
+	BŪSENA_17 17-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 16: {P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16}.
+
+MOMENTAS T=17 min. 00 sek.
+	BŪSENA_17 18-osios minutės pradžioje.
+		1) Prie durų yra atėjęs stojantysis S18.
+		2) Eilėje stojančiųjų iš anksčiau skaičius 1: {S18}.
+		3) Prašymų skaičius 16: {P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16}.
+
+	VEIKSMAI_18.
+		1) Darbuotoja D1 baigia dirbti prie S17.
+		2) Darbuotoja D2 priima stojantįjį S18. Ji priiminės 1-ąją min. iš 19 min.
+
+	BŪSENA_18 18-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 17: {P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16}.
+
+MOMENTAS T=18 min. 00 sek.
+	BŪSENA_18 19-osios minutės pradžioje.
+		1) Prie durų yra atėjęs stojantysis S19.
+		2) Eilėje stojančiųjų iš anksčiau skaičius 1: {S19}.
+		3) Prašymų skaičius 17: {P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16}.
+
+	VEIKSMAI_19.
+		1) Darbuotoja D1 priima stojantįjį S19. Ji priiminės 1-ąją min. iš 20 min.
+		2) Darbuotoja D2 baigia dirbti prie S18.
+
+	BŪSENA_19 19-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 18: {P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18}.
+
+MOMENTAS T=19 min. 00 sek.
+	BŪSENA_19 20-osios minutės pradžioje.
+		1) Prie durų yra atėjęs stojantysis S20.
+		2) Eilėje stojančiųjų iš anksčiau skaičius 1: {S20}.
+		3) Prašymų skaičius 18: {P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18}.
+
+	VEIKSMAI_20.
+		1) Darbuotoja D1 baigia dirbti prie S19.
+		2) Darbuotoja D2 priima stojantįjį S20. Ji priiminės 1-ąją min. iš 21 min.
+
+	BŪSENA_20 20-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 19: {P19, P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18}.
+
+MOMENTAS T=20 min. 00 sek.
+	BŪSENA_20 21-osios minutės pradžioje.
+		1) Prie durų yra atėjęs stojantysis S21.
+		2) Eilėje stojančiųjų iš anksčiau skaičius 1: {S21}.
+		3) Prašymų skaičius 19: {P19, P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18}.
+
+	VEIKSMAI_21.
+		1) Darbuotoja D1 priima stojantįjį S21. Ji priiminės 1-ąją min. iš 22 min.
+		2) Darbuotoja D2 baigia dirbti prie S20.
+
+	BŪSENA_21 21-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 20: {P19, P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20}.
+
+MOMENTAS T=21 min. 00 sek.
+	BŪSENA_21 22-osios minutės pradžioje.
+		1) Prie durų yra atėjęs stojantysis S22.
+		2) Eilėje stojančiųjų iš anksčiau skaičius 1: {S22}.
+		3) Prašymų skaičius 20: {P19, P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20}.
+
+	VEIKSMAI_22.
+		1) Darbuotoja D1 baigia dirbti prie S21.
+		2) Darbuotoja D2 priima stojantįjį S22. Ji priiminės 1-ąją min. iš 23 min.
+
+	BŪSENA_22 22-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 21: {P21, P19, P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20}.
+
+MOMENTAS T=22 min. 00 sek.
+	BŪSENA_22 23-osios minutės pradžioje.
+		1) Prie durų yra atėjęs stojantysis S23.
+		2) Eilėje stojančiųjų iš anksčiau skaičius 1: {S23}.
+		3) Prašymų skaičius 21: {P21, P19, P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20}.
+
+	VEIKSMAI_23.
+		1) Darbuotoja D1 priima stojantįjį S23. Ji priiminės 1-ąją min. iš 24 min.
+		2) Darbuotoja D2 baigia dirbti prie S22.
+
+	BŪSENA_23 23-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 22: {P21, P19, P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20, P22}.
+
+MOMENTAS T=23 min. 00 sek.
+	BŪSENA_23 24-osios minutės pradžioje.
+		1) Prie durų yra atėjęs stojantysis S24.
+		2) Eilėje stojančiųjų iš anksčiau skaičius 1: {S24}.
+		3) Prašymų skaičius 22: {P21, P19, P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20, P22}.
+
+	VEIKSMAI_24.
+		1) Darbuotoja D1 baigia dirbti prie S23.
+		2) Darbuotoja D2 priima stojantįjį S24. Ji priiminės 1-ąją min. iš 25 min.
+
+	BŪSENA_24 24-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 23: {P23, P21, P19, P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20, P22}.
+
+MOMENTAS T=24 min. 00 sek.
+	BŪSENA_24 25-osios minutės pradžioje.
+		1) Prie durų yra atėjęs stojantysis S25.
+		2) Eilėje stojančiųjų iš anksčiau skaičius 1: {S25}.
+		3) Prašymų skaičius 23: {P23, P21, P19, P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20, P22}.
+
+	VEIKSMAI_25.
+		1) Darbuotoja D1 priima stojantįjį S25. Ji priiminės 1-ąją min. iš 26 min.
+		2) Darbuotoja D2 baigia dirbti prie S24.
+
+	BŪSENA_25 25-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 24: {P23, P21, P19, P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20, P22, P24}.
+
+MOMENTAS T=25 min. 00 sek.
+	BŪSENA_25 26-osios minutės pradžioje.
+		1) Prie durų yra atėjęs stojantysis S26.
+		2) Eilėje stojančiųjų iš anksčiau skaičius 1: {S26}.
+		3) Prašymų skaičius 24: {P23, P21, P19, P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20, P22, P24}.
+
+	VEIKSMAI_26.
+		1) Darbuotoja D1 baigia dirbti prie S25.
+		2) Darbuotoja D2 priima stojantįjį S26. Ji priiminės 1-ąją min. iš 27 min.
+
+	BŪSENA_26 26-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 25: {P25, P23, P21, P19, P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20, P22, P24}.
+
+MOMENTAS T=26 min. 00 sek.
+	BŪSENA_26 27-osios minutės pradžioje.
+		1) Prie durų yra atėjęs stojantysis S27.
+		2) Eilėje stojančiųjų iš anksčiau skaičius 1: {S27}.
+		3) Prašymų skaičius 25: {P25, P23, P21, P19, P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20, P22, P24}.
+
+	VEIKSMAI_27.
+		1) Darbuotoja D1 priima stojantįjį S27. Ji priiminės 1-ąją min. iš 28 min.
+		2) Darbuotoja D2 baigia dirbti prie S26.
+
+	BŪSENA_27 27-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 26: {P25, P23, P21, P19, P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20, P22, P24, P26}.
+
+MOMENTAS T=27 min. 00 sek.
+	BŪSENA_27 28-osios minutės pradžioje.
+		1) Prie durų yra atėjęs stojantysis S28.
+		2) Eilėje stojančiųjų iš anksčiau skaičius 1: {S28}.
+		3) Prašymų skaičius 26: {P25, P23, P21, P19, P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20, P22, P24, P26}.
+
+	VEIKSMAI_28.
+		1) Darbuotoja D1 baigia dirbti prie S27.
+		2) Darbuotoja D2 priima stojantįjį S28. Ji priiminės 1-ąją min. iš 29 min.
+
+	BŪSENA_28 28-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 27: {P27, P25, P23, P21, P19, P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20, P22, P24, P26}.
+
+MOMENTAS T=28 min. 00 sek.
+	BŪSENA_28 29-osios minutės pradžioje.
+		1) Prie durų yra atėjęs stojantysis S29.
+		2) Eilėje stojančiųjų iš anksčiau skaičius 1: {S29}.
+		3) Prašymų skaičius 27: {P27, P25, P23, P21, P19, P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20, P22, P24, P26}.
+
+	VEIKSMAI_29.
+		1) Darbuotoja D1 priima stojantįjį S29. Ji priiminės 1-ąją min. iš 30 min.
+		2) Darbuotoja D2 baigia dirbti prie S28.
+
+	BŪSENA_29 29-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 28: {P27, P25, P23, P21, P19, P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20, P22, P24, P26, P28}.
+
+MOMENTAS T=29 min. 00 sek.
+	BŪSENA_29 30-osios minutės pradžioje.
+		1) Prie durų yra atėjęs stojantysis S30.
+		2) Eilėje stojančiųjų iš anksčiau skaičius 1: {S30}.
+		3) Prašymų skaičius 28: {P27, P25, P23, P21, P19, P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20, P22, P24, P26, P28}.
+
+	VEIKSMAI_30.
+		1) Darbuotoja D1 baigia dirbti prie S29.
+		2) Darbuotoja D2 priima stojantįjį S30. Ji priiminės 1-ąją min. iš 31 min.
+
+	BŪSENA_30 30-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 29: {P29, P27, P25, P23, P21, P19, P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20, P22, P24, P26, P28}.
+
+MOMENTAS T=30 min. 00 sek.
+	BŪSENA_30 31-osios minutės pradžioje.
+		1) Prie durų yra atėjęs stojantysis S31.
+		2) Eilėje stojančiųjų iš anksčiau skaičius 1: {S31}.
+		3) Prašymų skaičius 29: {P29, P27, P25, P23, P21, P19, P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20, P22, P24, P26, P28}.
+
+	VEIKSMAI_31.
+		1) Darbuotoja D1 priima stojantįjį S31. Ji priiminės 1-ąją min. iš 32 min.
+		2) Darbuotoja D2 baigia dirbti prie S30.
+
+	BŪSENA_31 31-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 30: {P29, P27, P25, P23, P21, P19, P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20, P22, P24, P26, P28, P30}.
+
+PAPILDOMAS DARBO LAIKAS.
+
+
+MOMENTAS T=31 min. 00 sek.
+	BŪSENA_31 32-osios minutės pradžioje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 30: {P29, P27, P25, P23, P21, P19, P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20, P22, P24, P26, P28, P30}.
+
+	VEIKSMAI_32.
+		1) Darbuotoja D1 baigia dirbti prie S31.
+		2) Darbuotoja D2 pradeda dirbti prie P30 prašymo. Ji dirbs iki 33 min.
+
+	BŪSENA_32 32-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 30: {P31, P29, P27, P25, P23, P21, P19, P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20, P22, P24, P26, P28}.
+
+MOMENTAS T=32 min. 00 sek.
+	BŪSENA_32 33-osios minutės pradžioje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 30: {P31, P29, P27, P25, P23, P21, P19, P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20, P22, P24, P26, P28}.
+
+	VEIKSMAI_33.
+		1) Darbuotoja D1 pradeda dirbti prie P31 prašymo. Ji dirbs iki 33 min.
+		2) Darbuotoja D2 baigia dirbti prie P30 prašymo.
+
+	BŪSENA_33 33-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 29: {P29, P27, P25, P23, P21, P19, P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20, P22, P24, P26, P28}.
+
+MOMENTAS T=33 min. 00 sek.
+	BŪSENA_33 34-osios minutės pradžioje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 29: {P29, P27, P25, P23, P21, P19, P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20, P22, P24, P26, P28}.
+
+	VEIKSMAI_34.
+		1) Darbuotoja D1 pradeda dirbti prie P29 prašymo. Ji dirbs iki 34 min.
+		2) Darbuotoja D2 pradeda dirbti prie P28 prašymo. Ji dirbs iki 35 min.
+
+	BŪSENA_34 34-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 27: {P27, P25, P23, P21, P19, P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20, P22, P24, P26}.
+
+MOMENTAS T=34 min. 00 sek.
+	BŪSENA_34 35-osios minutės pradžioje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 27: {P27, P25, P23, P21, P19, P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20, P22, P24, P26}.
+
+	VEIKSMAI_35.
+		1) Darbuotoja D1 pradeda dirbti prie P27 prašymo. Ji dirbs iki 35 min.
+		2) Darbuotoja D2 baigia dirbti prie P28 prašymo.
+
+	BŪSENA_35 35-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 26: {P25, P23, P21, P19, P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20, P22, P24, P26}.
+
+MOMENTAS T=35 min. 00 sek.
+	BŪSENA_35 36-osios minutės pradžioje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 26: {P25, P23, P21, P19, P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20, P22, P24, P26}.
+
+	VEIKSMAI_36.
+		1) Darbuotoja D1 pradeda dirbti prie P25 prašymo. Ji dirbs iki 36 min.
+		2) Darbuotoja D2 pradeda dirbti prie P26 prašymo. Ji dirbs iki 37 min.
+
+	BŪSENA_36 36-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 24: {P23, P21, P19, P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20, P22, P24}.
+
+MOMENTAS T=36 min. 00 sek.
+	BŪSENA_36 37-osios minutės pradžioje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 24: {P23, P21, P19, P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20, P22, P24}.
+
+	VEIKSMAI_37.
+		1) Darbuotoja D1 pradeda dirbti prie P23 prašymo. Ji dirbs iki 37 min.
+		2) Darbuotoja D2 baigia dirbti prie P26 prašymo.
+
+	BŪSENA_37 37-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 23: {P21, P19, P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20, P22, P24}.
+
+MOMENTAS T=37 min. 00 sek.
+	BŪSENA_37 38-osios minutės pradžioje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 23: {P21, P19, P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20, P22, P24}.
+
+	VEIKSMAI_38.
+		1) Darbuotoja D1 pradeda dirbti prie P21 prašymo. Ji dirbs iki 38 min.
+		2) Darbuotoja D2 pradeda dirbti prie P24 prašymo. Ji dirbs iki 39 min.
+
+	BŪSENA_38 38-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 21: {P19, P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20, P22}.
+
+MOMENTAS T=38 min. 00 sek.
+	BŪSENA_38 39-osios minutės pradžioje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 21: {P19, P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20, P22}.
+
+	VEIKSMAI_39.
+		1) Darbuotoja D1 pradeda dirbti prie P19 prašymo. Ji dirbs iki 39 min.
+		2) Darbuotoja D2 baigia dirbti prie P24 prašymo.
+
+	BŪSENA_39 39-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 20: {P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20, P22}.
+
+MOMENTAS T=39 min. 00 sek.
+	BŪSENA_39 40-osios minutės pradžioje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 20: {P17, P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20, P22}.
+
+	VEIKSMAI_40.
+		1) Darbuotoja D1 pradeda dirbti prie P17 prašymo. Ji dirbs iki 40 min.
+		2) Darbuotoja D2 pradeda dirbti prie P22 prašymo. Ji dirbs iki 41 min.
+
+	BŪSENA_40 40-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 18: {P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20}.
+
+MOMENTAS T=40 min. 00 sek.
+	BŪSENA_40 41-osios minutės pradžioje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 18: {P15, P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20}.
+
+	VEIKSMAI_41.
+		1) Darbuotoja D1 pradeda dirbti prie P15 prašymo. Ji dirbs iki 41 min.
+		2) Darbuotoja D2 baigia dirbti prie P22 prašymo.
+
+	BŪSENA_41 41-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 17: {P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20}.
+
+MOMENTAS T=41 min. 00 sek.
+	BŪSENA_41 42-osios minutės pradžioje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 17: {P13, P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18, P20}.
+
+	VEIKSMAI_42.
+		1) Darbuotoja D1 pradeda dirbti prie P13 prašymo. Ji dirbs iki 42 min.
+		2) Darbuotoja D2 pradeda dirbti prie P20 prašymo. Ji dirbs iki 43 min.
+
+	BŪSENA_42 42-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 15: {P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18}.
+
+MOMENTAS T=42 min. 00 sek.
+	BŪSENA_42 43-osios minutės pradžioje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 15: {P11, P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18}.
+
+	VEIKSMAI_43.
+		1) Darbuotoja D1 pradeda dirbti prie P11 prašymo. Ji dirbs iki 43 min.
+		2) Darbuotoja D2 baigia dirbti prie P20 prašymo.
+
+	BŪSENA_43 43-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 14: {P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18}.
+
+MOMENTAS T=43 min. 00 sek.
+	BŪSENA_43 44-osios minutės pradžioje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 14: {P9, P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16, P18}.
+
+	VEIKSMAI_44.
+		1) Darbuotoja D1 pradeda dirbti prie P9 prašymo. Ji dirbs iki 44 min.
+		2) Darbuotoja D2 pradeda dirbti prie P18 prašymo. Ji dirbs iki 45 min.
+
+	BŪSENA_44 44-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 12: {P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16}.
+
+MOMENTAS T=44 min. 00 sek.
+	BŪSENA_44 45-osios minutės pradžioje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 12: {P7, P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16}.
+
+	VEIKSMAI_45.
+		1) Darbuotoja D1 pradeda dirbti prie P7 prašymo. Ji dirbs iki 45 min.
+		2) Darbuotoja D2 baigia dirbti prie P18 prašymo.
+
+	BŪSENA_45 45-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 11: {P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16}.
+
+MOMENTAS T=45 min. 00 sek.
+	BŪSENA_45 46-osios minutės pradžioje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 11: {P5, P3, P1, P2, P4, P6, P8, P10, P12, P14, P16}.
+
+	VEIKSMAI_46.
+		1) Darbuotoja D1 pradeda dirbti prie P5 prašymo. Ji dirbs iki 46 min.
+		2) Darbuotoja D2 pradeda dirbti prie P16 prašymo. Ji dirbs iki 47 min.
+
+	BŪSENA_46 46-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 9: {P3, P1, P2, P4, P6, P8, P10, P12, P14}.
+
+MOMENTAS T=46 min. 00 sek.
+	BŪSENA_46 47-osios minutės pradžioje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 9: {P3, P1, P2, P4, P6, P8, P10, P12, P14}.
+
+	VEIKSMAI_47.
+		1) Darbuotoja D1 pradeda dirbti prie P3 prašymo. Ji dirbs iki 47 min.
+		2) Darbuotoja D2 baigia dirbti prie P16 prašymo.
+
+	BŪSENA_47 47-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 8: {P1, P2, P4, P6, P8, P10, P12, P14}.
+
+MOMENTAS T=47 min. 00 sek.
+	BŪSENA_47 48-osios minutės pradžioje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 8: {P1, P2, P4, P6, P8, P10, P12, P14}.
+
+	VEIKSMAI_48.
+		1) Darbuotoja D1 pradeda dirbti prie P1 prašymo. Ji dirbs iki 48 min.
+		2) Darbuotoja D2 pradeda dirbti prie P14 prašymo. Ji dirbs iki 49 min.
+
+	BŪSENA_48 48-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 6: {P2, P4, P6, P8, P10, P12}.
+
+MOMENTAS T=48 min. 00 sek.
+	BŪSENA_48 49-osios minutės pradžioje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 6: {P2, P4, P6, P8, P10, P12}.
+
+	VEIKSMAI_49.
+		1) Darbuotoja D1 pradeda dirbti prie P2 prašymo. Ji dirbs iki 49 min.
+		2) Darbuotoja D2 baigia dirbti prie P14 prašymo.
+
+	BŪSENA_49 49-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 5: {P4, P6, P8, P10, P12}.
+
+MOMENTAS T=49 min. 00 sek.
+	BŪSENA_49 50-osios minutės pradžioje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 5: {P4, P6, P8, P10, P12}.
+
+	VEIKSMAI_50.
+		1) Darbuotoja D1 pradeda dirbti prie P4 prašymo. Ji dirbs iki 50 min.
+		2) Darbuotoja D2 pradeda dirbti prie P12 prašymo. Ji dirbs iki 51 min.
+
+	BŪSENA_50 50-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 3: {P6, P8, P10}.
+
+MOMENTAS T=50 min. 00 sek.
+	BŪSENA_50 51-osios minutės pradžioje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 3: {P6, P8, P10}.
+
+	VEIKSMAI_51.
+		1) Darbuotoja D1 pradeda dirbti prie P6 prašymo. Ji dirbs iki 51 min.
+		2) Darbuotoja D2 baigia dirbti prie P12 prašymo.
+
+	BŪSENA_51 51-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 2: {P8, P10}.
+
+MOMENTAS T=51 min. 00 sek.
+	BŪSENA_51 52-osios minutės pradžioje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 2: {P8, P10}.
+
+	VEIKSMAI_52.
+		1) Darbuotoja D1 pradeda dirbti prie P8 prašymo. Ji dirbs iki 52 min.
+		2) Darbuotoja D2 pradeda dirbti prie P10 prašymo. Ji dirbs iki 53 min.
+
+	BŪSENA_52 52-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 0.
+
+MOMENTAS T=52 min. 00 sek.
+	BŪSENA_52 53-osios minutės pradžioje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 0.
+
+	VEIKSMAI_53.
+		1) Darbuotoja D1 laukia.
+		2) Darbuotoja D2 baigia dirbti prie P10 prašymo.
+
+	BŪSENA_53 53-osios minutės pabaigoje.
+		1) Eilėje stojančiųjų iš anksčiau skaičius 0.
+		2) Prašymų skaičius 0.
+
+3 DALIS. REZULTATAI.
+	Aptarnautų stojančiųjų skaičius: 31, papildomas laikas tęsiasi kol bus aptarnauti visi.
+	Pagrindinis darbo laikas 30 min., papildomas darbo laikas 23 min.
+	D1 užimtumas 98%.
+	D2 užimtumas 98%.
