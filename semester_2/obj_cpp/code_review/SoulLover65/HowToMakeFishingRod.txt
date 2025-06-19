@@ -1,0 +1,30 @@
+FishingRod klasės funkcionalumas (nauja versija):
+
+Laukas std::string chosenFish:
+Saugoma atsitiktinai pasirinkta žuvis pagal masalą ir žvejybos gylio kategoriją.
+
+Laukas FishingDepth depthLevel:
+Nustato, į kokį žvejybos gylį orientuojamasi (Seklus, Vidutinis, Gilus), priklausomai nuo pasirinkto masalo.
+
+Laukas FishCategory category:
+Nustato žuvų kategoriją (ShallowWater, MediumWater, DeepWater), kuri lemia, iš kokių žuvų sąrašo bus gaudoma.
+
+Metodas prepare():
+Paprašo vartotojo įvesti skaičių nuo 1 iki 3, kuris atitinka vieną iš trijų masalų, kurie privilioja zuvis is tam tikro gylio:
+    1 – (ShallowWater)
+    2 – (MediumWater)
+    3 – (DeepWater)
+Įvestą reikšmę perduoda metodui prepare(int baitChoice).
+
+Metodas prepare(int baitChoice):
+Pagal įvestą masalo numerį:
+        nustato atitinkamą žvejybos gylį (depthLevel),
+        priskiria žuvų kategoriją (FishCategory),
+        ir atsitiktinai pasirenka vieną žuvį iš tos kategorijos, kuri saugoma lauke chosenFish.
+Jei pasirinktas numeris yra netinkamas (ne 1–3), atsitiktinai parenkamas vienas iš trijų galimų masalų.
+
+Metodas fish():
+Atspausdina, koks masalas naudotas, ir kokia žuvis buvo pagauta.
+
+Metodas getChosenFish()
+Grąžina lauke chosenFish saugomą žuvį.

@@ -97,11 +97,11 @@ class StuffedCrustDecorator : public PizzaDecorator
 {
 private:
     std::string stuffingType;
-    double stuffingAmount;
+    int stuffingAmount;
     bool isExtraCrispy;
 
 public:
-    StuffedCrustDecorator(Pizza *p, std::string type = "Chili Flakes", int level = 2, bool sauce = false);
+    StuffedCrustDecorator(Pizza *p, std::string type = "Cheese", int amount = 80, bool crispy = false);
 
     std::string getDescription() const override;
     double getCost() const override;

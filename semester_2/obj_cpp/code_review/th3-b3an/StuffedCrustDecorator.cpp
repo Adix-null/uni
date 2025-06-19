@@ -3,8 +3,8 @@
 StuffedCrustDecorator::StuffedCrustDecorator(
     Pizza *p,
     std::string type,
-    int level,
-    bool sauce) : PizzaDecorator(p), stuffingType(type), stuffingAmount(level), isExtraCrispy(sauce)
+    int amount,
+    bool crispy) : PizzaDecorator(p), stuffingType(type), stuffingAmount(amount), isExtraCrispy(crispy)
 {
     validateStuffingType();
     validateStuffingAmount();
@@ -13,10 +13,10 @@ StuffedCrustDecorator::StuffedCrustDecorator(
 std::string StuffedCrustDecorator::getDescription() const
 {
     std::string desc = wrappedPizza->getDescription();
-    desc += "\n+ " + stuffingType + " (Stuffing Amount " + std::to_string(stuffingAmount) + ")";
+    desc += "\n+ Stuffed Crust (" + stuffingType + ", " + std::to_string(stuffingAmount) + "g)";
     if (isExtraCrispy)
     {
-        desc += " Extra Crispy";
+        desc += ", Extra Crispy";
     }
     return desc;
 }
