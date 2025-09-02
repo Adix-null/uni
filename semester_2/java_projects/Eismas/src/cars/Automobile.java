@@ -1,6 +1,8 @@
 package cars;
 
-import base.TrafficUser;
+import base.Engine;
+import exceptions.InactiveException;
+import exceptions.OutOfBoundsException;
 
 public class Automobile extends TrafficUser
 {
@@ -24,30 +26,36 @@ public class Automobile extends TrafficUser
     {
         super(x, y);
     }
-    public Automobile(int x, int y, boolean active, int weight)
+    public Automobile(int x, int y, boolean active, boolean stopped, int weight)
     {
-        super(x, y, active);
+        super(x, y, active, stopped,  new Engine());
         this.weight = weight;
     }
 
     @Override
-    public void move(int dx, int dy)
-    {
+    public void move(int dx, int dy) throws InactiveException, OutOfBoundsException {
         if (weight < WEIGHT_LIMIT || dy > 0)
         {
             super.move(dx, dy);
         }
-    }
-
-    public void drive(int x, int y)
-    {
-        setActive(true);
-        move(x, y);
+        else
+        {
+            setStopped(true);
+        }
     }
 
     @Override
     public String toString()
     {
-        return "<Automobile> active: " + getActive() + " Point(" + getX() + ", " + getY() + ") weight: " + weight;
+        return "<Automobile> active: " + getActive() + " stopped: " + getStopped() + " Point(" + getX() + ", " + getY() + ") weight: " + weight +
+                "\n\t<Engine> fuel: " + engine.getFuel() + ", horsepower: " + engine.getHorsepower();
+    }
+
+    @Override
+    public Automobile clone()
+    {
+        Automobile cloned = (Automobile) super.clone();
+        cloned.setWeight(this.getWeight());
+        return cloned;
     }
 }

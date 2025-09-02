@@ -1,6 +1,8 @@
 package cars;
 
-import base.TrafficUser;
+import base.Engine;
+import exceptions.InactiveException;
+import exceptions.OutOfBoundsException;
 
 public class Police extends TrafficUser
 {
@@ -15,12 +17,13 @@ public class Police extends TrafficUser
     }
     public Police(int x, int y, boolean active, boolean sirens)
     {
-        super(x, y, active);
+        super(x, y, active, !sirens, new Engine());
         this.sirensActive = sirens;
     }
 
     void setSirensActive(boolean sirensActive)
     {
+        setStopped(false);
         this.sirensActive = sirensActive;
     }
 
@@ -30,13 +33,12 @@ public class Police extends TrafficUser
     }
 
     @Override
-    public void move(int dx, int dy)
-    {
+    public void move(int dx, int dy) throws InactiveException, OutOfBoundsException {
         super.move((sirensActive ? 2 : 1) * dx, (sirensActive ? 2 : 1) * dy);
     }
 
     @Override
-    public void move(double angleRad, double r)
+    public void move(double angleRad, double r) throws InactiveException, OutOfBoundsException
     {
         super.move(angleRad, (sirensActive ? 2 : 1) * r);
     }
@@ -44,6 +46,14 @@ public class Police extends TrafficUser
     @Override
     public String toString()
     {
-        return "<Police> active: " + getActive() + " Point(" + getX() + ", " + getY() + ") sirensActive: " + sirensActive;
+        return "<Police> active: " + getActive() + " stopped: " + getStopped() + " Point(" + getX() + ", " + getY() + ") sirensActive: " + sirensActive;
+    }
+
+    @Override
+    public Police clone()
+    {
+        Police cloned = (Police) super.clone();
+        cloned.setSirensActive(this.getSirensActive());
+        return cloned;
     }
 }

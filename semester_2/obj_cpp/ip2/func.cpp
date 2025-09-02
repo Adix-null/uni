@@ -200,7 +200,7 @@ namespace ip2
     }
     Dequeue Dequeue::operator*(const Dequeue &other)
     {
-        return arithmeticOperation(other, std::multiplies<int>{});
+        return arithmeticOperation(other, std::plus<int>{});
     }
     Dequeue Dequeue::operator/(const Dequeue &other)
     {

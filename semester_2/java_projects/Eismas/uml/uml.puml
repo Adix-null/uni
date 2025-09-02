@@ -1,0 +1,119 @@
+@startuml
+package base {
+    class Engine {
+        - fuel : String
+        - horsepower : int
+        + getFuel() : String
+        + setFuel(fuel : String) : void
+        + getHorsepower() : int
+        + setHorsepower(horsepower : int) : void
+        + Engine()
+        + Engine(fuel : String, horsepower : int)
+        + clone() : Engine
+    }
+
+    enum VehicleType {
+        -POLICE
+        -AUTOMOBILE
+    }
+
+    class DataManager {
+        + save(filename : String, data : Object) : void
+        + load(filename : String) : Object
+    }
+
+    class Main {
+        + main(args : String[]) : void
+    }
+}
+
+package cars {
+    abstract class TrafficUser {
+        - x : int
+        - y : int
+        - active : boolean
+        - stopped : boolean
+        # engine : Engine
+        - totalInstances : int
+        + gridSizeX : int
+        + gridSizeY : int
+        + getX() : int
+        + setX(x : int) : void
+        + getY() : int
+        + setY(y : int) : void
+        + getActive() : boolean
+        + setActive(active : boolean) : void
+        + getStopped() : boolean
+        + setStopped(stopped : boolean) : void
+        + getEngine() : Engine
+        + setEngine(engine : Engine) : void
+        + deactivate() : void
+        + stop() : void
+        + getInstanceCount() : int
+        + TrafficUser()
+        + TrafficUser(x : int, y : int)
+        + TrafficUser(x : int, y : int, active : boolean, stopped : boolean, engine : Engine)
+        + move(dx : int, dy : int) : void
+        + move(angleRad : double, r : double) : void
+        + clone() : TrafficUser
+    }
+
+    class Automobile {
+        - final int WEIGHT_LIMIT: int
+        + getWeight(): void
+        + setWeight(): void
+        + toString() : String
+        + clone() : Automobile
+    }
+
+    class Police {
+        - sirensActive: boolean
+        + getSirensActive(): void
+        + setSirensActive(): void
+        + toString() : String
+        + clone() : Automobile
+    }
+
+    TrafficUser <|-- Automobile
+    TrafficUser <|-- Police
+}
+
+package exceptions {
+    class TrafficException {
+        +TrafficException(message: String)
+    }
+
+    class InactiveException {
+        + InactiveException(): void
+    }
+
+    class OutOfBoundsException {
+        - x : int
+        - y : int
+        + getX() : int
+        + getY() : int
+        + OutOfBoundsException(dx : int, dy : int)
+    }
+
+    TrafficException <|-- InactiveException
+    TrafficException <|-- OutOfBoundsException
+    java.lang.Exception <|-- TrafficException
+}
+
+package factories {
+    interface TrafficUserFactory {
+        + createTrafficUser() : TrafficUser
+    }
+
+    class AutomobileFactory {
+        + createTrafficUser() : TrafficUser
+    }
+
+    class PoliceFactory {
+        + createTrafficUser() : TrafficUser
+    }
+
+    TrafficUserFactory <|.. AutomobileFactory
+    TrafficUserFactory <|.. PoliceFactory
+}
+@enduml
