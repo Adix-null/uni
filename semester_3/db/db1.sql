@@ -1,1 +1,1 @@
-SELECT AK,
+SELECT ak, vardas, pavarde, Gimimo_data FROM stud.skaitytojas WHERE Gimimo_data < NOW() - INTERVAL '20 years';
