@@ -1,0 +1,5 @@
+Visų skaitytojų, gimusių anksčiau negu prieš konkretų skaičių metų, AK, vardai, pavardės ir gimimo datos.
+Visų skaitytojų, turinčių šį mėnesį gražinti knygas, vardai ir pavardės.
+Kiekvienam autoriui (vardui ir pavardei) leidyklų, kuriose jis išleido bent vieną knygą ir visų egzempliorių, skaičiai.
+Dienos, kai turinčiųjų grąžinti knygas skaitytojų skaičius yra mažesnis negu per visas gražinimo dienas vidutiniškai. Greta pateikti ir turinčių tuomet grąžinti knygas skaitytojų skaičių.
+Kiekvienai virtualiajai lentelei (angl. view) - jos stulpelių tipų skaičius.
