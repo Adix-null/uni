@@ -24,6 +24,9 @@ bin/
 
 ### VS Code ###
 .vscode/
+.vs
+*.pdb
+*.cache
 
 ### Mac OS ###
 .DS_Store

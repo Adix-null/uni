@@ -1,0 +1,14 @@
+C:\Users\adoma\source\repos\uninet\uninet\bin\Debug\net8.0\uninet.exe
+C:\Users\adoma\source\repos\uninet\uninet\bin\Debug\net8.0\uninet.deps.json
+C:\Users\adoma\source\repos\uninet\uninet\bin\Debug\net8.0\uninet.runtimeconfig.json
+C:\Users\adoma\source\repos\uninet\uninet\bin\Debug\net8.0\uninet.dll
+C:\Users\adoma\source\repos\uninet\uninet\bin\Debug\net8.0\uninet.pdb
+C:\Users\adoma\source\repos\uninet\uninet\obj\Debug\net8.0\uninet.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\adoma\source\repos\uninet\uninet\obj\Debug\net8.0\uninet.AssemblyInfoInputs.cache
+C:\Users\adoma\source\repos\uninet\uninet\obj\Debug\net8.0\uninet.AssemblyInfo.cs
+C:\Users\adoma\source\repos\uninet\uninet\obj\Debug\net8.0\uninet.csproj.CoreCompileInputs.cache
+C:\Users\adoma\source\repos\uninet\uninet\obj\Debug\net8.0\uninet.dll
+C:\Users\adoma\source\repos\uninet\uninet\obj\Debug\net8.0\refint\uninet.dll
+C:\Users\adoma\source\repos\uninet\uninet\obj\Debug\net8.0\uninet.pdb
+C:\Users\adoma\source\repos\uninet\uninet\obj\Debug\net8.0\uninet.genruntimeconfig.cache
+C:\Users\adoma\source\repos\uninet\uninet\obj\Debug\net8.0\ref\uninet.dll
