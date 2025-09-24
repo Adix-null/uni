@@ -1,15 +1,16 @@
-SELECT a.vardas, a.pavarde, k.pavadinimas, e.nr
+SELECT DISTINCT a.vardas, a.pavarde, k.pavadinimas, e.nr AS egzemplioriaus_numeris
 FROM stud.skaitytojas st, stud.skaitymas s
 LEFT JOIN stud.egzempliorius e
-	ON s.nr = e.nr
+	ON s.egzempliorius = e.nr
 LEFT JOIN stud.knyga k
 	ON e.isbn = k.isbn
 LEFT JOIN stud.autorius a
 	ON k.isbn = a.isbn
 WHERE
     EXTRACT(YEAR FROM CURRENT_DATE) = EXTRACT(YEAR FROM s.grazinti)
-    AND  EXTRACT(MONTH FROM s.grazinti) = 10
-    AND s.grazinta IS NULL;
+    AND  EXTRACT(MONTH FROM s.grazinti) = 11
+    AND s.grazinta IS NULL
+    ORDER BY vardas ASC;
 
 -- 2.1
 -- SELECT st.vardas, st.pavarde
