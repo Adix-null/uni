@@ -6,7 +6,9 @@
 2. Visų skaitytojų, turinčių 10 mėnesį gražinti knygas, vardai ir pavardės.
     2.1 Skaitytojai kurie nieko nėra skaitę.
     2.2 Egzemplioriaus numerį, knygos pavadinimą ir autoriaus vardą ir pavardę.
-    2.3 Pridėti knygos kainą
+    2.3 Pridėti knygos kainą.
 3. Kiekvienam autoriui (vardui ir pavardei) leidyklų, kuriose jis išleido bent vieną knygą ir visų egzempliorių, skaičiai.
+    3.1 Egzempliorių skaičius didesnis nei 2.
+    3.2 Pridėti skaičių skaityotojų kurie skaito egzempliorius.
 4. Dienos, kai turinčiųjų grąžinti knygas skaitytojų skaičius yra mažesnis negu per visas gražinimo dienas vidutiniškai. Greta pateikti ir turinčių tuomet grąžinti knygas skaitytojų skaičių.
 5. Kiekvienai virtualiajai lentelei (angl. view) - jos stulpelių tipų skaičius.
