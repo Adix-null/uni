@@ -2,19 +2,19 @@
 
 namespace Crossword.Models
 {
-    [PrimaryKey(nameof(strword))]
+    [PrimaryKey(nameof(Strword))]
     public class Word
     {
-        public required string strword;
-        public int length;
-        public char C1;
-        public char C2;
-        public char C3;
-        public char C4;
-        public char C5;
-        public char C6;
-        public char C7;
-        public char C8;
-        public char C9;
+        public required string Strword { set; get; }
+        public int Length { set; get; }
+        public char C1 { set; get; }
+        public char C2 { set; get; }
+        public char C3 { set; get; }
+        public char C4 { set; get; }
+        public char C5 { set; get; }
+        public char C6 { set; get; }
+        public char C7 { set; get; }
+        public char C8 { set; get; }
+        public char C9 { set; get; }
     }
 }
