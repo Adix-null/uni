@@ -1,5 +1,6 @@
 
 using Microsoft.EntityFrameworkCore;
+using Crossword.Data;
 
 namespace Crossword
 {
