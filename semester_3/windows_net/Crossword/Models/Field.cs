@@ -6,7 +6,7 @@ namespace Crossword.Models
     public class Field
     {
         public int ID { set; get; }
-        public List<Tuple<int, int>> Squares { get; set; } = [];
+        public List<Square> Squares { get; set; } = [];
         public int Length { set; get; }
         public List<char> Guesses { get; set; } = [];
         public bool Completed { get; set; }
