@@ -66,9 +66,9 @@ namespace Crossword.Data
                             Tuple.Create(10, 6),
                             Tuple.Create(11, 6),
                             Tuple.Create(12, 6),
-
                             ],
-                        Guesses = ['Š'],
+                        Guesses = ['Š', ' ', ' ', ' '],
+                        Length = 4,
                         Completed = false
                     }
                 );

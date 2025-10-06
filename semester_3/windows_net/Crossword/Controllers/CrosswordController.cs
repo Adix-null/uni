@@ -43,6 +43,7 @@ namespace Crossword.Controllers
             {
                 Squares = squares,
                 Guesses = guesses,
+                Length = length,
                 Completed = false
             };
             _context.Fields.Add(newField);
