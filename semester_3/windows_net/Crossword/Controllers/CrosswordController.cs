@@ -21,7 +21,7 @@ namespace Crossword.Controllers
                 return BadRequest("Invalid length");
             }
 
-            int dx = 0, dy = 0;
+            int dx, dy;
             switch (direction)
             {
                 case 0: dx = 0; dy = -1; break; // North
@@ -30,6 +30,10 @@ namespace Crossword.Controllers
                 case 3: dx = -1; dy = 0; break; // West
                 default: return BadRequest("Invalid direction");
             }
+            //if (x_start + dx * (length - 1) < 0 || y_start + dy * (length - 1) < 0)
+            //{
+            //    return BadRequest("negative positions forbidden");
+            //}
 
             var squares = new List<Square>();
             var guesses = new List<char>();
@@ -49,6 +53,37 @@ namespace Crossword.Controllers
             _context.Fields.Add(newField);
             _context.SaveChanges();
             return Ok(newField);
+        }
+
+        [HttpDelete(Name = "RemoveField")]
+        public IActionResult RemoveField(int fieldId)
+        {
+            var field = _context.Fields.Find(fieldId);
+            if (field == null)
+            {
+                return NotFound("Field not found");
+            }
+            _context.Fields.Remove(field);
+            _context.SaveChanges();
+            return NoContent();
+        }
+
+        [HttpPut(Name = "ResetCrossword")]
+        public IActionResult ResetCrossword()
+        {
+            //var fields = _context.Fields.ToList().Clear;
+            AddField(0, 2, 9, 1);
+            AddField(5, 4, 7, 1);
+            AddField(2, 6, 6, 1);
+            AddField(10, 2, 4, 1);
+            AddField(3, 8, 9, 1);
+            AddField(4, 6, 4, 1);
+            AddField(7, 0, 9, 2);
+            AddField(11, 1, 9, 2);
+            AddField(9, 6, 4, 2);
+            AddField(9, 4, 6, 2);
+            _context.SaveChanges();
+            return Ok();
         }
 
         [HttpGet(Name = "PrintCrossword")]
@@ -90,6 +125,34 @@ namespace Crossword.Controllers
                 result.AppendLine();
             }
             return Ok(result.ToString());
+        }
+
+        [HttpPost("MakeGuess")]
+        public IActionResult MakeGuess(int fieldId, string word)
+        {
+            var field = _context.Fields.Find(fieldId);
+            if (field == null)
+            {
+                return NotFound("Field not found");
+            }
+            if (word.Length != field.Length)
+            {
+                return BadRequest("Word length does not match field length");
+            }
+            for (int i = 0; i < field.Guesses.Count; i++)
+            {
+                if (field.Guesses[i] != ' ' && word[i] != field.Guesses[i])
+                {
+                    return BadRequest($"Guess does not match at index {i}");
+                }
+            }
+            for (int i = 0; i < field.Guesses.Count; i++)
+            {
+                field.Guesses[i] = word[i];
+            }
+
+            _context.SaveChanges();
+            return Ok(field);
         }
     }
 }
