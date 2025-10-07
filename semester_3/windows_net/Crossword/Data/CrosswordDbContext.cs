@@ -1,4 +1,5 @@
-﻿using Crossword.Models;
+﻿using Crossword.Methods;
+using Crossword.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 
@@ -55,16 +56,30 @@ namespace Crossword.Data
 
                 entity.Property(f => f.Completed);
 
-                //AddField(0, 2, 9, 1);
-                //AddField(10, 2, 4, 1);
-                //AddField(5, 4, 7, 1);
-                //AddField(2, 6, 6, 1);
-                //AddField(9, 6, 4, 1);
-                //AddField(3, 8, 9, 1);
-                //AddField(4, 6, 4, 2);
-                //AddField(7, 0, 9, 2);
-                //AddField(11, 1, 9, 2);
-                //AddField(9, 4, 6, 2);
+                var fieldParams = new (int id, int x, int y, int length, int direction)[]
+                   {
+                        (1, 0, 2, 9, 1),
+                        (2, 10, 2, 4, 1),
+                        (3, 5, 4, 7, 1),
+                        (4, 2, 6, 6, 1),
+                        (5, 9, 6, 4, 1),
+                        (6, 3, 8, 9, 1),
+                        (7, 4, 6, 4, 2),
+                        (8, 7, 0, 9, 2),
+                        (9, 9, 4, 6, 2),
+                        (10, 11, 1, 9, 2)
+                   };
+
+                var fields = fieldParams.Select(p => new Field
+                {
+                    ID = p.id,
+                    Squares = Generator.GenerateSquares(p.x, p.y, p.length, p.direction),
+                    Guesses = [.. Enumerable.Repeat(' ', p.length)],
+                    Length = p.length,
+                    Completed = false
+                }).ToArray();
+
+                entity.HasData(fields);
             });
         }
     }

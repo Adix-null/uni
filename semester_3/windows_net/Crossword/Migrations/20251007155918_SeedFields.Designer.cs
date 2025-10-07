@@ -2,6 +2,7 @@
 using Crossword.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Crossword.Migrations
 {
     [DbContext(typeof(CrosswordDbContext))]
-    partial class CrosswordDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251007155918_SeedFields")]
+    partial class SeedFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -116,17 +119,17 @@ namespace Crossword.Migrations
                         {
                             ID = 9,
                             Completed = false,
-                            Guesses = "[\" \",\" \",\" \",\" \",\" \",\" \"]",
-                            Length = 6,
-                            Squares = "[{\"X\":9,\"Y\":4},{\"X\":9,\"Y\":5},{\"X\":9,\"Y\":6},{\"X\":9,\"Y\":7},{\"X\":9,\"Y\":8},{\"X\":9,\"Y\":9}]"
+                            Guesses = "[\" \",\" \",\" \",\" \",\" \",\" \",\" \",\" \",\" \"]",
+                            Length = 9,
+                            Squares = "[{\"X\":11,\"Y\":1},{\"X\":11,\"Y\":2},{\"X\":11,\"Y\":3},{\"X\":11,\"Y\":4},{\"X\":11,\"Y\":5},{\"X\":11,\"Y\":6},{\"X\":11,\"Y\":7},{\"X\":11,\"Y\":8},{\"X\":11,\"Y\":9}]"
                         },
                         new
                         {
                             ID = 10,
                             Completed = false,
-                            Guesses = "[\" \",\" \",\" \",\" \",\" \",\" \",\" \",\" \",\" \"]",
-                            Length = 9,
-                            Squares = "[{\"X\":11,\"Y\":1},{\"X\":11,\"Y\":2},{\"X\":11,\"Y\":3},{\"X\":11,\"Y\":4},{\"X\":11,\"Y\":5},{\"X\":11,\"Y\":6},{\"X\":11,\"Y\":7},{\"X\":11,\"Y\":8},{\"X\":11,\"Y\":9}]"
+                            Guesses = "[\" \",\" \",\" \",\" \",\" \",\" \"]",
+                            Length = 6,
+                            Squares = "[{\"X\":9,\"Y\":4},{\"X\":9,\"Y\":5},{\"X\":9,\"Y\":6},{\"X\":9,\"Y\":7},{\"X\":9,\"Y\":8},{\"X\":9,\"Y\":9}]"
                         });
                 });
 
