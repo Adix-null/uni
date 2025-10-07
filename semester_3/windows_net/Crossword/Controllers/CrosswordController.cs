@@ -13,7 +13,7 @@ namespace Crossword.Controllers
         private readonly ILogger<CrosswordController> _logger = logger;
         private readonly CrosswordDbContext _context = context;
 
-        [HttpPost(Name = "AddField")]
+        [HttpPost("AddField")]
         public IActionResult AddField(int x_start, int y_start, int length, int direction)
         {
             if (length <= 0)
@@ -55,7 +55,7 @@ namespace Crossword.Controllers
             return Ok(newField);
         }
 
-        [HttpDelete(Name = "RemoveField")]
+        [HttpDelete("RemoveField")]
         public IActionResult RemoveField(int fieldId)
         {
             var field = _context.Fields.Find(fieldId);
@@ -68,25 +68,20 @@ namespace Crossword.Controllers
             return NoContent();
         }
 
-        [HttpPut(Name = "ResetCrossword")]
+        [HttpPut("ResetCrossword")]
         public IActionResult ResetCrossword()
         {
-            //var fields = _context.Fields.ToList().Clear;
-            AddField(0, 2, 9, 1);
-            AddField(5, 4, 7, 1);
-            AddField(2, 6, 6, 1);
-            AddField(10, 2, 4, 1);
-            AddField(3, 8, 9, 1);
-            AddField(4, 6, 4, 1);
-            AddField(7, 0, 9, 2);
-            AddField(11, 1, 9, 2);
-            AddField(9, 6, 4, 2);
-            AddField(9, 4, 6, 2);
+            var fields = _context.Fields.ToList();
+            foreach (var field in fields)
+            {
+                field.Completed = false;
+                SyncIntersections(9, 6, '\u0160');
+            }
             _context.SaveChanges();
             return Ok();
         }
 
-        [HttpGet(Name = "PrintCrossword")]
+        [HttpGet("PrintCrossword")]
         public IActionResult PrintCrossword()
         {
             var fields = _context.Fields.ToList();
@@ -110,9 +105,9 @@ namespace Crossword.Controllers
             {
                 for (int i = 0; i < field.Length; i++)
                 {
-                    var (x, y) = field.Squares[i];
+                    Square ts = field.Squares[i];
                     char guessChar = field.Guesses[i];
-                    grid[y - minY, x - minX] = guessChar != ' ' ? guessChar : 'O';
+                    grid[ts.Y - minY, ts.X - minX] = guessChar != ' ' ? guessChar : 'O';
                 }
             }
             var result = new System.Text.StringBuilder();
@@ -127,8 +122,8 @@ namespace Crossword.Controllers
             return Ok(result.ToString());
         }
 
-        [HttpPost("MakeGuess")]
-        public IActionResult MakeGuess(int fieldId, string word)
+        [HttpPost("guess/ManualGuess")]
+        public IActionResult ManualGuess(int fieldId, string word)
         {
             var field = _context.Fields.Find(fieldId);
             if (field == null)
@@ -146,13 +141,61 @@ namespace Crossword.Controllers
                     return BadRequest($"Guess does not match at index {i}");
                 }
             }
-            for (int i = 0; i < field.Guesses.Count; i++)
+            for (int i = 0; i < ((List<char>)[.. word.Take(field.Length)]).Count; i++)
             {
-                field.Guesses[i] = word[i];
+                SyncIntersections(field.Squares[i].X, field.Squares[i].Y, field.Guesses[i]);
             }
+            field.Completed = true;
 
             _context.SaveChanges();
             return Ok(field);
+        }
+
+        private void SyncIntersections(int x, int y, char c)
+        {
+            var intersectingFields = _context.Fields.AsEnumerable()
+                .Where(f => f.Squares.Any(sq => sq.X == x && sq.Y == y) && !f.Completed)
+                .ToList();
+            foreach (var field in intersectingFields)
+            {
+                List<char> tmpList = [];
+
+                foreach (Square s in field.Squares)
+                {
+                    tmpList.Add(s.X == x && s.Y == y ? c : ' ');
+                }
+                field.Guesses = tmpList;
+            }
+        }
+
+        [HttpPost("guess/NextGuess")]
+        public IActionResult NextGuess()
+        {
+            var field = _context.Fields.AsEnumerable().First(f => f.Guesses.Any(c => c != ' ') && !f.Completed);
+            if (field == null)
+            {
+                return NotFound("Field not found");
+            }
+            var validWords = _context.Words.Where(w => w.Length == field.Length &&
+                (field.Guesses[0] == ' ' || w.C1 == field.Guesses[0]) &&
+                (field.Guesses[1] == ' ' || w.C2 == field.Guesses[1]) &&
+                (field.Guesses[2] == ' ' || w.C3 == field.Guesses[2]) &&
+                (field.Guesses[3] == ' ' || w.C4 == field.Guesses[3]) &&
+                (field.Guesses.Count < 5 || (field.Guesses[4] == ' ' || w.C5 == field.Guesses[4])) &&
+                (field.Guesses.Count < 6 || (field.Guesses[5] == ' ' || w.C6 == field.Guesses[5])) &&
+                (field.Guesses.Count < 7 || (field.Guesses[6] == ' ' || w.C7 == field.Guesses[6])) &&
+                (field.Guesses.Count < 8 || (field.Guesses[7] == ' ' || w.C8 == field.Guesses[7])) &&
+                (field.Guesses.Count < 9 || (field.Guesses[8] == ' ' || w.C9 == field.Guesses[8]))
+            ).ToList();
+
+            if (validWords.Count == 0)
+            {
+                return NotFound("No valid words found");
+            }
+            ManualGuess(field.ID, validWords[0].Strword);
+
+            _context.SaveChanges();
+            return Ok(validWords);
         }
     }
 }

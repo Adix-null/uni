@@ -41,7 +41,6 @@ namespace Crossword.Data
                     .ToArray();
                 modelBuilder.Entity<Word>().HasData(words);
 
-
                 entity.HasKey(f => f.ID);
 
                 entity.Property(f => f.Squares)
@@ -55,6 +54,17 @@ namespace Crossword.Data
                         v => JsonSerializer.Deserialize<List<char>>(v, (JsonSerializerOptions)null));
 
                 entity.Property(f => f.Completed);
+
+                //AddField(0, 2, 9, 1);
+                //AddField(10, 2, 4, 1);
+                //AddField(5, 4, 7, 1);
+                //AddField(2, 6, 6, 1);
+                //AddField(9, 6, 4, 1);
+                //AddField(3, 8, 9, 1);
+                //AddField(4, 6, 4, 2);
+                //AddField(7, 0, 9, 2);
+                //AddField(11, 1, 9, 2);
+                //AddField(9, 4, 6, 2);
             });
         }
     }
