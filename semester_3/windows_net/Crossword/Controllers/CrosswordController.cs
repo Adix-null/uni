@@ -1,9 +1,10 @@
 using Crossword.Data;
-using Crossword.Models;
 using Crossword.Methods;
+using Crossword.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Storage;
 using System;
+using System.Text.Json;
 
 namespace Crossword.Controllers
 {
@@ -62,7 +63,7 @@ namespace Crossword.Controllers
                 SyncIntersections(9, 6, '\u0160');
             }
             _context.SaveChanges();
-            return Ok();
+            return NoContent();
         }
 
         [HttpGet("PrintCrossword")]
@@ -155,11 +156,25 @@ namespace Crossword.Controllers
         [HttpPost("guess/NextGuess")]
         public IActionResult NextGuess()
         {
-            var field = _context.Fields.AsEnumerable().First(f => f.Guesses.Any(c => c != ' ') && !f.Completed);
+            var (fieldId, word, error) = GetNextGuess();
+            if (error != null)
+                return NotFound(error);
+
+            ManualGuess(fieldId!.Value, word!);
+            _context.SaveChanges();
+            return Ok(new { fieldId, word });
+        }
+
+        private (int? fieldId, string? word, string? error) GetNextGuess()
+        {
+            var field = _context.Fields.AsEnumerable()
+                .Where(f => f.Guesses.Any(c => c != ' ') && !f.Completed)
+                .OrderBy(f => f.ID)
+                .FirstOrDefault();
+
             if (field == null)
-            {
-                return NotFound("Field not found");
-            }
+                return (null, null, "Field not found");
+
             var validWords = _context.Words.Where(w => w.Length == field.Length &&
                 (field.Guesses[0] == ' ' || w.C1 == field.Guesses[0]) &&
                 (field.Guesses[1] == ' ' || w.C2 == field.Guesses[1]) &&
@@ -170,16 +185,44 @@ namespace Crossword.Controllers
                 (field.Guesses.Count < 7 || (field.Guesses[6] == ' ' || w.C7 == field.Guesses[6])) &&
                 (field.Guesses.Count < 8 || (field.Guesses[7] == ' ' || w.C8 == field.Guesses[7])) &&
                 (field.Guesses.Count < 9 || (field.Guesses[8] == ' ' || w.C9 == field.Guesses[8]))
-            ).ToList();
+            ).OrderBy(w => w.Strword).ToList();
 
             if (validWords.Count == 0)
-            {
-                return NotFound("No valid words found");
-            }
-            ManualGuess(field.ID, validWords[0].Strword);
+                return (field.ID, null, "No valid words found");
 
+            return (field.ID, validWords[0].Strword, null);
+        }
+
+        [HttpGet("AutoSolve")]
+        public IActionResult AutoSolve()
+        {
+            GuessChain gc = new();
+            while (!_context.Fields.All(f => !f.Completed))
+            {
+                var (fieldId, word, error) = GetNextGuess();
+                if (error != null)
+                    break;
+
+                ManualGuess(fieldId!.Value, word!);
+                gc.Guesses.Add(new Guess(fieldId.Value, word!));
+            }
+            _context.GuessChains.Add(gc);
             _context.SaveChanges();
-            return Ok(validWords);
+            return Ok();
+        }
+
+        [HttpGet("CheckSolved")]
+        public IActionResult CheckSolved()
+        {
+            var solution = _context.GuessChains.First(g => g.Guesses.Count == 10);
+            if (solution != null)
+            {
+                return Ok(solution);
+            }
+            else
+            {
+                return NotFound("No solution found");
+            }
         }
     }
 }
