@@ -24,3 +24,16 @@ leidykla, COUNT(sm.nr) as skaitytoju_kiekis
 	GROUP BY a_vardas_pav, leidykla	
 	ORDER BY a_vardas_pav ASC
 ;
+
+--egzemplioriu sumine verte
+SELECT a.vardas || ' ' || a.pavarde AS a_vardas_pav,
+leidykla,
+SUM(k.verte) AS bendra_verte
+	FROM stud.autorius a
+	LEFT JOIN stud.knyga k
+		ON a.isbn = k.isbn
+	LEFT JOIN stud.egzempliorius e
+		ON k.isbn = e.isbn
+	GROUP BY a_vardas_pav, leidykla
+	ORDER BY a_vardas_pav ASC
+;
