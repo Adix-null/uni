@@ -60,7 +60,7 @@ namespace Crossword.Controllers
             foreach (var field in fields)
             {
                 field.Completed = false;
-                SyncIntersections(9, 6, '\u0160');
+                SyncIntersections(ref fields, 9, 6, '\u0160');
             }
             _context.SaveChanges();
             return NoContent();
@@ -70,10 +70,14 @@ namespace Crossword.Controllers
         public IActionResult PrintCrossword()
         {
             var fields = _context.Fields.ToList();
+            List<string> result = VisualizeCrossword(fields, ' ', 'X');
+            return Ok(result.ToString());
+        }
+
+        private static List<string> VisualizeCrossword(List<Field> fields, char filler, char unknown)
+        {
             if (fields.Count == 0)
-            {
-                return Ok("No fields available.");
-            }
+                return ["No fields to display"];
             int minX = fields.SelectMany(f => f.Squares).Min(sq => sq.X);
             int maxX = fields.SelectMany(f => f.Squares).Max(sq => sq.X);
             int minY = fields.SelectMany(f => f.Squares).Min(sq => sq.Y);
@@ -84,7 +88,7 @@ namespace Crossword.Controllers
             char[,] grid = new char[height, width];
             for (int i = 0; i < height; i++)
                 for (int j = 0; j < width; j++)
-                    grid[i, j] = ' ';
+                    grid[i, j] = filler;
 
             foreach (var field in fields)
             {
@@ -92,53 +96,17 @@ namespace Crossword.Controllers
                 {
                     Square ts = field.Squares[i];
                     char guessChar = field.Guesses[i];
-                    grid[ts.Y - minY, ts.X - minX] = guessChar != ' ' ? guessChar : 'O';
+                    grid[ts.Y - minY, ts.X - minX] = guessChar != ' ' ? guessChar : unknown;
                 }
             }
-            var result = new System.Text.StringBuilder();
-            for (int i = 0; i < height; i++)
-            {
-                for (int j = 0; j < width; j++)
-                {
-                    result.Append(grid[i, j]);
-                }
-                result.AppendLine();
-            }
-            return Ok(result.ToString());
+            int rows = grid.GetLength(0), cols = grid.GetLength(1);
+            return Enumerable.Range(0, rows)
+                .Select(i => new string(Enumerable.Range(0, cols).Select(j => grid[i, j]).ToArray())).ToList();
         }
 
-        [HttpPost("guess/ManualGuess")]
-        public IActionResult ManualGuess(int fieldId, string word)
+        private static void SyncIntersections(ref List<Field> fields, int x, int y, char c)
         {
-            var field = _context.Fields.Find(fieldId);
-            if (field == null)
-            {
-                return NotFound("Field not found");
-            }
-            if (word.Length != field.Length)
-            {
-                return BadRequest("Word length does not match field length");
-            }
-            for (int i = 0; i < field.Guesses.Count; i++)
-            {
-                if (field.Guesses[i] != ' ' && word[i] != field.Guesses[i])
-                {
-                    return BadRequest($"Guess does not match at index {i}");
-                }
-            }
-            for (int i = 0; i < ((List<char>)[.. word.Take(field.Length)]).Count; i++)
-            {
-                SyncIntersections(field.Squares[i].X, field.Squares[i].Y, field.Guesses[i]);
-            }
-            field.Completed = true;
-
-            _context.SaveChanges();
-            return Ok(field);
-        }
-
-        private void SyncIntersections(int x, int y, char c)
-        {
-            var intersectingFields = _context.Fields.AsEnumerable()
+            var intersectingFields = fields.AsEnumerable()
                 .Where(f => f.Squares.Any(sq => sq.X == x && sq.Y == y) && !f.Completed)
                 .ToList();
             foreach (var field in intersectingFields)
@@ -153,9 +121,44 @@ namespace Crossword.Controllers
             }
         }
 
-        private void GetNextGuess(ref List<Guess> gc, ref List<Field> fields)
+        private List<Field> CreateNewState(ref List<List<Field>> fields, Guess guess)
         {
-            var field = fields.AsEnumerable()
+            // Deep copy of crossword
+            List<Field> lastState = [.. fields[^1].Select(f => new Field
+            {
+                ID = f.ID,
+                Squares = new List<Square>(f.Squares),
+                Length = f.Length,
+                Guesses = new List<char>(f.Guesses),
+                Completed = f.Completed
+            })];
+
+            Field field = lastState.Find(f => f.ID == guess.FieldId)!;
+
+            for (int i = 0; i < field.Squares.Count; i++)
+            {
+                foreach (var fd in lastState)
+                {
+                    List<char> tmpList = [];
+
+                    for (int j = 0; j < fd.Length; j++)
+                    {
+                        tmpList.Add(
+                            fd.Squares[j].X == field.Squares[i].X &&
+                            fd.Squares[j].Y == field.Squares[i].Y ? guess.Word.ToCharArray()[i] : fd.Guesses[j]);
+
+                    }
+                    fd.Guesses = tmpList;
+                }
+            }
+            var visualization = VisualizeCrossword(lastState, ' ', 'X');
+            visualization.ForEach(line => _logger.LogInformation(line));
+            return lastState;
+        }
+
+        private void GetNextGuess(ref List<Guess> gc, ref List<List<Field>> fields)
+        {
+            var field = fields.Last().AsEnumerable()
                 .Where(f => f.Guesses.Any(c => c != ' ') && !f.Completed)
                 .OrderBy(f => f.ID)
                 .FirstOrDefault();
@@ -166,7 +169,7 @@ namespace Crossword.Controllers
             //CS1628 otherwise
             var gcLocal = gc.ToList();
 
-            var validWords = _context.Words.Where(w => w.Length == field.Length &&
+            var validWords = _context.Words.AsEnumerable().Where(w => w.Length == field.Length &&
                 gcLocal.All(g => g.Word != w.Strword) &&
                 (field.Guesses[0] == ' ' || w.C1 == field.Guesses[0]) &&
                 (field.Guesses[1] == ' ' || w.C2 == field.Guesses[1]) &&
@@ -179,7 +182,8 @@ namespace Crossword.Controllers
                 (field.Guesses.Count < 9 || (field.Guesses[8] == ' ' || w.C9 == field.Guesses[8]))
             ).OrderBy(w => w.Strword).ToList();
 
-            if (fields.Where(f => !f.Completed).Any(fl => _context.Words.Where(
+            //if any field has no valid words, backtrack
+            if (fields.Last().Where(f => !f.Completed).Any(fl => _context.Words.AsEnumerable().Where(
                 w => w.Length == fl.Length &&
                 gcLocal.All(g => g.Word != w.Strword) &&
                 (fl.Guesses[0] == ' ' || w.C1 == fl.Guesses[0]) &&
@@ -193,7 +197,7 @@ namespace Crossword.Controllers
                 (fl.Guesses.Count < 9 || (fl.Guesses[8] == ' ' || w.C9 == fl.Guesses[8]))
             ).ToList().Count == 0))
             {
-                removeGuess(field.ID);
+                fields.RemoveAt(fields.Count - 1);
                 gc.RemoveAt(gc.Count - 1);
                 return;
             }
@@ -213,28 +217,27 @@ namespace Crossword.Controllers
                     }
                 }
 
-                for (int i = 0; i < ((List<char>)[.. guess.Word.Take(field.Length)]).Count; i++)
-                {
-                    SyncIntersections(field.Squares[i].X, field.Squares[i].Y, field.Guesses[i]);
-                }
                 field.Completed = true;
+                fields.Add(CreateNewState(ref fields, guess));
                 GetNextGuess(ref gc, ref fields);
+                if (w == validWords.Last())
+                {
+                    fields.RemoveAt(fields.Count - 1);
+                    gc.RemoveAt(gc.Count - 1);
+                }
             }
 
             return;
         }
 
-        private void removeGuess(int fieldID)
-        {
-
-        }
-
         [HttpGet("AutoSolve")]
         public IActionResult AutoSolve()
         {
+            ResetCrossword();
             var fields = _context.Fields.ToList();
+            List<List<Field>> cwStates = [fields];
             List<Guess> gc = [];
-            GetNextGuess(ref gc, ref fields);
+            GetNextGuess(ref gc, ref cwStates);
             foreach (var guess in gc)
             {
                 Console.WriteLine($"{guess.FieldId} {guess.Word}");
