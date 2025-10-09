@@ -66,13 +66,13 @@ namespace Crossword.Controllers
             return NoContent();
         }
 
-        [HttpGet("PrintCrossword")]
-        public IActionResult PrintCrossword()
-        {
-            var fields = _context.Fields.ToList();
-            List<string> result = VisualizeCrossword(fields, ' ', 'X');
-            return Ok(result.ToString());
-        }
+        //[HttpGet("PrintCrossword")]
+        //public IActionResult PrintCrossword()
+        //{
+        //    var fields = _context.Fields.ToList();
+        //    List<string> result = VisualizeCrossword(fields, ' ', 'X');
+        //    return Ok(result.ToString());
+        //}
 
         private static List<string> VisualizeCrossword(List<Field> fields, char filler, char unknown)
         {
@@ -151,13 +151,18 @@ namespace Crossword.Controllers
                     fd.Guesses = tmpList;
                 }
             }
-            var visualization = VisualizeCrossword(lastState, ' ', 'X');
-            visualization.ForEach(line => _logger.LogInformation(line));
+            //var visualization = VisualizeCrossword(lastState, ' ', 'X');
+            //visualization.ForEach(line => _logger.LogInformation(line));
             return lastState;
         }
 
         private void GetNextGuess(ref List<Guess> gc, ref List<List<Field>> fields)
         {
+            if (gc.Count == 10)
+            {
+                return;
+            }
+
             var field = fields.Last().AsEnumerable()
                 .Where(f => f.Guesses.Any(c => c != ' ') && !f.Completed)
                 .OrderBy(f => f.ID)
@@ -204,6 +209,10 @@ namespace Crossword.Controllers
 
             foreach (var w in validWords)
             {
+                if (gc.Count == 10)
+                {
+                    return;
+                }
                 Guess guess = new(field.ID, w.Strword);
                 gc.Add(guess);
 
@@ -238,30 +247,20 @@ namespace Crossword.Controllers
             List<List<Field>> cwStates = [fields];
             List<Guess> gc = [];
             GetNextGuess(ref gc, ref cwStates);
-            foreach (var guess in gc)
-            {
-                Console.WriteLine($"{guess.FieldId} {guess.Word}");
-            }
-            //while (!_context.Fields.All(f => !f.Completed))
-            //{
-            //}
-            //_context.GuessChains.Add(gc);
+            gc = gc.OrderBy(g => g.FieldId).ToList();
+            _context.GuessChains.Add(new GuessChain { Guesses = gc });
             _context.SaveChanges();
-            return Ok();
+            return Ok(gc);
         }
 
-        [HttpGet("CheckSolved")]
-        public IActionResult CheckSolved()
+        [HttpGet("GetSolution")]
+        public IActionResult GetSolution()
         {
-            var solution = _context.GuessChains.First(g => g.Guesses.Count == 10);
-            if (solution != null)
-            {
-                return Ok(solution);
-            }
-            else
-            {
-                return NotFound("No solution found");
-            }
+            var solution = _context.GuessChains
+                .FirstOrDefault();
+            if (solution == null)
+                return NotFound("Solution not found");
+            return Ok(solution);
         }
     }
 }
