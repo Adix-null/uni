@@ -153,29 +153,21 @@ namespace Crossword.Controllers
             }
         }
 
-        [HttpPost("guess/NextGuess")]
-        public IActionResult NextGuess()
+        private void GetNextGuess(ref List<Guess> gc, ref List<Field> fields)
         {
-            var (fieldId, word, error) = GetNextGuess();
-            if (error != null)
-                return NotFound(error);
-
-            ManualGuess(fieldId!.Value, word!);
-            _context.SaveChanges();
-            return Ok(new { fieldId, word });
-        }
-
-        private (int? fieldId, string? word, string? error) GetNextGuess()
-        {
-            var field = _context.Fields.AsEnumerable()
+            var field = fields.AsEnumerable()
                 .Where(f => f.Guesses.Any(c => c != ' ') && !f.Completed)
                 .OrderBy(f => f.ID)
                 .FirstOrDefault();
 
             if (field == null)
-                return (null, null, "Field not found");
+                return;
+
+            //CS1628 otherwise
+            var gcLocal = gc.ToList();
 
             var validWords = _context.Words.Where(w => w.Length == field.Length &&
+                gcLocal.All(g => g.Word != w.Strword) &&
                 (field.Guesses[0] == ' ' || w.C1 == field.Guesses[0]) &&
                 (field.Guesses[1] == ' ' || w.C2 == field.Guesses[1]) &&
                 (field.Guesses[2] == ' ' || w.C3 == field.Guesses[2]) &&
@@ -187,26 +179,70 @@ namespace Crossword.Controllers
                 (field.Guesses.Count < 9 || (field.Guesses[8] == ' ' || w.C9 == field.Guesses[8]))
             ).OrderBy(w => w.Strword).ToList();
 
-            if (validWords.Count == 0)
-                return (field.ID, null, "No valid words found");
+            if (fields.Where(f => !f.Completed).Any(fl => _context.Words.Where(
+                w => w.Length == fl.Length &&
+                gcLocal.All(g => g.Word != w.Strword) &&
+                (fl.Guesses[0] == ' ' || w.C1 == fl.Guesses[0]) &&
+                (fl.Guesses[1] == ' ' || w.C2 == fl.Guesses[1]) &&
+                (fl.Guesses[2] == ' ' || w.C3 == fl.Guesses[2]) &&
+                (fl.Guesses[3] == ' ' || w.C4 == fl.Guesses[3]) &&
+                (fl.Guesses.Count < 5 || (fl.Guesses[4] == ' ' || w.C5 == fl.Guesses[4])) &&
+                (fl.Guesses.Count < 6 || (fl.Guesses[5] == ' ' || w.C6 == fl.Guesses[5])) &&
+                (fl.Guesses.Count < 7 || (fl.Guesses[6] == ' ' || w.C7 == fl.Guesses[6])) &&
+                (fl.Guesses.Count < 8 || (fl.Guesses[7] == ' ' || w.C8 == fl.Guesses[7])) &&
+                (fl.Guesses.Count < 9 || (fl.Guesses[8] == ' ' || w.C9 == fl.Guesses[8]))
+            ).ToList().Count == 0))
+            {
+                removeGuess(field.ID);
+                gc.RemoveAt(gc.Count - 1);
+                return;
+            }
 
-            return (field.ID, validWords[0].Strword, null);
+            foreach (var w in validWords)
+            {
+                Guess guess = new(field.ID, w.Strword);
+                gc.Add(guess);
+
+                if (guess.Word.Length != field.Length)
+                    throw new Exception($"'{guess.Word}' length does not match field length {field.Length}");
+                for (int i = 0; i < field.Guesses.Count; i++)
+                {
+                    if (field.Guesses[i] != ' ' && guess.Word[i] != field.Guesses[i])
+                    {
+                        throw new Exception($"'{guess.Word}' does not match at index {i} for word {field.Guesses}");
+                    }
+                }
+
+                for (int i = 0; i < ((List<char>)[.. guess.Word.Take(field.Length)]).Count; i++)
+                {
+                    SyncIntersections(field.Squares[i].X, field.Squares[i].Y, field.Guesses[i]);
+                }
+                field.Completed = true;
+                GetNextGuess(ref gc, ref fields);
+            }
+
+            return;
+        }
+
+        private void removeGuess(int fieldID)
+        {
+
         }
 
         [HttpGet("AutoSolve")]
         public IActionResult AutoSolve()
         {
-            GuessChain gc = new();
-            while (!_context.Fields.All(f => !f.Completed))
+            var fields = _context.Fields.ToList();
+            List<Guess> gc = [];
+            GetNextGuess(ref gc, ref fields);
+            foreach (var guess in gc)
             {
-                var (fieldId, word, error) = GetNextGuess();
-                if (error != null)
-                    break;
-
-                ManualGuess(fieldId!.Value, word!);
-                gc.Guesses.Add(new Guess(fieldId.Value, word!));
+                Console.WriteLine($"{guess.FieldId} {guess.Word}");
             }
-            _context.GuessChains.Add(gc);
+            //while (!_context.Fields.All(f => !f.Completed))
+            //{
+            //}
+            //_context.GuessChains.Add(gc);
             _context.SaveChanges();
             return Ok();
         }
