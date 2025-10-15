@@ -1,8 +1,12 @@
-SELECT sm.grazinti, COUNT(*) AS ta_diena_grzinti
+SELECT sm.grazinti, COUNT(*) AS ta_diena_grazinti
 FROM stud.skaitymas sm
 GROUP BY sm.grazinti
-    HAVING COUNT(*) < sub.sm_avg = (SELECT AVG(*) as sm_avg
-           FROM stud.skaitymas
-           GROUP BY sm_avg
+HAVING COUNT(*) > (
+    SELECT AVG(sub.cnt)
+    FROM (
+        SELECT COUNT(*) AS cnt
+        FROM stud.skaitymas
+        GROUP BY grazinti
     ) AS sub
-ORDER BY sm.grazinti;
+)
+ORDER BY COUNT(*) DESC;
