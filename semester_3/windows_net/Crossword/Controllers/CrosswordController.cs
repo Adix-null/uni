@@ -229,6 +229,10 @@ namespace Crossword.Controllers
                 field.Completed = true;
                 fields.Add(CreateNewState(ref fields, guess));
                 GetNextGuess(ref gc, ref fields);
+                if (gc.Count == 10)
+                {
+                    return;
+                }
                 if (w == validWords.Last())
                 {
                     fields.RemoveAt(fields.Count - 1);

@@ -45,7 +45,7 @@ namespace Crossword.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Fields");
+                    b.ToTable("Fields", (string)null);
 
                     b.HasData(
                         new
@@ -130,23 +130,6 @@ namespace Crossword.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Crossword.Models.GuessChain", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
-
-                    b.Property<string>("Guesses")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("GuessChains");
-                });
-
             modelBuilder.Entity("Crossword.Models.Word", b =>
                 {
                     b.Property<string>("Strword")
@@ -184,7 +167,7 @@ namespace Crossword.Migrations
 
                     b.HasKey("Strword");
 
-                    b.ToTable("Words");
+                    b.ToTable("Words", (string)null);
 
                     b.HasData(
                         new
