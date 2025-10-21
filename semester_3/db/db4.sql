@@ -1,13 +1,13 @@
-SELECT sm.grazinti,
-    COUNT(*) AS ta_diena_grazinti
-FROM stud.skaitymas sm
-GROUP BY sm.grazinti
-HAVING COUNT(*) < (
-        SELECT AVG(sub.cnt)
-        FROM (
-                SELECT COUNT(*) AS cnt
-                FROM stud.skaitymas
-                GROUP BY grazinti
-            ) AS sub
-    )
-ORDER BY COUNT(*) DESC;
+WITH bendras AS 
+(
+    SELECT grazinti, 
+        COUNT(*) AS ta_diena_grazinti,
+        AVG(COUNT(*)) OVER () AS graz_vid,
+        RANK () OVER (ORDER BY COUNT(*) DESC) AS rankas
+    FROM stud.skaitymas
+    GROUP BY grazinti
+)
+SELECT grazinti, ta_diena_grazinti, rankas
+FROM bendras
+WHERE rankas < 6
+ORDER BY ta_diena_grazinti DESC;
