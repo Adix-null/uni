@@ -14,3 +14,4 @@
 4. Dienos, kai turinčiųjų grąžinti knygas skaitytojų skaičius yra mažesnis negu per visas gražinimo dienas vidutiniškai. Greta pateikti ir turinčių tuomet grąžinti knygas skaitytojų skaičių.
     4.1 Naudoti WITH.
 5. Kiekvienai virtualiajai lentelei (angl. view) - jos stulpelių tipų skaičius.
+    5.1. Surasti kur yra daugiausia character stulpelių.

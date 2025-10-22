@@ -1,14 +1,11 @@
-SELECT 
-    c.table_schema,
-    c.table_name,
-    c.column_name,
-    t.oid AS type_oid
+SELECT c.table_name AS view_name,
+    c.data_type,
+    COUNT(*) AS column_count
 FROM information_schema.columns c
-JOIN pg_type t ON t.typname = c.udt_name
-WHERE c.table_name = 'autorius' OR 
-c.table_name = 'knyga' OR
-c.table_name = 'egzempliorius' OR
-c.table_name = 'skaitymas' OR
-c.table_name = 'skaitytojas'
-ORDER BY c.table_name
-;
+    JOIN information_schema.views v ON c.table_name = v.table_name
+WHERE c.table_schema = 'stud'
+    AND c.data_type = 'character'
+GROUP BY c.table_name,
+    c.data_type
+ORDER BY column_count DESC
+LIMIT 1;
