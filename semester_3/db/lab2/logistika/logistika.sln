@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36511.14 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "logistika", "logistika.sqlproj", "{D3EC2DF9-D2B8-464D-8C23-E180313301FD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D3EC2DF9-D2B8-464D-8C23-E180313301FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3EC2DF9-D2B8-464D-8C23-E180313301FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3EC2DF9-D2B8-464D-8C23-E180313301FD}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{D3EC2DF9-D2B8-464D-8C23-E180313301FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3EC2DF9-D2B8-464D-8C23-E180313301FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3EC2DF9-D2B8-464D-8C23-E180313301FD}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0AD52E56-B928-4CAB-A91C-1C402CF196F8}
+	EndGlobalSection
+EndGlobal

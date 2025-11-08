@@ -1,6 +1,6 @@
 # Dalykinė sritis: Siuntinių logistikos centras
 ### Laukai:
-- Paketas: id, kilmės_šalis, destinacija, kompanija, prekė[], svoris_kg
+- Paketas: id, kilmės_šalis, destinacija, kompanija, prekė[]
 - Kompanija: pav, limitas_kg, kaina/kg
 - Prekė: pav, tipas, kaina_eur, svoris_kg
 - Žingsnis: paketas, iš, į, būsena, completion_data
@@ -25,3 +25,6 @@ CreateItem, DeleteItem, ChangePrice
 AddCompany, DeleteCompany, ChangeLimit, ChangeRate,
 AddStep, AdvanceState
 Bunch of filters
+
+tingiu editint viršuj,
+https://lucid.app/lucidchart/10d9549f-ddf0-414a-93e1-0ba1a416595b/edit?viewport_loc=414%2C175%2C1327%2C646%2C0_0&invitationId=inv_df760efa-0b3f-4c78-99fa-f7c6dbdce125
