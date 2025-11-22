@@ -37,5 +37,6 @@ IndentationDecorator.hpp
 .~lock.*
 /semester_3/windows_net/Crossword/appsettings.json
 /semester_3/windows_net/Crossword/obj/
-/semester_3/db/lab2/logistikos_centras/appsettings.json
 /semester_3/db/lab2/logistikos_centras/logistikos_centras/appsettings.json
+/semester_3/db/lab2/logistikos_centras/logistikos_centras/bin/
+/semester_3/db/lab2/logistikos_centras/logistikos_centras/obj/

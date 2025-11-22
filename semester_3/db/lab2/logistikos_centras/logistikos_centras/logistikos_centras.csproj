@@ -18,5 +18,12 @@
     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
   </None>
 </ItemGroup>
+  
+<ItemGroup>
+  <None Include="queries\**">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+</ItemGroup>
+
 
 </Project>
