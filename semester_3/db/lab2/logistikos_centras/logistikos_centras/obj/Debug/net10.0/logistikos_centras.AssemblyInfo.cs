@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("logistikos_centras")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6a84c4a6867baa0749c5cb7235a0a0fe216886d0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0e19bac2dbf3b6cb5982c87632d68a8892a30676")]
 [assembly: System.Reflection.AssemblyProductAttribute("logistikos_centras")]
 [assembly: System.Reflection.AssemblyTitleAttribute("logistikos_centras")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
