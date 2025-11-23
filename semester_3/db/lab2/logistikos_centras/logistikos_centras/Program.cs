@@ -15,10 +15,9 @@ try
     await conn.OpenAsync();
 
     var exeDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
-    var sqlPath = Path.Combine(exeDir, "queries", "query.sql");
+    var sqlPath = Path.Combine(exeDir, "queries", "studentu_test.sql");
 
     string sql = File.ReadAllText(sqlPath);
-    //string sql = """SELECT ak FROM stud.skaitytojas ORDER BY pavarde DESC;""";
 
     await using var cmd = new NpgsqlCommand(sql, conn);
     await using var reader = await cmd.ExecuteReaderAsync();
