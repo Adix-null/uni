@@ -22,8 +22,11 @@ try
     await using var cmd = new NpgsqlCommand(sql, conn);
     await using var reader = await cmd.ExecuteReaderAsync();
 
-    tablePrint(reader);
-
+    do
+    {
+        tablePrint(reader);
+    } 
+    while (await reader.NextResultAsync());
 }
 catch (Exception ex)
 {

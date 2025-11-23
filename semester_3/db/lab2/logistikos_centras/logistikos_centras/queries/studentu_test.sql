@@ -1,16 +1,16 @@
  SELECT * 
 	FROM pg_catalog.pg_tables 
 	WHERE pg_catalog.pg_tables.tableowner <> 'postgres'
-	LIMIT 10
+	ORDER BY pg_catalog.pg_tables.tableowner
 ;
 
-CREATE TABLE IF NOT EXISTS testas
+CREATE TABLE IF NOT EXISTS adbtestas
 (
 	i INT PRIMARY KEY,
 	s VARCHAR(32)
 );
 
-INSERT INTO testas (i, s) 
+INSERT INTO adbtestas (i, s) 
 	VALUES 
 	(42, 'abc'),
 	(-9, 'sdf'),
@@ -18,5 +18,5 @@ INSERT INTO testas (i, s)
 	(73, 'adix')	
 ;
 
-SELECT * FROM testas;
-DROP TABLE testas;
+SELECT * FROM adbtestas;
+DROP TABLE adbtestas;
