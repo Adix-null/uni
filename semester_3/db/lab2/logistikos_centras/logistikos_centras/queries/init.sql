@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS galutine_busena
 (
 	paketo_id 			INT 						PRIMARY KEY REFERENCES paketas(id),
 	data_pristatyta 	TIMESTAMP 		NOT NULL				DEFAULT NOW(),
-	busena 				INT 			NOT NULL 				CHECK (busena IN (1, 2, 3, 4, 5))
+	busena 				INT										CHECK (busena IS NULL OR busena IN (1, 2, 3, 4, 5))
 );
 
 CREATE TABLE IF NOT EXISTS zingsnis
@@ -69,6 +69,7 @@ CREATE MATERIALIZED VIEW pristatyti_paketai AS
 	JOIN paketas p ON p.id = g.paketo_id
 ;
 
+
 CREATE INDEX IF NOT EXISTS zingsniai_pagal_busena
 	ON zingsnis(busena)
 	INCLUDE (id)
@@ -78,3 +79,59 @@ CREATE UNIQUE INDEX IF NOT EXISTS prekes
 	ON paketo_preke(paketo_id, prekes_id)
 ;
 
+
+CREATE OR REPLACE FUNCTION tikrinti_paketu_svori()
+RETURNS TRIGGER AS $$
+DECLARE
+    total_weight DECIMAL(9,1);
+    company_limit DECIMAL(9,1);
+BEGIN
+    SELECT visas_svoris INTO total_weight
+		FROM paketo_svoris
+		WHERE paketo_id = NEW.paketo_id;
+
+    SELECT limitas_kg INTO company_limit
+		FROM kompanija k
+		JOIN paketas pk ON pk.kompanija = k.pavadinimas
+		WHERE pk.id = NEW.paketo_id;
+
+	IF total_weight IS NOT NULL AND company_limit IS NOT NULL AND total_weight > company_limit THEN
+		RAISE EXCEPTION 'Klaida: Paketo svoris negali būti didesnis nei jį gabenančios kompanijos limitas';
+	END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER paketu_svorio_limitu_patikra
+BEFORE INSERT OR UPDATE ON paketo_preke
+FOR EACH ROW EXECUTE FUNCTION tikrinti_paketu_svori();
+
+
+CREATE OR REPLACE FUNCTION insertinti_galutine_besena()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.ivykdymo_data IS NOT NULL 
+		AND NEW.tikslas_i = (
+			SELECT galutinis_tikslas
+				FROM paketas 
+				WHERE id = NEW.paketo_id
+				) 
+		AND NOT EXISTS (
+			SELECT 1 
+				FROM galutine_busena 
+				WHERE paketo_id = NEW.paketo_id
+			)
+    THEN
+        INSERT INTO galutine_busena(paketo_id, data_pristatyta, busena)
+        VALUES (NEW.paketo_id, NOW(), NULL);
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER paskutinis_zingsnis_ivykdytas
+AFTER UPDATE ON zingsnis
+FOR EACH ROW
+EXECUTE FUNCTION insertinti_galutine_besena();

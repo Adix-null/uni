@@ -12,10 +12,6 @@ INSERT INTO paketas (kilmes_salis, galutinis_tikslas, data_sukurta, kompanija) V
     ('CL', 'Kinija, Chongqing, 7A-07294',   '2025-10-15',   'Gigantus')
 ;
 
-INSERT INTO galutine_busena VALUES
-    (2, '2025-11-16 14:34:51', 5)
-;
-REFRESH MATERIALIZED VIEW pristatyti_paketai;
 
 INSERT INTO preke (pavadinimas, kaina_eur, svoris_kg) VALUES
     ('Smart water bottle',      8.50,   0.1),
@@ -51,3 +47,7 @@ INSERT INTO zingsnis (paketo_id, tikslas_is, tikslas_i, busena, ivykdymo_data) V
     (4, 'Port of Arica',                        'Shenzhen dry dock',            'Vykdoma',      NULL)
 ;
 
+INSERT INTO galutine_busena VALUES
+    (2, '2025-11-16 14:34:51', 5)
+;
+REFRESH MATERIALIZED VIEW pristatyti_paketai;
