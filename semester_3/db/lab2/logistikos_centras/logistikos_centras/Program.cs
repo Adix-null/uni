@@ -17,97 +17,129 @@ try
 
     bool succeeded = false;
     int n;
-    do
+    while (true)
     {
-        Console.WriteLine(
-            """
-            Options: 
-            0) Test
-            1) Init DB
-            2) Seed data
-            3) Nuke        
-            """);
-        bool success = int.TryParse(Console.ReadLine(), out n);
+        do
+        {
+            Console.WriteLine(
+                """
+                
+                Options: 
+                0) Test
+                1) Init DB
+                2) Seed data
+                3) View all tables
+                4) Nuke  
+                """);
+            bool success = int.TryParse(Console.ReadLine(), out n);
 
-        succeeded = success && n >= 0 & n <= 3;
-    }
-    while (!succeeded);
-
-    switch (n)
-    {
-        case 0:
-            {
-                var exeDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
-                var sqlPath = Path.Combine(exeDir, "queries", "studentu_test.sql");
-                string sql = File.ReadAllText(sqlPath);
-
-                await using var cmd = new NpgsqlCommand(sql, conn);
-                await using var reader = await cmd.ExecuteReaderAsync();
-
-                do
+            succeeded = success && n >= 0 & n <= 4;
+        }
+        while (!succeeded);
+    
+        switch (n)
+        {
+            case 0:
                 {
-                    tablePrint(reader);
+                    var exeDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
+                    var sqlPath = Path.Combine(exeDir, "queries", "studentu_test.sql");
+                    string sql = File.ReadAllText(sqlPath);
+
+                    await using var cmd = new NpgsqlCommand(sql, conn);
+                    await using var reader = await cmd.ExecuteReaderAsync();
+
+                    do
+                    {
+                        tablePrint(reader);
+                    }
+                    while (await reader.NextResultAsync());
+
+                    break;
                 }
-                while (await reader.NextResultAsync());
-
-                break;
-            }
-        case 1:
-            {
-                var exeDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
-                var sqlPath = Path.Combine(exeDir, "queries", "init.sql");
-                string sql = File.ReadAllText(sqlPath);
-
-                await using var cmd = new NpgsqlCommand(sql, conn);
-                await using var reader = await cmd.ExecuteReaderAsync();
-
-                do
+            case 1:
                 {
-                    tablePrint(reader);
+                    var exeDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
+                    var sqlPath = Path.Combine(exeDir, "queries", "init.sql");
+                    string sql = File.ReadAllText(sqlPath);
+
+                    await using var cmd = new NpgsqlCommand(sql, conn);
+                    await using var reader = await cmd.ExecuteReaderAsync();
+
+                    break;
                 }
-                while (await reader.NextResultAsync());
-
-                break;
-            }
-        case 2:
-            {
-                var exeDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
-                var sqlPath = Path.Combine(exeDir, "queries", "seed.sql");
-                string sql = File.ReadAllText(sqlPath);
-
-                await using var cmd = new NpgsqlCommand(sql, conn);
-                await using var reader = await cmd.ExecuteReaderAsync();
-
-                Console.WriteLine("Records affected: " + reader.RecordsAffected);
-                break;
-            }
-        case 3:
-            {
-                var exeDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
-                var sqlPath = Path.Combine(exeDir, "queries", "select_personal_tables.sql");
-                string sql = File.ReadAllText(sqlPath);
-
-                await using var cmd = new NpgsqlCommand(sql, conn);
-                await using var reader = await cmd.ExecuteReaderAsync();
-
-                List<string> tableNames = [];
-                await using (cmd)
-                await using (reader)
+            case 2:
                 {
-                    while (await reader.ReadAsync())
-                        tableNames.Add(reader.GetString(0));
-                }
+                    var exeDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
+                    var sqlPath = Path.Combine(exeDir, "queries", "seed.sql");
+                    string sql = File.ReadAllText(sqlPath);
 
-                foreach (var table in tableNames)
+                    await using var cmd = new NpgsqlCommand(sql, conn);
+                    await using var reader = await cmd.ExecuteReaderAsync();
+
+                    Console.WriteLine("Records affected: " + reader.RecordsAffected);
+                    break;
+                }
+            case 3:
                 {
-                    Console.WriteLine($"Deleting {table}");
-                    string sqld = $"DROP TABLE {table} CASCADE;";
-                    await using var cmdd = new NpgsqlCommand(sqld, conn);
-                    await cmdd.ExecuteNonQueryAsync();
-                }
+                    var exeDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
+                    var sqlPath = Path.Combine(exeDir, "queries", "select_personal_tables.sql");
+                    string sql = File.ReadAllText(sqlPath);
 
-                break;
-            }
+                    await using var cmd = new NpgsqlCommand(sql, conn);
+                    await using var reader = await cmd.ExecuteReaderAsync();
+
+                    List<string> tableNames = [];
+                    await using (cmd)
+                    await using (reader)
+                    {
+                        while (await reader.ReadAsync())
+                            tableNames.Add(reader.GetString(0));
+                    }
+
+                    foreach (var table in tableNames)
+                    {
+                        Console.WriteLine($"{table}:");
+                        string sqlc = $"SELECT * FROM {table};";
+                        await using var cmdc = new NpgsqlCommand(sqlc, conn);
+                        await using var readerc = await cmdc.ExecuteReaderAsync();
+
+                        do
+                        {
+                            tablePrint(readerc);
+                        }
+                        while (await readerc.NextResultAsync());
+                    }
+
+                    break;
+                }
+            case 4:
+                {
+                    var exeDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
+                    var sqlPath = Path.Combine(exeDir, "queries", "select_personal_tables.sql");
+                    string sql = File.ReadAllText(sqlPath);
+
+                    await using var cmd = new NpgsqlCommand(sql, conn);
+                    await using var reader = await cmd.ExecuteReaderAsync();
+
+                    List<string> tableNames = [];
+                    await using (cmd)
+                    await using (reader)
+                    {
+                        while (await reader.ReadAsync())
+                            tableNames.Add(reader.GetString(0));
+                    }
+
+                    foreach (var table in tableNames)
+                    {
+                        Console.WriteLine($"Deleting {table}");
+                        string sqld = $"DROP TABLE {table} CASCADE;";
+                        await using var cmdd = new NpgsqlCommand(sqld, conn);
+                        await cmdd.ExecuteNonQueryAsync();
+                    }
+
+                    break;
+                }
+        }
     }
 
 }

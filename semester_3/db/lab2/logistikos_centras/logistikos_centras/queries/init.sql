@@ -47,21 +47,34 @@ CREATE TABLE IF NOT EXISTS paketo_preke
 	kiekis 				INT 			NOT NULL				CHECK (kiekis > 0)
 );
 
-CREATE VIEW lengvos_prekes AS
-	SELECT *  
-	FROM preke 
-	WHERE svoris_kg < 1
+CREATE OR REPLACE VIEW paketo_svoris AS
+	SELECT pp.paketo_id, SUM(p.svoris_kg * pp.kiekis) AS visas_svoris
+		FROM paketo_preke pp
+		JOIN preke p ON p.id = pp.prekes_id
+		GROUP BY pp.paketo_id
+		ORDER BY pp.paketo_id
 ;
 
--- CREATE VIEW paketo_svoris AS
--- 	SELECT SUM(kiekis), paketo_id
--- 	FROM paketo_preke pp
--- 	GROUP BY pp.paketo_id
--- ;
+CREATE OR REPLACE VIEW siuntimo_kaina AS
+	SELECT p.id, TRUNC(k.eur_uz_kg * s.visas_svoris, 2) AS siuntimo_kaina
+		FROM paketo_svoris s
+		JOIN paketas p ON p.id = s.paketo_id
+		JOIN kompanija k ON p.kompanija = k.pavadinimas
+;
 
+DROP MATERIALIZED VIEW IF EXISTS pristatyti_paketai;
 CREATE MATERIALIZED VIEW pristatyti_paketai AS
 	SELECT paketo_id, data_pristatyta
 	FROM galutine_busena g 
-	JOIN paketas p
-	ON p.id = g.paketo_id
+	JOIN paketas p ON p.id = g.paketo_id
 ;
+
+CREATE INDEX IF NOT EXISTS zingsniai_pagal_busena
+	ON zingsnis(busena)
+	INCLUDE (id)
+;
+
+CREATE UNIQUE INDEX IF NOT EXISTS prekes
+	ON paketo_preke(paketo_id, prekes_id)
+;
+
