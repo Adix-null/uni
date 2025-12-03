@@ -62,12 +62,27 @@ CREATE OR REPLACE VIEW siuntimo_kaina AS
 		JOIN kompanija k ON p.kompanija = k.pavadinimas
 ;
 
-DROP MATERIALIZED VIEW IF EXISTS pristatyti_paketai;
-CREATE MATERIALIZED VIEW pristatyti_paketai AS
-	SELECT paketo_id, data_pristatyta
-	FROM galutine_busena g 
+DROP MATERIALIZED VIEW IF EXISTS paketu_ataskaita;
+CREATE MATERIALIZED VIEW paketu_ataskaita AS
+SELECT 
+    p.id AS paketo_id,
+    p.galutinis_tikslas,
+    g.data_pristatyta,
+    k.pavadinimas AS kompanija,
+    k.eur_uz_kg,
+    COALESCE(ps.visas_svoris, 0) AS paketo_svoris,
+    ROUND(COALESCE(ps.visas_svoris, 0) * k.eur_uz_kg, 2) AS siuntimo_kaina,
+
+    (
+        SELECT COUNT(*) 
+        FROM zingsnis z
+        WHERE z.paketo_id = p.id AND z.ivykdymo_data IS NOT NULL
+    ) AS atliktu_zingsniu_skaicius
+
+	FROM galutine_busena g
 	JOIN paketas p ON p.id = g.paketo_id
-;
+	JOIN kompanija k ON k.pavadinimas = p.kompanija
+	LEFT JOIN paketo_svoris ps ON ps.paketo_id = p.id;
 
 
 CREATE INDEX IF NOT EXISTS zingsniai_pagal_busena
@@ -83,29 +98,44 @@ CREATE UNIQUE INDEX IF NOT EXISTS prekes
 CREATE OR REPLACE FUNCTION tikrinti_paketu_svori()
 RETURNS TRIGGER AS $$
 DECLARE
-    total_weight DECIMAL(9,1);
-    company_limit DECIMAL(9,1);
+    dabartinis_svoris DECIMAL(9,1);
+    visas_svoris DECIMAL(9,1);
+    kompanijos_limitas DECIMAL(9,1);
+    prekes_svoris_kg DECIMAL(9,1);
 BEGIN
-    SELECT visas_svoris INTO total_weight
-		FROM paketo_svoris
-		WHERE paketo_id = NEW.paketo_id;
+    -- viso paketo svoris be naujos prekės
+    SELECT COALESCE(SUM(p.svoris_kg * pp.kiekis), 0)
+    INTO dabartinis_svoris
+    FROM paketo_preke pp
+    JOIN preke p ON p.id = pp.prekes_id
+    WHERE pp.paketo_id = NEW.paketo_id;
 
-    SELECT limitas_kg INTO company_limit
-		FROM kompanija k
-		JOIN paketas pk ON pk.kompanija = k.pavadinimas
-		WHERE pk.id = NEW.paketo_id;
+    -- naujos prekės svoris
+    SELECT svoris_kg INTO prekes_svoris_kg FROM preke WHERE id = NEW.prekes_id;
 
-	IF total_weight IS NOT NULL AND company_limit IS NOT NULL AND total_weight > company_limit THEN
-		RAISE EXCEPTION 'Klaida: Paketo svoris negali būti didesnis nei jį gabenančios kompanijos limitas';
-	END IF;
+    visas_svoris := dabartinis_svoris + (prekes_svoris_kg * NEW.kiekis);
+
+    -- kompanijos limitas
+    SELECT k.limitas_kg
+    INTO kompanijos_limitas
+    FROM kompanija k
+    JOIN paketas pk ON pk.kompanija = k.pavadinimas
+    WHERE pk.id = NEW.paketo_id;
+
+    IF visas_svoris > kompanijos_limitas THEN
+        RAISE EXCEPTION 'Klaida: Paketo svoris (% kg) negali būti didesnis nei kompanijos limitas (% kg)', visas_svoris, kompanijos_limitas;
+    END IF;
 
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
+DROP TRIGGER IF EXISTS paketu_svorio_limitu_patikra ON paketo_preke;
+
 CREATE TRIGGER paketu_svorio_limitu_patikra
 BEFORE INSERT OR UPDATE ON paketo_preke
 FOR EACH ROW EXECUTE FUNCTION tikrinti_paketu_svori();
+
 
 
 CREATE OR REPLACE FUNCTION insertinti_galutine_besena()
