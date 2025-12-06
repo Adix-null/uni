@@ -1,3 +1,5 @@
+BEGIN TRANSACTION;
+
  SELECT * 
 	FROM pg_catalog.pg_tables 
 	WHERE pg_catalog.pg_tables.tableowner <> 'postgres'
@@ -20,3 +22,5 @@ INSERT INTO adbtestas (i, s)
 
 SELECT * FROM adbtestas;
 DROP TABLE adbtestas;
+
+ROLLBACK TRANSACTION;
