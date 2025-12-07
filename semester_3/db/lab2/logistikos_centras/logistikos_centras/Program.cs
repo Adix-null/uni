@@ -67,7 +67,6 @@ try
                             return reader.RecordsAffected;
                         });
 
-
                     break;
                 }
             case 3:
@@ -80,20 +79,9 @@ try
                         return names;
                     }) ?? [];
 
-                    foreach (var table in tableNames)
+                    foreach (string table in tableNames)
                     {
-                        Console.WriteLine($"{table}:");
-                        string sqlc = $"SELECT * FROM {table};";
-                        await ExecSqlTextAsync(conn, sqlc, async (_, readerc) =>
-                        {
-                            do
-                            {
-                                tablePrint(readerc);
-                            }
-                            while (await readerc.NextResultAsync());
-
-                            return true;
-                        });
+                        await DisplayTable(table, conn);
                     }
 
                     break;
@@ -118,49 +106,60 @@ try
                     break;
                 }
 
+            case 10:
+                {
+                    string kilmes_salis = prompt<string>("Kilmės šalies kodas (ISO-3166-1)", x => x.Length == 2 && x.All(x => x >= 'A' && x <= 'Z'));
+                    string galutinis_tikslas = prompt<string>("Galutinis tikslas", x => x.Length < 65);
+                    await DisplayTable("kompanija", conn);
+                    string kompanija = prompt<string>("Kompanijos pavadinimas", x => x.Length < 65);
+
+                    await ProceedWithQuery(conn, "create/create_packet.sql", new ()
+                    {
+                        ["kilmes_salis"] = kilmes_salis,
+                        ["galutinis_tikslas"] = galutinis_tikslas,
+                        ["kompanija"] = kompanija
+                    }, "Paketas sukurtas sėkmingai", new () { [23503] = "kompanija su duotu pavadinimu neegzistuoja" });
+
+                    break;
+                }
+
             case 20:
                 {
-                    bool correct = false;
-                    int id;
-                    string sqlc = $"SELECT * FROM paketas;";
-                    await ExecSqlTextAsync(conn, sqlc, async (_, readerc) =>
+                    await DisplayTable("paketas", conn);
+                    int id = prompt<int>("Paketo ID", _ => true);
+
+                    await ProceedWithQuery(conn, "read/packet_info.sql", new ()
                     {
-                        do
-                        {
-                            tablePrint(readerc);
-                        }
-                        while (await readerc.NextResultAsync());
+                        ["id"] = id
+                    }, "", null);
 
-                        return true;
-                    });
-                    do
+                    await DisplayTable("paketas", conn);
+                    break;
+                }
+
+            case 30:
+                {
+                    await DisplayTable("preke", conn);
+                    int id = prompt<int>("Prekės ID", _ => true);
+                    string naujas_pav = prompt<string>("Naujas pavadinimas", x => x.Length < 65);
+                    await ProceedWithQuery(conn, "update/change_item_name.sql", new()
                     {
-                        Console.WriteLine("Paketo ID:");
-                        bool success = int.TryParse(Console.ReadLine(), out id);
+                        ["id"] = id,
+                        ["pavadinimas"] = naujas_pav
+                    }, "Pavadinimas sėkmingai pakeistas", null);
 
-                        correct = success;
+                    break;
+                }
 
-                        if(!correct)
-                        {
-                            Console.WriteLine("Įvestis ne skaičius, bandykite dar kartą");
-                        }
-                    } while (!correct);
+            case 40:
+                {
+                    await DisplayTable("paketas", conn);
+                    int id = prompt<int>("Paketo ID", _ => true);
 
-                    await ExecQueryAsync(conn, "read/packet_info.sql", cmd =>
-                         {
-                             cmd.Parameters.AddWithValue("p_id", id);
-                         },
-                         handle: async reader =>
-                         {
-                             do
-                             {
-                                 tablePrint(reader);
-                             }
-                             while (await reader.NextResultAsync());
-                             return true;
-                         }
-                     );
-
+                    await ProceedWithQuery(conn, "delete/delete_packet.sql", new ()
+                    {
+                        ["id"] = id
+                    }, "Paketas ištrintas sėkmingai", null);
 
                     break;
                 }
@@ -171,6 +170,90 @@ try
 catch (Exception ex)
 {
     Console.WriteLine(ex.Message);
+}
+
+T prompt<T>(string message, Func<T, bool> condition)
+{
+    T val = default!;
+    bool correct = false;
+    do
+    {
+        Console.WriteLine($"{message}:");
+        string? input = Console.ReadLine()!;
+
+        try
+        {
+            val = (T)Convert.ChangeType(input, typeof(T));
+            correct = condition(val);
+        }
+        catch
+        {
+            correct = false;
+        }
+
+        if (!correct)
+        {
+            Console.WriteLine("Bloga įvestis");
+        }
+    } while (!correct);
+
+    return val;
+}
+
+async Task<int> ProceedWithQuery(NpgsqlConnection conn, 
+    string SQLfileDir, Dictionary<string, object> userParams, string successMessage, Dictionary<int, string>? specificException)
+{
+    try
+    {
+        await ExecQueryAsync(conn, SQLfileDir, cmd =>
+            {
+                foreach (var entry in userParams)
+                {
+                    cmd.Parameters.AddWithValue($"p_{entry.Key}", entry.Value);
+                }
+            },
+            handle: async reader =>
+            {
+                while (await reader.NextResultAsync());
+                return true;
+            }
+        );
+        Console.WriteLine(successMessage);
+        return 0;
+    }
+    catch (Exception ex)
+    {
+        if (specificException != null)
+        {
+            foreach (var item in specificException)
+            {
+                if (ex is PostgresException pg && pg.SqlState == item.Key.ToString())
+                {
+                    Console.WriteLine($"Klaida, {item.Value}");
+                    return item.Key;
+                }
+            }
+        }
+
+        Console.WriteLine($"Netikėta klaida: {ex.Message}");
+        return -1;
+    }
+}
+
+async Task<bool> DisplayTable(string tableName, NpgsqlConnection conn)
+{
+    string sqlc = $"SELECT * FROM {tableName};";
+    await ExecSqlTextAsync(conn, sqlc, async (_, readerc) =>
+    {
+        do
+        {
+            tablePrint(readerc);
+        }
+        while (await readerc.NextResultAsync());
+
+        return true;
+    });
+    return false;
 }
 
 async Task<T?> ExecQueryAsync<T>(
@@ -185,7 +268,6 @@ async Task<T?> ExecQueryAsync<T>(
 
     await using var cmd = new NpgsqlCommand(sql, conn);
 
-    // Add parameters BEFORE execution
     setup?.Invoke(cmd);
 
     await using var reader = await cmd.ExecuteReaderAsync();

@@ -1,7 +1,7 @@
 ﻿INSERT INTO kompanija VALUES
     ('Intera',      2.5,    1.74),
     ('Miderum',     7.3,    2.17),
-    ('Ganytojai',   22.8,   2.81),
+    ('Ganytojai',   54.8,   2.81),
     ('Gigantus',    10000,  5.00)
 ;
 
@@ -27,8 +27,8 @@ INSERT INTO paketo_preke VALUES
     (1, 2, 1),
     (1, 4, 1),
     (2, 3, 1),
-    (3, 4, 3),
-    (3, 5, 5),
+    (3, 4, 5),
+    (3, 5, 2),
     (4, 6, 2)
 ;
 
@@ -50,4 +50,4 @@ INSERT INTO zingsnis (paketo_id, tikslas_is, tikslas_i, busena, ivykdymo_data) V
 INSERT INTO galutine_busena VALUES
     (2, '2025-11-16 14:34:51', 5)
 ;
-REFRESH MATERIALIZED VIEW pristatyti_paketai;
+REFRESH MATERIALIZED VIEW paketu_ataskaita;

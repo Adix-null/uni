@@ -1,1 +1,2 @@
-SELECT * FROM paketas WHERE id = @p_id;
+SELECT * FROM paketas 
+    WHERE id = @p_id;
