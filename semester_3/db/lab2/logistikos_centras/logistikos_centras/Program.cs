@@ -34,13 +34,14 @@ try
                 11) Sukurti naują prekę
                 12) Įvykdyti naują žingsnį
 
-                20) Paketo informacija
+                20) Pristatytų paketų informacija
                 21) Surasti prekę(s) pagal pavadinimą
                 22) Rodyti kompanijos pagal pavadinimą gabenamus paketus
                 23) Filtruoti paketus pagal sukūrimo datą
 
                 30) Pakeisti prekės pavadinimą
                 31) Pakeisti prekių kiekį pakete
+                32) Įvertinti atkeliavusį paketą
 
                 40) Ištrinti paketą
                 41) Ištrinti prekę
@@ -50,7 +51,7 @@ try
             succeeded = success && n >= 0;
         }
         while (!succeeded);
-    
+
         switch (n)
         {
             case 1:
@@ -113,27 +114,77 @@ try
                     await DisplayTable("kompanija", conn);
                     string kompanija = prompt<string>("Kompanijos pavadinimas", x => x.Length < 65);
 
-                    await ProceedWithQuery(conn, "create/create_packet.sql", new ()
+                    await ProceedWithQuery(conn, "create/create_packet.sql", new()
                     {
                         ["kilmes_salis"] = kilmes_salis,
                         ["galutinis_tikslas"] = galutinis_tikslas,
                         ["kompanija"] = kompanija
-                    }, "Paketas sukurtas sėkmingai", new () { [23503] = "kompanija su duotu pavadinimu neegzistuoja" });
+                    }, "Paketas sukurtas sėkmingai", new() { [23503] = "kompanija su duotu pavadinimu neegzistuoja" });
 
+                    break;
+                }
+            case 11:
+                {
+                    string pavadinimas = prompt<string>("Prekės pavadinimas", x => x.Length < 65);
+                    decimal svoris_kg = prompt<decimal>("Prekės svoris (kg)", x => x > 0);
+                    decimal kaina_eur = prompt<decimal>("Prekės kaina (eur)", x => x > 0);
+                    await ProceedWithQuery(conn, "create/create_item.sql", new()
+                    {
+                        ["pavadinimas"] = pavadinimas,
+                        ["svoris_kg"] = svoris_kg,
+                        ["kaina_eur"] = kaina_eur
+                    }, "Prekė sukurta sėkmingai", null);
+                    break;
+                }
+            case 12:
+                {
+                    await DisplayTable("paketas", conn);
+                    int id = prompt<int>("Paketo ID", _ => true);
+                    await DisplayTable("zingsnis", conn, new ("paketo_id", id));
+                    string tikslas_is = prompt<string>("Tikslas iš", x => x.Length < 65);
+                    string tikslas_i = prompt<string>("Tikslas į", x => x.Length < 65);
+
+                    await ProceedWithQuery(conn, "create/new_step.sql", new()
+                    {
+                        ["id"] = id,
+                        ["tikslas_is"] = tikslas_is,
+                        ["tikslas_i"] = tikslas_i
+                    }, "Žingsnis įvykdytas", null);
                     break;
                 }
 
             case 20:
                 {
-                    await DisplayTable("paketas", conn);
-                    int id = prompt<int>("Paketo ID", _ => true);
-
-                    await ProceedWithQuery(conn, "read/packet_info.sql", new ()
+                    //await ProceedWithQuery(conn, "read/packet_info.sql", null, "tr", null);
+                    await DisplayTable("paketu_ataskaita", conn);
+                    break;
+                }
+            case 21:
+                {
+                    string pavadinimas = prompt<string>("Pavadinimas ar jo dalis", x => x.Length < 65);
+                    await ProceedWithQuery(conn, "read/search_item_by_name.sql", new()
                     {
-                        ["id"] = id
-                    }, "", null);
-
-                    await DisplayTable("paketas", conn);
+                        ["pavadinimas"] = pavadinimas
+                    }, "", null, true);
+                    break;
+                }
+            case 22:
+                {
+                    await DisplayTable("kompanija", conn);
+                    string pavadinimas = prompt<string>("Kompanijos pavadinimas", x => x.Length < 65);
+                    await ProceedWithQuery(conn, "read/search_packets_by_company_name.sql", new()
+                    {
+                        ["pavadinimas"] = pavadinimas
+                    }, "Rodomi visi kompanijos gabenami paketai", null, true);
+                    break;
+                }
+            case 23:
+                {
+                    DateTime data = prompt<DateTime>("Data vėliau nei YYYY-MM-DD", x => DateTime.Compare(DateTime.Today, x) > 0);
+                    await ProceedWithQuery(conn, "read/search_packets_by_date.sql", new()
+                    {
+                        ["data"] = data
+                    }, "", null, true);
                     break;
                 }
 
@@ -150,17 +201,55 @@ try
 
                     break;
                 }
+            case 31:
+                {
+                    await DisplayTable("paketas", conn);
+                    int paketo_id = prompt<int>("Paketo ID", _ => true);
+                    await DisplayTable("paketo_preke", conn, new ("paketo_id", paketo_id ));
+                    int prekes_id = prompt<int>("Prekės ID", _ => true);
+                    int naujas_kiekis = prompt<int>("Naujas kiekis", x => x > 0);
+                    await ProceedWithQuery(conn, "update/change_item_amount.sql", new()
+                    {
+                        ["paketo_id"] = paketo_id,
+                        ["prekes_id"] = prekes_id,
+                        ["kiekis"] = naujas_kiekis
+                    }, "Kiekis sėkmingai pakeistas", null);
+                    break;
+                }
+            case 32:
+                {
+                    await DisplayTable("galutine_busena", conn);
+                    int id = prompt<int>("Paketo ID", _ => true);
+                    int busena = prompt<int>("Įvertinimas [1-5]", x => x >= 1 && x <= 5);
+                    await ProceedWithQuery(conn, "update/rate_packet.sql", new()
+                    {
+                        ["id"] = id,
+                        ["busena"] = busena
+                    }, "Paketas sėkmingai įvertintas", null);
+
+                    break;
+                }
 
             case 40:
                 {
                     await DisplayTable("paketas", conn);
                     int id = prompt<int>("Paketo ID", _ => true);
 
-                    await ProceedWithQuery(conn, "delete/delete_packet.sql", new ()
+                    await ProceedWithQuery(conn, "delete/delete_packet.sql", new()
                     {
                         ["id"] = id
                     }, "Paketas ištrintas sėkmingai", null);
 
+                    break;
+                }
+            case 41:
+                {
+                    await DisplayTable("preke", conn);
+                    int id = prompt<int>("Prekės ID", _ => true);
+                    await ProceedWithQuery(conn, "delete/delete_item.sql", new()
+                    {
+                        ["id"] = id
+                    }, "Prekė ištrinta sėkmingai", null);
                     break;
                 }
         }
@@ -201,12 +290,14 @@ T prompt<T>(string message, Func<T, bool> condition)
 }
 
 async Task<int> ProceedWithQuery(NpgsqlConnection conn, 
-    string SQLfileDir, Dictionary<string, object> userParams, string successMessage, Dictionary<int, string>? specificException)
+    string SQLfileDir, Dictionary<string, object>? userParams, string successMessage, Dictionary<int, string>? specificException, bool print = false)
 {
     try
     {
         await ExecQueryAsync(conn, SQLfileDir, cmd =>
             {
+                if(userParams == null) 
+                    return;
                 foreach (var entry in userParams)
                 {
                     cmd.Parameters.AddWithValue($"p_{entry.Key}", entry.Value);
@@ -214,6 +305,11 @@ async Task<int> ProceedWithQuery(NpgsqlConnection conn,
             },
             handle: async reader =>
             {
+                if(print)
+                    do
+                    {
+                        tablePrint(reader);
+                    }
                 while (await reader.NextResultAsync());
                 return true;
             }
@@ -240,10 +336,12 @@ async Task<int> ProceedWithQuery(NpgsqlConnection conn,
     }
 }
 
-async Task<bool> DisplayTable(string tableName, NpgsqlConnection conn)
+async Task<bool> DisplayTable(string tableName, NpgsqlConnection conn, Tuple<string, object>? where = null)
 {
-    string sqlc = $"SELECT * FROM {tableName};";
-    await ExecSqlTextAsync(conn, sqlc, async (_, readerc) =>
+    var sql = where == null
+    ? $"SELECT * FROM {tableName};"
+    : $"SELECT * FROM {tableName} WHERE {where.Item1} = {where.Item2};";
+    await ExecSqlTextAsync(conn, sql, async (cmd, readerc) =>
     {
         do
         {

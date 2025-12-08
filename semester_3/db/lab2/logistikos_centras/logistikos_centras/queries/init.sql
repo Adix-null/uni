@@ -82,7 +82,8 @@ SELECT
 	FROM galutine_busena g
 	JOIN paketas p ON p.id = g.paketo_id
 	JOIN kompanija k ON k.pavadinimas = p.kompanija
-	LEFT JOIN paketo_svoris ps ON ps.paketo_id = p.id;
+	LEFT JOIN paketo_svoris ps ON ps.paketo_id = p.id
+;
 
 
 CREATE INDEX IF NOT EXISTS zingsniai_pagal_busena

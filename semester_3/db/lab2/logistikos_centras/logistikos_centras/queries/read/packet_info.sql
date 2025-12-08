@@ -1,2 +1,1 @@
-SELECT * FROM paketas 
-    WHERE id = @p_id;
+SELECT * FROM paketu_ataskaita;
