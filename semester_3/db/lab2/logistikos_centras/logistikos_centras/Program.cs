@@ -24,7 +24,7 @@ try
             Console.WriteLine(
                 """
                 
-                Options: 
+                Pasirinkimai: 
                 1)  Sukurti DB
                 2)  Įdėti pradinius duomenis
                 3)  Peržiūrėti visas lenteles

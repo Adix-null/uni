@@ -7,7 +7,7 @@
       "commandName": "Executable",
       "executablePath": "C:\\Windows\\System32\\cmd.exe",
       "commandLineArgs": "/c \"transfer.bat\"",
-      "workingDirectory": "C:\\Users\\Adomas\\Documents\\GitHub\\uni\\semester_3\\db\\lab2\\logistikos_centras\\logistikos_centras"
+      "workingDirectory": "$(ProjectDir)"
     }
   }
 }
