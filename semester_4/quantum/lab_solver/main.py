@@ -1,4 +1,4 @@
-from sympy import Matrix, I, simplify
+from sympy import Matrix, I, simplify, latex
 
 # 1.11
 
@@ -27,5 +27,31 @@ C = Matrix([
     [-3 + 7*I, 4 + 4*I]
 ])
 
-B_squared = simplify(B**2)
-print(f"Squared B: {B_squared}")
+# print(f"Result: {simplify(B**2 + (3*A.adjoint())*(C**(-2)) + (A**(-1)).adjoint())}")
+
+# 3.11
+v1 = Matrix([
+    [2 + 4*I],
+    [-1 - 2*I],
+    [-2 - 2*I]
+])
+
+v2 = Matrix([
+    [4 + I],
+    [-2 - 4*I],
+    [1 - 3*I]
+])
+
+v3 = Matrix([
+    [-3 - 5*I],
+    [1 - 4*I],
+    [-3 + 4*I]
+])
+
+v4 = Matrix([
+    [-2 - 5*I],
+    [1 - I],
+    [2 - 2*I]
+])
+V = Matrix.hstack(v1, v2, v3)
+print(latex(simplify(V**(-1)*v4)))
