@@ -31,6 +31,8 @@ bin/
 ### Mac OS ###
 .DS_Store
 
+*.idea
+
 IndentationDecorator.cpp
 IndentationDecorator.hpp
 
