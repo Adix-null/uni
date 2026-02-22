@@ -7,6 +7,48 @@
 
 #define BUFFLEN 1024
 
+#define WIDTH 7
+#define HEIGHT 6
+
+void deserialize(char *str, int board[HEIGHT][WIDTH])
+{
+    for (int i = 0; i < HEIGHT; i++)
+    {
+        for (int j = 0; j < WIDTH; j++)
+        {
+            board[i][j] = str[1 + (i * WIDTH + j)];
+        }
+    }
+}
+
+void render_board(int board[HEIGHT][WIDTH])
+{
+    for (int i = 0; i < HEIGHT; i++)
+    {
+        for (int j = 0; j < WIDTH; j++)
+        {
+            if (board[i][j] == '0')
+            {
+                printf(". ");
+            }
+            else if (board[i][j] == '1')
+            {
+                printf("X ");
+            }
+            else if (board[i][j] == '2')
+            {
+                printf("O ");
+            }
+            else
+            {
+                printf("%d ", board[i][j]);
+            }
+        }
+        printf("\n");
+    }
+    printf("\n");
+}
+
 int main(int argc, char *argv[])
 {
     WSADATA wsadata;
@@ -54,18 +96,42 @@ int main(int argc, char *argv[])
         fprintf(stderr, "ERROR #4: error in connect().\n");
         exit(1);
     }
+    printf("Connected to server %s:%d\n", inet_ntoa(server_address.sin_addr), port);
 
-    printf("Enter the message: ");
-    fgets(buffer, BUFFLEN, stdin);
-    /* Send message to server */
-    send(s_socket, buffer, strlen(buffer), 0);
-    memset(&buffer, 0, BUFFLEN);
+    int board[HEIGHT][WIDTH];
+    memset(board, '0', sizeof(board));
 
-    /* Receive message from server */
-    recv(s_socket, buffer, BUFFLEN, 0);
-    printf("Server sent: %s\n", buffer);
+    while(true)
+    {        
+        
+        /* Send message to server */
+        memset(&buffer, 0, BUFFLEN);
+        fgets(buffer, BUFFLEN, stdin);
+        send(s_socket, buffer, strlen(buffer), 0);
+        
+        /* Receive message from server */
+        memset(&buffer, 0, BUFFLEN);
+        recv(s_socket, buffer, BUFFLEN, 0);
+        
+        // if (buffer[0] == 2)
+        // {
+        //     printf("Server says: %.*s\n", n - 1, buffer + 1);
+        // }
+        if(buffer[0] == 1)
+        {
+            deserialize(buffer, board);
+            render_board(board);
+        }
 
+
+        if (strlen(buffer) <= 0)
+        {
+            printf("Server closed the connection\n");
+            break;
+        }
+    }
     closesocket(s_socket);
+
     WSACleanup();
     return 0;
 }
