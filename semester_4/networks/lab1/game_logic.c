@@ -172,6 +172,18 @@ void deserialize(char *str, int board[HEIGHT][WIDTH])
 }
 
 void end_game(int board[HEIGHT][WIDTH], int client_socket, char *messageBuffer)
+void deserialize(char *str, int board[HEIGHT][WIDTH])
+{
+    for (int i = 0; i < HEIGHT; i++)
+    {
+        for (int j = 0; j < WIDTH; j++)
+        {
+            board[i][j] = str[1 + (i * WIDTH + j)];
+        }
+    }
+}
+
+void end_game(int board[HEIGHT][WIDTH], int client_socket, char *messageBuffer)
 {
     int winner = check_win(board);
     if (winner == 0)
@@ -186,6 +198,7 @@ void end_game(int board[HEIGHT][WIDTH], int client_socket, char *messageBuffer)
         char winMessage[BUFFLEN];
         sprintf(winMessage, "Player %d wins", winner);
         printf("%s\n", winMessage);
+        put_message_in_queue(winMessage, messageBuffer);
         put_message_in_queue(winMessage, messageBuffer);
     }
     closesocket(client_socket);
