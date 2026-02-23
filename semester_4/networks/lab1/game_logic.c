@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include <game_logic.h>
+#include "game_logic.h"
 
 void render_board(int board[HEIGHT][WIDTH])
 {
@@ -160,7 +160,7 @@ void deserialize(char *str, int board[HEIGHT][WIDTH])
 char *serialize(int board[HEIGHT][WIDTH])
 {
     static char buffer[BUFFLEN];
-    buffer[0] = 1;
+    buffer[0] = HEADER_BOARD;
     for (int i = 0; i < HEIGHT; i++)
     {
         for (int j = 0; j < WIDTH; j++)
@@ -189,4 +189,15 @@ void end_game(int board[HEIGHT][WIDTH], int client_socket)
         // send_message(client_socket, winMessage);
     }
     closesocket(client_socket);
+}
+
+void send_message(int client_socket, const char *message)
+{
+    char msg[BUFFLEN];
+    msg[0] = HEADER_MESSAGE;
+    strncpy(msg + 1, message, BUFFLEN - 2);
+    msg[BUFFLEN - 1] = '\0';
+    // Dont use send but put into buffer separated by \n and send with board
+    send(client_socket, msg, 2 + strlen(msg + 1), 0);
+    printf("Sent message to client: %s\n", msg + 1);
 }

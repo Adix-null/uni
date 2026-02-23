@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include <game_logic.h>
+#include "game_logic.h"
 
 int main(int argc, char *argv[])
 {
@@ -70,16 +70,15 @@ int main(int argc, char *argv[])
         memset(&buffer, 0, BUFFLEN);
         recv(s_socket, buffer, BUFFLEN, 0);
         
-        // if (buffer[0] == 2)
+        // if (buffer[0] == HEADER_MESSAGE)
         // {
         //     printf("Server says: %.*s\n", n - 1, buffer + 1);
         // }
-        if(buffer[0] == 1)
+        if(buffer[0] == HEADER_BOARD)
         {
             deserialize(buffer, board);
             render_board(board);
         }
-
 
         if (strlen(buffer) <= 0)
         {

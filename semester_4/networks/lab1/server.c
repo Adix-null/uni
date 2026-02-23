@@ -5,17 +5,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <time.h>
-#include "game_logic.c"
-
-void send_message(int client_socket, const char *message)
-{
-    char msg[BUFFLEN];
-    msg[0] = 2;
-    strncpy(msg + 1, message, BUFFLEN - 2);
-    msg[BUFFLEN - 1] = '\0';
-    send(client_socket, msg, 2 + strlen(msg + 1), 0);
-    printf("Sent message to client: %s\n", msg + 1);
-}
+#include "game_logic.h"
 
 int main(int argc, char *argv[])
 {
@@ -99,7 +89,8 @@ int main(int argc, char *argv[])
         }
         printf("Client connected from %s:%d\n", inet_ntoa(client_address.sin_addr), ntohs(client_address.sin_port));
 
-        int board[HEIGHT][WIDTH] = {0};
+        int board[HEIGHT][WIDTH];
+        memset(board, 0, sizeof(board));
 
         while (true)
         {
@@ -153,6 +144,7 @@ int main(int argc, char *argv[])
                 next_move(board, move, 2);
                 char* message = serialize(board);
                 
+                /* Send the combined info to client*/
                 r_len = send(client_socket, message, strlen(message), 0);
                 printf("IP: %s Sent: %d Received: %d\n", inet_ntoa(client_address.sin_addr), strlen(message), r_len);
             }

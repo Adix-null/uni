@@ -6,6 +6,10 @@
 #define WIDTH 7
 #define HEIGHT 6
 
+#define HEADER_BOARD 1
+#define HEADER_MESSAGE 2
+
+
 enum BoardStatus
 {
     OK = 0,
