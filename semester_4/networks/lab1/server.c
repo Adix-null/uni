@@ -21,6 +21,7 @@ int main(int argc, char *argv[])
     int s_len;
     int r_len;
     char buffer[BUFFLEN];
+    char *messageBuffer;
 
     if (argc != 2)
     {
@@ -96,14 +97,14 @@ int main(int argc, char *argv[])
         {
             if (check_full(board) || check_win(board) != 0)
             {
-                end_game(board, client_socket);
+                end_game(board, client_socket, messageBuffer);
                 break;
             }
 
             bool error = false;
             do
             {
-                //send_message(client_socket, "Your turn\n");
+                put_message_in_queue("Your turn", messageBuffer);
                 error = false;
                 errno = 0;
                 memset(&buffer, 0, sizeof(buffer));
@@ -120,7 +121,7 @@ int main(int argc, char *argv[])
     
                 if (errno != 0 || rowChoice < 0 || rowChoice > WIDTH - 1)
                 {
-                    //send_message(client_socket, "Invalid row received\n");
+                    put_message_in_queue("Invalid row received", messageBuffer);
                     error = true;
                     continue;
                 }
@@ -129,7 +130,7 @@ int main(int argc, char *argv[])
                 printf("Status: %d\n", status);
                 if(status == COLUMN_FULL)
                 {
-                    //send_message(client_socket, "Column is full, choose another one\n");
+                    put_message_in_queue("Column is full, choose another one", messageBuffer);
                     error = true;
                     continue;
                 }
@@ -145,12 +146,12 @@ int main(int argc, char *argv[])
                 char* message = serialize(board);
                 
                 /* Send the combined info to client*/
-                r_len = send(client_socket, message, strlen(message), 0);
+                r_len = send_info(client_socket, board, messageBuffer);
                 printf("IP: %s Sent: %d Received: %d\n", inet_ntoa(client_address.sin_addr), strlen(message), r_len);
             }
             else
             {
-                end_game(board, client_socket);
+                end_game(board, client_socket, messageBuffer);
                 break;
             }
         }

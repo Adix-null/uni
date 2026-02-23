@@ -146,17 +146,6 @@ int next_move(int board[HEIGHT][WIDTH], int position, int player)
     return COLUMN_FULL;
 }
 
-void deserialize(char *str, int board[HEIGHT][WIDTH])
-{
-    for (int i = 0; i < HEIGHT; i++)
-    {
-        for (int j = 0; j < WIDTH; j++)
-        {
-            board[i][j] = str[1 + (i * WIDTH + j)];
-        }
-    }
-}
-
 char *serialize(int board[HEIGHT][WIDTH])
 {
     static char buffer[BUFFLEN];
@@ -171,7 +160,18 @@ char *serialize(int board[HEIGHT][WIDTH])
     return buffer;
 }
 
-void end_game(int board[HEIGHT][WIDTH], int client_socket)
+void deserialize(char *str, int board[HEIGHT][WIDTH])
+{
+    for (int i = 0; i < HEIGHT; i++)
+    {
+        for (int j = 0; j < WIDTH; j++)
+        {
+            board[i][j] = str[1 + (i * WIDTH + j)];
+        }
+    }
+}
+
+void end_game(int board[HEIGHT][WIDTH], int client_socket, char *messageBuffer)
 {
     int winner = check_win(board);
     if (winner == 0)
@@ -179,25 +179,60 @@ void end_game(int board[HEIGHT][WIDTH], int client_socket)
         char tieMessage[BUFFLEN];
         sprintf(tieMessage, "Tie");
         printf("%s\n", tieMessage);
-        // send_message(client_socket, tieMessage);
+        put_message_in_queue(tieMessage, messageBuffer);
     }
     else
     {
         char winMessage[BUFFLEN];
         sprintf(winMessage, "Player %d wins", winner);
         printf("%s\n", winMessage);
-        // send_message(client_socket, winMessage);
+        put_message_in_queue(winMessage, messageBuffer);
     }
     closesocket(client_socket);
 }
 
-void send_message(int client_socket, const char *message)
+void put_message_in_queue(char *message, char *messageBuffer)
 {
-    char msg[BUFFLEN];
-    msg[0] = HEADER_MESSAGE;
-    strncpy(msg + 1, message, BUFFLEN - 2);
-    msg[BUFFLEN - 1] = '\0';
+    strncpy(messageBuffer + strlen(messageBuffer), message, strlen(message));
+    messageBuffer[strlen(messageBuffer)] = '\n';
+    messageBuffer[strlen(messageBuffer) + 1] = '\0';
     // Dont use send but put into buffer separated by \n and send with board
-    send(client_socket, msg, 2 + strlen(msg + 1), 0);
-    printf("Sent message to client: %s\n", msg + 1);
+    //send(client_socket, msg, 2 + strlen(msg + 1), 0);
+    //printf("Sent message to client: %s\n", messageBuffer + 1);
+}
+
+int send_info(int client_socket, int board[HEIGHT][WIDTH], char *messageBuffer)
+{
+    char *boardMessage = serialize(board);
+    int board_len = strlen(boardMessage);
+    int message_len = strlen(messageBuffer);
+
+    char combined[BUFFLEN];
+    memcpy(combined, boardMessage, board_len);
+    combined[board_len + 1] = HEADER_MESSAGE;
+    memcpy(combined + board_len + 1, messageBuffer, message_len);
+
+    return send(client_socket, combined, board_len + 1 + message_len, 0);
+}
+
+void parse_info(char *buffer, int board[HEIGHT][WIDTH], char *messageBuffer)
+{
+    if (buffer[0] == HEADER_BOARD)
+    {
+        deserialize(buffer, board);
+    }
+    if (buffer[strlen(board) + 1] == HEADER_MESSAGE)
+    {
+        strncpy(messageBuffer, buffer[strlen(board) + 2], strlen(buffer) - strlen(board) - 2);
+    }
+}
+
+void print_messages_in_queue(char *messageBuffer)
+{
+    char *token = strtok(messageBuffer, "\n");
+    while (token != NULL)
+    {
+        printf("Server says: %s\n", token);
+        token = strtok(NULL, "\n");
+    }
 }
