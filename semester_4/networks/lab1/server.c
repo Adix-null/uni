@@ -92,6 +92,10 @@ int main(int argc, char *argv[])
         int board[HEIGHT][WIDTH];
         memset(board, 0, sizeof(board));
 
+        printf("Starting game...\n");
+        char *message = serialize(board, OK, 0);
+        r_len = send(client_socket, message, strlen(message), 0);
+
         while (true)
         {
             if (check_full(board) || check_win(board) != 0)
@@ -103,13 +107,13 @@ int main(int argc, char *argv[])
             bool error = false;
             do
             {
-                //send_message(client_socket, "Your turn\n");
                 error = false;
                 errno = 0;
                 memset(&buffer, 0, sizeof(buffer));
 
-                int rowChoice;                
+                printf("Waiting for client move...\n");
                 s_len = recv(client_socket, buffer, sizeof(buffer) - 1, 0);
+                int rowChoice;            
                 sscanf(buffer, "%d", &rowChoice);
 
                 if (s_len <= 0)
@@ -120,7 +124,8 @@ int main(int argc, char *argv[])
     
                 if (errno != 0 || rowChoice < 0 || rowChoice > WIDTH - 1)
                 {
-                    //send_message(client_socket, "Invalid row received\n");
+                    char *message = serialize(board, INVALID_COLUMN, 0);
+                    r_len = send(client_socket, message, strlen(message), 0);
                     error = true;
                     continue;
                 }
@@ -129,11 +134,11 @@ int main(int argc, char *argv[])
                 printf("Status: %d\n", status);
                 if(status == COLUMN_FULL)
                 {
-                    //send_message(client_socket, "Column is full, choose another one\n");
+                    char *message = serialize(board, COLUMN_FULL, 0);
+                    r_len = send(client_socket, message, strlen(message), 0);
                     error = true;
                     continue;
                 }
-
             } while (error);
 
             srand(time(NULL));
@@ -141,18 +146,15 @@ int main(int argc, char *argv[])
             
             if(move != -1)
             {
-                next_move(board, move, 2);
-                char* message = serialize(board);
-                
-                /* Send the combined info to client*/
-                r_len = send(client_socket, message, strlen(message), 0);
-                printf("IP: %s Sent: %d Received: %d\n", inet_ntoa(client_address.sin_addr), strlen(message), r_len);
+                next_move(board, move, 2);                
             }
-            else
+            if (check_full(board) || check_win(board) != 0)
             {
                 end_game(board, client_socket);
                 break;
             }
+            char *message = serialize(board, OK, 0);
+            r_len = send(client_socket, message, strlen(message), 0);
         }
     }
     closesocket(client_socket);

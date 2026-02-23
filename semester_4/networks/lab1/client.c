@@ -56,28 +56,29 @@ int main(int argc, char *argv[])
     printf("Connected to server %s:%d\n", inet_ntoa(server_address.sin_addr), port);
 
     int board[HEIGHT][WIDTH];
-    memset(board, '0', sizeof(board));
+    enum BoardStatus game_status;
+    int winner;
 
     while(true)
     {        
-        
-        /* Send message to server */
-        memset(&buffer, 0, BUFFLEN);
-        fgets(buffer, BUFFLEN, stdin);
-        send(s_socket, buffer, strlen(buffer), 0);
-        
         /* Receive message from server */
         memset(&buffer, 0, BUFFLEN);
         recv(s_socket, buffer, BUFFLEN, 0);
-        
-        // if (buffer[0] == HEADER_MESSAGE)
-        // {
-        //     printf("Server says: %.*s\n", n - 1, buffer + 1);
-        // }
-        if(buffer[0] == HEADER_BOARD)
+        deserialize(buffer, board, &game_status, &winner);
+        render_board(board);
+
+        if (game_status == INVALID_COLUMN)
         {
-            deserialize(buffer, board);
-            render_board(board);
+            printf("Invalid column\n");
+        }
+        if (game_status == COLUMN_FULL)
+        {
+            printf("Column is full\n");
+        }
+        if(game_status == GAME_OVER)
+        {
+            printf("Game over! Winner: %d\n", winner);
+            break;
         }
 
         if (strlen(buffer) <= 0)
@@ -85,6 +86,12 @@ int main(int argc, char *argv[])
             printf("Server closed the connection\n");
             break;
         }
+
+        /* Send message to server */
+        memset(&buffer, 0, BUFFLEN);
+        printf("Enter column [0-%d]: ", WIDTH - 1);
+        fgets(buffer, BUFFLEN, stdin);
+        send(s_socket, buffer, strlen(buffer), 0);
     }
     closesocket(s_socket);
 

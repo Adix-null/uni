@@ -6,15 +6,11 @@
 #define WIDTH 7
 #define HEIGHT 6
 
-#define HEADER_BOARD 1
-#define HEADER_MESSAGE 2
-
-
 enum BoardStatus
 {
     OK = 0,
-    BOARD_FULL = 1,
-    INVALID_ROW = -1,
+    GAME_OVER = 1,
+    INVALID_COLUMN = -1,
     COLUMN_FULL = -2
 };
 
@@ -28,9 +24,9 @@ bool check_full(int board[HEIGHT][WIDTH]);
 
 int next_move(int board[HEIGHT][WIDTH], int position, int player);
 
-void deserialize(char *str, int board[HEIGHT][WIDTH]);
+char *serialize(int board[HEIGHT][WIDTH], enum BoardStatus game_status, int winner);
 
-char* serialize(int board[HEIGHT][WIDTH]);
+void deserialize(char *str, int board[HEIGHT][WIDTH], enum BoardStatus *game_status, int *winner);
 
 void end_game(int board[HEIGHT][WIDTH], int client_socket);
 
