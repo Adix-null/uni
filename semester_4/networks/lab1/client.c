@@ -4,50 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-
-#define BUFFLEN 1024
-
-#define WIDTH 7
-#define HEIGHT 6
-
-void deserialize(char *str, int board[HEIGHT][WIDTH])
-{
-    for (int i = 0; i < HEIGHT; i++)
-    {
-        for (int j = 0; j < WIDTH; j++)
-        {
-            board[i][j] = str[1 + (i * WIDTH + j)];
-        }
-    }
-}
-
-void render_board(int board[HEIGHT][WIDTH])
-{
-    for (int i = 0; i < HEIGHT; i++)
-    {
-        for (int j = 0; j < WIDTH; j++)
-        {
-            if (board[i][j] == '0')
-            {
-                printf(". ");
-            }
-            else if (board[i][j] == '1')
-            {
-                printf("X ");
-            }
-            else if (board[i][j] == '2')
-            {
-                printf("O ");
-            }
-            else
-            {
-                printf("%d ", board[i][j]);
-            }
-        }
-        printf("\n");
-    }
-    printf("\n");
-}
+#include <game_logic.h>
 
 int main(int argc, char *argv[])
 {
