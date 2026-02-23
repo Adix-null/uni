@@ -14,7 +14,6 @@ int main(int argc, char *argv[])
     struct sockaddr_in server_address;
 
     char buffer[BUFFLEN];
-    char *messageBuffer;
 
     if (argc != 3)
     {
@@ -61,6 +60,7 @@ int main(int argc, char *argv[])
 
     while(true)
     {        
+        
         /* Send message to server */
         memset(&buffer, 0, BUFFLEN);
         fgets(buffer, BUFFLEN, stdin);
@@ -69,11 +69,17 @@ int main(int argc, char *argv[])
         /* Receive message from server */
         memset(&buffer, 0, BUFFLEN);
         recv(s_socket, buffer, BUFFLEN, 0);
-
-        parse_info(buffer, board, messageBuffer);
-        render_board(board);
-        print_messages_in_queue(messageBuffer);
         
+        // if (buffer[0] == HEADER_MESSAGE)
+        // {
+        //     printf("Server says: %.*s\n", n - 1, buffer + 1);
+        // }
+        if(buffer[0] == HEADER_BOARD)
+        {
+            deserialize(buffer, board);
+            render_board(board);
+        }
+
         if (strlen(buffer) <= 0)
         {
             printf("Server closed the connection\n");

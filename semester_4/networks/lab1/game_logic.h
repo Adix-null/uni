@@ -9,6 +9,7 @@
 #define HEADER_BOARD 1
 #define HEADER_MESSAGE 2
 
+
 enum BoardStatus
 {
     OK = 0,
@@ -27,18 +28,10 @@ bool check_full(int board[HEIGHT][WIDTH]);
 
 int next_move(int board[HEIGHT][WIDTH], int position, int player);
 
-char* serialize(int board[HEIGHT][WIDTH]);
-
 void deserialize(char *str, int board[HEIGHT][WIDTH]);
 
-void end_game(int board[HEIGHT][WIDTH], int client_socket, char *messageBuffer);
+char* serialize(int board[HEIGHT][WIDTH]);
 
-void put_message_in_queue(char *message, char *messageBuffer);
-
-void print_messages_in_queue(char *messageBuffer);
-
-int send_info(int client_socket, int board[HEIGHT][WIDTH], char *messageBuffer);
-
-void parse_info(char *buffer, int board[HEIGHT][WIDTH], char *messageBuffer);
+void end_game(int board[HEIGHT][WIDTH], int client_socket);
 
 #endif // GAME_LOGIC_H
