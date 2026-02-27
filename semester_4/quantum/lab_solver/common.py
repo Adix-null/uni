@@ -58,7 +58,7 @@ def showMatrixGraph(M):
         G, pos,
         edge_labels=edge_labels,
         label_pos=0.6,
-        font_size=9,
+        font_size=8,
         rotate=False
     )
 
