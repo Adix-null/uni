@@ -2,7 +2,7 @@ from sympy import Matrix, I, simplify, latex, Rational
 
 from common import prettyPrint, lengthComplex, dotComplex
 
-# 1.11
+#region 1.11
 v1 = Matrix([-1 - 5 * I, -4 + 3 * I, -5 + I, -3 - 5 * I])
 v2 = Matrix([-4 + I, - 4 - 3 * I, 3 - I, -3 + 2 * I])
 v3 = Matrix([-1 - I, -1 - 4 * I, 2 - 2 * I, -4 + 4 * I])
@@ -18,8 +18,9 @@ print(f"Reduction: {A.rref()}")          # reduced row echelon form
 print(f"Dependency: {A.nullspace()}")     # nontrivial solution => dependent
 
 print('-' * 20 + '\n')
+#endregion
 
-# 2.11
+#region 2.11
 A = Matrix([
     [-7 + 7*I, 1 + 5*I],
     [6 + 8*I, -4 -6*I]
@@ -41,8 +42,9 @@ print(prettyPrint(latex(simplify(
 ))))
 
 print('-' * 20 + '\n')
+#endregion
 
-# 3.11
+#region 3.11
 v1 = Matrix([
     [2 + 4*I],
     [-1 - 2*I],
@@ -76,9 +78,9 @@ print(prettyPrint(latex(simplify(
 ))))
 
 print('-' * 20 + '\n')
+#endregion
 
-# 4.11
-
+#region 4.11
 u1 = v1
 u2 = v2 - ((dotComplex(v2, u1) / dotComplex(u1, u1)) * u1)
 u3 = v3 - ((dotComplex(v3, u2) / dotComplex(u2, u2)) * u2) - ((dotComplex(v3, u1) / dotComplex(u1, u1)) * u1)
@@ -95,8 +97,9 @@ print("e2: " + prettyPrint(latex(simplify(e2))))
 # print("e3: " + prettyPrint(latex(simplify(e3))))
 
 print('-' * 20 + '\n')
+#endregion
 
-# 5.20
+#region 5.20
 A = Matrix([
     [2*I, 5, 0],
     [2*I, 3, 0],
@@ -109,8 +112,9 @@ print(prettyPrint(latex(
     A.eigenvects()
 )))
 print('-' * 20 + '\n')
+#endregion
 
-# 6.1
+#region 6.1
 H = Matrix([
     [0, 0, 1],
     [0, 1, 0],
@@ -134,3 +138,4 @@ print("Y: " + prettyPrint(latex(simplify(
 ))))
 
 print('-' * 20 + '\n')
+#endregion
