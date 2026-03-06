@@ -1,4 +1,4 @@
-from sympy import Matrix,  Rational
+from sympy import Matrix, Rational, sqrt, Abs
 import re
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -15,6 +15,9 @@ def prettyPrint(inp):
     inp = re.sub(pattern, r'i\\frac{\1}{\2}', inp)
     inp = inp.replace('\\\\', ' \\\\\n')
     return inp
+
+def normalize(v):
+    return v / sqrt(sum(Abs(v[i])**2 for i in range(v.rows)))
 
 def dotComplex(x, y):
     x = Matrix(x)

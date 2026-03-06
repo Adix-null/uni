@@ -1,16 +1,16 @@
 import random
 random.seed()
 from sympy import Matrix, I, simplify, latex, Rational, eye, sqrt, Abs, N, symbols
-import numpy as np
 
 from common import *
 
 question = None
-while question is None:
-    try:
-        question = int(input("Užduotis: "))
-    except ValueError:
-        print("Pasirinkimas turi būti sveikas skaičius")
+if __name__ == "__main__":
+    while question is None:
+        try:
+            question = int(input("Užduotis: "))
+        except ValueError:
+            print("Pasirinkimas turi būti sveikas skaičius")
 
 M = Matrix([
     [0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
