@@ -1,6 +1,7 @@
-from sympy import Matrix, I, simplify, latex, Rational, eye, sqrt, Abs, N, symbols, exp, pi
-from sympy.physics.quantum import TensorProduct
+import random
+from sympy import Matrix
 from qiskit.visualization import plot_histogram, circuit_drawer
+from qiskit.circuit.library import UnitaryGate
 from qiskit import QuantumCircuit
 from qiskit_aer import AerSimulator
 import matplotlib.pyplot as plt
@@ -131,11 +132,171 @@ if question == 'D3' or question == 0:
     print('-' * 20 + '\n')
 #endregion
 
-#region DJ1
-if question == 'DJ1' or question == 0:
+#region DJ1 & DJ2
+def Uf(rule):
+    size = len(rule)*2
+    U = Matrix.zeros(size)
+
+    if not is_dj_linear(rule):
+        print("Funkcija netinkama")
+        return U
+
+    for x in range(len(rule)):
+        fx = int(rule[x])
+
+        for y in (0, 1):
+            inp = (x << 1) | y # x1 x2 x3 x4 y
+            out = (x << 1) | (y ^ fx) # x1 x2 x3 x4 (y xor fx)
+
+            U[out, inp] = 1
+    return U
+
+def is_dj_linear(rule):
+    n = 0
+    L = len(rule)
+
+    while 2 ** n < L:
+        n += 1
+
+    if all(c == '0' for c in rule) or all(c == '1' for c in rule):
+        return True # konstanta
+
+    zeros = rule.count('0')
+    ones = rule.count('1')
+    if zeros != ones:
+        return False # Nebalansuotas
+
+    return True
+
+if question == 'DJ1' or question == 'DJ2' or question == 0:
     print('-' * 20)
     print('DJ1: ')
 
+    function = '0000111111110000'
+
+    inp_cnt = 4
+
+    qc = QuantumCircuit(inp_cnt + 1, inp_cnt)
+
+    for i in range(inp_cnt):
+        qc.h(i)
+
+    qc.x(inp_cnt)
+    qc.h(inp_cnt)
+
+    oracle = UnitaryGate(Uf(function))
+    qc.append(oracle, [4, 3, 2, 1, 0])
+
+    for i in range(inp_cnt):
+        qc.h(i)
+
+    for i in range(inp_cnt):
+        qc.measure(i, i)
+
+    sim = AerSimulator()
+    job = sim.run(qc, shots=10000)
+    result = job.result()
+
+    counts = result.get_counts()
+
+    # Draw the circuit
+    circuit_drawer(qc, output="mpl")
+    plt.show()
+
+    # Plot the measurement results
+    plot_histogram(counts)
+    plt.show()
 
     print('-' * 20 + '\n')
 #endregion
+
+#region BV 1
+def truth_table(secret):
+    n = len(secret)
+    table = []
+
+    for i in range(2 ** n):
+        x_bits = [(i >> j) & 1 for j in reversed(range(n))]
+        fx = sum(int(bx) * int(bs) for bx, bs in zip(x_bits, secret)) % 2
+        table.append(fx)
+
+    return table
+
+if question == 'BV1' or question == 0:
+
+    print('-' * 20)
+    print('BV1: ')
+
+    s = [0, 0, 0, 1, 0, 0]
+    table = truth_table(s)
+
+    for i, e in enumerate(table):
+        print(f"{i:0{len(s)}b} -> {e}")
+
+    print('-' * 20 + '\n')
+# endregion
+
+#region BV 2
+if question == 'BV2' or question == 0:
+    n = None
+    while n is None or n < 0:
+        try:
+            n = int(input("n = "))
+        except ValueError:
+            print("n turi būti natūralus skaičius")
+
+    print('-' * 20)
+    print('BV2: ')
+
+    s = [random.randint(0, 1) for i in range(n)]
+    table = truth_table(s)
+
+    print(f"Atsitiktinis s: {s}")
+    for i, e in enumerate(table):
+        print(f"{i:0{len(s)}b} -> {e}")
+
+    print('-' * 20 + '\n')
+# endregion
+
+#region BV 3
+if question == 'BV3' or question == 0:
+    def IsBV(truth_table):
+        n = (len(truth_table)).bit_length() - 1
+        c = truth_table[0]
+        s = []
+
+        for i in range(n):
+            ei = 1 << i
+            si = truth_table[ei] ^ c
+            s.append(si)
+
+        for x in range(len(truth_table)):
+            fx = truth_table[x]
+            dot = sum(((x >> i) & 1) * s[i] for i in range(n)) % 2
+            if fx != (c ^ dot):
+                return False, None
+
+        return True, s
+
+    n = None
+    while n is None or n < 0:
+        try:
+            n = int(input("n = "))
+        except ValueError:
+            print("n turi būti natūralus skaičius")
+
+    function = [random.randint(0, 1) for i in range(2**n)]
+
+    print('-' * 20)
+    print('BV3: ')
+
+    table = truth_table(function)
+
+    # function = [0,1,0,1,1,0,1,0]
+    is_bv, secret = IsBV(function)
+    print(f"Ar funkcija BV: {'Taip' if is_bv else 'Ne'}")
+    if is_bv:
+        print(f"s: {secret}")
+
+    print('-' * 20 + '\n')
+# endregion
