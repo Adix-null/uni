@@ -12,6 +12,10 @@ dict_entry func_dictionary[] = {
     {"help", help},
     {"quit", quit},
     {"ls", ls},
+    {"cd", cd},
+    {"mkdir", mkdir},
+    {"rm", rm},
+    {"rmdir", rmdir},
     {NULL, NULL}
 };
 
@@ -19,12 +23,10 @@ const char *menu =
 "Menu:\n\
 help - show this menu\n\
 ls - view current folder contents\n\
-cd .. - go to parent directory\n\
-cd / - go to root directory\n\
-cd <path> - change to specified directory\n\
-mkdir <dirname> - create directory\n\
+cd <path> - go to path\n\
+mkdir <dirname> - create empty directory\n\
 rm <filename> - delete file\n\
-rmdir <dirname> - delete directory\n\
+rmdir <dirname> - delete empty directory\n\
 get <filename> - download file\n\
 put <filename> - upload file\n\
 getdir <dirname> - download directory\n\
@@ -130,8 +132,8 @@ void switch_func(char *inp, void *ctx)
 void open_data_connection(client_ctx *ctx, char *buffer, int *data_socket_num)
 {
     send_command(ctx->s_socket, "PASV", (char *[]){NULL});
-    *(ctx->resp_code) = recv_response(ctx->s_socket, buffer);
-    if (*(ctx->resp_code) != PASV_OK)
+    ctx->resp_code = recv_response(ctx->s_socket, buffer);
+    if (ctx->resp_code != PASV_OK)
     {
         printf("Failed to enter passive mode.\n");
         return;
@@ -170,12 +172,12 @@ void close_data_connection(int data_socket)
     closesocket(data_socket);
 }
 
-void help(int argc, char *argv[], void *ctx)
+void help   (int argc, char *argv[], void *ctx)
 {
     printf("%s", menu);
 }
 
-void ls(int argc, char *argv[], void *ctx)
+void ls     (int argc, char *argv[], void *ctx)
 {
     client_ctx *context = (client_ctx *)ctx;
 
@@ -191,13 +193,89 @@ void ls(int argc, char *argv[], void *ctx)
         buffer[n] = '\0';
         printf("%s", buffer);
     }
-    
+
     close_data_connection(data_socket);
     recv_response(context->s_socket, buffer);
 }
 
-void quit(int argc, char *argv[], void *ctx)
+void cd     (int argc, char *argv[], void *ctx)
+{
+    client_ctx *context = (client_ctx *)ctx;
+    if (argc < 1)
+    {
+        printf("Usage: cd <path>\n");
+        return;
+    }
+
+    send_command(context->s_socket, "CWD", (char *[]){argv[0], NULL});
+
+    char buffer[BUFFLEN];
+    context->resp_code = recv_response(context->s_socket, buffer);
+    if(context->resp_code == CD_ERR)
+    {
+        printf("%s", buffer);
+    }
+}
+
+void rm     (int argc, char *argv[], void *ctx)
+{
+    client_ctx *context = (client_ctx *)ctx;
+    if (argc < 1)
+    {
+        printf("Usage: rm <filename>\n");
+        return;
+    }
+
+    send_command(context->s_socket, "DELE", (char *[]){argv[0], NULL});
+    char buffer[BUFFLEN];
+    context->resp_code = recv_response(context->s_socket, buffer);
+    if (context->resp_code == CD_ERR)
+    {
+        printf("%s", buffer);
+    }
+}
+
+void rmdir  (int argc, char *argv[], void *ctx)
+{
+    client_ctx *context = (client_ctx *)ctx;
+    if (argc < 1)
+    {
+        printf("Usage: rmdir <dirname> \n");
+        return;
+    }
+    
+    send_command(context->s_socket, "RMD", (char *[]){argv[0], NULL});
+    char buffer[BUFFLEN];
+    context->resp_code = recv_response(context->s_socket, buffer);
+    if (context->resp_code == CD_ERR)
+    {
+        printf("%s", buffer);
+    }
+}
+
+void mkdir  (int argc, char *argv[], void *ctx)
+{
+    client_ctx *context = (client_ctx *)ctx;
+    if (argc < 1)
+    {
+        printf("Usage: mkdir <dirname> \n");
+        return;
+    }
+
+    send_command(context->s_socket, "MKD", (char *[]){argv[0], NULL});
+    char buffer[BUFFLEN];
+    context->resp_code = recv_response(context->s_socket, buffer);
+    if (context->resp_code == CD_ERR)
+    {
+        printf("%s", buffer);
+    }
+}
+
+void quit   (int argc, char *argv[], void *ctx)
 {
     client_ctx *context = (client_ctx *)ctx;
     send_command(context->s_socket, "QUIT", (char *[]){NULL});
+    
+    char buffer[BUFFLEN];
+    context->resp_code = recv_response(context->s_socket, buffer);
 }

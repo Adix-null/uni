@@ -73,7 +73,7 @@ int main(int argc, char *argv[])
         send_command(s_socket, "PASS", (char *[]){input_buffer, NULL});
         resp = recv_response(s_socket, buffer);
 
-        if (resp == LOGIN_BAD)
+        if (resp == LOGIN_ERR)
         {
             printf("Invalid credentials\n");
         }        
@@ -84,11 +84,11 @@ int main(int argc, char *argv[])
     
     help(0, (char *[]){NULL}, &ctx);
     send_command(s_socket, "CDUP", (char*[]){NULL});
-    resp = recv_response(s_socket, buffer);
+    ctx.resp_code = recv_response(s_socket, buffer);
 
     ctx.s_socket = s_socket;
-    ctx.resp_code = &resp;
-    while (resp != SESH_CLOSED)
+    ctx.resp_code = resp;
+    while (ctx.resp_code != SESH_CLOSED)
     {
         send_command(s_socket, "PWD", (char *[]){NULL});
         resp = recv_response(s_socket, buffer);

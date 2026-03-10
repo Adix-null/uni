@@ -8,7 +8,9 @@
 
 #define PASV_OK 227
 #define LOGIN_OK 230
-#define LOGIN_BAD 530
+#define LOGIN_ERR 530
+#define CD_OK 250
+#define CD_ERR 550
 #define SESH_CLOSED 221
 
 /*
@@ -18,8 +20,8 @@ https://www.rfc-editor.org/rfc/rfc959.html
 
         The following are the FTP commands:
 
-            + USER <SP> <username> <CRLF>
-            + PASS <SP> <password> <CRLF>
+            USER <SP> <username> <CRLF>
+            PASS <SP> <password> <CRLF>
             ACCT <SP> <account-information> <CRLF>
             CWD  <SP> <pathname> <CRLF>
             CDUP <CRLF>
@@ -66,7 +68,7 @@ typedef struct
 typedef struct
 {
     int s_socket;
-    int *resp_code;
+    int resp_code;
 } client_ctx;
 
 void get_input(char *inp_buffer, char *msg);
@@ -82,8 +84,12 @@ void switch_func(char *inp, void *ctx);
 void open_data_connection(client_ctx *ctx, char *buffer, int *data_socket_num);
 void close_data_connection(int data_socket);
 
-void help(int argc, char *argv[], void *ctx);
-void quit(int argc, char *argv[], void *ctx);
-void ls(int argc, char *argv[], void *ctx);
+void help   (int argc, char *argv[], void *ctx);
+void ls     (int argc, char *argv[], void *ctx);
+void cd     (int argc, char *argv[], void *ctx);
+void mkdir  (int argc, char *argv[], void *ctx);
+void rm     (int argc, char *argv[], void *ctx);
+void rmdir  (int argc, char *argv[], void *ctx);
+void quit   (int argc, char *argv[], void *ctx);
 
 #endif // FTP_H
