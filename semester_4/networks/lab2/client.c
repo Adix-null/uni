@@ -4,8 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-
-#define BUFFLEN 1024
+#include "ftp.h"
 
 int main(int argc, char *argv[])
 {
@@ -56,22 +55,51 @@ int main(int argc, char *argv[])
     }
     printf("Connected to server %s:%d\n", inet_ntoa(server_address.sin_addr), port);
 
-    printf("This is a simple FTP client, select a file to upload\n");
-    while(true)
+    printf("This is a simple FTP client\n");
+
+    char input_buffer[BUFFLEN];
+    int resp = 0;
+    resp = recv_response(s_socket, buffer);
+    func_t chosen_func;
+
+    while (resp != LOGIN_OK)
     {
-        memset(&buffer, 0, BUFFLEN);
-        printf("Enter path: ");
-        fgets(buffer, BUFFLEN, stdin);
+        get_input(input_buffer, "Enter username: ");
+        // send_command(s_socket, "AUTH", (char *[]){"TLS", NULL}); no tls
+        send_command(s_socket, "USER", (char *[]){input_buffer, NULL});
+        resp = recv_response(s_socket, buffer);
+
+        get_input(input_buffer, "Enter password: ");
+        send_command(s_socket, "PASS", (char *[]){input_buffer, NULL});
+        resp = recv_response(s_socket, buffer);
+
+        if (resp == LOGIN_BAD)
+        {
+            printf("Invalid credentials\n");
+        }        
+    }
+    
+    char path[256];
+    client_ctx ctx;
+    
+    help(0, (char *[]){NULL}, &ctx);
+    send_command(s_socket, "CDUP", (char*[]){NULL});
+    resp = recv_response(s_socket, buffer);
+
+    ctx.s_socket = s_socket;
+    ctx.resp_code = &resp;
+    while (resp != SESH_CLOSED)
+    {
+        send_command(s_socket, "PWD", (char *[]){NULL});
+        resp = recv_response(s_socket, buffer);
+        extract_pwd(buffer, path, sizeof(path));
+        printf("%s> ", path);
+
+        get_input(input_buffer, "");
+        switch_func(input_buffer, &ctx);
     }
 
-    send(s_socket, buffer, strlen(buffer), 0);
-
-    memset(&buffer, 0, BUFFLEN);
-    recv(s_socket, buffer, BUFFLEN, 0);
-    printf("Message from server: %s\n", buffer);
-
     closesocket(s_socket);
-
     WSACleanup();
     return 0;
 }
