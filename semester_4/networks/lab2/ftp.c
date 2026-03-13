@@ -6,6 +6,8 @@
 #include <stdbool.h>
 #include <string.h>
 #include <stdio.h>
+#include <windows.h>
+#include "command_list.h"
 #include "ftp.h"
 
 dict_entry func_dictionary[] = {
@@ -17,24 +19,10 @@ dict_entry func_dictionary[] = {
     {"rm", rm},
     {"rmdir", rmdir},
     {"get", getfile},
+    {"getdir", getdir},
     {"put", putfile},
-    {NULL, NULL}
-};
-
-const char *menu =
-"Menu:\n\
-help - show this menu\n\
-ls - view current folder contents\n\
-cd <path> - go to path\n\
-mkdir <dirname> - create empty directory\n\
-rm <filename> - delete file\n\
-rmdir <dirname> - delete empty directory\n\
-get <filename> - download file\n\
-put <filename> - upload file\n\
-getdir <dirname> - download directory\n\
-putdir <dirname> - upload directory\n\
-quit - close session\n\
-";
+    {"putdir", putdir},
+    {NULL, NULL}};
 
 void get_input(char *inp_buffer, char *msg)
 {
@@ -174,58 +162,180 @@ void close_data_connection(int data_socket)
     closesocket(data_socket);
 }
 
+int recurse_remote(client_ctx *ctx, const char *path, tree_action_fn action)
+{
+    char buffer[BUFFLEN];
+    char list_buf[FILE_MAX_CHUNK];
+    int list_len = 0;
+
+    // go to target folder
+    send_command(ctx->s_socket, "CWD", (char *[]){(char *)path, NULL});
+    ctx->resp_code = recv_response(ctx->s_socket, buffer);
+    if (ctx->resp_code != CD_OK)
+    {
+        printf("Failed to CWD into %s\n", path);
+        return -1;
+    }
+
+    // list the contents
+    int data_socket;
+    open_data_connection(ctx, buffer, &data_socket);
+    if (data_socket < 0)
+        return -1;
+
+    send_command(ctx->s_socket, "LIST", (char *[]){NULL});
+    recv_response(ctx->s_socket, buffer);
+
+    int n;
+    while ((n = recv(data_socket, list_buf + list_len, sizeof(list_buf) - list_len - 1, 0)) > 0)
+        list_len += n;
+    list_buf[list_len] = '\0';
+
+    close_data_connection(data_socket);
+    recv_response(ctx->s_socket, buffer); 
+
+    // Parse the print result into char*
+    char *files[256], *folders[256];
+    int file_count, folder_count;
+    parse_list(list_buf, files, &file_count, folders, &folder_count);
+
+    // do the action on the files
+    for (int i = 0; i < file_count; i++)
+    {
+        action(ctx, files[i], 0);
+        free(files[i]);
+    }
+
+    // recurse to subfolders
+    for (int i = 0; i < folder_count; i++)
+    {
+        action(ctx, folders[i], 1);
+
+        // extend local_path before recursing
+        char saved_local_path[1024];
+        strncpy(saved_local_path, ctx->local_path, sizeof(saved_local_path));
+        snprintf(ctx->local_path, sizeof(ctx->local_path), "%s\\%s", ctx->local_path, folders[i]);
+
+        recurse_remote(ctx, folders[i], action);
+
+        // restore local_path
+        strncpy(ctx->local_path, saved_local_path, sizeof(ctx->local_path));
+        send_command(ctx->s_socket, "CDUP", (char *[]){NULL});
+        ctx->resp_code = recv_response(ctx->s_socket, buffer);
+
+        free(folders[i]);
+    }
+
+    return 0;
+}
+
+int upload_recurse(client_ctx *ctx, const char *local_path, const char *remote_path)
+{
+    char buffer[BUFFLEN];
+
+    char search_path[BUFFLEN];
+    snprintf(search_path, sizeof(search_path), "%s\\*", local_path);
+    
+    WIN32_FIND_DATAA find_data;
+    HANDLE hFind = FindFirstFileA(search_path, &find_data);
+    if (hFind == INVALID_HANDLE_VALUE)
+    {
+        printf("Failed to open local directory %s\n", local_path);
+        return -1;
+    }
+
+    // Create remote folder
+    send_command(ctx->s_socket, "MKD", (char *[]){(char *)remote_path, NULL});
+    recv_response(ctx->s_socket, buffer);
+
+    send_command(ctx->s_socket, "CWD", (char *[]){(char *)remote_path, NULL});
+    ctx->resp_code = recv_response(ctx->s_socket, buffer);
+
+    if (ctx->resp_code != CD_OK)
+    {
+        printf("Failed to CWD into %s\n", remote_path);
+        return -1;
+    }
+
+    do
+    {
+        // skip . and ..
+        if (strcmp(find_data.cFileName, ".") == 0 || strcmp(find_data.cFileName, "..") == 0)
+        {
+            continue;
+        }
+
+        char child_local[2048];
+        snprintf(child_local, sizeof(child_local), "%s\\%s", local_path, find_data.cFileName);
+
+        if (find_data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
+        {
+            upload_recurse(ctx, child_local, find_data.cFileName);
+            // CWD back to parent folder
+            send_command(ctx->s_socket, "CDUP", (char *[]){NULL});
+            recv_response(ctx->s_socket, buffer);
+        }
+        else
+        {
+            char *put_argv[] = {child_local, find_data.cFileName, NULL};
+            putfile(2, put_argv, ctx);
+        }
+    } while (FindNextFileA(hFind, &find_data));
+
+    FindClose(hFind);
+    return 0;
+}
+
 void parse_list(char *list, char **files, int *file_count, char **folders, int *folder_count)
 {
     *file_count = 0;
     *folder_count = 0;
 
-    char *line = strtok(list, "\r\n");
+    char *line_saveptr;
+    char *line = strtok_r(list, "\r\n", &line_saveptr);
     while (line != NULL)
     {
-        // Skip empty lines
         if (strlen(line) == 0)
         {
-            line = strtok(NULL, "\r\n");
+            line = strtok_r(NULL, "\r\n", &line_saveptr);
             continue;
         }
 
-        // d == folder, - = file
-        int is_dir = (line[0] == 'd');
+        // d = folder, - = file
+        bool is_dir = (line[0] == 'd');
 
-        char *name = NULL;
-        char *token = strtok(NULL, " \t");
         char line_copy[1024];
         strncpy(line_copy, line, sizeof(line_copy) - 1);
         line_copy[sizeof(line_copy) - 1] = '\0';
-        
+
         // file/folder name is 9th token
         char *fields[9];
         int field_count = 0;
-        char *tok = strtok(line_copy, " \t");
+        char *field_saveptr;
+        char *tok = strtok_r(line_copy, " \t", &field_saveptr);
         while (tok != NULL && field_count < 9)
         {
             fields[field_count++] = tok;
-            tok = strtok(NULL, " \t");
+            tok = strtok_r(NULL, " \t", &field_saveptr);
         }
 
         if (field_count < 9)
         {
-            line = strtok(NULL, "\r\n");
+            line = strtok_r(NULL, "\r\n", &line_saveptr);
             continue;
         }
 
-        name = fields[8];
-
+        char *name = fields[8];
         if (is_dir)
             folders[(*folder_count)++] = strdup(name);
         else
             files[(*file_count)++] = strdup(name);
 
-        line = strtok(NULL, "\r\n");
+        line = strtok_r(NULL, "\r\n", &line_saveptr);
     }
 }
 
-int delete_action(client_ctx *ctx, const char *path, int is_dir)
+int delete_action(client_ctx *ctx, const char *path, bool is_dir)
 {
     char buffer[BUFFLEN];
     if (is_dir)
@@ -245,208 +355,47 @@ int delete_action(client_ctx *ctx, const char *path, int is_dir)
     return 0;
 }
 
-void help   (int argc, char *argv[], void *ctx)
+int download_action(client_ctx *ctx, const char *path, bool is_dir)
 {
-    printf("%s", menu);
-}
+    char full_local_path[BUFFLEN];
+    snprintf(full_local_path, sizeof(full_local_path), "%s\\%s", ctx->local_path, path);
 
-void ls     (int argc, char *argv[], void *ctx)
-{
-    client_ctx *context = (client_ctx *)ctx;
+    if (is_dir)
+    {
+        CreateDirectoryA(full_local_path, NULL);
+        return 0;
+    }
 
+    char buffer[BUFFLEN];
     int data_socket;
-    char buffer[BUFFLEN] = {0};
-    open_data_connection(context, buffer, &data_socket);
+    open_data_connection(ctx, buffer, &data_socket);
+    if (data_socket < 0)
+        return -1;
 
-    send_command(context->s_socket, "LIST", (char *[]){NULL});
-
-    int n;
-    while ((n = recv(data_socket, buffer, sizeof(buffer), 0)) > 0)
+    send_command(ctx->s_socket, "RETR", (char *[]){(char *)path, NULL});
+    ctx->resp_code = recv_response(ctx->s_socket, buffer);
+    if (ctx->resp_code != FILE_OK)
     {
-        buffer[n] = '\0';
-        printf("%s", buffer);
-    }
-
-    close_data_connection(data_socket);
-    recv_response(context->s_socket, buffer);
-}
-
-void cd     (int argc, char *argv[], void *ctx)
-{
-    client_ctx *context = (client_ctx *)ctx;
-    if (argc < 1)
-    {
-        printf("Usage: cd <path>\n");
-        return;
-    }
-
-    send_command(context->s_socket, "CWD", (char *[]){argv[0], NULL});
-
-    char buffer[BUFFLEN];
-    context->resp_code = recv_response(context->s_socket, buffer);
-    if(context->resp_code == CD_ERR)
-    {
-        printf("%s", buffer);
-    }
-}
-
-void mkdir  (int argc, char *argv[], void *ctx)
-{
-    client_ctx *context = (client_ctx *)ctx;
-    if (argc < 1)
-    {
-        printf("Usage: mkdir <dirname> \n");
-        return;
-    }
-
-    send_command(context->s_socket, "MKD", (char *[]){argv[0], NULL});
-    char buffer[BUFFLEN];
-    context->resp_code = recv_response(context->s_socket, buffer);
-    if (context->resp_code == CD_ERR)
-    {
-        printf("%s", buffer);
-    }
-}
-
-void rm     (int argc, char *argv[], void *ctx)
-{
-    client_ctx *context = (client_ctx *)ctx;
-    if (argc < 1)
-    {
-        printf("Usage: rm <filename>\n");
-        return;
-    }
-
-    send_command(context->s_socket, "DELE", (char *[]){argv[0], NULL});
-    char buffer[BUFFLEN];
-    context->resp_code = recv_response(context->s_socket, buffer);
-    if (context->resp_code == CD_ERR)
-    {
-        printf("%s", buffer);
-    }
-}
-
-void rmdir  (int argc, char *argv[], void *ctx)
-{
-    client_ctx *context = (client_ctx *)ctx;
-    if (argc < 1)
-    {
-        printf("Usage: rmdir <dirname> \n");
-        return;
-    }
-    
-    send_command(context->s_socket, "RMD", (char *[]){argv[0], NULL});
-    char buffer[BUFFLEN];
-    context->resp_code = recv_response(context->s_socket, buffer);
-    if (context->resp_code == CD_ERR)
-    {
-        printf("%s", buffer);
-    }
-}
-
-void getfile(int argc, char *argv[], void *ctx)
-{
-    client_ctx *context = (client_ctx *)ctx;
-    if (argc < 1)
-    {
-        printf("Usage: get <path>\n");
-        return;
-    }
-
-    char buffer[16384];
-    char *path = argv[0];
-    int data_socket;
-
-    open_data_connection(context, buffer, &data_socket);
-
-    send_command(context->s_socket, "RETR", (char *[]){path, NULL});
-
-    context->resp_code = recv_response(context->s_socket, buffer);
-    if (context->resp_code != FILE_OK)
-    {
-        printf("Server rejected RETR: %s", buffer);
+        printf("Failed to RETR %s\n", path);
         close_data_connection(data_socket);
-        return;
+        return -1;
     }
 
-    FILE *f = fopen(argv[0], "wb");
+    FILE *f = fopen(full_local_path, "wb");
     if (f == NULL)
     {
-        printf("File cannot be opened");
-        return;
-    }
-
-    int n;
-    while ((n = recv(data_socket, buffer, sizeof(buffer), 0)) > 0)
-    {
-        fwrite(buffer, 1, n, f);
-    }
-    fclose(f);
-    close_data_connection(data_socket);
-
-    context->resp_code = recv_response(context->s_socket, buffer);
-    if (context->resp_code != FILE_TRANSFER_OK)
-    {
-        printf("Possible transfer error: %s", buffer);
-    }
-}
-
-void putfile(int argc, char *argv[], void *ctx)
-{
-    client_ctx *context = (client_ctx *)ctx;
-    if (argc < 1)
-    {
-        printf("Usage: put <path>\n");
-        return;
-    }
-
-    char buffer[16384];
-    char *path = argv[0];
-    int data_socket;
-
-    open_data_connection(context, buffer, &data_socket);
-
-    send_command(context->s_socket, "STOR", (char *[]){path, NULL});
-
-    context->resp_code = recv_response(context->s_socket, buffer);
-    if (context->resp_code != FILE_OK)
-    {
-        printf("Server rejected RETR: %s", buffer);
+        printf("Failed to open local file %s\n", full_local_path);
         close_data_connection(data_socket);
-        return;
-    }
-
-    FILE *f = fopen(argv[0], "rb");
-    if (f == NULL)
-    {
-        printf("File cannot be opened");
-        return;
+        return -1;
     }
 
     int n;
-    while ((n = fread(buffer, 1, sizeof(buffer), f)) > 0)
-    {
-        if (send(data_socket, buffer, n, 0) < 0)
-        {
-            printf("Failed to send data.\n");
-            break;
-        }
-    }
+    char file_buf[FILE_MAX_CHUNK];
+    while ((n = recv(data_socket, file_buf, sizeof(file_buf), 0)) > 0)
+        fwrite(file_buf, 1, n, f);
+
     fclose(f);
     close_data_connection(data_socket);
-
-    context->resp_code = recv_response(context->s_socket, buffer);
-    if (context->resp_code != FILE_TRANSFER_OK)
-    {
-        printf("Possible transfer error: %s", buffer);
-    }
-}
-
-void quit(int argc, char *argv[], void *ctx)
-{
-    client_ctx *context = (client_ctx *)ctx;
-    send_command(context->s_socket, "QUIT", (char *[]){NULL});
-    
-    char buffer[BUFFLEN];
-    context->resp_code = recv_response(context->s_socket, buffer);
+    recv_response(ctx->s_socket, buffer);
+    return 0;
 }

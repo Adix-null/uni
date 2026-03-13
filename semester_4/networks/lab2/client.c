@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include "command_list.h"
 #include "ftp.h"
 
 int main(int argc, char *argv[])
