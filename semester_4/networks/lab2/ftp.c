@@ -16,6 +16,8 @@ dict_entry func_dictionary[] = {
     {"mkdir", mkdir},
     {"rm", rm},
     {"rmdir", rmdir},
+    {"get", getfile},
+    {"put", putfile},
     {NULL, NULL}
 };
 
@@ -172,6 +174,77 @@ void close_data_connection(int data_socket)
     closesocket(data_socket);
 }
 
+void parse_list(char *list, char **files, int *file_count, char **folders, int *folder_count)
+{
+    *file_count = 0;
+    *folder_count = 0;
+
+    char *line = strtok(list, "\r\n");
+    while (line != NULL)
+    {
+        // Skip empty lines
+        if (strlen(line) == 0)
+        {
+            line = strtok(NULL, "\r\n");
+            continue;
+        }
+
+        // d == folder, - = file
+        int is_dir = (line[0] == 'd');
+
+        char *name = NULL;
+        char *token = strtok(NULL, " \t");
+        char line_copy[1024];
+        strncpy(line_copy, line, sizeof(line_copy) - 1);
+        line_copy[sizeof(line_copy) - 1] = '\0';
+        
+        // file/folder name is 9th token
+        char *fields[9];
+        int field_count = 0;
+        char *tok = strtok(line_copy, " \t");
+        while (tok != NULL && field_count < 9)
+        {
+            fields[field_count++] = tok;
+            tok = strtok(NULL, " \t");
+        }
+
+        if (field_count < 9)
+        {
+            line = strtok(NULL, "\r\n");
+            continue;
+        }
+
+        name = fields[8];
+
+        if (is_dir)
+            folders[(*folder_count)++] = strdup(name);
+        else
+            files[(*file_count)++] = strdup(name);
+
+        line = strtok(NULL, "\r\n");
+    }
+}
+
+int delete_action(client_ctx *ctx, const char *path, int is_dir)
+{
+    char buffer[BUFFLEN];
+    if (is_dir)
+    {
+        send_command(ctx->s_socket, "RMD", (char *[]){(char *)path, NULL});
+    }
+    else
+    {
+        send_command(ctx->s_socket, "DELE", (char *[]){(char *)path, NULL});
+    }
+    ctx->resp_code = recv_response(ctx->s_socket, buffer);
+    if (ctx->resp_code != CD_OK)
+    {
+        printf("Failed to delete %s\n", path);
+        return -1;
+    }
+    return 0;
+}
+
 void help   (int argc, char *argv[], void *ctx)
 {
     printf("%s", menu);
@@ -188,7 +261,7 @@ void ls     (int argc, char *argv[], void *ctx)
     send_command(context->s_socket, "LIST", (char *[]){NULL});
 
     int n;
-    while ((n = recv(data_socket, buffer, sizeof(buffer) - 1, 0)) > 0)
+    while ((n = recv(data_socket, buffer, sizeof(buffer), 0)) > 0)
     {
         buffer[n] = '\0';
         printf("%s", buffer);
@@ -212,6 +285,24 @@ void cd     (int argc, char *argv[], void *ctx)
     char buffer[BUFFLEN];
     context->resp_code = recv_response(context->s_socket, buffer);
     if(context->resp_code == CD_ERR)
+    {
+        printf("%s", buffer);
+    }
+}
+
+void mkdir  (int argc, char *argv[], void *ctx)
+{
+    client_ctx *context = (client_ctx *)ctx;
+    if (argc < 1)
+    {
+        printf("Usage: mkdir <dirname> \n");
+        return;
+    }
+
+    send_command(context->s_socket, "MKD", (char *[]){argv[0], NULL});
+    char buffer[BUFFLEN];
+    context->resp_code = recv_response(context->s_socket, buffer);
+    if (context->resp_code == CD_ERR)
     {
         printf("%s", buffer);
     }
@@ -253,25 +344,105 @@ void rmdir  (int argc, char *argv[], void *ctx)
     }
 }
 
-void mkdir  (int argc, char *argv[], void *ctx)
+void getfile(int argc, char *argv[], void *ctx)
 {
     client_ctx *context = (client_ctx *)ctx;
     if (argc < 1)
     {
-        printf("Usage: mkdir <dirname> \n");
+        printf("Usage: get <path>\n");
         return;
     }
 
-    send_command(context->s_socket, "MKD", (char *[]){argv[0], NULL});
-    char buffer[BUFFLEN];
+    char buffer[16384];
+    char *path = argv[0];
+    int data_socket;
+
+    open_data_connection(context, buffer, &data_socket);
+
+    send_command(context->s_socket, "RETR", (char *[]){path, NULL});
+
     context->resp_code = recv_response(context->s_socket, buffer);
-    if (context->resp_code == CD_ERR)
+    if (context->resp_code != FILE_OK)
     {
-        printf("%s", buffer);
+        printf("Server rejected RETR: %s", buffer);
+        close_data_connection(data_socket);
+        return;
+    }
+
+    FILE *f = fopen(argv[0], "wb");
+    if (f == NULL)
+    {
+        printf("File cannot be opened");
+        return;
+    }
+
+    int n;
+    while ((n = recv(data_socket, buffer, sizeof(buffer), 0)) > 0)
+    {
+        fwrite(buffer, 1, n, f);
+    }
+    fclose(f);
+    close_data_connection(data_socket);
+
+    context->resp_code = recv_response(context->s_socket, buffer);
+    if (context->resp_code != FILE_TRANSFER_OK)
+    {
+        printf("Possible transfer error: %s", buffer);
     }
 }
 
-void quit   (int argc, char *argv[], void *ctx)
+void putfile(int argc, char *argv[], void *ctx)
+{
+    client_ctx *context = (client_ctx *)ctx;
+    if (argc < 1)
+    {
+        printf("Usage: put <path>\n");
+        return;
+    }
+
+    char buffer[16384];
+    char *path = argv[0];
+    int data_socket;
+
+    open_data_connection(context, buffer, &data_socket);
+
+    send_command(context->s_socket, "STOR", (char *[]){path, NULL});
+
+    context->resp_code = recv_response(context->s_socket, buffer);
+    if (context->resp_code != FILE_OK)
+    {
+        printf("Server rejected RETR: %s", buffer);
+        close_data_connection(data_socket);
+        return;
+    }
+
+    FILE *f = fopen(argv[0], "rb");
+    if (f == NULL)
+    {
+        printf("File cannot be opened");
+        return;
+    }
+
+    int n;
+    while ((n = fread(buffer, 1, sizeof(buffer), f)) > 0)
+    {
+        if (send(data_socket, buffer, n, 0) < 0)
+        {
+            printf("Failed to send data.\n");
+            break;
+        }
+    }
+    fclose(f);
+    close_data_connection(data_socket);
+
+    context->resp_code = recv_response(context->s_socket, buffer);
+    if (context->resp_code != FILE_TRANSFER_OK)
+    {
+        printf("Possible transfer error: %s", buffer);
+    }
+}
+
+void quit(int argc, char *argv[], void *ctx)
 {
     client_ctx *context = (client_ctx *)ctx;
     send_command(context->s_socket, "QUIT", (char *[]){NULL});

@@ -6,6 +6,8 @@
 #define BUFFLEN 1024
 #define MAX_ARGS 16
 
+#define FILE_OK 150
+#define FILE_TRANSFER_OK 226
 #define PASV_OK 227
 #define LOGIN_OK 230
 #define LOGIN_ERR 530
@@ -83,13 +85,18 @@ void switch_func(char *inp, void *ctx);
 
 void open_data_connection(client_ctx *ctx, char *buffer, int *data_socket_num);
 void close_data_connection(int data_socket);
+void parse_list(char *list, char **files, int *file_count, char **folders, int *folder_count);
 
-void help   (int argc, char *argv[], void *ctx);
+int delete_action(client_ctx *ctx, const char *path, int is_dir);
+
+void help(int argc, char *argv[], void *ctx);
 void ls     (int argc, char *argv[], void *ctx);
 void cd     (int argc, char *argv[], void *ctx);
 void mkdir  (int argc, char *argv[], void *ctx);
 void rm     (int argc, char *argv[], void *ctx);
 void rmdir  (int argc, char *argv[], void *ctx);
+void getfile(int argc, char *argv[], void *ctx);
+void putfile(int argc, char *argv[], void *ctx);
 void quit   (int argc, char *argv[], void *ctx);
 
 #endif // FTP_H
