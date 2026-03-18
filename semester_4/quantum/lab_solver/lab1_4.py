@@ -168,7 +168,7 @@ if question == 4 or question == 0:
     row = [H, Y, Z, T, H, X]
     state = q
     for op in reversed(row):
-        state = op * q
+        state = op * state
 
     print(f'q galutinė būsena: ')
     print(prettyPrint(latex(simplify(
