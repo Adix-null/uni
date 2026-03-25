@@ -136,23 +136,26 @@ X = Matrix([
     [0, 1],
     [1, 0]
 ])
-CX = Control(X)
 CU = Control(I2)
-CNOT = CX
-CCNOT = Control(CNOT)
 SWAP = Matrix([
     [1, 0, 0, 0],
     [0, 0, 1, 0],
     [0, 1, 0, 0],
     [0, 0, 0, 1]
 ])
+
+CX_01 = Control(X)
+CX_10 = SWAP * CX_01 * SWAP
+
+C = None
+
 def P(p):
     return Matrix([
         [1, 0],
         [0, exp(I * p)]
     ])
 
- #endregion
+#endregion
 
 #region 4
 if question == 4 or question == 0:
@@ -179,6 +182,8 @@ if question == 4 or question == 0:
 #endregion
 
 #region 5 & 6
+
+
 if question == 5 or question == 6 or question == 0:
     print('-' * 20)
     print('5 & 6: ')
@@ -195,20 +200,26 @@ if question == 5 or question == 6 or question == 0:
     state = TensorProduct(q0, q1)
     U = eye(4)
 
-    row_q0 = [H, I2, Y, I2, H, CX]
-    row_q1 = [H, CX, Z, H, H, I2]
+    row_q0 = [H, C, Y, I2, H, I2]
+    row_q1 = [H, I2, Z, H, H, C]
 
     for i in range(len(row_q0)):
         g0 = row_q0[i]
         g1 = row_q1[i]
 
-        # controlled gate
-        if g0.shape != (2, 2) and g1 == I2:
+        # controlled gate check
+        if g0 == C:
             # q0 controls q1
-            op = g0
-        elif g1.shape != (2, 2) and g0 == I2:
+            if g1 == I2:
+                op = CX_01
+            else:
+                raise Exception("C has to be in pair with I")
+        elif g1 == C:
             # q1 controls q0
-            op = g1
+            if g0 == I2:
+                op = CX_10
+            else:
+                raise Exception("C has to be in pair with I")
         else:
             # normal case
             op = TensorProduct(g0, g1)
