@@ -1,4 +1,4 @@
-from sympy import Matrix, Rational, sqrt, Abs
+from sympy import Matrix, I, Rational, eye, sqrt, Abs, exp, pi
 import re
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -67,3 +67,52 @@ def showMatrixGraph(M):
 
     plt.axis('off')
     plt.show()
+
+def Control(M):
+    N = M.rows
+    C = eye(2 * N)
+
+    for i in range(N):
+        for j in range(N):
+            C[N + i, N + j] = M[i, j]
+    return C
+
+I2 = eye(2)
+H = (1 / 2**Rational(1 , 2)) *  Matrix([
+    [1, 1],
+    [1, -1],
+])
+Y = Matrix([
+    [0, -I],
+    [I, 0]
+])
+Z = Matrix([
+    [1, 0],
+    [0, -1]
+])
+T = Matrix([
+    [1, 0],
+    [0, exp(I * (pi / 4))]
+])
+X = Matrix([
+    [0, 1],
+    [1, 0]
+])
+CU = Control(I2)
+SWAP = Matrix([
+    [1, 0, 0, 0],
+    [0, 0, 1, 0],
+    [0, 1, 0, 0],
+    [0, 0, 0, 1]
+])
+
+CX_01 = Control(X)
+CX_10 = SWAP * CX_01 * SWAP
+
+C = None
+
+def P(p):
+    return Matrix([
+        [1, 0],
+        [0, exp(I * p)]
+    ])
