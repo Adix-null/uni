@@ -65,30 +65,6 @@ def solve_simon(counts, n):
 
     A = ys[:]
 
-    # Dvejetainė Gauso eliminacija
-    row = 0
-    for col in range(n):
-        pivot = None
-
-        for r in range(row, len(A)):
-            if A[r][col] == 1:
-                pivot = r
-                break
-
-        if pivot is None:
-            continue
-
-        A[row], A[pivot] = A[pivot], A[row]
-
-        # eliminacija
-        for r in range(len(A)):
-            if r != row and A[r][col] == 1:
-                A[r] = [a ^ b for a, b in zip(A[r], A[row])]
-
-        row += 1
-        if row == n:
-            break
-
     # surandams vektoriųs su kuriuo y * s = 0 (mod 2)
     for i in range(1, 1 << n):
         v = [(i >> j) & 1 for j in range(n)]

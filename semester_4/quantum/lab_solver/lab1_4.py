@@ -137,7 +137,6 @@ if question == 4 or question == 0:
 
 #region 5 & 6
 
-
 if question == 5 or question == 6 or question == 0:
     print('-' * 20)
     print('5 & 6: ')
