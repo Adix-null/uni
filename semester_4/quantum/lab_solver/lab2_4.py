@@ -53,7 +53,8 @@ def quantum_phase_estimation(a, n, n_count, n_target):
 
     # atvirkščias QFT
     qc.append(QFTGate(n_count), range(n_count))
-
+    circuit_drawer(qc, output="mpl")
+    plt.show()
     qc.measure(range(n_count), range(n_count))
     return qc
 
