@@ -1,11 +1,20 @@
-﻿
+﻿using System.Collections.Concurrent;
+using System.Net.Sockets;
+
+public enum PacketType
+{
+    Hello = 0,
+    Lsa = 1
+}
 
 class Router(string name)
 {
+    public bool Disabled = false;
     public string Name { get; set; } = name;
     public HashSet<int> ActivePorts { get; set; } = [];
     public Dictionary<Router, int> Neighbors { get; set; } = [];
     public Dictionary<string, (string NextHop, int totalCost)> Routes { get; set; } = [];
+    public BlockingCollection<Packet> Inbox { get; set; } = new();
 
     public void AddNeighbor(Router neighbor, int cost)
     {
@@ -25,7 +34,65 @@ class Router(string name)
     {
         Routes.Remove(destination);
     }
+
+    public static async Task SendPacket(Link link, Router from, Packet packet)
+    {
+        int delayMs = link.cost * 100;
+        await Task.Delay(delayMs);
+
+        Router target = link.r1 == from ? link.r2 : link.r1;
+        target.Inbox.Add(packet);
+    }
+
+    private void Run()
+    {
+        DateTime nextHello = DateTime.UtcNow;
+
+        while (!Disabled)
+        {
+            if (Inbox.TryTake(out Packet packet, 250))
+            {
+                ProcessPacket(packet);
+            }
+
+            if (DateTime.UtcNow >= nextHello)
+            {
+                SendHello();
+                nextHello = DateTime.UtcNow.AddSeconds(5);
+            }
+        }
+    }
+
+    private void SendHello()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void ProcessPacket(Packet packet)
+    {
+        switch (packet.Type)
+        {
+            case PacketType.Hello:
+                ProcessHello(packet);
+                break;
+            case PacketType.Lsa:
+                ProcessLsa(packet);
+                break;
+        }
+    }
+
+    private void ProcessHello(Packet packet)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void ProcessLsa(Packet packet)
+    {
+        throw new NotImplementedException();
+    }
+
 }
+
 
 class Link
 {
@@ -128,12 +195,56 @@ class Network
 
 }
 
+struct Packet(string source, string destination, PacketType type, object? payload)
+{
+    public DateTime Timestamp = DateTime.UtcNow;
+    public string Source = source;
+    public string Destination = destination;
+    public PacketType Type = type;
+    public object? Payload = payload;
+}
+
+struct HelloPayload(string origin, List<string> neighborsSeen)
+{
+    public string Origin = origin;
+    public List<string> NeighborsSeen = neighborsSeen;
+}
+
+class LsaPayload(string origin, int sequenceNumber, Dictionary<string, int> links)
+{
+    public string Origin = origin;
+    public int SequenceNumber = sequenceNumber;
+    public Dictionary<string, int> Links = links;
+}
+
 
 class Program
 {
     static void Main()
     {
-        
+        Network net = new();
+        //multitheaded console and sim
+        while (true)
+        {
+            
+        }
+
+        while (true)
+        {
+            Console.Write(">");
+            string input = Console.ReadLine()!;
+            switch (input)
+            {
+                case "help":
+                    string help = File.ReadAllText($"{Directory.GetParent(Environment.CurrentDirectory)!.Parent!.Parent!.FullName}/help.txt");
+                    Console.WriteLine(help);
+                    break;
+                default:
+                    Console.WriteLine("Unrecognized command. Type 'help' for a list of commands");
+                    break;
+            }
+
+        }
 
         //net.AddRouter("A");
         //net.AddRouter("B");
